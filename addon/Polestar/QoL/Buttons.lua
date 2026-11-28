@@ -1866,14 +1866,25 @@ end
 -- from the end; the preferred name, the ping and the mark stay. keep: no
 -- "/cleartarget [nocombat][dead]", for a press on a living unit of the
 -- preferred name (Buttons.WireCycle): /targetexact then moves on to the next
--- unit of that name.
-function Buttons.TargetMacro(list, preferred, mark, ping, keep)
+-- unit of that name. goal is a verb string or a function returning the kind
+-- and verb for a list index.
+-- With a leading kill, retry its name on [noharm], try further leading kills
+-- on [dead][noharm], then clear a dead or non-attackable target. If even the
+-- first name and its retry exceed the limit, fit the list with the plain lookups.
+function Buttons.TargetMacro(list, preferred, mark, ping, keep, goal)
 	local n = #list
 	if n == 0 then return nil end
-	local order = {}
+	local order, leadingKills = {}, 0
 	for k = 0, n - 1 do
-		local name = list[(preferred - 1 + k) % n + 1]
-		if Buttons.MacroSafeName(name) then order[#order + 1] = name end
+		local i = (preferred - 1 + k) % n + 1
+		if Buttons.MacroSafeName(list[i]) then
+			if leadingKills == #order then
+				local verb = goal
+				if type(goal) == "function" then verb = select(2, goal(i)) end
+				if verb == "kill" then leadingKills = leadingKills + 1 end
+			end
+			order[#order + 1] = list[i]
+		end
 	end
 	local count = #order
 	if count == 0 then return nil end
@@ -1883,17 +1894,33 @@ function Buttons.TargetMacro(list, preferred, mark, ping, keep)
 		local lines = {}
 		if not keep then lines[1] = "/cleartarget [nocombat][dead]" end
 		for k = 1, count do
-			lines[#lines + 1] = (k == 1 and "/targetexact " or "/targetexact [noexists] ") .. order[k]
-			lines[#lines + 1] = "/cleartarget [dead]"
+			local condition = k == 1 and "" or k <= leadingKills and "[dead][noharm] " or "[noexists] "
+			lines[#lines + 1] = "/targetexact " .. condition .. order[k]
+			if k <= leadingKills then
+				if k == 1 then lines[#lines + 1] = "/targetexact [noharm] " .. order[k] end
+				if k == count or k == leadingKills then lines[#lines + 1] = "/cleartarget [dead][noharm]" end
+			else
+				lines[#lines + 1] = "/cleartarget [dead]"
+			end
 		end
 		text = concat(lines, "\n") .. tail
 		count = count - 1
+		if #text > MACRO_LIMIT and count == 0 and leadingKills > 0 then
+			count, leadingKills = #order, 0
+		end
 	until #text <= MACRO_LIMIT or count == 0
 	return text
 end
 
+-- The number of names held, and whether the first kill has a retry.
+function Buttons.MacroNameCount(text)
+	local _, count = text:gsub("/targetexact", "")
+	local retry = text:find("\n/cleartarget [dead][noharm]", 1, true) ~= nil
+	return count - (retry and 1 or 0), retry
+end
+
 -- The target button's and the step key's macro (Buttons.TargetMacro) for list
--- from first, kindOf(i) giving name i's kind ("mob" or "npc"), and the ping:
+-- from first, kindOf(i) giving name i's kind ("mob" or "npc") and verb, and the ping:
 -- the mark of the first name's kind, or, when the names the macro holds are of
 -- both kinds, both kinds' lines (Buttons.MixedMarkLines), so a fallback of the
 -- other kind gets its own kind's icon, not the first name's (#2152). One block
@@ -1903,12 +1930,18 @@ end
 function Buttons.MarkedMacro(list, first, kindOf, ping, keep)
 	local kind = kindOf(first)
 	local mark = Buttons.MarkLine(kind)
-	local text = Buttons.TargetMacro(list, first, mark, ping, keep)
+	local text = Buttons.TargetMacro(list, first, mark, ping, keep, kindOf)
 	if not (text and mark) then return text, kind, false end
-	local held = select(2, text:gsub("/targetexact", ""))
+	local held, retry = Buttons.MacroNameCount(text)
 	for k = 2, held do
 		if kindOf((first - 2 + k) % #list + 1) ~= kind then
-			return Buttons.TargetMacro(list, first, Buttons.MixedMarkLines(), ping, keep), kind, true
+			local mixed = Buttons.TargetMacro(list, first, Buttons.MixedMarkLines(), ping, keep, kindOf)
+			if retry and Buttons.MacroNameCount(mixed) < k then
+				-- Fit the whole list with plain lookups and choose its marks again (#2152).
+				local function kindOnly(i) return (kindOf(i)) end
+				return Buttons.MarkedMacro(list, first, kindOnly, ping, keep)
+			end
+			return mixed, kind, true
 		end
 	end
 	return text, kind, false
@@ -1935,7 +1968,8 @@ local target = { list = {}, verbs = {}, ids = {}, marks = {}, sig = nil, namesSi
 -- The mark and ping the target button's name i (default: the one the next
 -- click tries first) takes: "npc" for an NPC goal's name, else "mob".
 local function targetKind(i)
-	return NPC_VERBS[target.verbs[i or target.cycle]] and "npc" or "mob"
+	local verb = target.verbs[i or target.cycle]
+	return NPC_VERBS[verb] and "npc" or "mob", verb
 end
 
 -- The single button that cycles (qol.targetSimple) instead of the list.
@@ -1975,7 +2009,7 @@ end
 
 -- The macro a button applied, for its presses (Buttons.WireCycle): text is
 -- Buttons.MarkedMacro(list, ..., kindOf, ping), or with a single name and
--- kindOf a kind ("mob" or "npc"), TargetMacro's with that kind's mark; ping:
+-- kindOf "kill", "mob" or "npc", TargetMacro's with that kind's mark; ping:
 -- true when it has Buttons.QuestPingLine(). nil text: no macro.
 function Buttons.SetPress(b, list, kindOf, text, ping)
 	if not text then
@@ -2016,7 +2050,8 @@ end
 function Buttons.MacroNames(text)
 	local names = {}
 	for line in text:gmatch("[^\n]+") do
-		local name = line:match("^/targetexact%s+%b[]%s*(.-)%s*$") or line:match("^/targetexact%s+(.-)%s*$")
+		local name = line:match("^/targetexact%s+(.-)%s*$")
+		if name then name = name:gsub("^%[.-%]%s+", "") end
 		if name and name ~= "" then names[name] = true end
 	end
 	return names
@@ -2041,8 +2076,8 @@ end
 -- target and starts from its name (TargetMacro's keep), so the press takes
 -- the next one of that name; the corpse lines, the other names, the ping and
 -- the mark stay. PostClick puts the applied macro back. In a fight nothing
--- changes: macros cannot, and the clear is "[nocombat][dead]" anyway (a living
--- target stays). While a press is cycled, b.pressedKind and b.pressedMixed are
+-- changes: macros cannot, and the opening clear is "[nocombat][dead]".
+-- While a press is cycled, b.pressedKind and b.pressedMixed are
 -- its macro's (the target list's rows mark by them). Every press also takes
 -- back a mark its macro put on a unit it never chose (Buttons.UndoStrayMark).
 -- attr: the macro's attribute ("macrotext", or "macrotext1" for a left click
@@ -2058,8 +2093,8 @@ function Buttons.WireCycle(b, attr)
 		local text, kind, mixed
 		local ping = p.ping and Buttons.QuestPingLine() or nil
 		if type(p.kindOf) == "string" then
-			kind, mixed = p.kindOf, false
-			text = Buttons.TargetMacro(p.list, i, Buttons.MarkLine(kind), ping, true)
+			kind, mixed = p.kindOf == "kill" and "mob" or p.kindOf, false
+			text = Buttons.TargetMacro(p.list, i, Buttons.MarkLine(kind), ping, true, p.kindOf)
 		else
 			text, kind, mixed = Buttons.MarkedMacro(p.list, i, p.kindOf, ping, true)
 		end
@@ -2744,7 +2779,7 @@ do
 					text, kind, mixed = Buttons.MarkedMacro(list, first, targetKind, Buttons.QuestPingLine())
 					if text and #text > MACRO_LIMIT then text = nil end
 					if text then
-						local n = select(2, text:gsub("/targetexact", ""))
+						local n = Buttons.MacroNameCount(text)
 						r.names, r.all, r.infos = {}, {}, {}
 						for k = 1, #list do
 							r.all[k] = list[k]
@@ -2762,13 +2797,13 @@ do
 				local mark, ping
 				kind, mark, ping = markPing(i)
 				r.looks[name] = { target.verbs[i], target.ids[i], target.marks[i] }
-				text = Buttons.TargetMacro({ name }, 1, mark, ping)
+				text = Buttons.TargetMacro({ name }, 1, mark, ping, nil, target.verbs[i])
 				if text and #text > MACRO_LIMIT then text = nil end
 			end
 			r:SetAttribute("type", text and "macro" or nil)
 			r:SetAttribute("macrotext", text)
 			-- Its presses: the folded row's names, or its own name (Buttons.WireCycle).
-			Buttons.SetPress(r, text and (fold and list or { name }), fold and targetKind or kind, text, true)
+			Buttons.SetPress(r, text and (fold and list or { name }), fold and targetKind or (target.verbs[i] == "kill" and "kill" or kind), text, true)
 			r.applied = text and name or nil
 			-- The mark the row's click puts on (Buttons.AdvanceMark).
 			r.kind = r.applied and kind or nil
@@ -3409,16 +3444,16 @@ function Buttons.GuideNameMacro(goal, raw)
 	end
 	if not Buttons.MacroSafeName(name) then return nil end
 	local kind = (t == "kill" or t == "collect") and "mob" or "npc"
-	local macro = Buttons.TargetMacro({ name }, 1, Buttons.MarkLine(kind))
+	local macro = Buttons.TargetMacro({ name }, 1, Buttons.MarkLine(kind), nil, nil, t)
 	-- TargetMacro drops extra names to fit; a single long name cannot be trimmed.
 	if not macro or #macro > MACRO_LIMIT then return nil end
 	return macro, name, kind
 end
 
--- What the step key does now. view, raw: QoL.CurrentStep()'s, when the
--- caller has them. -> "item", itemID | "target", names (reused list), the
--- one NPC's name among them or nil | "npc", name | nil. The route's own goals come first, in guide order, then
--- the optional ones, so an optional accept never takes the key.
+-- The first open goal the step key can use with the given optional flag.
+-- -> "item", itemID | "target", names, verbs, npc ids, marks (the reused
+-- TargetNames lists) | "npc", name, verb | nil. StepAction checks the
+-- route's own goals before optional ones, in guide order within each group.
 local function stepGoal(view, raw, goals, optional)
 	for g = 1, #goals do
 		local gv = goals[g]
@@ -3437,13 +3472,13 @@ local function stepGoal(view, raw, goals, optional)
 			elseif NPC_VERBS[t] then
 				-- A name that is not MacroSafeName is passed over, like no name.
 				local name = gv.npcName or rg.npcName
-				if Buttons.MacroSafeName(name) then return "npc", name end
+				if Buttons.MacroSafeName(name) then return "npc", name, t end
 			end
 		end
 	end
 end
 
-local stepNames, stepSeen = {}, {}
+local stepNames, stepSeen, stepVerbs = {}, {}, {}
 function Buttons.StepAction(view, raw)
 	-- The open flight map's marked node first: the press flies there.
 	local F = QoL.Flight
@@ -3452,8 +3487,8 @@ function Buttons.StepAction(view, raw)
 	if not view then view, raw = QoL.CurrentStep() end
 	if not view then return nil end
 	local goals = view.goals or {}
-	local kind, value = stepGoal(view, raw, goals, false)
-	if not kind then kind, value = stepGoal(view, raw, goals, true) end
+	local kind, value, verbs = stepGoal(view, raw, goals, false)
+	if not kind then kind, value, verbs = stepGoal(view, raw, goals, true) end
 	if not kind and not onTaxi() then
 		local item = Buttons.ChooseQuestItem(view, raw)
 		if item then kind, value = "item", item end
@@ -3466,32 +3501,34 @@ function Buttons.StepAction(view, raw)
 	if (kind == "target" or kind == "npc" or not kind) and ns.Get("behavior.whileHereStepKey") then
 		wipe(stepNames)
 		wipe(stepSeen)
+		wipe(stepVerbs)
 		local npc = kind == "npc" and value or nil
 		if npc then
-			stepNames[1], stepSeen[npc] = npc, true
+			stepNames[1], stepVerbs[1], stepSeen[npc] = npc, verbs, true
 		else
 			for i = 1, kind and #value or 0 do
-				stepNames[i], stepSeen[value[i]] = value[i], true
+				stepNames[i], stepVerbs[i], stepSeen[value[i]] = value[i], verbs[i], true
 			end
 		end
 		local before = #stepNames
-		local here = Buttons.HereNames()
+		local here, hereVerbs = Buttons.HereNames()
 		for i = 1, #here do
 			if not stepSeen[here[i]] then
 				stepSeen[here[i]] = true
 				stepNames[#stepNames + 1] = here[i]
+				stepVerbs[#stepNames] = hereVerbs[i]
 			end
 		end
 		if npc and #stepNames > before then
 			npcSpots(goals, raw, #goals)
 			local far = npcsFar()
 			farWatch = far
-			if far then moveBehind(1, before, #stepNames, stepNames) end
-			return "target", stepNames, npc
+			if far then moveBehind(1, before, #stepNames, stepNames, stepVerbs) end
+			return "target", stepNames, npc, stepVerbs
 		end
-		if not npc and #stepNames > 0 then return "target", stepNames end
+		if not npc and #stepNames > 0 then return "target", stepNames, nil, stepVerbs end
 	end
-	return kind, value
+	return kind, value, nil, kind == "target" and verbs or nil
 end
 
 -- npc: the one NPC's name in a "target" list (Buttons.StepAction), or nil.
@@ -3502,7 +3539,10 @@ local STEP_MARK = { target = "mob", npc = "npc" }
 -- The mark the step key's next press puts on: in a "target" list, the kind
 -- of the name it tries first.
 local function stepKind(i)
-	if step.kind == "target" then return step.list[i or step.cycle] == step.npc and "npc" or "mob" end
+	if step.kind == "target" then
+		i = i or step.cycle
+		return step.list[i] == step.npc and "npc" or "mob", step.verbs[i]
+	end
 	return STEP_MARK[step.kind]
 end
 
@@ -3720,18 +3760,18 @@ local function refresh()
 		applyRare(rareButton)
 	end
 
-	local kind, value, npc = nil, nil, nil
-	if view then kind, value, npc = Buttons.StepAction(view, raw) end
-	local stepSig = mark .. (kind == "target" and ("target\n" .. tostring(npc) .. "\n" .. concat(value, "\n")) or (tostring(kind) .. "\n" .. tostring(value)))
+	local kind, value, npc, verbs
+	if view then kind, value, npc, verbs = Buttons.StepAction(view, raw) end
+	local stepSig = mark .. (kind == "target" and ("target\n" .. tostring(npc) .. "\n" .. concat(value, "\n") .. "\t" .. concat(verbs, "\n")) or (tostring(kind) .. "\n" .. tostring(value)))
 	if stepSig ~= step.sig then
 		step.sig, step.kind, step.npc, step.cycle = stepSig, kind, npc, 1
-		local copy = {}
+		local copy, cv = {}, {}
 		if kind == "target" then
-			for i = 1, #value do copy[i] = value[i] end
+			for i = 1, #value do copy[i], cv[i] = value[i], verbs[i] end
 		else
 			step.value = value
 		end
-		step.list = copy
+		step.list, step.verbs = copy, cv
 		applyStep(stepButton)
 	end
 	farWatched = farWatch

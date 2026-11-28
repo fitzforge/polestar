@@ -7674,6 +7674,22 @@ a friendly fallback NPC the NPC's (#2152); a neutral NPC that can be attacked
 gets the mob's. Both kinds are pinged, as on a single name. Keeping one block
 keeps a mixed list within the macro's 255 bytes as often as a list of one kind.
 
+When the search starts with a kill, a second `/targetexact [noharm]` tries
+the same name while the friendly namesake is still selected. Whether the
+client cycles from an enslaved creature to its hostile namesake is unverified.
+Further leading kills are tried on `[dead][noharm]`, assuming `[noharm]`
+matches when there is no target. A final `/cleartarget [dead][noharm]`
+clears a rejected unit before the next name, ping or mark. The retry repeats
+the first kill's name, so a kill-first list on the single Target button or
+step key can fit one fewer trailing name within 255 bytes. Target rows and
+clickable guide names target a single name each. If even the first kill with
+its retry exceeds the limit, the whole list uses plain lookups. It also uses
+plain lookups if adding the second kind's mark would drop that kind's name
+from the retry macro. From the first non-kill onward the usual corpse checks
+apply. A friendly namesake of a later kill can stay selected. The harm-only
+mob mark skips it; a mixed macro also has the friendly NPC mark described
+above.
+
 After a press, the icon cycle (`Buttons.AdvanceMark`) uses the kind of the name
 the press acquired (`Buttons.AcquiredIndex`: the target's readable name against
 the button's applied list), so a fallback advances its own kind's cycle; a step
@@ -7681,10 +7697,14 @@ change queued in combat while the old secure macro still runs does not change
 it. A missing, secret or unmatched name falls back to the applied first name's
 kind.
 
-In a fight the macro leaves a living target alone (clearing it cuts melee
-swings and Auto Shot), so a press that finds none of its names keeps the unit
-the player had, and the `/tm` line would mark it (#2968: the skull on a
-Harvest Sentry). A macro cannot test a name, so `Buttons.WireCycle`'s
+In a fight a kill-first press with the retry clears the player's friendly
+target if it finds no quest mob. Once that target is cleared, later
+`[noexists]` lookups can target and mark a collect mob or the step NPC in
+combat. If only a friendly namesake is in range, its lookup also displaces
+a hostile target the player had, as the plain lookup did. A living opponent
+otherwise stays selected when no name matches, so melee swings and Auto Shot
+continue, and the `/tm` line would mark that opponent (#2968: the skull on
+a Harvest Sentry). A macro cannot test a name, so `Buttons.WireCycle`'s
 PreClick notes the target's GUID and icon on the press that runs the macro
 (`Buttons.NoteMark`: `useOnKeyDown`, else `ActionButtonUseKeyDown`), and its
 PostClick (`Buttons.UndoStrayMark`) puts that icon back (`SetRaidTarget`, 0
@@ -7708,7 +7728,7 @@ the clear (`TargetMacro`'s `keep`), so it takes the next one of that name;
 the corpse lines, the other names, the ping and the mark stay. A corpse, a
 unit of another name or no target keeps the clear. `PostClick` puts the
 applied macro back. In a fight nothing changes: the attribute cannot, and the
-clear is `[nocombat][dead]` anyway (a living target stays). A row's mark kind
+opening clear is `[nocombat][dead]`. A row's mark kind
 for that press comes from the macro it ran (`pressedKind`, `pressedMixed`).
 
 ### Clickable objectives

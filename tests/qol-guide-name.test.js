@@ -22,7 +22,7 @@ test('guide name: one localized chosen NPC uses the shared macro, with the defau
 		Polestar.QoL.CurrentStep = function() error("must not inspect other goals") end
 		local function result(goal, raw)
 			local macro, name, kind = B.GuideNameMacro(goal, raw)
-			emit({ macro, name, kind, macro == B.TargetMacro({ name }, 1, B.MarkLine(kind)) })
+			emit({ macro, name, kind, macro == B.TargetMacro({ name }, 1, B.MarkLine(kind), nil, nil, goal.t) })
 		end
 		result({ t = "kill", npc = 10, subject = "Grey Wolf" }, { npc = 99, target = "Unrelated Wolf" })
 		result({ t = "talk", npc = 20, npcName = "Gryphon Master" })
@@ -34,7 +34,8 @@ test('guide name: one localized chosen NPC uses the shared macro, with the defau
 	]);
 	const marks = { mob: '/tm [@target,harm,nodead] !8', npc: '/tm [@target,exists,nodead,nocombat][@target,noharm,nodead] !1' };
 	for (const [macro, name, kind] of out.slice(1)) {
-		assert.equal(macro, `/cleartarget [nocombat][dead]\n/targetexact ${name}\n/cleartarget [dead]\n${marks[kind]}`);
+		const clear = kind === 'mob' ? `/targetexact [noharm] ${name}\n/cleartarget [dead][noharm]` : '/cleartarget [dead]';
+		assert.equal(macro, `/cleartarget [nocombat][dead]\n/targetexact ${name}\n${clear}\n${marks[kind]}`);
 	}
 });
 
@@ -121,7 +122,7 @@ test('guide name: kills and collect sources use mob marks; all NPC verbs use NPC
 		set("markNpc", "4")
 		for _, verb in ipairs({ "kill", "collect", "accept", "turnin", "talk", "train", "vendor", "buy", "sethome", "getfp", "learn" }) do
 			local macro, name, kind = B.GuideNameMacro({ t = verb, npcName = "Chosen NPC" })
-			emit({ kind, macro:match("[~!]%d$"), macro == B.TargetMacro({ name }, 1, B.MarkLine(kind)) })
+			emit({ kind, macro:match("[~!]%d$"), macro == B.TargetMacro({ name }, 1, B.MarkLine(kind), nil, nil, verb) })
 		end
 		set("markTarget", false)
 		emit(B.GuideNameMacro({ t = "talk", npcName = "Chosen NPC" }))

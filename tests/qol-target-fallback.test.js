@@ -71,7 +71,7 @@ const CLIENT = String.raw`
 	end
 	local function world(...)
 		visible, pings, q.target = {}, {}, false
-		for _, u in ipairs({ ... }) do visible[u.name] = u end
+		for _, u in ipairs({ ... }) do visible[u.name] = visible[u.name] or u end
 	end
 	local function click(button)
 		local before = #q.ran
@@ -196,6 +196,41 @@ for (const button of ['PolestarTargetButton', 'PolestarStepButton']) {
 	});
 }
 
+test('a retry that selects the same friendly namesake leaves it unmarked and unpinged', () => {
+	const rows = run(`
+		q.step({
+			{ t = "kill", target = "Hatefury Hellcaller" }, { t = "kill", target = "Hatefury Rogue" },
+			{ t = "kill", target = "Hatefury Felsworn" }, { t = "kill", target = "Hatefury Betrayer" },
+		})
+		for _, button in ipairs({ PolestarTargetButton, PolestarStepButton }) do
+			local pet = unit("Hatefury Hellcaller")
+			-- This client model always returns the first match, even on a retry.
+			world(pet, unit(pet.name, true))
+			local result = click(button)
+			emit({ result, pet.mark })
+		end
+	`);
+	for (const [result, petMark] of rows) {
+		assert.deepEqual(outcome(result), [false, 0, 0]);
+		assert.match(result.macro, /\/targetexact \[noharm\] Hatefury Hellcaller/);
+		assert.equal(petMark, 0);
+	}
+});
+
+test('in combat a kill search replaces a party member with the quest mob and clears the target on a miss', () => {
+	const rows = run(`
+		q.step({ { t = "kill", target = "Hatefury Hellcaller" } })
+		q.combat(true)
+		for _, button in ipairs({ PolestarTargetButton, PolestarStepButton }) do
+			world(); q.target = unit("Party member", false, 5); emit(click(button))
+			world(unit("Hatefury Hellcaller", true)); q.target = unit("Party member", false, 5); emit(click(button))
+			world(unit("Hatefury Hellcaller")); q.target = unit("Current opponent", true); emit(click(button))
+		end
+	`);
+	const perButton = [[false, 0, 0], ['Hatefury Hellcaller', 8, 1], [false, 0, 0]];
+	assert.deepEqual(rows.map(outcome), [...perButton, ...perButton]);
+});
+
 test('fallbacks honor solo, party, and raid marking rights and preserve existing icons', () => {
 	const rows = run(`
 		setup()
@@ -271,7 +306,54 @@ test('mixed macro truncation keeps complete actions within 255 bytes and rejects
 	}
 });
 
-test('uniform target macros retain their existing command sequence', () => {
+test('a long first kill uses the plain macro on the target button, step key and target row', () => {
+	const name = 'Карманник из Братства Справедливости';
+	const [button, step, row, list] = run(`
+		set("pingTarget", false)
+		set("targetSimple", false)
+		local name = "${name}"
+		q.step({ { t = "kill", target = name } })
+		for _, b in ipairs({ PolestarTargetButton, PolestarStepButton, B.rows[1] }) do
+			emit(b:GetAttribute("macrotext") or false)
+		end
+		emit((B.MarkedMacro({ name, "Boar" }, 1, function() return "mob", "kill" end)))
+	`);
+	const plain = `/cleartarget [nocombat][dead]\n/targetexact ${name}\n/cleartarget [dead]`;
+	const mark = '\n/tm [@target,harm,nodead] !8';
+	assert.equal(Buffer.byteLength(plain + mark), 161);
+	assert.deepEqual([button, step, row], Array(3).fill(plain + mark));
+	assert.equal(list, plain + '\n/targetexact [noexists] Boar\n/cleartarget [dead]' + mark);
+});
+
+test('a far NPC keeps its star when the kill retry would displace its name', () => {
+	const rows = run(`
+		Polestar.Set("behavior.whileHereRadius", 300)
+		q.player.wx, q.player.wy = 0, 0
+		for _, pair in ipairs({ { "Roosting Duskbat", "Scout Bolain", true }, { "Venture Co. Lumberjack", "Hemet Nesingwary", false } }) do
+			set("pingTarget", pair[3])
+			shown = { { t = "kill", subject = pair[1], step = 31, index = 1, status = "active" } }
+			q.step({ { t = "talk", npcName = pair[2], map = 9000, x = 92, y = 92 } })
+			for _, button in ipairs({ PolestarTargetButton, PolestarStepButton }) do
+				world(unit(pair[2])); emit(click(button))
+			end
+		end
+	`);
+	for (const [i, [mob, npc, pings]] of [
+		['Roosting Duskbat', 'Scout Bolain', 1], ['Venture Co. Lumberjack', 'Hemet Nesingwary', 0],
+	].entries()) {
+		const base = [
+			'/cleartarget [nocombat][dead]', `/targetexact ${mob}`, '/cleartarget [dead]',
+			`/targetexact [noexists] ${npc}`, '/cleartarget [dead]',
+			...(pings ? ['/ping [@target]'] : []), '/tm [@target,harm,nodead] !8', '/tm [@target,noharm,nodead] !1',
+		].join('\n');
+		for (const row of [rows[2 * i], rows[2 * i + 1]]) {
+			assert.equal(row.macro, base);
+			assert.deepEqual(outcome(row), [npc, 1, pings]);
+		}
+	}
+});
+
+test('consecutive kill names fall through on a dead or non-attackable target', () => {
 	const rows = run(`
 		q.step({ { t = "kill", target = "Wolf" }, { t = "kill", target = "Boar" } })
 		for _, button in ipairs({ PolestarTargetButton, PolestarStepButton }) do
@@ -280,8 +362,8 @@ test('uniform target macros retain their existing command sequence', () => {
 	`);
 	for (const row of rows) {
 		assert.deepEqual(outcome(row), ['Boar', 8, 1]);
-		assert.equal(row.macro, '/cleartarget [nocombat][dead]\n/targetexact Wolf\n/cleartarget [dead]\n'
-			+ '/targetexact [noexists] Boar\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8');
+		assert.equal(row.macro, '/cleartarget [nocombat][dead]\n/targetexact Wolf\n/targetexact [noharm] Wolf\n'
+			+ '/targetexact [dead][noharm] Boar\n/cleartarget [dead][noharm]\n/ping [@target]\n/tm [@target,harm,nodead] !8');
 	}
 });
 
@@ -349,4 +431,44 @@ test('the target button puts nearby mobs before a far step NPC after the clicked
 	assert.deepEqual(near, ['Demar Brant', 'Scout Bolain', 'Roosting Duskbat']);
 	assert.deepEqual(far, ['Demar Brant', 'Roosting Duskbat', 'Scout Bolain']);
 	assert.deepEqual(outcome(fallback), ['Roosting Duskbat', 8, 1]);
+});
+
+test('NPC-first, collect-first and kill-free lists keep their exact macro text', () => {
+	const rows = run(`
+		local function macros(names, verbs)
+			local function kind(i) return verbs[i] == "talk" and "npc" or "mob", verbs[i] end
+			for _, ping in ipairs({ false, true }) do
+				emit((B.MarkedMacro(names, 1, kind, ping and B.PingLine())))
+			end
+		end
+		macros({ "Madame Eva", "Skeletal Fiend", "Skeletal Horror", "Rotting Dead" }, { "talk", "kill", "kill", "kill" })
+		macros({ "Kobold Worker", "Kobold Laborer", "Kobold Vermin" }, { "collect", "collect", "kill" })
+		macros({ "Kobold Worker", "Kobold Laborer" }, { "collect", "collect" })
+	`);
+	const open = '/cleartarget [nocombat][dead]\n/targetexact ';
+	const clear = '\n/cleartarget [dead]';
+	const fallback = '\n/targetexact [noexists] ';
+	const ping = '\n/ping [@target]';
+	const mob = '\n/tm [@target,harm,nodead] !8';
+	const mixed = mob + '\n/tm [@target,noharm,nodead] !1';
+	const eva = open + 'Madame Eva' + clear + fallback + 'Skeletal Fiend' + clear;
+	const sources = open + 'Kobold Worker' + clear + fallback + 'Kobold Laborer' + clear;
+	const three = sources + fallback + 'Kobold Vermin' + clear;
+	assert.deepEqual(rows, [
+		eva + fallback + 'Skeletal Horror' + clear + mixed, eva + ping + mixed,
+		three + mob, three + ping + mob, sources + mob, sources + ping + mob,
+	]);
+});
+
+test('a kill after a collect keeps the ordinary fallback and harm-only mark', () => {
+	const [macro, result] = run(`
+		local verbs = { "kill", "collect", "kill" }
+		local macro = B.MarkedMacro({ "Wolf", "Boar", "Bear" }, 1, function(i) return "mob", verbs[i] end)
+		world(unit("Bear"))
+		execute(macro)
+		emit(macro); emit({ q.target.name, q.target.mark })
+	`);
+	assert.equal(macro, '/cleartarget [nocombat][dead]\n/targetexact Wolf\n/targetexact [noharm] Wolf\n/cleartarget [dead][noharm]\n'
+		+ '/targetexact [noexists] Boar\n/cleartarget [dead]\n/targetexact [noexists] Bear\n/cleartarget [dead]\n/tm [@target,harm,nodead] !8');
+	assert.deepEqual(result, ['Bear', 0]);
 });

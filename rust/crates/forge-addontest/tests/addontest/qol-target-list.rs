@@ -66,7 +66,8 @@ fn run(script: &str) -> Vec<Value> {
 	run_with(script, "")
 }
 
-const VERMIN: &str = "/cleartarget [nocombat][dead]\n/targetexact Kobold Vermin\n/cleartarget [dead]";
+const COLLECT_VERMIN: &str = "/cleartarget [nocombat][dead]\n/targetexact Kobold Vermin\n/cleartarget [dead]";
+const VERMIN: &str = "/cleartarget [nocombat][dead]\n/targetexact Kobold Vermin\n/targetexact [noharm] Kobold Vermin\n/cleartarget [dead][noharm]";
 const WORKER: &str = "/cleartarget [nocombat][dead]\n/targetexact Kobold Worker\n/cleartarget [dead]";
 const LABORER: &str = "/cleartarget [nocombat][dead]\n/targetexact Kobold Laborer\n/cleartarget [dead]";
 
@@ -103,7 +104,7 @@ fn target_list_drop_chances_only_in_a_row_s_tooltip_whole_from_ten_percent_else_
 			r:GetScript("OnLeave")(r)
 		end
 	"#);
-	assert_eq!(out[0], json!([["Kobold Laborer", "Candle", LABORER, 80], ["Kobold Vermin", "Candle", VERMIN, 6],]), "no chance on the rows");
+	assert_eq!(out[0], json!([["Kobold Laborer", "Candle", LABORER, 80], ["Kobold Vermin", "Candle", COLLECT_VERMIN, 6],]), "no chance on the rows");
 	assert_eq!(out[1], "Candle · 32%");
 	assert_eq!(out[2], "Candle · 4.3%");
 }
@@ -170,7 +171,7 @@ fn target_list_rows_follow_the_step_and_wait_for_the_end_of_a_fight() {
 		emit({ #rows(), t:IsShown() })
 	"#);
 	assert_eq!(out[0], 3, "no secure change in combat");
-	assert_eq!(out[1], json!([["Defias Thug", "", "/cleartarget [nocombat][dead]\n/targetexact Defias Thug\n/cleartarget [dead]", 38]]));
+	assert_eq!(out[1], json!([["Defias Thug", "", "/cleartarget [nocombat][dead]\n/targetexact Defias Thug\n/targetexact [noharm] Defias Thug\n/cleartarget [dead][noharm]", 38]]));
 	assert_eq!(out[2], json!([0, false]));
 }
 
@@ -618,7 +619,7 @@ fn target_list_names_in_the_list_leave_the_step_key_and_its_corpse_check_their_f
 		end
 		local function stepNames()
 			local n = 0
-			for _ in s:GetAttribute("macrotext"):gmatch("/targetexact") do n = n + 1 end
+			for _ in pairs(B.MacroNames(s:GetAttribute("macrotext"))) do n = n + 1 end
 			return n
 		end
 		q.step(goals)
@@ -703,7 +704,7 @@ fn target_list_a_left_click_on_the_polestar_mark_folds_it_to_one_row_that_shows_
 		local function click(which) a:GetScript("OnClick")(a, which) end
 		local function targets(r)
 			local n = 0
-			for _ in r:GetAttribute("macrotext"):gmatch("/targetexact") do n = n + 1 end
+			for _ in pairs(B.MacroNames(r:GetAttribute("macrotext"))) do n = n + 1 end
 			return n
 		end
 		kobolds()
@@ -1274,7 +1275,7 @@ fn target_list_a_step_s_npc_and_while_you_re_here_mobs_each_row_with_its_own_kin
 			"Marshal Dughan",
 			format!("/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/ping [@target]\n{npc_mark}"),
 			"Bluegill Murloc",
-			"/cleartarget [nocombat][dead]\n/targetexact Bluegill Murloc\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8"
+			"/cleartarget [nocombat][dead]\n/targetexact Bluegill Murloc\n/targetexact [noharm] Bluegill Murloc\n/cleartarget [dead][noharm]\n/ping [@target]\n/tm [@target,harm,nodead] !8"
 		]),
 		"the NPC first (no place known: near), with its mark; the row's mob after, with the mob's mark; both pinged with Ping on (#2036)"
 	);
@@ -1353,7 +1354,7 @@ fn target_list_folded_names_of_one_kind_keep_the_single_mark_line_and_the_row_s_
 		kobolds()
 		B.anchor:GetScript("OnClick")(B.anchor, "LeftButton")
 		local r = B.rows[1]
-		emit(r:GetAttribute("macrotext"))
+		emit(r:GetAttribute("macrotext")); emit(r.names)
 		local kinds = {}
 		local advance = B.AdvanceMark
 		B.AdvanceMark = function(kind) kinds[#kinds + 1] = kind; return advance(kind) end
@@ -1362,12 +1363,9 @@ fn target_list_folded_names_of_one_kind_keep_the_single_mark_line_and_the_row_s_
 		q.click(r, true); q.click(r, false)
 		emit(kinds)
 	"#);
-	assert_eq!(
-		out[0],
-		format!("{VERMIN}\n/targetexact [noexists] Kobold Worker\n/cleartarget [dead]\n/targetexact [noexists] Kobold Laborer\n/cleartarget [dead]\n/tm [@target,harm,nodead] ~2"),
-		"unchanged: one mob line"
-	);
-	assert_eq!(out[1], json!(["mob"]));
+	assert_eq!(out[0], format!("{VERMIN}\n/targetexact [noexists] Kobold Worker\n/cleartarget [dead]\n/tm [@target,harm,nodead] ~2"), "one mob mark after the names that fit");
+	assert_eq!(out[1], json!(["Kobold Vermin", "Kobold Worker"]), "the retry adds no folded name");
+	assert_eq!(out[2], json!(["mob"]));
 }
 
 // The preview harness (and any client) without UnitIsDead or UnitIsPlayer: no close mob, and no error (#1704's red
@@ -1440,7 +1438,13 @@ fn target_list_a_name_that_turns_from_an_npc_goal_into_a_kill_takes_the_mob_s_ma
 			["Same Name", "success", "textDim", false]
 		])
 	);
-	assert_eq!(out[1], json!(["/cleartarget [nocombat][dead]\n/targetexact Same Name\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8", ["Same Name", "danger", "danger", false]]));
+	assert_eq!(
+		out[1],
+		json!([
+			"/cleartarget [nocombat][dead]\n/targetexact Same Name\n/targetexact [noharm] Same Name\n/cleartarget [dead][noharm]\n/ping [@target]\n/tm [@target,harm,nodead] !8",
+			["Same Name", "danger", "danger", false]
+		])
+	);
 }
 
 // Review of the 0.3.7 rebase: a mob on the list seen to be elite (the target, a nameplate) turns its row's name gold
