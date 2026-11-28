@@ -325,6 +325,8 @@ mod names_memory;
 #[path = "names-shown.rs"]
 mod names_shown;
 mod nav;
+#[path = "nav-arrow-eta.rs"]
+mod nav_arrow_eta;
 #[path = "nav-arrow-look.rs"]
 mod nav_arrow_look;
 #[path = "nav-crossings.rs"]

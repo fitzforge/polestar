@@ -772,9 +772,8 @@ local function facing()
 	return C and C.GetPlayerFacing and C.GetPlayerFacing() or nil
 end
 
-local lastYards, lastEta
+local lastYards
 local floorShown -- the floor glyph's hint ("up" | "down") or nil
-local lastDist, closeSpeed = nil, 0
 local pulse = 0
 local showEta = true
 local routeSeen = -1  -- Travel.version the label shows; -1 = the target's own label
@@ -782,6 +781,51 @@ local loneSeen = -1   -- Travel.version a lone walk's warning was last asked for
 local WARN_SECONDS = 8 -- a walk's "Hostile town" warning stays under its step this long
 local warning, warnUntil -- the warning being said (Travel.TakeWarning) and until when (GetTime)
 local style = "3d"    -- nav.arrowStyle (D.style)
+
+-- The trip time under the arrow (#4209). The estimate wobbles: the route's time left with every path measured
+-- again, the closing speed with every turn. What is shown is calm:
+--   eased: the estimate's arrival (now + its seconds) is followed over about ETA_EASE seconds, so walking on counts
+--     down second by second while a wobble or a new measure comes in over a few seconds;
+--   stepped by its size (etaStep): seconds under a minute, 5 s up to 5 minutes, 15 s up to 15, then 30 s;
+--   held: the shown time moves only once the eased time is ETA_HOLD of a step past it, never back and forth
+--     between two steps;
+--   taken at once on a real change: a new target, route or leg, mounting or dismounting (the run speed), the
+--     route's time against the closing time, and each time it shows again (a mode change, the arrow shown again
+--     after a flight).
+-- Scalars only: nothing is allocated.
+local ETA_EASE = 3    -- seconds: the eased arrival's time constant
+local ETA_HOLD = 0.75 -- steps past the shown time before it moves
+local RUN_SPEED = 7   -- yd/s, while the client does not say
+local CLOSE_EASE = 8      -- seconds of closing in: off a route, the average of how fast (sample)
+local CLOSE_FLOOR = 0.5   -- the least share of the run speed the time is reckoned at
+local CLOSE_SHOW = 0.2    -- the share of the run speed, closing in now, that shows the time
+local CLOSE_AWAY = -0.1   -- once shown, the share (moving away) that hides it
+-- The average starts at the whole run speed, weighed as one second of closing in (CLOSE_PRIOR): the first time
+-- shown is the time at the run speed (as a route's walk is reckoned), and what the player does moves it from there.
+local CLOSE_PRIOR = 1 - exp(-1 / CLOSE_EASE)
+-- Off a route (sample): the last distance, whether the last sample moved, the share closing in now (half a second),
+-- and the closing share's average (closeSum / closeWeight).
+local lastDist, closeMoving, closeNow, closeSum, closeWeight = nil, false, 0, CLOSE_PRIOR, CLOSE_PRIOR
+local etaArrive, etaAt -- the eased arrival and when it was eased (GetTime); nil: the next estimate is taken as it is
+local etaShown         -- the seconds shown, nil: none
+local etaTarget, etaLeg, etaRun, etaTotal = nil, nil, 0, nil -- the trip the time is for
+
+local function etaStep(secs)
+	if secs < 60 then return 1 elseif secs < 300 then return 5 elseif secs < 900 then return 15 end
+	return 30
+end
+
+-- The run speed now (GetUnitSpeed's: a mount's while mounted), yd/s.
+local function runSpeed()
+	local C = ns.Compat
+	local s = C and C.GetRunSpeed and C.GetRunSpeed()
+	return s and s > 1 and s or RUN_SPEED
+end
+
+local function hideEta()
+	etaShown, etaArrive = nil, nil
+	etaText:Hide()
+end
 
 -- A target's own warning (Nav.SetTarget's `warning`: a dungeon whose way in
 -- lies in the other faction's land) stays under the label while it is the
@@ -844,9 +888,9 @@ local function setMode(m)
 	if act then halo:SetShown(look.glow) end
 	legIcon:SetShown(act)
 	dialLayout(D, look, not travel or look.distance)
-	lastYards, lastEta = nil, nil
-	lastDist, closeSpeed = nil, 0
-	etaText:Hide()
+	lastYards = nil
+	lastDist, closeMoving, closeNow, closeSum, closeWeight = nil, false, 0, CLOSE_PRIOR, CLOSE_PRIOR
+	hideEta()
 	if m == "submerged" or m == "arrived-underwater" or m == "water-depth" then
 		local t = Nav.GetTarget()
 		labelText:SetText(t and t.label or "")
@@ -981,11 +1025,28 @@ local function idleShown()
 	return true
 end
 
-local function showSeconds(secs)
-	secs = floor(secs + 0.5)
-	if secs ~= lastEta then
-		lastEta = secs
-		etaText:SetFormattedText(L["%d:%02d total"], floor(secs / 60), secs % 60)
+-- The trip time, `secs` from now (the route's whole time with `total`), as above.
+local function showSeconds(secs, total)
+	local now = GetTime()
+	local T = Nav.travel
+	local leg = T and T.CurrentLeg and T.CurrentLeg() or false
+	local target, run = Nav.GetTarget(), runSpeed()
+	if not etaArrive or target ~= etaTarget or leg ~= etaLeg or total ~= etaTotal or abs(run - etaRun) > 0.05 then
+		etaTarget, etaLeg, etaTotal, etaRun = target, leg, total, run
+		etaArrive, etaShown = now + secs, nil
+	else
+		etaArrive = etaArrive + (now + secs - etaArrive) * min(1, (now - etaAt) / ETA_EASE)
+	end
+	etaAt = now
+	local left = etaArrive - now
+	if left < 0 then left = 0 end
+	local step = etaStep(left)
+	if not etaShown or abs(left - etaShown) >= ETA_HOLD * step then
+		local q = floor(left / step + 0.5) * step
+		if q ~= etaShown then
+			etaShown = q
+			etaText:SetFormattedText(total and L["%d:%02d total"] or "%d:%02d", floor(q / 60), q % 60)
+		end
 	end
 	etaText:Show()
 end
@@ -1082,7 +1143,7 @@ local function sample(elapsed)
 	if state == "instruction" then
 		setMode("instruction")
 		local secs = showEta and T.Remaining(nil)
-		if secs then showSeconds(secs) else etaText:Hide() end
+		if secs then showSeconds(secs, true) else hideEta() end
 		return true
 	end
 
@@ -1119,29 +1180,38 @@ local function sample(elapsed)
 		if routed then
 			-- Whole-route time: legs ahead plus this walk (`measured`: dist is along a path).
 			local secs = T.Remaining(dist, measured)
-			if secs then showSeconds(secs) else etaText:Hide() end
+			if secs then showSeconds(secs, true) else hideEta() end
 			return true
 		end
-		-- Only timed samples move the reference point: an out-of-band Refresh
-		-- (sample(0)) would otherwise shorten the next interval's distance
-		-- without shortening its time, underestimating the closing speed.
+		-- Off a route: the distance over the speed the player closes in at, that is the run speed (a mount's
+		-- included) times the share of it that closes in. That share is averaged over about CLOSE_EASE seconds
+		-- of closing in (closeSum / closeWeight, from CLOSE_PRIOR's start, not eased up from 0) and
+		-- taken between CLOSE_FLOOR and all of it: a weave or a zigzag slows the count a little. A stretch that
+		-- doesn't close in (a detour round a rock, a turn back, a stop for a fight) tells nothing about that
+		-- speed: the time stops counting down meanwhile instead of leaping up. Shown while the player closes
+		-- in now (closeNow, the share over the last half second, above CLOSE_SHOW; once shown, until they move
+		-- away, under CLOSE_AWAY). Only samples a move went on through count (not the one it starts in, part
+		-- standing), and only timed ones: an out-of-band Refresh (sample(0)) would otherwise shorten the next
+		-- interval's distance without shortening its time, overestimating the closing speed.
+		local run = runSpeed()
 		if elapsed > 0 then
-			if lastDist then
-				local v = (lastDist - dist) / elapsed
-				closeSpeed = closeSpeed + (v - closeSpeed) * min(1, elapsed * 2)
+			local moved = lastDist ~= nil and dist ~= lastDist
+			if moved and closeMoving then
+				local f = (lastDist - dist) / elapsed / run
+				if f > 1 then f = 1 elseif f < -1 then f = -1 end
+				closeNow = closeNow + (f - closeNow) * min(1, elapsed * 2)
+				if f > CLOSE_SHOW then
+					local a = min(1, elapsed / CLOSE_EASE)
+					closeSum = closeSum + (f - closeSum) * a
+					closeWeight = closeWeight + (1 - closeWeight) * a
+				end
 			end
-			lastDist = dist
+			lastDist, closeMoving = dist, moved
 		end
-		if closeSpeed > 1.5 then
-			local secs = floor(dist / closeSpeed + 0.5)
-			if secs ~= lastEta then
-				lastEta = secs
-				etaText:SetFormattedText("%d:%02d", floor(secs / 60), secs % 60)
-			end
-			etaText:Show()
+		if closeNow > CLOSE_SHOW or etaShown and closeNow > CLOSE_AWAY then
+			showSeconds(dist / (run * max(min(closeSum / closeWeight, 1), CLOSE_FLOOR)), false)
 		else
-			lastEta = nil
-			etaText:Hide()
+			hideEta()
 		end
 	end
 	return true
@@ -1191,7 +1261,7 @@ frame:SetScript("OnUpdate", ns.Safe(function(_, elapsed)
 end))
 
 frame:SetScript("OnShow", function()
-	accum, hasAngle = 0, false
+	accum, hasAngle, etaArrive = 0, false, nil -- shown again (after a flight, a loading screen): the time is taken afresh
 end)
 -- Another addon taking the arrow out of sight is told once (ns.WatchSight).
 -- After the OnShow above: SetScript drops a hooked script.
@@ -1261,7 +1331,7 @@ function Arrow:OnSettings()
 	applyAlpha()
 	lastYards = nil -- nav.distanceUnit: redraw the distance on the next sample
 	showEta = ns.Get("nav.arrowEta") and true or false
-	if not showEta and mode == "travel" then etaText:Hide() end
+	if not showEta and mode == "travel" then hideEta() end
 	applyStyle(Arrow.StyleFor(ns.Get("nav.arrowStyle")))
 	applyLook()
 	applyPosition()

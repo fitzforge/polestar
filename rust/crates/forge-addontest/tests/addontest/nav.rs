@@ -2802,8 +2802,9 @@ fn the_eta_closing_speed_ignores_out_of_band_refreshes() {
 	);
 	let secs: Vec<f64> = out["etas"].as_array().unwrap().iter().map(|t| mmss(text(t))).collect();
 	let expected = num(&out["dist"]) / 7.0;
+	// Over a minute the time is shown in 5 s steps (#4209): within one step.
 	for s in &secs {
-		assert!((s - expected).abs() <= 4.0, "ETA {s} s vs {expected:.0} s ({})", out["etas"]);
+		assert!((s - expected).abs() <= 5.0, "ETA {s} s vs {expected:.0} s ({})", out["etas"]);
 	}
 }
 

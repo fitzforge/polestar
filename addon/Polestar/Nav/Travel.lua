@@ -2125,7 +2125,7 @@ local function recordTaxiMap()
 	return added
 end
 
--- The player's run speed for the plan's walks (Compat.GetRunSpeed: never a
+-- The player's run speed now, for the ETA of the walk they are on (Compat.GetRunSpeed: never a
 -- secret value, #2533); the usual run speed while the client does not say.
 local function runSpeed()
 	local fn = ns.Compat and ns.Compat.GetRunSpeed
@@ -2224,7 +2224,6 @@ local dirty = false
 local wasTaxi = false
 local lastHearth -- the Hearthstone was ready at the last plan (hearthWait() == 0)
 local legsFor -- the target the live route (legs) was planned for: its hearth is held (Nav.PlanRoute's hearthHeld)
-local planSpeed = RUN_SPEED
 local planAt, planC, planX, planY = 0, nil, 0, 0 -- when and where the route was planned
 local lastMoveCheck = 0
 local skipFor      -- the target the skipped legs below were for
@@ -2578,7 +2577,6 @@ local function plan(target, held)
 	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
 	if not (tc and pc) then return nil end
 	refreshFaction()
-	planSpeed = runSpeed()
 	local wait = hearthWait()
 	lastHearth = wait == 0
 	questTimed, timedCheck = readTimed(), false
@@ -2649,7 +2647,7 @@ local function plan(target, held)
 		seen = seenSet(), level = Nav.danger and Nav.danger.Level(), maybe = maybeTaxi,
 		-- Walk edges are priced unmounted: straight lines may cross water, and a
 		-- mount's speed would make swimming a sea look faster than the boat.
-		-- planSpeed (the live speed) only scales the ETA of the current walk.
+		-- The live run speed (runSpeed) only scales the ETA of the current walk.
 		speed = RUN_SPEED,
 		hearth = inn,
 		hearthName = bindName,
@@ -3095,7 +3093,7 @@ function Travel.Remaining(dist, measured)
 	if not leg then return nil end
 	local here = leg.seconds
 	if leg.kind == "walk" then
-		if dist then here = dist * (measured and 1 or WALK_DETOUR) / planSpeed end
+		if dist then here = dist * (measured and 1 or WALK_DETOUR) / runSpeed() end
 	else
 		here = here - (GetTime() - legSince)
 		if here < 0 then here = 0 end
@@ -3124,7 +3122,7 @@ function Travel.Progress()
 				y = d and d < huge and d * WALK_DETOUR or nil
 			end
 		end
-		if y then return y / planSpeed, y end
+		if y then return y / runSpeed(), y end
 	end
 	local s = leg.seconds - (GetTime() - legSince)
 	return s > 0 and s or 0, leg.yards
