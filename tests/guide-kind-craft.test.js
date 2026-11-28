@@ -330,6 +330,32 @@ emit({ folded = folded, head = f.Head.Text:GetText(), rows = rows, buy = f.Buy:I
 	assert.deepEqual([out.itemOn, out.itemAfter], [true, false], 'the game\'s item tooltip goes as the cursor leaves');
 });
 
+// One profession guide per shape: its skills, a tool bought from a vendor and a gathered material (both would
+// stand on a shopping list).
+const SKILL_GUIDE = (id, title, sections, extra = '') => `{ id = "${id}", pack = "test", title = "${title}", minLevel = 1, maxLevel = 60, category = "Professions"${extra},
+	sections = { ${sections} },
+	steps = {
+		{ title = "Buy a Mining Pick", section = 1, goals = { { t = "buy", item = 2901, itemName = "Mining Pick", count = 1, npc = 1250, npcName = "Rachel" } } },
+		{ title = "Get Copper Ore", section = 1, goals = { { t = "collect", item = 2770, itemName = "Copper Ore", count = 40, gather = { skill = "Mining", skillLine = 186, rank = 1 } } } },
+	} }`;
+const MINING = SKILL_GUIDE('test/mining', 'Mining 1-65', '{ skill = "Mining", skillLine = 186, from = 1, to = 65 }');
+const SMITHING = SKILL_GUIDE('test/smithing', 'Blacksmithing 1-75', '{ skill = "Blacksmithing", skillLine = 164, from = 1, to = 75 }');
+const MINING_SMITHING = SKILL_GUIDE('test/minesmith', 'Mining and Blacksmithing', '{ skill = "Mining", skillLine = 186, from = 1, to = 65 }', ', skillLines = { 186, 164 }');
+const SHOPPING_SHOWN = `GF.Layout(); stub.advance(1); GF.Layout()
+emit({ shopping = GF.RegionShown("shopping"), get = GF.RegionShown("get") or GF.RegionShown("meter") })`;
+
+test('a guide that levels one gathering profession (Mining) has no shopping list; a crafting guide and a pair keep it', () => {
+	const shown = (setup, guide, id, addons = ['Polestar']) =>
+		runAddon({ stubs: ['stub_world.lua'], addons, script: script(setup, SHOPPING_SHOWN, guide, id) }).emitted[0];
+	const atlas = ['Polestar', { name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }];
+	assert.deepEqual(shown('', MINING, 'test/mining'), { shopping: false, get: true }, 'Mining, standard');
+	assert.deepEqual(shown('Polestar.Set("ui.compact", true)', MINING, 'test/mining'), { shopping: false, get: true }, 'Mining, compact');
+	assert.deepEqual(shown('Polestar.Set("ui.layout", "atlas")', MINING, 'test/mining', atlas), { shopping: false, get: true }, 'Mining, Atlas');
+	assert.equal(shown('', SMITHING, 'test/smithing').shopping, true, 'Blacksmithing keeps it');
+	assert.equal(shown('Polestar.Set("ui.layout", "atlas")', SMITHING, 'test/smithing', atlas).shopping, true, 'Blacksmithing in Atlas');
+	assert.equal(shown('', MINING_SMITHING, 'test/minesmith').shopping, true, 'Mining + Blacksmithing keeps it');
+});
+
 test('compact: the skill line and the item\'s row, no ways and no shopping list', () => {
 	const out = run('Polestar.Set("ui.compact", true)', `${GET_ROWS}
 GF.Layout(); stub.advance(1)

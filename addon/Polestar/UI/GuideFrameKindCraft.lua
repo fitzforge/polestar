@@ -744,8 +744,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			end, { height = 22 })
 			return f
 		end,
+		-- None in compact, nor for a guide that levels one gathering profession (GuideKinds: its tools are steps).
 		model = function(view, kind)
-			if GF.Compact() then return nil end
+			if GF.Compact() or not GF.KindHas("shoppingList") then return nil end
 			local e = E()
 			return e and e.KindModel and e.KindModel("shopping", view, kind)
 		end,

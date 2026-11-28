@@ -2334,7 +2334,10 @@ end
 -- Parts: "xp" (the XP line), "pace" (the route's pace), "skillBar" (the
 -- profession's skill, off unless a kind turns it on), "whileHereQuests"
 -- (While you're here rows of quests),
--- "stillToDo" (Still to do rows). Menu entries: "free" (Free mode), "handins"
+-- "stillToDo" (Still to do rows), "shoppingList" (a profession guide's folded
+-- shopping list). A part may be decided by the guide: a function of it (a
+-- guide that levels one gathering profession has no shopping list: its tools
+-- and lures are steps). Menu entries: "free" (Free mode), "handins"
 -- (Hand in finished quests), "questLog" (Clean up quest log), "materials"
 -- (Gather, buy or mix), "trainer" (the profession's nearest trainer).
 -- A part's own setting (guideWindow.xpLine, .pace, .stillToDo) still turns it off for every kind (GF.KindHas).
@@ -2346,7 +2349,8 @@ ns.GuideKinds = GuideKinds
 GuideKinds.KINDS = {
 	leveling = {},
 	profession = {
-		parts = { xp = false, pace = false, skillBar = true, whileHereQuests = false, stillToDo = false },
+		parts = { xp = false, pace = false, skillBar = true, whileHereQuests = false, stillToDo = false,
+			shoppingList = function(def) return not GuideKinds.GatheringOnly(def) end },
 		menu = { free = false, handins = false, questLog = false },
 		lead = { "materials", "trainer" },
 	},
@@ -2375,10 +2379,11 @@ function GuideKinds.Of(def)
 	return GuideKinds.BY_CATEGORY[def.category] or "misc"
 end
 
--- Whether kind `kind` shows window part `part`.
-function GuideKinds.Has(kind, part)
+-- Whether kind `kind` shows window part `part`; `def`, the guide in view, for a part the guide decides.
+function GuideKinds.Has(kind, part, def)
 	local k = GuideKinds.KINDS[kind] or GuideKinds.KINDS.leveling
 	local v = k.parts and k.parts[part]
+	if type(v) == "function" then return v(def) and true or false end
 	if v ~= nil then return v end
 	return not GuideKinds.OFF_BY_DEFAULT[part]
 end
@@ -2409,6 +2414,19 @@ function GuideKinds.SkillLine(def)
 		end
 	end
 	return nil
+end
+
+-- The gathering professions' skill lines: Mining, Herbalism, Skinning, Fishing.
+GuideKinds.GATHERING = { [186] = true, [182] = true, [393] = true, [356] = true }
+
+-- Whether profession guide `def` levels one gathering profession and nothing else (a paired guide's `skillLines`
+-- name two).
+function GuideKinds.GatheringOnly(def)
+	if type(def) ~= "table" then return false end
+	local lines = type(def.skillLines) == "table" and def.skillLines or nil
+	if lines and #lines > 1 then return false end
+	local line = (lines and lines[1]) or GuideKinds.SkillLine(def)
+	return GuideKinds.GATHERING[line] == true
 end
 
 ns.OnLogin(function()
