@@ -3103,17 +3103,28 @@ function W.LayoutCompact(row, width)
 	-- row.psAfter: a frame that stands right after the label's text (the new
 	-- settings page's link to a reference's home), its room kept.
 	local after = rawget(row, "psAfter")
-	lw = max(1, lw - (after and (after:GetWidth() + 8) or 0))
-	label:ClearAllPoints()
 	local below = row.psBelow
+	-- The label keeps the whole column and the link stands on a line of its
+	-- own under it: no measure of the text decides it (in the client a label
+	-- measured before its text or font is ready read as fitting, and was cut).
+	local under = after and not below
+	if after and not under then lw = max(1, lw - (after:GetWidth() + 8)) end
+	label:ClearAllPoints()
+	local nh = under and after.Label:GetStringHeight() + 1 or 0
 	if below then
 		label:SetPoint("LEFT", row, "TOPLEFT", HALF_PAD, -floor(h / 2))
 	else
-		label:SetPoint("LEFT", row, "LEFT", HALF_PAD, 0)
+		label:SetPoint("LEFT", row, "LEFT", HALF_PAD, nh / 2)
 	end
 	label:SetWidth(lw)
 	-- Two lines of label: the row grows to hold them with 3px over and under.
-	if not below then h = max(h, math.ceil(label:GetStringHeight()) + 6) end
+	if not below then h = max(h, math.ceil(label:GetStringHeight() + nh) + 6) end
+	if under then
+		-- The link's text 1px under the label's (its button is 20px tall, the text centred).
+		after:ClearAllPoints()
+		after:SetPoint("TOPLEFT", label, "BOTTOMLEFT", 0, (after:GetHeight() - nh) / 2)
+		after = nil
+	end
 	if info or after then
 		-- The (i) right after the text, then the link: a label shorter than
 		-- its column ends there, so they stand beside it, not inside its box.

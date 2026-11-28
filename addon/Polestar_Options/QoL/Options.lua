@@ -262,6 +262,83 @@ register(QOL, L["Quests"], L["Rewards, buttons and tracker"], {
 	Ref("toggle", "qol.questLoot", { child = true }), Ref("toggle", "qol.stepInteract"), Ref("toggle", "qol.instanceTrack"),
 })
 
+-- Tooltips: a reference to every setting that adds a line to a game tooltip,
+-- by what the tooltip is of, each with the link to its home (`essentials`,
+-- UI/Essentials.lua). A reference with no home registered is left out (the
+-- talent plan while it is coming soon; Questie's lines without Questie).
+-- Each row's sample (UI/Options.lua, O.ShowSample): a game tooltip with the
+-- line the setting adds, in the words and colours its module writes it
+-- (Quests/Tooltips.lua, Gear/Tooltip.lua, Lookup/Spotter.lua, QoL/Marks.lua),
+-- on a mob, NPC or item of the first levels.
+do
+	local Ref = ns.Widgets.Ref
+	local function col(name) return ns.Theme.Color(name) end
+	local function own(left, right, lc, rc)
+		local lr, lg, lb = col(lc)
+		local rr, rg, rb = col(rc or lc)
+		return { left, right, lr, lg, lb, rr, rg, rb, own = true }
+	end
+	local GREY, WHITE, HOSTILE, FRIEND = { 0.62, 0.62, 0.62 }, { 1, 1, 1 }, { 1, 0.13, 0.13 }, { 0.13, 1, 0.13 }
+	local function title(text, c) return { text, c[1], c[2], c[3] } end
+	local function base(text) return { text, nil, 1, 1, 1 } end
+	local SAMPLES = {
+		["qol.questTooltips"] = function()
+			return { title = title("Kobold Vermin", HOSTILE), lines = { base(string.format(L["Level %d"], 2)),
+				own("Kobold Camp Cleanup:", L["Kill"] .. " Kobold Vermin 4/10", "quest", "textDim") } }
+		end,
+		["qol.questDropChance"] = function()
+			return { title = title("Young Wolf", HOSTILE), lines = { base(string.format(L["Level %d"], 2)),
+				own("Wolves Across the Border:", "Tough Wolf Meat 3/8  40%", "quest", "textDim") } }
+		end,
+		["qol.questTooltipsNpc"] = function()
+			return { title = title("Marshal McBride", FRIEND), lines = { own("Kobold Camp Cleanup:", L["Turn in"], "quest", "success") } }
+		end,
+		["gear.tooltip"] = function()
+			return { title = title("Worn Shortsword", WHITE), lines = { base(_G.INVTYPE_WEAPON or "One-Hand"),
+				own(L["Polestar"], (ns.Gear and ns.Gear.GainText and ns.Gear.GainText(12) or "+12%") .. " " .. L["upgrade"], "textDim", "success") } }
+		end,
+		["gear.pickTooltip"] = function()
+			return { title = title("Worn Shortsword", WHITE), lines = { base(_G.INVTYPE_WEAPON or "One-Hand"), own(L["Best pick"], "Kobold Camp Cleanup", "textDim", "success") } }
+		end,
+		["lookup.tooltip"] = function()
+			return { title = title("Linen Cloth", WHITE), lines = { own(L["From"] .. " Defias Thug", nil, "textDim"), own(L["Alt-click: guide me"], nil, "textMuted") } }
+		end,
+		["lookup.mounts"] = function()
+			return { title = title(UnitName and UnitName("player") or "", WHITE), lines = {
+				own(L["Mount"] .. ": Brown Horse", nil, "textDim"), own(L["/pole mount: how to get it"], nil, "textMuted") } }
+		end,
+		["qol.itemMarks"] = function()
+			return { title = title("Broken Fang", GREY), lines = { own(L["Polestar"], L["Marked as junk"], "textDim", "danger") } }
+		end,
+	}
+	-- Whether a setting's home is registered in this build: the talent plan's
+	-- only while it is out (Talents.SOON), Questie's lines while Polestar
+	-- has the setting (they come with their own change); every other always.
+	local function homed(key)
+		if key:find("^talents%.") then return ns.Talents ~= nil and not ns.Talents.SOON end
+		if key == "qol.questTooltipsQuestie" then return ns.GetBaseDefault(key) ~= nil end
+		return true
+	end
+	-- The references of `list` ({ key, child }) whose home is registered.
+	local function refs(list)
+		local out = {}
+		for _, e in ipairs(list) do
+			if homed(e[1]) then out[#out + 1] = Ref("toggle", e[1], { essentials = true, child = e[2] or nil, sample = SAMPLES[e[1]] }) end
+		end
+		return out
+	end
+	local function section(name, list)
+		local controls = refs(list)
+		if #controls > 0 then register(QOL, L["Tooltips"], name, controls) end
+	end
+	section(L["Quests"], { { "qol.questTooltips" }, { "qol.questDropChance", true }, { "qol.questTooltipsNpc", true },
+		{ "qol.questTooltipsReplace", true }, { "qol.questTooltipsQuestie", true } })
+	-- Items, mounts and the talent plan in one section: a section of one row
+	-- breaks the page's layout rules (ui_options).
+	section(L["Items"], { { "gear.tooltip" }, { "gear.pickTooltip" }, { "lookup.tooltip" }, { "qol.itemMarks" },
+		{ "lookup.mounts" }, { "talents.tooltip" } })
+end
+
 -- Flight masters, after the flight timer (Maps/Options.lua). The route's
 -- mark and its auto-take only follow the guide: Guide > Arrow & routes.
 register(QOL, L["Travel"], L["Flights"], {

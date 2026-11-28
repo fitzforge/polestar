@@ -43,6 +43,7 @@ function run(script, saved) {
 			local O = Polestar.UI.Options
 			local G = O.Grouped
 			local K = O.Kit
+			local W = Polestar.Widgets
 			local L = Polestar.L
 			-- The folder tabs on screen: their labels and icons.
 			local function bar()
@@ -96,7 +97,7 @@ test('the five pages open on Essentials, the review\'s picks, each a registered 
 			local rows, sections = {}, {}
 			for _, sec in ipairs(t.sections) do
 				sections[#sections + 1] = sec.name
-				for _, c in ipairs(sec.controls) do
+				for _, c in ipairs(sec.name == L["Most used"] and sec.controls or {}) do
 					if rawget(c, "ref") and rawget(c, "essentials") and K.available(c) then rows[#rows + 1] = c.key end
 				end
 			end
@@ -172,6 +173,136 @@ test('an Essentials row is a live reference to its home row, with a muted tab na
 	assert.equal(out.tab, 'Window');
 	assert.equal(out.crumb, 'Look > Guide window');
 	assert.equal(out.other, 'Guide window \u203a Window', 'a home on another page: "Page › Tab"');
+});
+
+// Every setting that adds a line to a game tooltip, from wherever its home is.
+const TOOLTIPS = ['qol.questTooltips', 'gear.tooltip', 'gear.pickTooltip', 'lookup.tooltip', 'lookup.mounts',
+	'talents.tooltip', 'qol.itemMarks'];
+
+test('Quality of Life\'s Essentials gathers the tooltip settings in a Tooltips card after Most used', () => {
+	const [out] = run(`
+		Polestar.UI.ShowOptions()
+		O.Select("qualityoflife")
+		local _, t = G.Current()
+		local sections, rows, links = {}, {}, {}
+		for _, sec in ipairs(t.sections) do
+			sections[#sections + 1] = sec.name
+			if sec.name == L["Tooltips"] then
+				for _, c in ipairs(sec.controls) do
+					if rawget(c, "ref") and rawget(c, "essentials") then rows[#rows + 1] = c.key end
+				end
+			end
+		end
+		local row = essentialsRow("gear.tooltip")
+		local link = row and rawget(row, "psAfter")
+		-- Set through the card, read at home.
+		local before = Polestar.Get("lookup.tooltip")
+		local mark = essentialsRow("lookup.tooltip")
+		if mark then stub.RunScript(mark, "OnClick") end
+		local soon = Polestar.Talents and Polestar.Talents.SOON or not Polestar.Talents
+		emit({ sections = sections, rows = rows, link = link and link.Label:GetText(),
+			flipped = Polestar.Get("lookup.tooltip") ~= before, soon = soon })`);
+	const most = out.sections.indexOf('Most used');
+	assert.ok(most >= 0, out.sections.join(', '));
+	assert.equal(out.sections[most + 1], 'Tooltips', 'the Tooltips card right after Most used');
+	// Talent plans are coming soon (Talents.lua, T.SOON): no setting, no row, until they are there.
+	const expected = out.soon ? TOOLTIPS.filter((k) => k !== 'talents.tooltip') : TOOLTIPS;
+	assert.deepEqual(out.rows, expected, 'a reference for each tooltip setting registered, in order');
+	assert.equal(out.link, 'Questing \u203a Rewards & gear', 'each row names its home');
+	assert.equal(out.flipped, true, 'the card\'s row sets the setting itself');
+});
+
+test('an Essentials row keeps the whole column for its label, the path to its home on a line under it', () => {
+	const [out] = run(`
+		Polestar.UI.ShowOptions()
+		O.Select("qualityoflife")
+		local function look(key)
+			local row = essentialsRow(key)
+			local link = rawget(row, "psAfter")
+			local label = row.Label
+			local _, rel, relPoint = link:GetPoint(1)
+			return { whole = label:GetWidth() + 0.5 >= W.TextWidth(label), under = rel == label and relPoint == "BOTTOMLEFT",
+				tall = row:GetHeight() >= math.ceil(label:GetStringHeight() + link.Label:GetStringHeight()) }
+		end
+		emit({ long = look("lookup.tooltip"), gear = look("gear.pickTooltip"), short = look("qol.sellJunk") })`);
+	for (const k of ['long', 'gear', 'short']) {
+		assert.equal(out[k].whole, true, `${k}: the whole label`);
+		assert.equal(out[k].under, true, `${k}: the path under the label`);
+		assert.equal(out[k].tall, true, `${k}: the row holds both lines`);
+	}
+});
+
+test('Quality of Life has a Tooltips row in the sidebar: every tooltip setting, each linking home', () => {
+	const [out] = run(`
+		Polestar.UI.ShowOptions()
+		O.Select("qualityoflife")
+		local rows = {}
+		for _, it in ipairs(G.NavItems()) do
+			if it.indent and it.key:sub(1, 2) == "t:" and it.key:find("^t:qualityoflife") then rows[#rows + 1] = it.label end
+		end
+		O.Select("qualityoflife", L["Tooltips"])
+		local _, t = G.Current()
+		local cards, links, children = {}, {}, {}
+		for _, sec in ipairs(t.sections) do
+			local keys = {}
+			for _, c in ipairs(sec.controls) do
+				if K.available(c) then
+					keys[#keys + 1] = c.key
+					local row = O.view.cache[c]
+					local link = row and rawget(row, "psAfter")
+					links[c.key] = link and link:IsShown() and link.Label:GetText() or false
+					if rawget(c, "child") then children[#children + 1] = c.key end
+				end
+			end
+			if #keys > 0 then cards[#cards + 1] = { name = sec.name, keys = keys } end
+		end
+		emit({ rows = rows, tab = t.name, cards = cards, links = links, children = children })`);
+	const at = out.rows.indexOf('Tooltips');
+	assert.ok(at > 0, out.rows.join(', '));
+	assert.equal(out.rows[at - 1], 'Quests', 'Tooltips right after Quests');
+	assert.equal(out.tab, 'Tooltips');
+	assert.deepEqual(out.cards, [
+		{ name: 'Quests', keys: ['qol.questTooltips', 'qol.questDropChance', 'qol.questTooltipsNpc', 'qol.questTooltipsReplace'] },
+		// Mounts (and the talent plan once it is out) share Items: a section of one row breaks the layout rules.
+		{ name: 'Items', keys: ['gear.tooltip', 'gear.pickTooltip', 'lookup.tooltip', 'qol.itemMarks', 'lookup.mounts'] },
+	]);
+	assert.deepEqual(out.children, ['qol.questDropChance', 'qol.questTooltipsNpc', 'qol.questTooltipsReplace'], 'the quest options under Quest tooltips');
+	assert.equal(out.links['qol.questTooltips'], 'Questing \u203a Quests');
+	assert.equal(out.links['gear.tooltip'], 'Questing \u203a Rewards & gear');
+	assert.equal(out.links['qol.itemMarks'], 'Vendors');
+});
+
+test('pointing at a Tooltips row shows a sample game tooltip with the line it adds, live as it is switched', () => {
+	const [out] = run(`
+		-- A tooltip frame as the client's GameTooltipTemplate makes it (the stub's GameTooltip's methods).
+		PolestarSampleTooltip = CreateFrame("GameTooltip", "PolestarSampleTooltip", UIParent)
+		for _, m in ipairs({ "SetOwner", "ClearLines", "AddLine", "AddDoubleLine", "SetText", "GetOwner" }) do
+			PolestarSampleTooltip[m] = GameTooltip[m]
+		end
+		Polestar.UI.ShowOptions()
+		O.Select("qualityoflife", L["Tooltips"])
+		local tip = PolestarSampleTooltip
+		local row = O.view.cache[(function()
+			local _, t = G.Current()
+			for _, sec in ipairs(t.sections) do
+				for _, c in ipairs(sec.controls) do if c.key == "lookup.tooltip" then return c end end
+			end
+		end)()]
+		stub.RunScript(row, "OnEnter")
+		local on = { shown = tip:IsShown(), owner = tip:GetOwner() == row, lines = tip.lines }
+		Polestar.Set("lookup.tooltip", false)
+		local off = { lines = tip.lines }
+		stub.RunScript(row, "OnLeave")
+		emit({ on = on, off = off, hidden = not tip:IsShown() })`);
+	assert.equal(out.on.shown, true, 'the sample shows');
+	assert.equal(out.on.owner, true, 'beside the row');
+	const line = out.on.lines.find((l) => l.startsWith('From '));
+	assert.ok(line, `the line the setting adds: ${out.on.lines.join(' / ')}`);
+	assert.equal(out.on.lines.at(-1), 'Preview');
+	const offLine = out.off.lines.find((l) => l.startsWith('From '));
+	assert.ok(offLine, 'still there, switched off');
+	assert.equal(out.off.lines.at(-1), 'Off', 'says it is off');
+	assert.equal(out.hidden, true, 'hidden as the pointer leaves');
 });
 
 test('LB / RB step on from Essentials after the tab is built again', () => {

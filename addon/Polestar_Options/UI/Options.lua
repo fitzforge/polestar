@@ -571,6 +571,8 @@ for _, list in ipairs({
 	declare(QOL, "qualityoflife", "qol-toggles", 50, L["Small conveniences: questing, travel, invitations, merchants, bags and trackers."], {
 		-- References to conveniences whose home is Questing: players look for them here (Fitz, 2026-11-05).
 		{ L["Quests"], { L["Faster questing"], L["Rewards, buttons and tracker"] } },
+		-- References to every setting that adds a line to a game tooltip (QoL/Options.lua), each linking home.
+		{ L["Tooltips"], { L["Quests"], L["Items"], L["Mounts"], L["Talents"] } },
 		{ L["Vendors"], { L["Merchants"], L["Restock"], L["Bags"] } },
 		{ L["Travel"], { L["Flights"], L["Death"], L["Hearth and travel"] } },
 		-- What changes as you level: the XP bar's marks, the XP tracker (its switch in its card's header), the
@@ -1674,8 +1676,56 @@ local function rowOf(view, c)
 			cog:HookScript("OnLeave", off)
 		end
 	end
+	-- A sample (c.sample): a game tooltip beside the row while the pointer is on it.
+	if c.sample then
+		w:HookScript("OnEnter", function() O.ShowSample(w, c) end)
+		w:HookScript("OnLeave", function() O.HideSample(w) end)
+	end
 	view.cache[c] = w
 	return w
+end
+
+-- A setting's sample (c.sample() -> { title = { text, r, g, b }, lines =
+-- { { left, right, lr, lg, lb, rr, rg, rb, own = true }, ... } }): a game
+-- tooltip (GameTooltipTemplate, so it wears the game's own tooltip) at the
+-- right of its row, the lines Polestar adds (`own`) muted and "Off" at its
+-- foot while the setting is off, "Preview" while on; drawn again as the
+-- setting changes under the pointer.
+do
+	local shownRow, shownC
+	local function frame()
+		local tip = _G.PolestarSampleTooltip
+		if not tip and CreateFrame then tip = CreateFrame("GameTooltip", "PolestarSampleTooltip", UIParent, "GameTooltipTemplate") end
+		return tip
+	end
+	local function draw(row, c)
+		local tip = frame()
+		local ok, s = pcall(c.sample)
+		if not (tip and ok and type(s) == "table") then return end
+		local on = W.Enabled(row) and ns.Get(c.key) and true or false
+		local mr, mg, mb = Theme.Color("textMuted")
+		tip:SetOwner(row, "ANCHOR_RIGHT")
+		local t = s.title or {}
+		tip:AddLine(t[1] or "", t[2] or 1, t[3] or 1, t[4] or 1)
+		for _, l in ipairs(s.lines or {}) do
+			local lr, lg, lb, rr, rg, rb = l[3] or 1, l[4] or 1, l[5] or 1, l[6] or 1, l[7] or 1, l[8] or 1
+			if l.own and not on then lr, lg, lb, rr, rg, rb = mr, mg, mb, mr, mg, mb end
+			if l[2] then tip:AddDoubleLine(l[1], l[2], lr, lg, lb, rr, rg, rb) else tip:AddLine(l[1], lr, lg, lb, true) end
+		end
+		tip:AddLine(on and L["Preview"] or L["Off"], mr, mg, mb)
+		ns.Theme.TipDots(tip)
+		tip:Show()
+		shownRow, shownC = row, c
+	end
+	function O.ShowSample(row, c) draw(row, c) end
+	function O.HideSample(row)
+		local tip = frame()
+		if tip and (not row or row == shownRow) then tip:Hide() end
+		shownRow, shownC = nil, nil
+	end
+	ns.On("SETTING_CHANGED", function()
+		if shownRow and shownC then draw(shownRow, shownC) end
+	end)
 end
 
 -- The vertical hairline between two halves (pooled per view), on a layer of
