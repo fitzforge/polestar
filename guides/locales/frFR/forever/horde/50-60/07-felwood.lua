@@ -120,7 +120,6 @@ return {
 	-- {area:2255} Everlook
 	["Ride north to {area:2255}."] = "Allez vers le nord jusqu'à {area:2255}.",
 	-- {npc:10978} Legacki · {item:12928} Umi's Mechanical Yeti
-	-- was: ["Scare {npc:10978} with {npc:10980}"] = "Effrayez {npc:10978} avec {npc:10980}"
 	["Scare {npc:10978} with {item:12928}"] = "",
 
 	-- Step 31: Everlook

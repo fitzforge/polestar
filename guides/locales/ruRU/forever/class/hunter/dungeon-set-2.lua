@@ -146,7 +146,8 @@ return {
 
 	-- Step 29: The Challenge
 	-- {npc:16032} Falrin Treeshaper · {item:21986} Banner of Provocation · {area:1584} Blackrock Depths
-	["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} завершает {item:21986}: установите его на Арене Закона в месте {area:1584}.",
+	-- was: ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} завершает {item:21986}: установите его на Арене Закона в месте {area:1584}."
+	["{npc:16032} finishes the {item:21986}, for the Ring of Law in {area:1584}."] = "",
 
 	-- Step 30: Blackrock Depths: the Ring of Law
 	-- {area:1584} Blackrock Depths
@@ -169,6 +170,8 @@ return {
 	["Honored with the {faction:529}"] = "«Уважение» у фракции {faction:529}",
 	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {npc:10839} Argent Officer Garush · {area:813} Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:2279} Stratholme · {area:2057} Scholomance
 	["The {item:22014} is sold only to Honored. Take the {item:12846} ({npc:10840} at {area:3197}, {npc:10839} at the {area:813}, or {npc:11039} at {area:2268}) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, {area:2279}'s and {area:2057}'s undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step."] = "{item:22014} продается только при «Уважении». Возьмите {item:12846} ({npc:10840} в месте {area:3197}, {npc:10839} в месте {area:813} или {npc:11039} в месте {area:2268}) и наденьте его: тогда с Плети падают камни Плети, а офицеры Серебряного Рассвета принимают их за репутацию. Считается каждое убийство Плети в Чумных землях, нежить подземелий {area:2279} и {area:2057} дает по 5 до «Уважения», а задания подземелий из места {area:2268} — по 100-200. Гайд Polestar по репутации Серебряного Рассвета (Репутация) проводит по этому шаг за шагом.",
+	-- {item:12846} Argent Dawn Commission
+	["{item:12846}, while you fight the Scourge"] = "",
 
 	-- Step 37: Hallowed Brazier
 	-- {object:2160} The Argent Dawn · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp · {area:813} Bulwark
@@ -253,4 +256,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Polestar's quest data doesn't know Forever's {quest:84196} for the {npc:235049} yet, so this guide can't track it: {npc:230317} should offer it now. Take it from him and give him your {item:16677} and {item:16674}."] = "Данные заданий Polestar пока не знают задание Forever {quest:84196} для {npc:235049}, поэтому гайд не может его отслеживать: {npc:230317} должен предложить его сейчас. Возьмите его у него и отдайте ему {item:16677} и {item:16674}.",
+	-- ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} завершает {item:21986}: установите его на Арене Закона в месте {area:1584}.",
 }

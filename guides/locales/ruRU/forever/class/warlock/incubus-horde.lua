@@ -52,8 +52,8 @@ return {
 	-- Step 9: The Binding: incubus (Orgrimmar)
 	-- {quest:65604} The Binding · {zone:1454} Orgrimmar
 	["{quest:65604}: incubus ({zone:1454})"] = "",
-	-- {npc:5875} Gan'rul Bloodeye · {item:190232} Withered Scarf
-	["Back to {npc:5875} with the scarf, then use the {item:190232} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "",
+	-- {npc:5875} Gan'rul Bloodeye · {item:190187} Withered Scarf
+	["Back to {npc:5875} with the scarf, then use the {item:190187} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "",
 	-- {npc:185335} Summoned Incubus
 	["{npc:185335}, at the circle in Neeru's tent"] = "",
 

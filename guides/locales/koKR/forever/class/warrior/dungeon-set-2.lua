@@ -146,7 +146,8 @@ return {
 
 	-- Step 29: The Challenge
 	-- {npc:16032} Falrin Treeshaper · {item:21986} Banner of Provocation · {area:1584} Blackrock Depths
-	["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032}이(가) {item:21986}을(를) 완성합니다. {area:1584}의 법의 심판장에 심으세요.",
+	-- was: ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032}이(가) {item:21986}을(를) 완성합니다. {area:1584}의 법의 심판장에 심으세요."
+	["{npc:16032} finishes the {item:21986}, for the Ring of Law in {area:1584}."] = "",
 
 	-- Step 30: Blackrock Depths: the Ring of Law
 	-- {area:1584} Blackrock Depths
@@ -169,6 +170,8 @@ return {
 	["Honored with the {faction:529}"] = "{faction:529} 우호적",
 	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {npc:10839} Argent Officer Garush · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:2279} Stratholme · {area:2057} Scholomance
 	["The {item:22014} is sold only to Honored. Take the {item:12846} ({npc:10840} at {area:3197}, {npc:10839} at the Bulwark, or {npc:11039} at {area:2268}) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, {area:2279}'s and {area:2057}'s undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step."] = "{item:22014}은(는) 우호적 이상에게만 판매됩니다. {item:12846}을(를) 받아({area:3197}의 {npc:10840}, 보루의 {npc:10839}, 또는 {area:2268}의 {npc:11039}) 착용하세요. 그러면 스컬지에게서 스컬지석이 떨어지고, 은빛 여명회 장교들이 이를 받고 평판을 줍니다. 역병지대의 모든 스컬지 처치가 인정되며, {area:2279}와(과) {area:2057}의 언데드는 우호적까지 마리당 5를 주고, {area:2268}의 던전 퀘스트는 각각 100-200을 줍니다. Polestar의 은빛 여명회 평판 가이드(평판)가 단계별로 안내합니다.",
+	-- {item:12846} Argent Dawn Commission
+	["{item:12846}, while you fight the Scourge"] = "",
 
 	-- Step 37: Hallowed Brazier
 	-- {object:2160} The Argent Dawn · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp
@@ -248,4 +251,7 @@ return {
 	-- Step 61: Mokvar: Saving the Best for Last
 	-- {quest:84210} Saving the Best for Last · {item:16731} Helm of Valor · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16730} Breastplate of Valor · {npc:10363} General Drakkisath
 	["{quest:84210} takes your {item:16731}: {npc:1853} in {area:2057} (about 12%), and your {item:16730}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "{quest:84210}에는 {item:16731}({area:2057}의 {npc:1853}, 약 12%)과 {item:16730}(검은바위 첨탑 상층의 {npc:10363}, 약 12%)이(가) 필요합니다.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032}이(가) {item:21986}을(를) 완성합니다. {area:1584}의 법의 심판장에 심으세요.",
 }

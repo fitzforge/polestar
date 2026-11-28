@@ -146,7 +146,8 @@ return {
 
 	-- Step 29: The Challenge
 	-- {npc:16032} Falrin Treeshaper · {item:21986} Banner of Provocation · {area:1584} Blackrock Depths
-	["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} termine le {item:21986} : plantez-le dans l'Arène de la Loi à {area:1584}.",
+	-- was: ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} termine le {item:21986} : plantez-le dans l'Arène de la Loi à {area:1584}."
+	["{npc:16032} finishes the {item:21986}, for the Ring of Law in {area:1584}."] = "",
 
 	-- Step 30: Blackrock Depths: the Ring of Law
 	-- {area:1584} Blackrock Depths
@@ -169,6 +170,8 @@ return {
 	["Honored with the {faction:529}"] = "Honoré auprès de {faction:529}",
 	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {npc:10839} Argent Officer Garush · {area:813} Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:2279} Stratholme · {area:2057} Scholomance
 	["The {item:22014} is sold only to Honored. Take the {item:12846} ({npc:10840} at {area:3197}, {npc:10839} at the {area:813}, or {npc:11039} at {area:2268}) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, {area:2279}'s and {area:2057}'s undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step."] = "L'objet {item:22014} n'est vendu qu'à partir d'Honoré. Prenez l'objet {item:12846} ({npc:10840} à {area:3197}, {npc:10839} à {area:813}, ou {npc:11039} à {area:2268}) et portez-le : les pierres du Fléau tombent alors sur le Fléau, et les officiers d'Argent les reprennent contre de la réputation. Chaque Fléau tué dans les Maleterres compte, les morts-vivants de {area:2279} et de {area:2057} rapportent 5 chacun jusqu'à Honoré, et les quêtes de donjon de {area:2268} rapportent 100-200 chacune. Le guide Réputation Aube d'argent de Polestar (Réputation) vous guide étape par étape.",
+	-- {item:12846} Argent Dawn Commission
+	["{item:12846}, while you fight the Scourge"] = "",
 
 	-- Step 37: Hallowed Brazier
 	-- {object:2160} The Argent Dawn · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp · {area:813} Bulwark
@@ -252,5 +255,6 @@ return {
 	-- ["Horde Paladins: Polestar's quest data doesn't know Forever's {quest:84182} for you yet, so the guide stops here for you until it does. Take it from {npc:16016} and give {npc:230317} your three pieces. {npc:230317} then sends you to {npc:16033}'s ghost in {area:254} (Ghost Revealer): {quest:8961}, your class's two components and two summons, {area:2079}, {quest:8994} and {npc:16042} in Upper Blackrock Spire, then back to him for Saving the Best for Last, which takes your {item:16727} and {item:16726}."] = "Paladins de la Horde : les données de quêtes de Polestar ne connaissent pas encore {quest:84182} de Forever pour vous, le guide s'arrête donc ici pour vous jusqu'à ce qu'elles la connaissent. Prenez-la auprès de {npc:16016} et donnez vos trois pièces à {npc:230317}. {npc:230317} vous envoie ensuite voir le fantôme de {npc:16033} à {area:254} (Révélateur de fantômes) : {quest:8961}, les deux composants et les deux invocations de votre classe, {area:2079}, {quest:8994} et {npc:16042} dans le sommet du pic Rochenoire, puis retour auprès de lui pour Le meilleur pour la fin, qui prend vos {item:16727} et {item:16726}.",
 	-- ["Polestar's quest data doesn't know Forever's Saving the Best for Last for the {npc:234969} yet, so this guide can't track it: {npc:230319} should offer it now. Take it from her and give her your {item:16727} and {item:16726}."] = "Les données de quête de Polestar ne connaissent pas encore la quête de Forever Garder le meilleur pour la fin pour {npc:234969}, ce Guide ne peut donc pas la suivre : {npc:230319} devrait vous la proposer maintenant. Acceptez-la et remettez-lui vos {item:16727} et {item:16726}.",
 	-- ["Saving the Best for Last takes your {item:16727}: {npc:1853} in {area:2057} (about 6%), and your {item:16726}: {npc:10363} in Upper Blackrock Spire (about 7%)."] = "Garder le meilleur pour la fin prend votre {item:16727} : {npc:1853} à {area:2057} (environ 6 %), et votre {item:16726} : {npc:10363} au sommet du pic Rochenoire (environ 7 %).",
+	-- ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} termine le {item:21986} : plantez-le dans l'Arène de la Loi à {area:1584}.",
 	-- ["{npc:230319}: Saving the Best for Last"] = "{npc:230319} : Le meilleur pour la fin",
 }

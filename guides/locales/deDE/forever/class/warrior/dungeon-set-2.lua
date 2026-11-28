@@ -146,7 +146,8 @@ return {
 
 	-- Step 29: The Challenge
 	-- {npc:16032} Falrin Treeshaper · {item:21986} Banner of Provocation · {area:1584} Blackrock Depths
-	["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} stellt {item:21986} fertig: Platziere es im Ring des Gesetzes in {area:1584}.",
+	-- was: ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} stellt {item:21986} fertig: Platziere es im Ring des Gesetzes in {area:1584}."
+	["{npc:16032} finishes the {item:21986}, for the Ring of Law in {area:1584}."] = "",
 
 	-- Step 30: Blackrock Depths: the Ring of Law
 	-- {area:1584} Blackrock Depths
@@ -169,6 +170,8 @@ return {
 	["Honored with the {faction:529}"] = "Wohlwollend bei {faction:529}",
 	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {npc:10839} Argent Officer Garush · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:2279} Stratholme · {area:2057} Scholomance
 	["The {item:22014} is sold only to Honored. Take the {item:12846} ({npc:10840} at {area:3197}, {npc:10839} at the Bulwark, or {npc:11039} at {area:2268}) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, {area:2279}'s and {area:2057}'s undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step."] = "{item:22014} wird erst ab Wohlwollend verkauft. Hol dir {item:12846} ({npc:10840} in {area:3197}, {npc:10839} am Bollwerk oder {npc:11039} in {area:2268}) und leg es an: Dann lässt die Geißel Geißelsteine fallen, und die Offiziere der Argentumdämmerung nehmen sie gegen Ruf zurück. Jeder Geißel-Kill in den Pestländern zählt, die Untoten in {area:2279} und {area:2057} geben bis Wohlwollend je 5, und die Dungeonquests von {area:2268} je 100-200. Polestars Guide zum Ruf bei der Argentumdämmerung (Ruf) führt dich Schritt für Schritt hindurch.",
+	-- {item:12846} Argent Dawn Commission
+	["{item:12846}, while you fight the Scourge"] = "",
 
 	-- Step 37: Hallowed Brazier
 	-- {object:2160} The Argent Dawn · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp
@@ -248,4 +251,7 @@ return {
 	-- Step 61: Mokvar: Saving the Best for Last
 	-- {quest:84210} Saving the Best for Last · {item:16731} Helm of Valor · {npc:1853} Darkmaster Gandling · {area:2057} Scholomance · {item:16730} Breastplate of Valor · {npc:10363} General Drakkisath
 	["{quest:84210} takes your {item:16731}: {npc:1853} in {area:2057} (about 12%), and your {item:16730}: {npc:10363} in Upper Blackrock Spire (about 12%)."] = "{quest:84210} nimmt dein {item:16731}: {npc:1853} in {area:2057} (etwa 12 %), und dein {item:16730}: {npc:10363} in der Oberen Schwarzfelsspitze (etwa 12 %).",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032} stellt {item:21986} fertig: Platziere es im Ring des Gesetzes in {area:1584}.",
 }

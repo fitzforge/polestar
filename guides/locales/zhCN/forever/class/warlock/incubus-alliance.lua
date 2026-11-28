@@ -51,8 +51,9 @@ return {
 	-- Step 7: The Binding: incubus
 	-- {quest:65603} The Binding
 	["{quest:65603}: incubus"] = "{quest:65603}：梦魇",
-	-- {item:190309} Wooden Figurine · {npc:6122} Gakin the Darkbinder
-	["Give Gakin the figurine, then use the {item:190309} at the middle of the same circle and defeat the incubus it calls (level 20, not elite; it can charm you) with your voidwalker tanking. Keep the figurine: {npc:6122} takes it back."] = "把雕像交给黑暗缚灵者加科因，然后在同一个法阵的中央使用{item:190309}，让虚空行者抗住伤害，击败召出的夜魔（20级，非精英；会魅惑你）。保留雕像：要交还给{npc:6122}。",
+	-- {item:190186} Wooden Figurine · {npc:6122} Gakin the Darkbinder
+	-- was: ["Give Gakin the figurine, then use the {item:190309} at the middle of the same circle and defeat the incubus it calls (level 20, not elite; it can charm you) with your voidwalker tanking. Keep the figurine: {npc:6122} takes it back."] = "把雕像交给黑暗缚灵者加科因，然后在同一个法阵的中央使用{item:190309}，让虚空行者抗住伤害，击败召出的夜魔（20级，非精英；会魅惑你）。保留雕像：要交还给{npc:6122}。"
+	["Give Gakin the figurine, then use the {item:190186} at the middle of the same circle and defeat the incubus it calls (level 20, not elite; it can charm you) with your voidwalker tanking. Keep the figurine: {npc:6122} takes it back."] = "",
 	-- {npc:185335} Summoned Incubus
 	["{npc:185335}, at the circle in the crypt"] = "{npc:185335}，位于墓穴中的法阵旁。",
 
@@ -61,6 +62,7 @@ return {
 	-- ["At 20 {npc:6122}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6244} in the {zone:1413}."] = "20级时，{object:2101}{object:2164}地下室的{npc:6122}会让你去找{zone:1413}的{npc:6244}。",
 	-- ["Back to {npc:6122} in the {object:2164}. Place the figurine at the summoning circle in the crypt below him and defeat the incubus it calls."] = "回到{object:2164}找{npc:6122}。把木雕放在他下方地穴的召唤法阵上，击败召唤出的夜魔。",
 	-- ["From {area:415} take the road west to {area:413}: the figurine lies in a house among the trees north of the post."] = "从{area:415}沿道路向西前往{area:413}：木雕在哨站北边树林间的一座房子里。",
+	-- ["Give Gakin the figurine, then use the {item:190309} at the middle of the same circle and defeat the incubus it calls (level 20, not elite; it can charm you) with your voidwalker tanking. Keep the figurine: {npc:6122} takes it back."] = "把雕像交给黑暗缚灵者加科因，然后在同一个法阵的中央使用{item:190309}，让虚空行者抗住伤害，击败召出的夜魔（20级，非精英；会魅惑你）。保留雕像：要交还给{npc:6122}。",
 	-- ["Incubus (Alliance)"] = "夜魔（联盟）",
 	-- ["The house stands alone in the trees of north-western {zone:1440}, north-west of Ordil'Aran and well north of {area:413}: do it on the same trip as the {quest:1738}. Take the {item:190307} from the table outside, light it at a campfire (a {object:29784} of your own, or Talen's fire on {area:414}), and go straight back: the {item:190308} burns out after five minutes, so a fire of your own beside the house is quickest. Without it the figure in the house stops you. The figurine is upstairs."] = "这所房子独自坐落在 {zone:1440} 西北的树林中，在奥迪拉兰西北、{area:413} 以北很远的地方：与 {quest:1738} 一趟做完。从屋外桌子上取走 {item:190307}，在营火处点燃（自己生的 {object:29784}，或 {area:414} 上塔伦的营火），然后直接返回：{item:190308} 五分钟后就会燃尽，因此在屋旁自己生火最快。没有它，屋内的身影会阻止你。雕像在楼上。",
 	-- ["{npc:6122}: he binds the incubus to you"] = "{npc:6122}：他将夜魔与你绑定",

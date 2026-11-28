@@ -146,7 +146,8 @@ return {
 
 	-- Step 29: The Challenge
 	-- {npc:16032} Falrin Treeshaper · {item:21986} Banner of Provocation · {area:1584} Blackrock Depths
-	["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032}이(가) {item:21986}을(를) 완성합니다. {area:1584}의 법의 심판장에 심으세요.",
+	-- was: ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032}이(가) {item:21986}을(를) 완성합니다. {area:1584}의 법의 심판장에 심으세요."
+	["{npc:16032} finishes the {item:21986}, for the Ring of Law in {area:1584}."] = "",
 
 	-- Step 30: Blackrock Depths: the Ring of Law
 	-- {area:1584} Blackrock Depths
@@ -169,6 +170,8 @@ return {
 	["Honored with the {faction:529}"] = "{faction:529} 우호적",
 	-- {item:22014} Hallowed Brazier · {item:12846} Argent Dawn Commission · {npc:10840} Argent Officer Pureheart · {area:3197} Chillwind Camp · {npc:10839} Argent Officer Garush · {area:813} Bulwark · {npc:11039} Duke Nicholas Zverenhoff · {area:2268} Light's Hope Chapel · {area:2279} Stratholme · {area:2057} Scholomance
 	["The {item:22014} is sold only to Honored. Take the {item:12846} ({npc:10840} at {area:3197}, {npc:10839} at the {area:813}, or {npc:11039} at {area:2268}) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, {area:2279}'s and {area:2057}'s undead give 5 each up to Honored, and {area:2268}'s dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step."] = "{item:22014}은(는) 우호적 이상에게만 판매됩니다. {item:12846}을(를) 받아({area:3197}의 {npc:10840}, {area:813}의 {npc:10839}, 또는 {area:2268}의 {npc:11039}) 착용하세요. 그러면 스컬지에게서 스컬지석이 떨어지고, 은빛 여명회 장교들이 이를 받고 평판을 줍니다. 역병지대의 모든 스컬지 처치가 인정되며, {area:2279}와(과) {area:2057}의 언데드는 우호적까지 마리당 5를 주고, {area:2268}의 던전 퀘스트는 각각 100-200을 줍니다. Polestar의 은빛 여명회 평판 가이드(평판)가 단계별로 안내합니다.",
+	-- {item:12846} Argent Dawn Commission
+	["{item:12846}, while you fight the Scourge"] = "",
 
 	-- Step 37: Hallowed Brazier
 	-- {object:2160} The Argent Dawn · {area:2268} Light's Hope Chapel · {area:3197} Chillwind Camp · {area:813} Bulwark
@@ -250,4 +253,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Alliance Shamans: Polestar's quest data doesn't know Forever's {quest:84192} for you yet, so the guide stops here for you until it does. Take it from {npc:16016} and give {npc:230319} your three pieces. {npc:230319} then sends you to {npc:16033}'s ghost in {area:254} (Ghost Revealer): {quest:8961}, your class's two components and two summons, {area:2079}, {quest:8994} and {npc:16042} in Upper Blackrock Spire, then back to her for {quest:84208}, which takes your {item:16667} and {item:16666}."] = "얼라이언스 주술사: Polestar의 퀘스트 데이터는 아직 Forever의 {quest:84192}을(를) 알지 못하므로, 반영될 때까지 가이드는 여기서 멈춥니다. {npc:16016}에게서 퀘스트를 받고 {npc:230319}에게 방어구 세 부위를 주세요. 그러면 {npc:230319}이(가) {area:254}에 있는 {npc:16033}의 유령에게 보냅니다(유령 탐지기 필요). {quest:8961}, 직업별 재료 두 가지와 소환 두 번, {area:2079}, {quest:8994}, 검은바위 첨탑 상층의 {npc:16042}을(를) 거친 뒤 그녀에게 돌아가 {quest:84208}을(를) 진행하세요. 이 퀘스트에서 {item:16667}과(와) {item:16666}을(를) 가져갑니다.",
+	-- ["{npc:16032} finishes the {item:21986}: plant it in the Ring of Law in {area:1584}."] = "{npc:16032}이(가) {item:21986}을(를) 완성합니다. {area:1584}의 법의 심판장에 심으세요.",
 }

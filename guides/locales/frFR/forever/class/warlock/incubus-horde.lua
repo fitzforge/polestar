@@ -52,8 +52,9 @@ return {
 	-- Step 9: The Binding: incubus (Orgrimmar)
 	-- {quest:65604} The Binding · {zone:1454} Orgrimmar
 	["{quest:65604}: incubus ({zone:1454})"] = "{quest:65604} : incube ({zone:1454})",
-	-- {npc:5875} Gan'rul Bloodeye · {item:190232} Withered Scarf
-	["Back to {npc:5875} with the scarf, then use the {item:190232} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "Retournez voir {npc:5875} avec l'écharpe, puis utilisez l'{item:190232} sur le même cercle de la tente de Neeru et vainquez l'incube qu'elle appelle (niveau 20, pas élite), votre marcheur du Vide encaissant les coups. Gardez l'écharpe : {npc:5875} la reprend.",
+	-- {npc:5875} Gan'rul Bloodeye · {item:190187} Withered Scarf
+	-- was: ["Back to {npc:5875} with the scarf, then use the {item:190232} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "Retournez voir {npc:5875} avec l'écharpe, puis utilisez l'{item:190232} sur le même cercle de la tente de Neeru et vainquez l'incube qu'elle appelle (niveau 20, pas élite), votre marcheur du Vide encaissant les coups. Gardez l'écharpe : {npc:5875} la reprend."
+	["Back to {npc:5875} with the scarf, then use the {item:190187} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "",
 	-- {npc:185335} Summoned Incubus
 	["{npc:185335}, at the circle in Neeru's tent"] = "{npc:185335}, au cercle de la tente de Neeru",
 
@@ -97,6 +98,7 @@ return {
 	-- ["At 20 {npc:5875}, in the {object:172960} under the {object:172982}, sends you to {npc:5909} a few steps away. Two trainers start these demons, {npc:5875} here and {npc:5675} in the {zone:1458}, and you can take only one; this guide follows whichever {quest:1472} you took. {npc:5909} offers both of {zone:1454}'s branches: take both."] = "Au niveau 20, {npc:5875}, dans la {object:172960} sous la {object:172982}, vous envoie voir {npc:5909}, à quelques pas. Deux maîtres lancent ces démons, {npc:5875} ici et {npc:5675} à {zone:1458}, et vous ne pouvez en prendre qu'un ; ce guide suit la quête {quest:1472} que vous avez prise. {npc:5909} propose les deux branches d'{zone:1454} : prenez les deux.",
 	-- ["Back to {npc:5675} in the {object:36082}. Place the hearts at the summoning circle below him and defeat the incubus they call."] = "Retournez voir {npc:5675} dans le {object:36082}. Placez les cœurs sur le cercle d'invocation en dessous de lui et vainquez l'incube qu'ils appellent.",
 	-- ["Back to {npc:5875} in the {object:172960}. Take the scarf to the summoning circle in {npc:3216}'s tent nearby and defeat the incubus it calls."] = "Retournez voir {npc:5875} dans la {object:172960}. Apportez l'écharpe au cercle d'invocation dans la tente de {npc:3216}, tout près, et vainquez l'incube qu'elle appelle.",
+	-- ["Back to {npc:5875} with the scarf, then use the {item:190232} on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: {npc:5875} takes it back."] = "Retournez voir {npc:5875} avec l'écharpe, puis utilisez l'{item:190232} sur le même cercle de la tente de Neeru et vainquez l'incube qu'elle appelle (niveau 20, pas élite), votre marcheur du Vide encaissant les coups. Gardez l'écharpe : {npc:5875} la reprend.",
 	-- ["Corma Villard"] = "Corma Villard",
 	-- ["Corma's Heart"] = "Cœur de Corma",
 	-- ["Incubus (Horde)"] = "Incube (Horde)",
