@@ -151,13 +151,13 @@ return {
 	["{area:16624}: kill these as you meet them"] = "{area:16624}: töte diese, wenn du sie triffst",
 	-- {area:16624} Shen'dar Village · {item:5469} Strider Meat · {npc:251905} Zerril Softbreeze
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw · Small Eggs = {item:6889} Small Egg
-	["Prideclaws and Galestriders share the meadows around {area:16624}; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "Prideclaws und Galestriders teilen sich die Wiesen rund um {area:16624}; die Galestriders grasen am dichtesten direkt westlich davon. Sie lassen sowohl die Small Eggs als auch {item:5469} für {npc:251905} fallen.",
+	["Prideclaws and Galestriders share the meadows around {area:16624}; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "Rudelkrallen und Windschreiter teilen sich die Wiesen rund um {area:16624}; die Windschreiter grasen am dichtesten direkt westlich davon. Sie lassen sowohl die Kleinen Eier als auch {item:5469} für {npc:251905} fallen.",
 
 	-- Step 37: Shen'dar Village hand-ins
 	-- {area:16624} Shen'dar Village
 	["{area:16624} hand-ins"] = "Abgaben in {area:16624}",
 	-- {npc:251905} Zerril Softbreeze · {npc:251906} Teeri Wellwind · {npc:251991} Taleen Shimmerthread · {npc:252172} Danarii Bellowveil · {npc:251523} Constable Aonda · {area:16624} Shen'dar Village · {item:5469} Strider Meat
-	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just west of the village; the Al'Aketh camps south and south-east of it are a level or two higher."] = "{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} und {npc:251523} stehen alle in {area:16624}. Wenn dir noch {item:5469} fehlt, grasen die Galestriders direkt westlich des Dorfes; die Lager der Al'Aketh südlich und südöstlich davon sind ein bis zwei Stufen höher.",
+	["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just west of the village; the Al'Aketh camps south and south-east of it are a level or two higher."] = "{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} und {npc:251523} stehen alle in {area:16624}. Wenn dir noch {item:5469} fehlt, grasen die Windschreiter direkt westlich des Dorfes; die Lager der Al'Aketh südlich und südöstlich davon sind ein bis zwei Stufen höher.",
 
 	-- Step 38: Shen'dar Highlands: kill these as you meet them
 	-- {area:16623} Shen'dar Highlands
@@ -274,7 +274,7 @@ return {
 	["{area:16626}: kill these as you meet them"] = "{area:16626}: Töte diese, sobald du ihnen begegnest",
 	-- {area:16663} Windfield Orchard
 	-- plural, as words: Blood-Stained Bandit Masks = {item:253596} Blood-Stained Bandit Mask
-	["The Highwayman Bandits hold the hills north of {area:16663}; they drop the Blood-Stained Bandit Masks."] = "Die Highwayman Bandits halten die Hügel nördlich von {area:16663}; sie lassen die Blood-Stained Bandit Masks fallen.",
+	["The Highwayman Bandits hold the hills north of {area:16663}; they drop the Blood-Stained Bandit Masks."] = "Die Straßenräuber halten die Hügel nördlich von {area:16663}; sie lassen die Blutbefleckten Banditenmasken fallen.",
 
 	-- Step 61: Standing Our Ground
 	-- {npc:252800} Aamelia Windfield
@@ -291,7 +291,7 @@ return {
 	-- Step 63: Enchanted Gyrozephyr
 	-- {area:16624} Shen'dar Village · {area:16625} Windsong Lake
 	-- plural, as words: Enchanted Gyrozephyrs = {item:260883} Enchanted Gyrozephyr
-	["The Enchanted Gyrozephyrs lie under water far to the north, east of {area:16624} and south-west of {area:16625}."] = "Die Enchanted Gyrozephyrs liegen weit im Norden unter Wasser, östlich von {area:16624} und südwestlich von {area:16625}.",
+	["The Enchanted Gyrozephyrs lie under water far to the north, east of {area:16624} and south-west of {area:16625}."] = "Die verzauberten Gyrozephyre liegen weit im Norden unter Wasser, östlich von {area:16624} und südwestlich von {area:16625}.",
 	["Underwater"] = "Unter Wasser",
 
 	-- Step 64: Alvarion Windfield and Riaani Nightwind
@@ -309,7 +309,7 @@ return {
 	-- Step 68: Taming the Beast
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod · {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider · Vuldren Alphas = {npc:250874} Vuldren Alpha
-	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "{npc:252389} nimmt den ersten {item:15908} zurück und gibt dir zwei weitere, einen nach dem anderen: Ornery Galestriders und Vuldren Alphas streifen über die Felder direkt nördlich von ihr. Zähme jeweils eins mit seinem Stab und bring den Stab zu ihr zurück. {npc:254411}, neben ihr, lehrt {spell:5149}.",
+	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "{npc:252389} nimmt den ersten {item:15908} zurück und gibt dir zwei weitere, einen nach dem anderen: Störrische Windschreiter und Vuldrenalphas streifen über die Felder direkt nördlich von ihr. Zähme jeweils eins mit seinem Stab und bring den Stab zu ihr zurück. {npc:254411}, neben ihr, lehrt {spell:5149}.",
 	-- {npc:251707} Ornery Galestrider
 	["Tame {npc:251707}"] = "Zähme {npc:251707}",
 	-- {npc:250874} Vuldren Alpha
@@ -349,7 +349,7 @@ return {
 	-- Step 77: Olariaan Swiftburn
 	-- {item:277267} Faladiel's Heart · {npc:268592} Olariaan Swiftburn · {area:16638} Valanaar · {area:16623} Shen'dar Highlands · {npc:268605} Kuramaa
 	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
-	["Take {item:277267} to {npc:268592} at the Shrine of Flames, south-west of {area:16638}, then head west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "Bring {item:277267} zu {npc:268592} am Schrein der Flammen, südwestlich von {area:16638}, und geh dann nach Westen in {area:16623}: {npc:268605}s Zuhause liegt in den Hügeln südlich der Seen der Windsong Crawlers.",
+	["Take {item:277267} to {npc:268592} at the Shrine of Flames, south-west of {area:16638}, then head west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "Bring {item:277267} zu {npc:268592} am Schrein der Flammen, südwestlich von {area:16638}, und geh dann nach Westen in {area:16623}: {npc:268605}s Zuhause liegt in den Hügeln südlich der Seen der Windweisenkriecher.",
 
 	-- Step 78: Zephras Isle
 	-- {object:148418} Eternal Flame
@@ -420,7 +420,7 @@ return {
 	-- Step 93: Windsong Lake
 	-- {item:257128} Zephyrseed · {npc:254344} Endaria Mistgaze · {quest:93736} Unwelcome Spirits · {area:16625} Windsong Lake · {npc:259013} Resaan Nimbuswalker
 	-- plural, as words: Wind Hollows = {npc:251676} Wind Hollow · Wind Hollow Essences = {item:262357} Wind Hollow Essence
-	["{item:257128} cones grow south of the hermit; the Wind Hollows drift east of the lake and also drop the Wind Hollow Essences for {npc:254344}'s {quest:93736}. The refugees' belongings lie along the north shore of {area:16625}; {npc:259013} is at its north-west end."] = "{item:257128}-Zapfen wachsen südlich des Einsiedlers; die Wind Hollows treiben östlich des Sees und lassen auch die Wind Hollow Essences für {quest:93736} von {npc:254344} fallen. Die Habseligkeiten der Flüchtlinge liegen am Nordufer von {area:16625}; {npc:259013} ist an dessen Nordwestende.",
+	["{item:257128} cones grow south of the hermit; the Wind Hollows drift east of the lake and also drop the Wind Hollow Essences for {npc:254344}'s {quest:93736}. The refugees' belongings lie along the north shore of {area:16625}; {npc:259013} is at its north-west end."] = "{item:257128}-Zapfen wachsen südlich des Einsiedlers; die Windhüllen treiben östlich des Sees und lassen auch die Windhohlessenzen für {quest:93736} von {npc:254344} fallen. Die Habseligkeiten der Flüchtlinge liegen am Nordufer von {area:16625}; {npc:259013} ist an dessen Nordwestende.",
 
 	-- Step 95: Strange Hermit
 	-- {npc:251684} Strange Hermit
@@ -610,7 +610,7 @@ return {
 	-- ["{npc:251374} sends you to the {area:16988}, just east of the village: drink the {item:6635} there to see the {npc:251166}, then take the {item:6656} back to him."] = "{npc:251374} schickt dich zur {area:16988}, gleich östlich des Dorfs: Trink dort {item:6635}, um {npc:251166} zu sehen, und bring dann {item:6656} zu ihm zurück.",
 	-- ["{npc:251374} stands in the village."] = "{npc:251374} steht im Dorf.",
 	-- ["{npc:251374}, at the village centre"] = "{npc:251374}, in der Dorfmitte",
-	-- ["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just south of the village."] = "{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} und {npc:251523} stehen alle in {area:16624}. Wenn dir noch {item:5469} fehlt, grasen die Galestriders direkt südlich des Dorfes.",
+	-- ["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just south of the village."] = "{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} und {npc:251523} stehen alle in {area:16624}. Wenn dir noch {item:5469} fehlt, grasen die Windschreiter direkt südlich des Dorfes.",
 	-- ["{npc:252095} waits in {area:16622}, south-west of the village. The Al'Aketh camp is just beyond her; {npc:256935} leads it."] = "{npc:252095} wartet in {area:16622}, südwestlich des Dorfs. Das Lager der Al'Aketh liegt gleich hinter ihr; {npc:256935} führt es an.",
 	-- ["{npc:252359} stands on {area:16638}'s east side."] = "{npc:252359} steht auf der Ostseite von {area:16638}.",
 	-- ["{npc:252377} stands in the middle of {area:16638}."] = "{npc:252377} steht mitten in {area:16638}.",
