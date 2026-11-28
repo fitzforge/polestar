@@ -8093,14 +8093,16 @@ screen; Options > Keybindings binds it.
 
 ### Breath warning — QoL/Breath
 
-Behind `qol.breathWarning` (off by default; Quality of Life → Travel →
-Death), registered only while on (`QoL.WhileOn`): `MIRROR_TIMER_START` for
-`"BREATH"` running down (scale below 0) starts a 0.25 s ticker reading
-`GetMirrorTimerProgress("BREATH")`; with 10 seconds left, and again with 4,
-it plays `SOUNDKIT.RAID_WARNING`, flashes the taskbar (`FlashClientIcon`) and
-shows a red edge round the screen that pulses (still under
-`ui.reduceMotion`). Breath filling back up says nothing; `MIRROR_TIMER_STOP`
-or the setting turned off clears it.
+`qol.breathWarning` is off by default (Quality of Life → Travel → Death).
+`QoL.WhileOn` registers the events while the setting is on. A draining
+`MIRROR_TIMER_START` for `"BREATH"` supplies the current value in milliseconds
+and a negative drain rate. A 0.25 s ticker checks the time to empty using
+that value, the drain rate and elapsed time on the client clock.
+`MIRROR_TIMER_PAUSE` freezes or resumes the countdown. With 10 seconds left,
+and again with 4, the addon plays `SOUNDKIT.RAID_WARNING`, flashes the taskbar
+(`FlashClientIcon`) and shows a pulsing red screen edge. The edge stays still
+under `ui.reduceMotion`. Refill, `MIRROR_TIMER_STOP`, leaving the world or
+turning the setting off clears the warning.
 
 ### A death in a dungeon — QoL/Death
 
