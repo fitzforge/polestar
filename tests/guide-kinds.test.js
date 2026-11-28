@@ -38,7 +38,11 @@ local menu = {}
 for _, it in ipairs(got or {}) do
 	if it.separator then menu[#menu + 1] = "-" elseif it.bar then menu[#menu + 1] = "bar" else menu[#menu + 1] = it.text end
 end
-emit({ kind = E.GuideKind(), xp = GF.xp.psHas and GF.xp.Text:GetText() or false, menu = menu, handinRow = GF.KindHas("handinRow", "handinRow") })`;
+local shown = {}
+for _, l in ipairs(GF.lines) do
+	if l:IsShown() then shown[#shown + 1] = l.Text:GetText() or "" end
+end
+emit({ kind = E.GuideKind(), xp = GF.xp.psHas and GF.xp.Text:GetText() or false, menu = menu, shown = shown })`;
 
 const PROFESSION = (extra = '') => `{ id = "test/kind", pack = "test", title = "Tailoring 1-300", minLevel = 5, maxLevel = 60, category = "Professions"${extra},
 	sections = { { skill = "Tailoring", skillLine = 197, from = 1, to = 150 } },
@@ -67,6 +71,21 @@ test('a leveling guide is unchanged: XP and pace, hand-ins and the log clean-up 
 	assert.ok(!out.menu.some((t) => /trainer/.test(t)), out.menu.join(' | '));
 });
 
+test('no kind has a hand-in row: two finished quests in the log put no line in the window, and the menu still counts them where the kind has the entry', () => {
+	for (const [name, guide] of [['leveling', LEVELING], ['profession', PROFESSION()]]) {
+		const out = run(guide);
+		assert.deepEqual(out.shown.filter((t) => /ready to hand in/i.test(t)), [], `${name}: ${out.shown.join(' | ')}`);
+	}
+	assert.ok(run(LEVELING).menu.includes('Hand in finished quests (2)'), 'the menu counts them');
+	const parts = runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: `stub.login()
+local n = 0
+for _, def in pairs(Polestar.GuideKinds.KINDS) do
+	if def.parts and def.parts.handinRow ~= nil then n = n + 1 end
+end
+emit({ n = n })` }).emitted[0];
+	assert.equal(parts.n, 0, 'no kind names a hand-in row part');
+});
+
 test('`kind` beats the category; a part turned off in the settings stays off in a leveling guide', () => {
 	assert.equal(run(PROFESSION(', kind = "reputation"')).kind, 'reputation');
 	assert.equal(run(PROFESSION(', kind = "nonsense"')).kind, 'profession', 'a kind Polestar does not know: the category');
@@ -76,10 +95,13 @@ test('`kind` beats the category; a part turned off in the settings stays off in 
 const DUNGEON = (extra = '') => `{ id = "test/kind", pack = "test", title = "Blackfathom Deeps", minLevel = 20, maxLevel = 30, category = "Dungeons"${extra},
 	steps = { { goals = { { t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride" } } } } }`;
 
-test('the finished quests\' row (handinRow): a dungeon guide has none, whatever the log holds; a leveling guide keeps it', () => {
-	assert.equal(run(DUNGEON()).handinRow, false, 'the Dungeons category');
-	assert.equal(run(DUNGEON(', kind = "dungeon"')).handinRow, false, 'kind dungeon');
-	assert.equal(run(LEVELING.replace('maxLevel = 20,', 'maxLevel = 20, kind = "dungeon",')).handinRow, false, 'kind beats a leveling category');
-	assert.equal(run(LEVELING).handinRow, true, 'a leveling guide with the same two finished quests');
-	assert.equal(run(DUNGEON().replace('category = "Dungeons"', 'category = "Leveling"')).handinRow, true, 'category alone decides, never the id');
+test('a dungeon guide has no hand-in row either, whatever the log holds; its menu still counts the finished quests', () => {
+	const guides = [['the Dungeons category', DUNGEON()], ['kind dungeon', DUNGEON(', kind = "dungeon"')],
+		['kind beats a leveling category', LEVELING.replace('maxLevel = 20,', 'maxLevel = 20, kind = "dungeon",')]];
+	for (const [name, guide] of guides) {
+		const out = run(guide);
+		assert.equal(out.kind, 'dungeon', name);
+		assert.deepEqual(out.shown.filter((t) => /ready to hand in/i.test(t)), [], `${name}: ${out.shown.join(' | ')}`);
+		assert.ok(out.menu.includes('Hand in finished quests (2)'), `${name}: ${out.menu.join(' | ')}`);
+	}
 });
