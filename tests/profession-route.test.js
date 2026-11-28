@@ -50,6 +50,31 @@ const loadData = () => {
 	if (!data) data = require('../tools/lib/professions/guide').draftData(DATA);
 	return data;
 };
+// Every profession's recipe items (patterns, recipes, manuals); none without the data.
+let items = null;
+const recipeItems = () => {
+	if (!items) items = new Set(skip ? [] : Object.values(loadData().professions).flatMap((p) => ((p && p.recipes) || []).map((r) => r.recipeItem).filter(Boolean)));
+	return items;
+};
+
+// The feeder errands of the quest ranks (Triage, Clamlette Surprise; Nat Pagle for Fishing) are dropped in
+// forever-db's corrections, from players' recordings: with them applied, the rank's steps go straight to the
+// doctor or Dirge, with no capital trainer's errand first.
+test('a quest rank whose feeder the corrections drop goes straight to the quest giver', { skip }, () => {
+	const { loadCorrections } = require('../tools/lib/data/corrections');
+	const { routeGuide } = require('../tools/lib/professions/route');
+	const fixes = loadCorrections({ privateFile: false }).quests;
+	for (const q of [6622, 6624, 6610, 6607]) assert.deepEqual((fixes[q] || {}).set && fixes[q].set.pre, [], `quest ${q}: its feeder is dropped`);
+	const d = loadData();
+	const quests = { ...d.quests };
+	for (const [id, f] of Object.entries(fixes)) if (quests[id] && f.set && f.set.pre) quests[id] = { ...quests[id], pre: f.set.pre };
+	const fixed = { ...d, quests };
+	for (const [name, feeders] of [['First Aid', [6623, 6625]], ['Cooking', [6611, 6612]]]) {
+		const text = routeGuide(name, fixed).text;
+		for (const f of feeders) assert.doesNotMatch(text, new RegExp(`^ {2}(accept|turnin) ${f}\\b`, 'm'), `${name}: no step for feeder ${f}`);
+	}
+	assert.match(routeGuide('First Aid', fixed).text, /^ {2}accept 6624\b/m, 'First Aid still takes Triage');
+});
 
 test('tips are one short line, never an instruction', () => {
 	for (const name of ROUTED.filter(exists)) {
@@ -65,7 +90,8 @@ test('every step says what, where, how many and when it is done, on its own', ()
 	// Goals that lead somewhere (the arrow): a smart target, a place, a loop or farm, a trainer list.
 	const placed = (g) => /^(train|buy|auction|turnin|accept|complete|vendor)$/.test(g.verb) || (g.verb === 'learn') || (g.verb === 'goto') || (g.verb === 'collect' && /\b(gather|nearest|@)/.test(g.rest)) || (g.verb === 'skill');
 	// Goals that may sit anywhere: a craft (its station step comes before when it needs one), a level, a task.
-	const anywhere = (g) => /^(craft|level|task|skill)$/.test(g.verb) || (g.verb === 'use' && /\beither\b/.test(g.rest));
+	// A recipe item used from the bags ("Use Recipe: X") needs no place: the buy step before it led to the seller.
+	const anywhere = (g) => /^(craft|level|task|skill)$/.test(g.verb) || (g.verb === 'use' && (/\beither\b/.test(g.rest) || recipeItems().has(Number(g.rest.split(' ')[0]))));
 	// A craft until a skill says its count in the title ("Craft 30 Rough Sharpening Stones until 25").
 	const counted = (g, s) => (g.verb === 'craft' && /\buntil \d+/.test(g.rest) ? /^Craft \d+ /.test(s.title) : !/^(buy|auction|collect|craft)$/.test(g.verb) || /\bx\d+\b/.test(g.rest));
 	for (const name of ROUTED.filter(exists)) {
@@ -101,6 +127,8 @@ test('the route rules: recipe learnable, materials got, tools and stations befor
 			for (const g of s.goals) {
 				const id = Number(g.rest.split(' ')[0]);
 				if (g.verb === 'learn') known.add(id);
+				// A recipe item used from the bags ("Use Recipe: Brilliant Smallfish") teaches its recipe.
+				if (g.verb === 'use') for (const r of prof.recipes) if (r.recipeItem === id) known.add(r.spell);
 				if (g.verb === 'collect' || g.verb === 'auction' || g.verb === 'buy') {
 					got.add(id);
 					tools.add(id);

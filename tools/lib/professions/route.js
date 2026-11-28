@@ -425,6 +425,9 @@ function routeGuide(name, data, opts = {}) {
 		bought.add(r.recipeItem);
 		sellerSteps('recipe', r.recipeItem, by, { tip: by.note || null, also: [`!knows ${r.spell}`] });
 	};
+	// A recipe item used from the bags: done when its spell is cast, and the step it is in holds only while the
+	// recipe is unknown (`!knows`), so a player who knows it never sees the row.
+	const useLines = (r) => [`  use ${r.recipeItem}`];
 	// Where each recipe was first learned ({ sec, skill, lines }) and the section a repeat of it is in: a player
 	// who loads the guide past that section never saw the learn, so a later section that crafts the recipe
 	// repeats it (done at once for everyone else; #3401).
@@ -439,20 +442,21 @@ function routeGuide(name, data, opts = {}) {
 			if (first && first.sec !== here && again.get(r.spell) !== here) {
 				again.set(r.spell, here);
 				// A trainer's recipe is learned again from this section's trainers (the master trainer of a later
-				// rank teaches the earlier recipes too); one from an item, from the bags as before.
-				const lines = r.recipeItem && !taught(r) ? first.lines : [`  learn ${r.spell} npc ${[...new Set(SIDES.flatMap((s) => sec.teachers[s] || []))].join(',')}`];
+				// rank teaches the earlier recipes too); one from an item is used from the bags as before.
+				const item = r.recipeItem && !taught(r);
+				const lines = item ? first.lines : [`  learn ${r.spell} npc ${[...new Set(SIDES.flatMap((s) => sec.teachers[s] || []))].join(',')}`];
 				// Shown only to a player who does not know it: one who does never sees or counts the step.
-				step('learn', `Learn ${r.name}`, { tip: `Taught at ${first.skill}, a visit this part of the guide starts past.`, lines, also: [`!knows ${r.spell}`] });
+				step('learn', item ? `Use ${itemName(r.recipeItem)}` : `Learn ${r.name}`, { tip: `Taught at ${first.skill}, before this part of the guide.`, lines, also: [`!knows ${r.spell}`] });
 			}
 			return;
 		}
 		learned.add(r.spell);
 		if (r.recipeItem && !taught(r)) {
 			recipeBuy(r);
-			// Until the recipe is in the bags, the engine leads this learn to a seller of it (#3823).
-			const lines = [`  learn ${r.spell}`];
+			// The recipe item, used from the bags (the guide window's item button); the step passes once known.
+			const lines = useLines(r);
 			taughtAt.set(r.spell, { sec: sectionNo(), skill: band.make ? skill : band.from, lines });
-			step('learn', `Learn ${r.name}`, { tip: `From the ${itemKind(r.recipeItem)} in your bags.`, lines });
+			step('learn', `Use ${itemName(r.recipeItem)}`, { tip: `It teaches ${r.name}.`, lines, also: [`!knows ${r.spell}`] });
 			return;
 		}
 		const lines = [`  learn ${r.spell} npc ${teacherIds(sec).join(',')}`];
@@ -586,7 +590,7 @@ function routeGuide(name, data, opts = {}) {
 	// Done at the band's top or when the player says nothing is left to break.
 	const disenchantStep = (b) => {
 		step('disenchant', `Disenchant your green items until ${b.to}`, {
-			tip: 'Disenchant is in the Enchanting window, not the spellbook. Nearly every item gives a point below 20.',
+			tip: 'Nearly every item gives a point below 20.',
 			lines: [`  skill ${pq} ${b.to} either`, '  task "No green items left to break" either'],
 		});
 	};
@@ -782,8 +786,8 @@ function routeGuide(name, data, opts = {}) {
 		fork.ways.forEach((w, i) => {
 			for (const r of keys[i] || []) {
 				if (late(r) || learned.has(r.spell)) continue;
-				const lines = [`  learn ${r.spell}`];
-				step('learn', `Learn ${r.name}`, { tip: `From the ${itemKind(r.recipeItem)} in your bags.`, lines, also: [`has ${r.recipeItem}`] });
+				const lines = useLines(r);
+				step('learn', `Use ${itemName(r.recipeItem)}`, { tip: `It teaches ${r.name}.`, lines, also: [`has ${r.recipeItem}`, `!knows ${r.spell}`] });
 				learned.add(r.spell);
 				taughtAt.set(r.spell, { sec: sectionNo(), skill: from, lines });
 			}

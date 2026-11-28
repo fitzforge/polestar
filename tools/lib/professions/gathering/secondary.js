@@ -103,16 +103,23 @@ function npcCluster(ctx, zone, name) {
 // Artisan Cooking: Clamlette Surprise (6610), from the capital cooking trainer's quest to the hand-in in
 // Gadgetzan, with its three ingredients on the way. `eggNote`: what the Giant Eggs step adds.
 function clamletteSteps(ctx, eggNote = '') {
-	const level = ctx.data.quest(6610).minLevel;
+	const quest = ctx.data.quest(6610);
+	const level = quest.minLevel;
+	// The capital cooking trainers' errands to Dirge, while the data makes Clamlette Surprise follow them (the
+	// corrections drop them: he offers it to anyone from level 35).
+	const feeders = new Set(quest.pre || []);
 	const clamlette = (f, zone, giver) => ({
 		title: 'Dirge Quikcleave',
 		raw: [`only ${f}`, `zone ${zone}`, `tip Artisan Cooking comes from Dirge Quikcleave in Gadgetzan (Tanaris). The cooking trainer in ${zone} sends you; it needs skill 225 and level ${level}.`, 'skill Cooking 225', `level ${level}`, giver],
 	});
+	const errands = [
+		[6612, clamlette('Alliance', 'Ironforge', 'accept 6612                             -- Daryl Riknussun, Ironforge')],
+		[6611, clamlette('Horde', 'Orgrimmar', 'accept 6611                             -- Zamja, Orgrimmar')],
+	].filter(([q]) => feeders.has(q));
 	const egg = dropSpot(ctx, 12207, 1425);
 	const muckshells = npcCluster(ctx, 1445, 'Muckshell Scrabbler');
 	return [
-		clamlette('Alliance', 'Ironforge', 'accept 6612                             -- Daryl Riknussun, Ironforge'),
-		clamlette('Horde', 'Orgrimmar', 'accept 6611                             -- Zamja, Orgrimmar'),
+		...errands.map(([, s]) => s),
 		{
 			title: 'Giant Eggs',
 			raw: ['zone The Hinterlands', `tip Clamlette Surprise asks for 12 Giant Eggs, 10 Zesty Clam Meat and 20 Alterac Swiss: bring all three before you go to Tanaris, so you make the trip once. Giant Eggs drop from the owlbeasts of The Hinterlands: ${egg.mobs.join(', ')}.${eggNote ? ` ${eggNote}` : ''}`, 'collect 12207 x12'],
@@ -131,7 +138,7 @@ function clamletteSteps(ctx, eggNote = '') {
 		},
 		{
 			title: 'Clamlette Surprise',
-			raw: ['zone Tanaris', 'turnin 6612 only Alliance', 'turnin 6611 only Horde', 'accept 6610', 'turnin 6610                             -- Artisan Cooking'],
+			raw: ['zone Tanaris', ...(errands.length ? [] : ['skill Cooking 225', `level ${level}`]), ...errands.map(([q]) => `turnin ${q} only ${q === 6612 ? 'Alliance' : 'Horde'}`), 'accept 6610', 'turnin 6610                             -- Artisan Cooking'],
 		},
 	];
 }

@@ -2955,15 +2955,60 @@
 					"x": 73.4,
 					"y": 36.8
 				}
-			]
+			],
+			"pre": [],
+			"preAny": []
 		},
 		"source": [
 			{
 				"kind": "in-game-check",
 				"ref": "#3706: Doctor Gregory Victor (12920) in Hammerfall (1417 73.3,36.9); the wounded soldiers are in the room with him"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-27): Doctor Gregory Victor (12920) offered Triage to a level-36 Troll Hunter who had never had Horde Trauma (6623) in the log or handed in"
 			}
 		],
-		"note": "Triage (6622, Horde): Doctor Gregory Victor and the wounded soldiers are in Hammerfall (Arathi Highlands 73.3,36.9), not at the Alliance clinic in Theramore."
+		"note": "Triage (6622, Horde): Doctor Gregory Victor and the wounded soldiers are in Hammerfall (Arathi Highlands 73.3,36.9), not at the Alliance clinic in Theramore. He offers it with no prerequisite on Forever: the merged data made it follow Horde Trauma (6623), the Orgrimmar First Aid trainer's errand to him."
+	},
+	"6624": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-27): Doctor Gustaf VanHowzen (12939) offered Triage to a level-40 Dwarf Shaman and a level-45 Dwarf Paladin, neither with Alliance Trauma (6625) in the log or handed in; the Shaman handed it in"
+			}
+		],
+		"note": "Triage (6624, Alliance) has no prerequisite on Forever: Doctor Gustaf VanHowzen in Theramore offers it from level 35. The merged data made it follow Alliance Trauma (6625), the Ironforge First Aid trainer's errand to him."
+	},
+	"6610": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-27): Dirge Quikcleave (8125) offered Clamlette Surprise to a level-38 Gnome Warlock, a level-42 Dwarf Paladin (who handed it in), a level-43 Undead Paladin and a level-44 Orc Shaman, none with To Gadgetzan You Go! (6611) or I Know A Guy... (6612) in the log or handed in"
+			}
+		],
+		"note": "Clamlette Surprise (6610) has no prerequisite on Forever: Dirge Quikcleave in Gadgetzan offers it from level 35. The merged data made it follow the capital cooking trainers' errands to him (6611 Horde, 6612 Alliance)."
+	},
+	"6607": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-27): Nat Pagle (12919) offered Nat Pagle, Angler Extreme to eight people at levels 35-46 (among them a level-37 Night Elf Priest, a level-36 Troll Warlock and a level-35 Human Hunter), none with You Too Good. (6608) or I Got Nothin' Left! (6609) in the log or handed in"
+			}
+		],
+		"note": "Nat Pagle, Angler Extreme (6607) has no prerequisite on Forever: Nat Pagle offers it from level 35. The merged data made it follow the capital fishing trainers' errands to him (6608 Horde, 6609 Alliance)."
 	},
 	"6641": {
 		"set": {

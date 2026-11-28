@@ -65,9 +65,11 @@ pin lead to, or any station with the nearest pinned), how many, and what finishe
   outside trains it, **Train <Rank> <Profession> · <outside trainer>** per side.
 - **Buy <Pattern: X> · <vendor>** (`buy <item> x1 npc <id>`, or `nearest` over several; one step per side
   where the sides' vendors differ; `when !knows <spell>`) on the trip before the band that needs it, then
-  **Learn <recipe>** from the pattern in the bags (until it is in the bags, the engine leads the learn to a
-  seller of it). A recipe first learned in an earlier section is learned again (a step that is
-  done at once for a player who knows it) in each later section that crafts it, for a player who starts there.
+  **Use <Pattern: X>** (`use <item>`, the guide window's item button; the step holds `when !knows <spell>`, so
+  it passes once the recipe is known). Every recipe from an item (plans, patterns, formulas, manuals) is used
+  this way. A recipe first learned in an earlier section is learned or used again in each later section that
+  crafts it, for a player who starts there; that step too holds `when !knows <spell>`, so a player who knows the
+  recipe never sees it.
 - **Go to an anvil** (`goto … nearest` over the stations of the recipe's spell focus, `stations.json`, in
   towns with a trainer or tool seller), before a craft that needs one unless the step before was a craft
   there; the engine finishes it on arrival at any of them. A cooking fire's step is also finished by placing a

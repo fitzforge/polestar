@@ -245,10 +245,14 @@ function waterTip(ctx, def, from) {
 function pagleSteps(ctx, step) {
 	const artisan = rankInfo(ctx, 'Fishing', 'Artisan');
 	const pagle = ctx.data.quest(6607);
-	for (const [f, zone, accept] of [
-		['Alliance', 'Ironforge', 'accept 6609                             -- Grimnur Stonebrand, Ironforge'],
-		['Horde', 'Orgrimmar', 'accept 6608                             -- Lumak, Orgrimmar'],
-	]) {
+	// The capital fishing trainers' errands to Nat Pagle, while the data makes his quest follow them (the
+	// corrections drop them: he offers it to anyone from level 35).
+	const feeders = new Set(pagle.pre || []);
+	const errands = [
+		['Alliance', 'Ironforge', 6609, 'accept 6609                             -- Grimnur Stonebrand, Ironforge'],
+		['Horde', 'Orgrimmar', 6608, 'accept 6608                             -- Lumak, Orgrimmar'],
+	].filter(([, , q]) => feeders.has(q));
+	for (const [f, zone, , accept] of errands) {
 		step('Nat Pagle, Angler Extreme', [
 			`only ${f}`,
 			`zone ${zone}`,
@@ -260,9 +264,11 @@ function pagleSteps(ctx, step) {
 	}
 	step('Nat Pagle', [
 		'zone Dustwallow Marsh',
-		'tip Nat Pagle fishes from the shore of a small island off the east coast, south of Theramore; swim over from the coast.',
-		'turnin 6609 only Alliance',
-		'turnin 6608 only Horde',
+		errands.length
+			? 'tip Nat Pagle fishes from the shore of a small island off the east coast, south of Theramore; swim over from the coast.'
+			: `tip Artisan Fishing (cap ${artisan.max}) comes from Nat Pagle's quest (skill ${artisan.minSkill}, level ${pagle.minLevel}). He fishes from a small island off the east coast, south of Theramore; swim over.`,
+		...(errands.length ? [] : [`skill Fishing ${artisan.minSkill}`, `level ${pagle.minLevel}`]),
+		...errands.map(([f, , q]) => `turnin ${q} only ${f}`),
 		'accept 6607',
 	]);
 	for (const f of PAGLE_FISH) {

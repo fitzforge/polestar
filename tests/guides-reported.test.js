@@ -18865,13 +18865,12 @@ test('#3277: Grim Message plants Nimboya\'s Laden Pike inside Hiri\'watha (31.9,
 // #3405 (Cip1337, 0.4.2): Heavy Silk Bandage (7929) and Mageweave Bandage (10840) are learned from manuals the Expert
 // First Aid step has the player buy; their steps' learn lines have no place, and nothing said to read the manual.
 // Since the routed guide (0.4.4), the manual is bought in a step of its own at its seller (with the book, on the same
-// visit), and the learn step after it says the recipe comes from the manual in the bags.
-test('forever/professions/first-aid.guide: the manual bandages are bought, then read from the bags (#3405)', { skip }, () => {
+// visit), and a later step uses it from the bags ("Use Manual: Heavy Silk Bandage").
+test('forever/professions/first-aid.guide: the manual bandages are bought, then used from the bags (#3405)', { skip }, () => {
 	const list = goals('forever/professions/first-aid.guide');
-	for (const [spell, manual] of [[7929, 16112], [10840, 16113]]) {
-		const i = at(list, `learn ${spell}`, (g) => g.t === 'learn' && g.spell === spell);
-		assert.ok(list.slice(0, i).some(({ goal }) => goal.t === 'buy' && goal.item === manual), `${spell}: a step before its learn buys manual ${manual}`);
-		assert.match(list[i].step.note || '', /manual in your bags/, `${spell}: ${list[i].step.note}`);
+	for (const manual of [16112, 16113]) {
+		const i = at(list, `use ${manual}`, (g) => g.t === 'use' && g.item === manual);
+		assert.ok(list.slice(0, i).some(({ goal }) => goal.t === 'buy' && goal.item === manual), `a step before its use buys manual ${manual}`);
 	}
 });
 
@@ -19528,12 +19527,12 @@ test('#3731 See Ya, Scallywags!: each charge line names its ship', { skip }, () 
 
 // #3823 (charlesketchup): Cooking 1-300, step 63 "Hot Lion Chops (130-175)": `learn 3398` waits for the recipe in
 // the bags but had no place, so the arrow had nowhere to go once the shopping step three steps earlier was passed
-// without the recipe. Until the recipe is in the bags or known, the learn leads to the recipe's vendor, the same one
-// the shopping step's `buy … nearest` picks; with the recipe in the bags it has no place again. The routed guide
-// (0.4.4) buys Recipe: Roast Raptor (12228) for Roast Raptor (15855) the same way. The release data
+// without the recipe. The routed guide (0.4.4) buys Recipe: Roast Raptor (12228) in a step that holds until the
+// recipe is known (`when !knows`) and leads to its vendor, then uses it from the bags in the next step ("Use
+// Recipe: Roast Raptor", the item button), which needs no place. The release data
 // only: the public data has no professions.json (its trainer lists are not public), so the guide's learn and craft
 // lines do not resolve and the pack has no Cooking guide to open.
-test('#3823 Cooking 1-300: a recipe\'s learn leads to its vendor until the recipe is in the bags', { skip: skip || needs('professions.json') }, () => {
+test('#3823 Cooking 1-300: the recipe is bought at its vendor, then used from the bags', { skip: skip || needs('professions.json') }, () => {
 	data = data || loadData(DATA);
 	const file = path.join(OFFICIAL_DIR, 'forever/professions/cooking.guide');
 	const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], data);
@@ -19562,19 +19561,16 @@ test('#3823 Cooking 1-300: a recipe\'s learn leads to its vendor until the recip
 					end
 				end
 				local function at(v) return v and v.map and { v.map, v.x, v.y } or false end
-				local ls, learn = find("learn", "spell", 15855)
+				local ls, learn = find("use", "item", 12228)
 				local bs, buy = find("buy", "item", 12228)
 				local out = { step = ls, shopping = bs, learn = at(learn), buy = at(buy) }
-				stub.world.addItem(12228, 1); stub.advance(0.5)
-				out.inBags = at(select(2, find("learn", "spell", 15855)))
 				emit(out)`,
 		});
 		const out = emitted[0];
-		assert.ok(out.step, 'the guide teaches the recipe (the report\'s step 63, before the Get it steps)');
+		assert.ok(out.step, 'the guide uses the recipe from the bags (the report\'s step 63, before the Get it steps)');
 		assert.ok(out.shopping < out.step, 'the shopping step comes before it');
 		assert.ok(out.buy, `the shopping step's vendor has a place: ${JSON.stringify(out)}`);
-		assert.deepEqual(out.learn, out.buy, 'the learn leads to the vendor the shopping step picks');
-		assert.equal(out.inBags, false, 'the recipe in the bags: nothing to walk to');
+		assert.equal(out.learn, false, 'the use row asks nothing of the arrow: the shopping step before it led to the vendor');
 	} finally {
 		fs.rmSync(dir, { recursive: true, force: true });
 	}
