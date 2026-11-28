@@ -2335,7 +2335,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 				}
 			}
 			o.set("objectives", V::from(objectives));
-			let pre = forge_guide::prereqs::blocking_prereqs(&q, &quest_of);
+			let pre = forge_guide::prereqs::codex_prereqs(&q, &quest_of);
 			o.set("pre", pre.get("all"));
 			o.set("preAny", pre.get("any"));
 			// The quests whose taking closes it for good (a breadcrumb's target, an exclusive quest), so Lookup's
@@ -2959,5 +2959,29 @@ mod tests {
 		assert_eq!(objects, vec![672508.0, 7983211.0]);
 		assert_eq!(codex.objects.get("7983211").get("name").as_str(), Some("Unnamed object"));
 		assert!(codex.warnings.iter().any(|w| w.contains("object 7983211") && w.contains("no name")), "{:?}", codex.warnings);
+	}
+
+	// #4492: a prerequisite no NPC gives (Somber News starts inside Alcaz Island's prison, from no known giver) stays in
+	// the Codex's pre, so FollowUps(Somber News) holds Shaw Needs To Know and the hand-in guide offers it. One an
+	// object or an item starts stays too, as before; one exclusive with the quest, a breadcrumb and the quest itself
+	// still never block.
+	#[test]
+	fn a_prerequisite_with_no_known_starter_stays_in_the_codex_pre_4492() {
+		let quests = r#"{
+			"95263": { "id": 95263, "title": "Somber News", "start": { "npc": [], "object": [], "item": [] }, "end": { "npc": [100], "object": [] }, "objectives": [] },
+			"95264": { "id": 95264, "title": "Shaw Needs To Know", "start": { "npc": [100], "object": [], "item": [] }, "end": { "npc": [332], "object": [] }, "pre": [95263], "preAny": [95263], "objectives": [] },
+			"95265": { "id": 95265, "title": "From A Crate", "start": { "npc": [], "object": [7], "item": [] }, "end": { "npc": [100], "object": [] }, "objectives": [] },
+			"95266": { "id": 95266, "title": "After The Crate", "start": { "npc": [100], "object": [], "item": [] }, "end": { "npc": [100], "object": [] }, "pre": [95265], "preAny": [95265], "objectives": [] },
+			"95267": { "id": 95267, "title": "A Rival Of The Quest", "start": { "npc": [], "object": [], "item": [] }, "end": { "npc": [100], "object": [] }, "excl": [95268], "objectives": [] },
+			"95268": { "id": 95268, "title": "Rival Taken", "start": { "npc": [100], "object": [], "item": [] }, "end": { "npc": [100], "object": [] }, "pre": [95267], "preAny": [95267], "objectives": [] },
+			"95269": { "id": 95269, "title": "A Starterless Parent", "start": { "npc": [], "object": [], "item": [] }, "end": { "npc": [100], "object": [] }, "objectives": [] },
+			"95270": { "id": 95270, "title": "Its Child", "start": { "npc": [100], "object": [], "item": [] }, "end": { "npc": [100], "object": [] }, "parent": 95269, "objectives": [] }
+		}"#;
+		let codex = merge_codex(&inputs(quests, "{}"));
+		let ids = |id: &str, field: &str| -> Vec<f64> { codex.quests.get(id).get(field).items().iter().map(|n| n.num()).collect() };
+		assert_eq!(ids("95264", "preAny"), vec![95263.0], "Shaw Needs To Know follows Somber News");
+		assert_eq!(ids("95266", "preAny"), vec![95265.0], "a prerequisite an object starts stays");
+		assert!(ids("95268", "preAny").is_empty(), "a prerequisite exclusive with the quest never blocks");
+		assert_eq!(codex.quests.get("95270").get("parent").num(), 95269.0, "a parent nobody gives stays the quest that must be in the log");
 	}
 }

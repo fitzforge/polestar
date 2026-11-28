@@ -24,6 +24,18 @@ fn startable(q: &V) -> bool {
 /// only with Infiltration 533 in the log), unless it is the quest itself, exclusive with it, or nobody can
 /// start it.
 pub fn blocking_prereqs(quest: &V, quest_of: &dyn Fn(&V) -> V) -> V {
+	prereqs(quest, quest_of, true)
+}
+
+/// blocking_prereqs for the Codex's `pre`, `preAny` and `parent`: a prerequisite no giver, object or item is
+/// known to start (Somber News, which starts inside Alcaz Island's prison, #4492) stays when its quest exists,
+/// so the quests after it still lead back to it (Codex.FollowUps, the hand-in guides). The route and the guide
+/// checks keep blocking_prereqs, which leaves such a quest out.
+pub fn codex_prereqs(quest: &V, quest_of: &dyn Fn(&V) -> V) -> V {
+	prereqs(quest, quest_of, false)
+}
+
+fn prereqs(quest: &V, quest_of: &dyn Fn(&V) -> V, needs_starter: bool) -> V {
 	if !quest.truthy() {
 		return obj! { "all" => V::arr(), "any" => V::arr() }.into();
 	}
@@ -49,7 +61,7 @@ pub fn blocking_prereqs(quest: &V, quest_of: &dyn Fn(&V) -> V) -> V {
 		if !pq.truthy() {
 			return true;
 		}
-		!ids(&pq.get("excl")).contains(&id) && startable(&pq)
+		!ids(&pq.get("excl")).contains(&id) && (!needs_starter || startable(&pq))
 	};
 	let has_split = quest.get("preAll").is_arr() || quest.get("preAny").is_arr();
 	let all: Vec<f64> = if has_split { ids(&quest.get("preAll")).into_iter().filter(|p| blocks(*p)).collect() } else { Vec::new() };
@@ -59,7 +71,7 @@ pub fn blocking_prereqs(quest: &V, quest_of: &dyn Fn(&V) -> V) -> V {
 	let parent = quest.get("parent").num();
 	let in_log = is_integer(parent) && parent > 0.0 && parent != id && !ids(&quest.get("excl")).contains(&parent) && {
 		let pq = quest_of(&V::Num(parent));
-		!pq.truthy() || (!ids(&pq.get("excl")).contains(&id) && startable(&pq))
+		!pq.truthy() || (!ids(&pq.get("excl")).contains(&id) && (!needs_starter || startable(&pq)))
 	};
 	if in_log {
 		return obj! { "all" => to_v(all), "any" => to_v(any), "parent" => V::Num(parent) }.into();
