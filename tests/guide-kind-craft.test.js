@@ -434,6 +434,42 @@ emit({ sub = plain(r.Sub:GetText()), open = r.psOpen:IsShown(), line = plain(GF.
 	assert.equal(none.line, 'Skinning Not learned yet · Leatherworking Not learned yet');
 });
 
+// A narrow window: every name and the compact line stay whole (a wide look's font cut "Leatherworking" by a pixel
+// beside its bar, and the compact line of two unlearned skills by a third of its width).
+const PAIR_FIT = `
+GF.Render(); GF.Layout(); stub.advance(1)
+local m = GF.RegionFrame("meter")
+local rows = {}
+for i, r in ipairs(m.PairRows) do
+	rows[i] = { shown = r:IsShown(), cut = r.Name:IsTruncated(), w = r.Name:GetWidth(), need = r.Name:GetUnboundedStringWidth(), bar = r.Bar:IsShown() }
+end
+local l = m.PairLine
+emit({ rows = rows, line = plain(l:GetText()), lineCut = l:IsTruncated(), lineShown = l:IsShown(), h = m:GetHeight(),
+	oneW = m.psPairOneW, lineW = l:GetWidth() })`;
+
+test('a paired guide in a narrow window: each skill\'s name keeps whole, the bars giving way before a name is cut', () => {
+	for (const width of [240, 260, 280, 320]) {
+		const out = runPair(`Polestar.Set("ui.width", ${width})`, PAIR_FIT);
+		for (const r of out.rows) {
+			assert.equal(r.cut, false, `width ${width}: ${JSON.stringify(out.rows)}`);
+			assert.ok(r.w >= r.need, `width ${width}: the name's box holds its text: ${JSON.stringify(out.rows)}`);
+		}
+	}
+});
+
+test('a paired guide, compact, neither skill learned: one line when it fits, else a skill a line, each whole', () => {
+	const narrow = runPair(`${RANKS('nil', 'nil')}\nPolestar.Set("ui.compact", true)\nPolestar.Set("ui.width", 260)`, PAIR_FIT);
+	assert.equal(narrow.lineShown, true);
+	assert.equal(narrow.line, 'Skinning Not learned yet\nLeatherworking Not learned yet');
+	assert.equal(narrow.lineCut, false);
+	assert.ok(narrow.h > 26, `the meter grows for the second line: ${narrow.h}`);
+	const wide = runPair(`${RANKS('nil', 'nil')}\nPolestar.Set("ui.compact", true)\nPolestar.Set("ui.width", 700)`, PAIR_FIT);
+	assert.equal(wide.line, 'Skinning Not learned yet · Leatherworking Not learned yet');
+	assert.ok(wide.oneW <= wide.lineW, `the one line fits its width: ${wide.oneW} in ${wide.lineW}`);
+	assert.ok(narrow.oneW > narrow.lineW, `the narrow window's one line would not: ${narrow.oneW} in ${narrow.lineW}`);
+	assert.equal(wide.h, 26);
+});
+
 test('a paired guide in Atlas: both skills in the XP slot, none stacked in the window; compact too', () => {
 	for (const compact of [false, true]) {
 		const out = runPair(`Polestar.Set("ui.layout", "atlas")${compact ? '; Polestar.Set("ui.compact", true)' : ''}`, `

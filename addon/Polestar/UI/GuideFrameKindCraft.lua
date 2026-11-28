@@ -209,9 +209,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		r.Bar = meterBar(r, 3)
 		return r
 	end
-	-- What a paired guide's meter says: a line each, and in compact mode one line: "Skinning 72 · Leatherworking 51".
+	-- What a paired guide's meter says: a line each, and in compact mode one line: "Skinning 72 · Leatherworking 51",
+	-- or a line each where that is wider than the window (layoutPair picks).
 	local function paintPair(f, m)
-		local words = {}
+		local words, plain = {}, {}
 		for i, sub in ipairs(m.pair) do
 			local r = f.PairRows[i]
 			W.Color(r.Name, sub.nameKind or "skill")
@@ -221,9 +222,15 @@ ns.UI.GuideFrame.Part(function(GF)
 			r.Max:SetText(learned and ("/ " .. tostring(sub.max)) or L["Not learned yet"])
 			local name = hexed(sub.nameKind or "skill", sub.name or "")
 			words[i] = name .. " " .. (learned and tostring(sub.value) or hexed("textDim", L["Not learned yet"]))
+			plain[i] = (sub.name or "") .. " " .. (learned and tostring(sub.value) or L["Not learned yet"])
 			GF.Hook("guideMeter", f, { kind = sub.kind, frac = sub.frac, bar = r.Bar, pair = i })
 		end
-		f.PairLine:SetText(table.concat(words, DOT))
+		-- The one line's width, measured here (it does not change with the window's): layoutPair compares it.
+		f.PairLine:SetText(table.concat(plain, DOT))
+		f.psPairOneW = f.PairLine:GetUnboundedStringWidth()
+		f.psPairOne = table.concat(words, DOT)
+		f.psPairTwo = table.concat(words, "\n")
+		f.PairLine:SetText(f.psPairOne)
 	end
 	local function layoutPair(f, m, width, mode)
 		-- A layout that says the two skills in the XP row (GF.Shows "pairMeter", Atlas) leaves the window none.
@@ -234,25 +241,35 @@ ns.UI.GuideFrame.Part(function(GF)
 		f.PairGlyph:SetShown(compact)
 		local textX = PAD + 22
 		if compact then
-			local h = 26
+			-- One line when it fits, else a skill a line ("Skinning Not learned yet" over "Leatherworking Not
+			-- learned yet"): the whole text either way.
+			local lineW = max(40, width - textX - PAD)
+			f.PairLine:SetWidth(lineW)
+			local two = (f.psPairOneW or 0) > lineW
+			f.PairLine:SetText((two and f.psPairTwo or f.psPairOne) or "")
+			f.PairLine:SetWordWrap(two)
+			local h = two and max(26, ceil(f.PairLine:GetStringHeight() + 12)) or 26
 			f.PairGlyph:ClearAllPoints()
 			f.PairGlyph:SetPoint("LEFT", f, "TOPLEFT", PAD, -h / 2)
 			f.PairLine:ClearAllPoints()
 			f.PairLine:SetPoint("LEFT", f, "TOPLEFT", textX, -h / 2)
-			f.PairLine:SetWidth(max(40, width - textX - PAD))
 			return h
 		end
 		-- The lines that draw a bar share their columns: names, then the bars, then the ranks, so the bars line up. A
-		-- skill not learned yet draws no bar: "Not learned yet" at its right.
-		local nameW, maxW, valW = 0, 0, 0
+		-- skill not learned yet draws no bar: "Not learned yet" at its right. The names keep whole (measured unbounded,
+		-- rounded up) beside bars of BAR_MIN or more; where the line is too short for both, the bars give way.
+		local full, maxW, valW, notW, learned = 0, 0, 0, 0, false
 		for i, r in ipairs(f.PairRows) do
-			nameW = max(nameW, r.Name:GetUnboundedStringWidth())
+			full = max(full, ceil(r.Name:GetUnboundedStringWidth()))
 			if m.pair[i].learned ~= false then
+				learned = true
 				maxW = max(maxW, r.Max:GetStringWidth())
 				valW = max(valW, r.Value:GetStringWidth())
+			else
+				notW = max(notW, ceil(r.Max:GetUnboundedStringWidth()))
 			end
 		end
-		nameW = min(nameW, max(40, (width - textX - PAD) * 0.45))
+		local nameW = min(full, max(40, width - PAD - textX - 8 - max(notW, learned and maxW + 3 + valW or 0)))
 		local rowH, y = 26, 0
 		for i, r in ipairs(f.PairRows) do
 			local sub = m.pair[i]
@@ -273,7 +290,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			local bw = width - PAD - maxW - valW - 3 - 10 - bx
 			r.Bar:ClearAllPoints()
 			r.Bar:SetPoint("LEFT", r, "LEFT", bx, 0)
-			r.Bar:SetShown(bw > 20 and sub.learned ~= false)
+			r.Bar:SetShown(bw >= BAR_MIN and sub.learned ~= false)
 			placeBar(r.Bar, bw, sub.frac, nil, false)
 			y = y + rowH
 		end
