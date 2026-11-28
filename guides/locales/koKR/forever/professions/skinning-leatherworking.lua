@@ -18,30 +18,30 @@ return {
 	-- {item:2320} Coarse Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:3367} Felika · {npc:5817} Shimra
 	["Buy the whole bracket's share in one go: 50 {item:2320} (5s); about 5s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, {npc:3367} and {npc:5817})."] = "",
 
-	-- Step 3: Skin Ruined Leather Scraps (Skinning 1-47)
-	-- {item:2934} Ruined Leather Scraps · {skill:393} Skinning
-	["Skin {item:2934} ({skill:393} 1-47)"] = "",
-	-- {item:2934} Ruined Leather Scraps · {skill:165} Leatherworking · {item:2318} Light Leather · {skill:393} Skinning
-	["57 {item:2934} for {skill:165} 1-20: 19 {item:2318}. Skin 57 {item:2934} ({skill:393} 1 to 47), then craft 19 {item:2318} ({skill:165} 1 to 20). The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	-- Step 3: Skinning 1-50: Beasts 1-10
+	-- {skill:393} Skinning
+	["{skill:393} 1-50: Beasts 1-10"] = "",
+	-- {skill:393} Skinning · {item:2318} Light Leather · {item:2934} Ruined Leather Scraps
+	["Skin from {skill:393} 1 to 50 for {item:2318}: this area gives {item:2934}, and the next one the rest from {skill:393} 50. The window lists the areas for your level, best first: the arrow leads to the one you pick and rests once you are in it; each keeps to creatures no more than a level above you and away from the other faction's towns."] = "",
 
-	-- Step 4: Light Leather to 20
+	-- Step 4: Skin Ruined Leather Scraps (Skinning 50-58)
+	-- {item:2934} Ruined Leather Scraps · {skill:393} Skinning
+	["Skin {item:2934} ({skill:393} 50-58)"] = "",
+	-- {item:2934} Ruined Leather Scraps · {skill:165} Leatherworking · {item:2318} Light Leather · {skill:393} Skinning
+	["57 {item:2934} for {skill:165} 1-20: 19 {item:2318}. Skin 57 {item:2934} ({skill:393} 50 to 58), then craft 19 {item:2318} ({skill:165} 1 to 20). The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them."] = "",
+
+	-- Step 5: Light Leather to 20
 	-- {item:2318} Light Leather
 	["{item:2318} to 20"] = "",
 	-- {item:2318} Light Leather · {item:2934} Ruined Leather Scraps
 	["{item:2318} is orange at 1 (yellow 20, green 30, grey 40): about 19 crafts to 20, a point every craft. Each takes 3 {item:2934}. Three {item:2934} a craft: the beasts of the starting zones give them as you skin. Orange to 20, and the {item:2318} goes into the kits next."] = "",
 
-	-- Step 5: Skinning 47-50: Beasts 1-4
-	-- {skill:393} Skinning
-	["{skill:393} 47-50: Beasts 1-4"] = "",
-	-- {skill:393} Skinning · {spell:2152} Light Armor Kit · {item:2318} Light Leather
-	["Skin from {skill:393} 47 to 50 for {spell:2152}: this loop gives {item:2318}, and the next one the rest from {skill:393} 50. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
-
-	-- Step 6: Skin Light Leather (Skinning 50-72)
-	-- {item:2318} Light Leather · {skill:393} Skinning
-	["Skin {item:2318} ({skill:393} 50-72)"] = "",
+	-- Step 6: Skin Light Leather
+	-- {item:2318} Light Leather
+	["Skin {item:2318}"] = "",
 	-- {item:2318} Light Leather · {skill:165} Leatherworking · {skill:393} Skinning
 	-- plural, as words: Light Armor Kits = {spell:2152} Light Armor Kit
-	["34 {item:2318} for {skill:165} 20-51: 53 Light Armor Kits. Skin 34 {item:2318} ({skill:393} 50 to 72), then craft 45 Light Armor Kits ({skill:165} 20 to 51). The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["34 {item:2318} for {skill:165} 20-51: 53 Light Armor Kits; from your skinning on the way: 31 of 34 {item:2318}. Skin 3 {item:2318} ({skill:393} 58), then craft 45 Light Armor Kits ({skill:165} 20 to 51). The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them."] = "",
 
 	-- Step 7: Light Armor Kit to 51
 	-- {spell:2152} Light Armor Kit
@@ -49,11 +49,11 @@ return {
 	-- {spell:2152} Light Armor Kit · {item:2318} Light Leather
 	["{spell:2152} is orange at 20 (yellow 30, green 45, grey 60): about 45 crafts to 51, up to 53 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:2318}. Use the 19 {item:2318} you made earlier; the counts above leave them out. One {item:2318} a craft; the kits sell to vendors."] = "",
 
-	-- Step 8: Skinning 72-75: Beasts 1-15
+	-- Step 8: Skinning 58-75: Beasts 1-15
 	-- {skill:393} Skinning
-	["{skill:393} 72-75: Beasts 1-15"] = "",
+	["{skill:393} 58-75: Beasts 1-15"] = "",
 	-- {skill:393} Skinning · {spell:3756} Embossed Leather Gloves · {item:2318} Light Leather
-	["Skin from {skill:393} 72 to 75 for {spell:3756}: this loop gives {item:2318}, and the next one the rest from {skill:393} 75. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
+	["Skin from {skill:393} 58 to 75 for {spell:3756}: this area gives {item:2318}, and the next one the rest from {skill:393} 75. The window lists the areas for your level, best first: the arrow leads to the one you pick and rests once you are in it; each keeps to creatures no more than a level above you and away from the other faction's towns."] = "",
 
 	-- Step 9: Journeyman Skinning
 	-- {skill:393} Skinning
@@ -61,17 +61,17 @@ return {
 	-- {skill:393} Skinning
 	["Journeyman {skill:393} raises {skill:393}'s cap to 150, needs {skill:393} 50 and costs 5s (the arrow picks the nearest {skill:393} trainer of your faction)."] = "",
 
-	-- Step 10: Skinning 75-100: Beasts 5-17
+	-- Step 10: Skinning 75-100: Beasts 1-17
 	-- {skill:393} Skinning
-	["{skill:393} 75-100: Beasts 5-17"] = "",
+	["{skill:393} 75-100: Beasts 1-17"] = "",
 	-- {skill:393} Skinning · {spell:3756} Embossed Leather Gloves · {item:2318} Light Leather
-	["Skin from {skill:393} 75 to 100 for {spell:3756}: this loop gives {item:2318}, and the next one the rest from {skill:393} 100. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
+	["Skin from {skill:393} 75 to 100 for {spell:3756}: this area gives {item:2318}, and the next one the rest from {skill:393} 100. The window lists the areas for your level, best first: the arrow leads to the one you pick and rests once you are in it; each keeps to creatures no more than a level above you and away from the other faction's towns."] = "",
 
-	-- Step 11: Skin Light Leather (Skinning 100-121)
+	-- Step 11: Skin Light Leather (Skinning 100-103)
 	-- {item:2318} Light Leather · {skill:393} Skinning
-	["Skin {item:2318} ({skill:393} 100-121)"] = "",
+	["Skin {item:2318} ({skill:393} 100-103)"] = "",
 	-- {item:2318} Light Leather · {skill:165} Leatherworking · {spell:3756} Embossed Leather Gloves · {skill:393} Skinning
-	["78 {item:2318} for {skill:165} 51-75: 26 {spell:3756}. Skin 78 {item:2318} ({skill:393} 100 to 121), then craft 25 {spell:3756} ({skill:165} 51 to 75). The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["78 {item:2318} for {skill:165} 51-75: 26 {spell:3756}. Skin 78 {item:2318} ({skill:393} 100 to 103), then craft 25 {spell:3756} ({skill:165} 51 to 75). The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them."] = "",
 
 	-- Step 12: Leatherworking recipes at 51
 	-- {skill:165} Leatherworking
@@ -117,24 +117,22 @@ return {
 	-- plural, as words: Cured Heavy Hides = {spell:3818} Cured Heavy Hide
 	["24 {item:4235} for {skill:165} 75-150: 19 Cured Heavy Hides and 15 {item:5966} (5 of them for 150-225: get them all now). {skill:393}: beasts of level 28-40. Skin {npc:4107}, {npc:4147}, {npc:4140}, {npc:4139}, {npc:4143} and {npc:4142} here (level 28-40); the {skill:393} guide routes this. Or buy them at the Auction House."] = "",
 
-	-- Step 21: Skinning 121-125: Beasts 11-20
+	-- Step 21: Skinning 103-125: Beasts 8-20
 	-- {skill:393} Skinning
-	["{skill:393} 121-125: Beasts 11-20"] = "",
+	["{skill:393} 103-125: Beasts 8-20"] = "",
 	-- {skill:393} Skinning · {spell:3763} Fine Leather Belt · {item:2318} Light Leather
-	["Skin from {skill:393} 121 to 125 for {spell:3763}: this loop gives {item:2318}, and the next one the rest from {skill:393} 125. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
+	["Skin from {skill:393} 103 to 125 for {spell:3763}: this area gives {item:2318}, and the next one the rest from {skill:393} 125. The window lists the areas for your level, best first: the arrow leads to the one you pick and rests once you are in it; each keeps to creatures no more than a level above you and away from the other faction's towns."] = "",
 
-	-- Step 22: Skinning 125-150: Beasts 21-25
+	-- Step 22: Skinning 125-150: Beasts 13-25
 	-- {skill:393} Skinning
-	["{skill:393} 125-150: Beasts 21-25"] = "",
+	["{skill:393} 125-150: Beasts 13-25"] = "",
 	-- {skill:393} Skinning · {spell:3763} Fine Leather Belt · {item:2318} Light Leather
-	["Skin from {skill:393} 125 to 150 for {spell:3763}: this loop gives {item:2318}, and the next one the rest from {skill:393} 150. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
+	["Skin from {skill:393} 125 to 150 for {spell:3763}: this area gives {item:2318}, and the next one the rest from {skill:393} 150. The window lists the areas for your level, best first: the arrow leads to the one you pick and rests once you are in it; each keeps to creatures no more than a level above you and away from the other faction's towns."] = "",
 
 	-- Step 23: Skin Light Leather
-	-- {item:2318} Light Leather
-	["Skin {item:2318}"] = "",
 	-- {item:2318} Light Leather · {skill:165} Leatherworking · {skill:393} Skinning
 	-- plural, as words: Fine Leather Belts = {spell:3763} Fine Leather Belt
-	["240 {item:2318} for {skill:165} 75-102: 40 Fine Leather Belts. Skin 240 {item:2318} at the loops of {skill:393} 100-125, the richest in it (they give no more points), then craft 35 Fine Leather Belts ({skill:165} 75 to 102). The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["240 {item:2318} for {skill:165} 75-102: 40 Fine Leather Belts. Skin 240 {item:2318} at the areas of {skill:393} 100-125, the richest in it (they give no more points), then craft 35 Fine Leather Belts ({skill:165} 75 to 102). The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them."] = "",
 
 	-- Step 24: Fine Leather Belt to 102
 	-- {spell:3763} Fine Leather Belt
@@ -148,23 +146,23 @@ return {
 	-- {skill:393} Skinning
 	["Expert {skill:393} raises {skill:393}'s cap to 225, needs {skill:393} 125 and costs 50s (the arrow picks the nearest {skill:393} trainer of your faction)."] = "",
 
-	-- Step 26: Skinning 150-175: Beasts 27-30
+	-- Step 26: Skinning 150-175: Beasts 25-30
 	-- {skill:393} Skinning
-	["{skill:393} 150-175: Beasts 27-30"] = "",
+	["{skill:393} 150-175: Beasts 25-30"] = "",
 	-- {skill:393} Skinning · {item:7285} Nimble Leather Gloves · {item:2319} Medium Leather
-	["Skin from {skill:393} 150 to 175 for {item:7285}: this loop gives {item:2319}, and the next one the rest from {skill:393} 175. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
+	["Skin from {skill:393} 150 to 175 for {item:7285}: this area gives {item:2319}, and the next one the rest from {skill:393} 175. The window lists the areas for your level, best first: the arrow leads to the one you pick and rests once you are in it; each keeps to creatures no more than a level above you and away from the other faction's towns."] = "",
 
-	-- Step 27: Skinning 175-200: Beasts 25-35
+	-- Step 27: Skinning 175-200: Beasts 29-35
 	-- {skill:393} Skinning
-	["{skill:393} 175-200: Beasts 25-35"] = "",
+	["{skill:393} 175-200: Beasts 29-35"] = "",
 	-- {skill:393} Skinning · {item:7285} Nimble Leather Gloves · {item:2319} Medium Leather
-	["Skin from {skill:393} 175 to 200 for {item:7285}: this loop gives {item:2319}, and the next one the rest from {skill:393} 200. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
+	["Skin from {skill:393} 175 to 200 for {item:7285}: this area gives {item:2319}, and the next one the rest from {skill:393} 200. The window lists the areas for your level, best first: the arrow leads to the one you pick and rests once you are in it; each keeps to creatures no more than a level above you and away from the other faction's towns."] = "",
 
 	-- Step 28: Skin Medium Leather
 	-- {item:2319} Medium Leather
 	["Skin {item:2319}"] = "",
 	-- {item:2319} Medium Leather · {skill:165} Leatherworking · {item:7285} Nimble Leather Gloves · {skill:393} Skinning
-	["150 {item:2319} for {skill:165} 102-125: 25 {item:7285}; from your skinning on the way: 78 of 150 {item:2319}. Skin 73 {item:2319} at the loops of {skill:393} 150-175, the richest in it (they give no more points), then craft 24 {item:7285} ({skill:165} 102 to 125). The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["150 {item:2319} for {skill:165} 102-125: 25 {item:7285}; from your skinning on the way: 56 of 150 {item:2319}. Skin 94 {item:2319} at the areas of {skill:393} 150-175, the richest in it (they give no more points), then craft 24 {item:7285} ({skill:165} 102 to 125). The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them."] = "",
 
 	-- Step 29: Leatherworking recipes at 102
 	-- {skill:165} Leatherworking
@@ -190,47 +188,49 @@ return {
 	-- {spell:3818} Cured Heavy Hide · {item:4235} Heavy Hide
 	["{spell:3818} is orange at 125 (yellow 135, green 140, grey 145): about 17 crafts to 140, up to 19 for 9 players in 10 (the gathered materials above count that many). Each takes 1 {item:4235} and 3 Salt. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
 
-	-- Step 33: Skinning 200-225: Beasts 38-40
+	-- Step 33: Skinning 200-225: Beasts 35-40
 	-- {skill:393} Skinning
-	["{skill:393} 200-225: Beasts 38-40"] = "",
+	["{skill:393} 200-225: Beasts 35-40"] = "",
 	-- {skill:393} Skinning · {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather
-	["Skin from {skill:393} 200 to 225 for {spell:3780}: this loop gives {item:4234}, and the next one the rest from {skill:393} 225. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
+	["Skin from {skill:393} 200 to 225 for {spell:3780}: this area gives {item:4234}, and the next one the rest from {skill:393} 225. The window lists the areas for your level, best first: the arrow leads to the one you pick and rests once you are in it; each keeps to creatures no more than a level above you and away from the other faction's towns."] = "",
 
-	-- Step 34: Skinning 225-250: Beasts 41-45
-	-- {skill:393} Skinning
-	["{skill:393} 225-250: Beasts 41-45"] = "",
-	-- {skill:393} Skinning · {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather
-	["Skin from {skill:393} 225 to 250 for {spell:3780}: this loop gives {item:4234}, and the next one the rest from {skill:393} 250. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
-
-	-- Step 35: Skin Heavy Leather
-	-- {item:4234} Heavy Leather
-	["Skin {item:4234}"] = "",
+	-- Step 34: Skin Heavy Leather (Skinning 225-236)
+	-- {item:4234} Heavy Leather · {skill:393} Skinning
+	["Skin {item:4234} ({skill:393} 225-236)"] = "",
 	-- {item:4234} Heavy Leather · {skill:165} Leatherworking · {skill:393} Skinning
 	-- plural, as words: Heavy Armor Kits = {spell:3780} Heavy Armor Kit
-	["65 {item:4234} for {skill:165} 140-150: 13 Heavy Armor Kits; from your skinning on the way: 31 of 65 {item:4234}. Skin 35 {item:4234} at the loops of {skill:393} 200-225, the richest in it (they give no more points), then craft 11 Heavy Armor Kits ({skill:165} 140 to 150). The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["65 {item:4234} for {skill:165} 140-150: 13 Heavy Armor Kits; from your skinning on the way: 34 of 65 {item:4234}. Skin 32 {item:4234} ({skill:393} 225 to 236), then craft 11 Heavy Armor Kits ({skill:165} 140 to 150). The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them."] = "",
 
-	-- Step 36: Heavy Armor Kit to 150
+	-- Step 35: Heavy Armor Kit to 150
 	-- {spell:3780} Heavy Armor Kit
 	["{spell:3780} to 150"] = "",
 	-- {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather · {item:2321} Fine Thread · {skill:165} Leatherworking
 	["{spell:3780} is orange at 140 (yellow 145, green 155, grey 165): about 11 crafts to 150, up to 13 for 9 players in 10 (the gathered materials above count that many). Each takes 5 {item:4234} and 1 {item:2321}. Five {item:4234} a craft (beasts of level 28-40); the kits sell to vendors. {skill:165} 150 is a Legacy System milestone."] = "",
 
-	-- Step 37: Leatherworking 150-225: vendor goods
+	-- Step 36: Leatherworking 150-225: vendor goods
 	-- {skill:165} Leatherworking
 	["{skill:165} 150-225: vendor goods"] = "",
 	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:5817} Shimra · {npc:3366} Tamar
 	["Buy the whole bracket's share in one go: 29 {item:2321} (29s), 15 Salt (7s 50c) and 145 {item:4291} (7g 25s); about 7g 61s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:5565}; {zone:1454}: {npc:3367}, {npc:5817} and {npc:3366})."] = "",
 
-	-- Step 38: Expert Leatherworking
+	-- Step 37: Expert Leatherworking
 	-- {skill:165} Leatherworking
 	["Expert {skill:165}"] = "",
 	-- {skill:165} Leatherworking · {npc:4212} Telonis · {zone:1457} Darnassus · {npc:3007} Una · {zone:1456} Thunder Bluff · {spell:7151} Barbaric Shoulders · {item:4304} Thick Leather · {item:8193} Nightscape Pants
 	["Expert raises the cap from 150 to 225; it needs {skill:165} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:4212} ({zone:1457}); Horde {npc:3007} ({zone:1456}). This route trains it at {npc:4212} ({zone:1457}) for the Alliance and {npc:3007} ({zone:1456}) for the Horde, who also teach the recipes of 150-225: one trainer for every visit. Learn now: {spell:7151} (from 150). 150-225 takes about 7g 61s 50c of vendor goods, plus 398 {item:4304} to gather or buy. The gathering steps below come between the visits: learn each recipe when you are back for it. {item:8193} (from 205) takes a second trip, to other trainers (below)."] = "",
 
+	-- Step 38: Skinning 236-250: Beasts 35-45
+	-- {skill:393} Skinning
+	["{skill:393} 236-250: Beasts 35-45"] = "",
+	-- {skill:393} Skinning · {spell:3780} Heavy Armor Kit · {item:4234} Heavy Leather
+	["Skin from {skill:393} 236 to 250 for {spell:3780}: this area gives {item:4234}, and the next one the rest from {skill:393} 250. The window lists the areas for your level, best first: the arrow leads to the one you pick and rests once you are in it; each keeps to creatures no more than a level above you and away from the other faction's towns."] = "",
+
 	-- Step 39: Skin Heavy Leather
+	-- {item:4234} Heavy Leather
+	["Skin {item:4234}"] = "",
 	-- {item:4234} Heavy Leather · {skill:165} Leatherworking · {skill:393} Skinning
 	-- plural, as words: Heavy Armor Kits = {spell:3780} Heavy Armor Kit
-	["100 {item:4234} for {skill:165} 150-158: 20 Heavy Armor Kits. Skin 100 {item:4234} at the loops of {skill:393} 200-225, the richest in it (they give no more points), then craft 15 Heavy Armor Kits ({skill:165} 150 to 158). The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["100 {item:4234} for {skill:165} 150-158: 20 Heavy Armor Kits. Skin 100 {item:4234} at the areas of {skill:393} 200-225, the richest in it (they give no more points), then craft 15 Heavy Armor Kits ({skill:165} 150 to 158). The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them."] = "",
 
 	-- Step 40: Heavy Armor Kit to 158
 	-- {spell:3780} Heavy Armor Kit
@@ -240,7 +240,7 @@ return {
 
 	-- Step 41: Skin Heavy Leather
 	-- {item:4234} Heavy Leather · {skill:165} Leatherworking · {item:5964} Barbaric Shoulders · {skill:393} Skinning
-	["56 {item:4234} for {skill:165} 158-165: 7 {item:5964}. Skin 56 {item:4234} at the loops of {skill:393} 200-225, the richest in it (they give no more points), then craft 7 {item:5964} ({skill:165} 158 to 165). The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["56 {item:4234} for {skill:165} 158-165: 7 {item:5964}. Skin 56 {item:4234} at the areas of {skill:393} 200-225, the richest in it (they give no more points), then craft 7 {item:5964} ({skill:165} 158 to 165). The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them."] = "",
 
 	-- Step 42: Barbaric Shoulders to 165
 	-- {item:5964} Barbaric Shoulders
@@ -250,7 +250,7 @@ return {
 
 	-- Step 43: Skin Heavy Leather
 	-- {item:4234} Heavy Leather · {skill:165} Leatherworking · {item:5966} Guardian Gloves · {skill:393} Skinning
-	["60 {item:4234} for {skill:165} 165-180: 15 {item:5966}. Skin 60 {item:4234} at the loops of {skill:393} 200-225, the richest in it (they give no more points), then craft 15 {item:5966} ({skill:165} 165 to 180). The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["60 {item:4234} for {skill:165} 165-180: 15 {item:5966}. Skin 60 {item:4234} at the areas of {skill:393} 200-225, the richest in it (they give no more points), then craft 15 {item:5966} ({skill:165} 165 to 180). The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them."] = "",
 
 	-- Step 44: Leatherworking recipes at 165
 	-- {skill:165} Leatherworking
@@ -264,18 +264,18 @@ return {
 	-- {item:5966} Guardian Gloves · {item:4234} Heavy Leather · {spell:3818} Cured Heavy Hide · {item:4291} Silken Thread
 	["{item:5966} is orange at 165 (yellow 185, green 195, grey 205): about 15 crafts to 180, a point every craft. Each takes 4 {item:4234}, 1 {spell:3818} and 1 {item:4291}. Make the 5 {spell:3818} first. Use the 10 {spell:3818} you made earlier; the counts above leave them out. The trainer teaches it, and it is the cheapest way through these points in the data. If you got here without learning {spell:3818}, learn it now: an earlier step teaches it."] = "",
 
-	-- Step 46: Skinning 250-275: Beasts 46-49
+	-- Step 46: Skinning 250-275: Beasts 41-50
 	-- {skill:393} Skinning
-	["{skill:393} 250-275: Beasts 46-49"] = "",
+	["{skill:393} 250-275: Beasts 41-50"] = "",
 	-- {skill:393} Skinning · {item:8176} Nightscape Headband · {item:4304} Thick Leather
-	["Skin from {skill:393} 250 to 275 for {item:8176}: this loop gives {item:4304}, and the next one the rest from {skill:393} 275. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
+	["Skin from {skill:393} 250 to 275 for {item:8176}: this area gives {item:4304}, and the next one the rest from {skill:393} 275. The window lists the areas for your level, best first: the arrow leads to the one you pick and rests once you are in it; each keeps to creatures no more than a level above you and away from the other faction's towns."] = "",
 
 	-- Step 47: Skin Thick Leather
 	-- {item:4304} Thick Leather
 	["Skin {item:4304}"] = "",
 	-- {item:4304} Thick Leather · {skill:165} Leatherworking · {skill:393} Skinning
 	-- plural, as words: Nightscape Headbands = {item:8176} Nightscape Headband
-	["230 {item:4304} for {skill:165} 180-213: 46 Nightscape Headbands; from your skinning on the way: 108 of 230 {item:4304}. Skin 123 {item:4304} at the loops of {skill:393} 250-275, the richest in it (they give no more points), then craft 41 Nightscape Headbands ({skill:165} 180 to 213). The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["230 {item:4304} for {skill:165} 180-213: 46 Nightscape Headbands; from your skinning on the way: 82 of 230 {item:4304}. Skin 149 {item:4304} at the areas of {skill:393} 250-275, the richest in it (they give no more points), then craft 41 Nightscape Headbands ({skill:165} 180 to 213). The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them."] = "",
 
 	-- Step 48: Leatherworking recipes at 180
 	-- {skill:165} Leatherworking
@@ -291,7 +291,7 @@ return {
 
 	-- Step 50: Skin Thick Leather
 	-- {item:4304} Thick Leather · {skill:165} Leatherworking · {item:8193} Nightscape Pants · {skill:393} Skinning
-	["168 {item:4304} for {skill:165} 213-225: 12 {item:8193}. Skin 168 {item:4304} at the loops of {skill:393} 250-275, the richest in it (they give no more points), then craft 12 {item:8193} ({skill:165} 213 to 225). The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["168 {item:4304} for {skill:165} 213-225: 12 {item:8193}. Skin 168 {item:4304} at the areas of {skill:393} 250-275, the richest in it (they give no more points), then craft 12 {item:8193} ({skill:165} 213 to 225). The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them."] = "",
 
 	-- Step 51: Leatherworking recipes at 213
 	-- {skill:165} Leatherworking
@@ -332,18 +332,18 @@ return {
 	-- plural, as words: Runic Leather Headbands = {item:15094} Runic Leather Headband
 	["500 {item:14047} for {skill:165} 225-300: 50 Runic Leather Headbands. Humanoids of level 45-60 drop it, and what you loot as you level counts. The arrow takes you to the best farm for your level: mobs at or below it first, then the most {item:14047} per minute and the nearest; it picks again as you level. The guide window shows the kills and minutes it takes there and a second choice. Or buy them at the Auction House."] = "",
 
-	-- Step 58: Skinning 275-300: Beasts 48-54
+	-- Step 58: Skinning 275-300: Beasts 48-55
 	-- {skill:393} Skinning
-	["{skill:393} 275-300: Beasts 48-54"] = "",
+	["{skill:393} 275-300: Beasts 48-55"] = "",
 	-- {skill:393} Skinning · {item:15564} Rugged Armor Kit · {item:8170} Rugged Leather
-	["Skin from {skill:393} 275 to 300 for {item:15564}: this loop gives {item:8170}, and the next one the rest from {skill:393} 300. The arrow takes the loop that gets you there soonest from where you are and walks it; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap."] = "",
+	["Skin from {skill:393} 275 to 300 for {item:15564}: this area gives {item:8170}, and the next one the rest from {skill:393} 300. The window lists the areas for your level, best first: the arrow leads to the one you pick and rests once you are in it; each keeps to creatures no more than a level above you and away from the other faction's towns."] = "",
 
 	-- Step 59: Skin Rugged Leather
 	-- {item:8170} Rugged Leather
 	["Skin {item:8170}"] = "",
 	-- {item:8170} Rugged Leather · {skill:165} Leatherworking · {skill:393} Skinning
 	-- plural, as words: Rugged Armor Kits = {item:15564} Rugged Armor Kit
-	["145 {item:8170} for {skill:165} 225-239: 29 Rugged Armor Kits; from your skinning on the way: 104 of 145 {item:8170}. Skin 41 {item:8170} at the loops of {skill:393} 275-300, the richest in it (they give no more points), then craft 23 Rugged Armor Kits ({skill:165} 225 to 239). The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["145 {item:8170} for {skill:165} 225-239: 29 Rugged Armor Kits; from your skinning on the way: 82 of 145 {item:8170}. Skin 63 {item:8170} at the areas of {skill:393} 275-300, the richest in it (they give no more points), then craft 23 Rugged Armor Kits ({skill:165} 225 to 239). The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them."] = "",
 
 	-- Step 60: Rugged Armor Kit to 239
 	-- {item:15564} Rugged Armor Kit
@@ -354,7 +354,7 @@ return {
 
 	-- Step 61: Skin Rugged Leather
 	-- {item:8170} Rugged Leather · {skill:165} Leatherworking · {item:15083} Wicked Leather Gauntlets · {skill:393} Skinning
-	["360 {item:8170} for {skill:165} 239-269: 45 {item:15083}. Skin 360 {item:8170} at the loops of {skill:393} 275-300, the richest in it (they give no more points), then craft 39 {item:15083} ({skill:165} 239 to 269). The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["360 {item:8170} for {skill:165} 239-269: 45 {item:15083}. Skin 360 {item:8170} at the areas of {skill:393} 275-300, the richest in it (they give no more points), then craft 39 {item:15083} ({skill:165} 239 to 269). The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them."] = "",
 
 	-- Step 62: Wicked Leather Gauntlets to 269
 	-- {item:15083} Wicked Leather Gauntlets
@@ -366,7 +366,7 @@ return {
 	-- Step 63: Skin Rugged Leather
 	-- {item:8170} Rugged Leather · {skill:165} Leatherworking · {skill:393} Skinning
 	-- plural, as words: Runic Leather Headbands = {item:15094} Runic Leather Headband
-	["700 {item:8170} for {skill:165} 269-300: 50 Runic Leather Headbands. Skin 700 {item:8170} at the loops of {skill:393} 275-300, the richest in it (they give no more points), then craft 43 Runic Leather Headbands ({skill:165} 269 to 300). The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["700 {item:8170} for {skill:165} 269-300: 50 Runic Leather Headbands. Skin 700 {item:8170} at the areas of {skill:393} 275-300, the richest in it (they give no more points), then craft 43 Runic Leather Headbands ({skill:165} 269 to 300). The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them."] = "",
 
 	-- Step 64: Runic Leather Headband to 300
 	-- {item:15094} Runic Leather Headband

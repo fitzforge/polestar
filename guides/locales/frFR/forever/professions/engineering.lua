@@ -24,14 +24,14 @@ return {
 	-- {item:2835} Rough Stone
 	["Get {item:2835}"] = "",
 	-- {item:2835} Rough Stone · {skill:202} Engineering · {spell:3918} Rough Blasting Powder · {skill:186} Mining · {object:1731} Copper Vein · {zone:1426} Dun Morogh · {zone:1429} Elwynn Forest · {zone:2521} Zephras Isle
-	["36 {item:2835} for {skill:202} 1-75: 36 {spell:3918}. {skill:186}: {object:1731} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["36 {item:2835} for {skill:202} 1-75: 36 {spell:3918}. {skill:186}: {object:1731} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The window lists the {skill:186} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 4: Get Copper Bar
 	-- {item:2840} Copper Bar
 	["Get {item:2840}"] = "",
 	-- {item:2840} Copper Bar · {skill:202} Engineering · {item:6219} Arclight Spanner · {item:2770} Copper Ore · {skill:186} Mining
 	-- plural, as words: Copper Tubes = {spell:3924} Copper Tube
-	["101 {item:2840} for {skill:202} 1-75: 63 Handfuls of Copper Bolts, {item:6219} and 16 Copper Tubes. Mine {item:2770} and smelt it at a forge ({skill:186} 1). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["101 {item:2840} for {skill:202} 1-75: 63 Handfuls of Copper Bolts, {item:6219} and 16 Copper Tubes. Mine {item:2770} and smelt it at a forge ({skill:186} 1). The window lists the {skill:186} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 5: Rough Blasting Powder to 30
 	-- {spell:3918} Rough Blasting Powder
@@ -87,19 +87,19 @@ return {
 	["Get {item:2836}"] = "",
 	-- {item:2836} Coarse Stone · {skill:202} Engineering · {spell:3929} Coarse Blasting Powder · {skill:186} Mining · {object:1732} Tin Vein · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills · {zone:1437} Wetlands
 	-- plural, as words: Aquadynamic Fish Attractors = {item:6533} Aquadynamic Fish Attractor
-	["47 {item:2836} for {skill:202} 75-150: 38 {spell:3929} and 39 Aquadynamic Fish Attractors (9 of them for 150-225: get them all now). {skill:186}: {object:1732} (skill 65) in {zone:1440} (18-30), {zone:1424} (20-30) and {zone:1437} (20-30). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["47 {item:2836} for {skill:202} 75-150: 38 {spell:3929} and 39 Aquadynamic Fish Attractors (9 of them for 150-225: get them all now). {skill:186}: {object:1732} (skill 65) in {zone:1440} (18-30), {zone:1424} (20-30) and {zone:1437} (20-30). The window lists the {skill:186} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 13: Get Heavy Stone
 	-- {item:2838} Heavy Stone
 	["Get {item:2838}"] = "",
 	-- {item:2838} Heavy Stone · {skill:202} Engineering · {spell:3945} Heavy Blasting Powder · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:2548} Riverglades
 	-- plural, as words: Big Iron Bombs = {spell:3967} Big Iron Bomb
-	["113 {item:2838} for {skill:202} 75-150: 70 {spell:3945} and 27 Big Iron Bombs (43 of them for 150-225: get them all now). {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:2548} (38-47). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["113 {item:2838} for {skill:202} 75-150: 70 {spell:3945} and 27 Big Iron Bombs (43 of them for 150-225: get them all now). {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:2548} (38-47). The window lists the {skill:186} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 14: Get Copper Bar
 	-- {item:2840} Copper Bar · {skill:202} Engineering · {item:2770} Copper Ore · {skill:186} Mining
 	-- plural, as words: Copper Tubes = {spell:3924} Copper Tube · Practice Locks = {item:6712} Practice Lock
-	["62 {item:2840} for {skill:202} 75-150: 20 Copper Tubes and 36 Practice Locks. Mine {item:2770} and smelt it at a forge ({skill:186} 1). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["62 {item:2840} for {skill:202} 75-150: 20 Copper Tubes and 36 Practice Locks. Mine {item:2770} and smelt it at a forge ({skill:186} 1). The window lists the {skill:186} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 15: Get Bronze Bar
 	-- {item:2841} Bronze Bar
@@ -187,7 +187,7 @@ return {
 	["Get {item:2319}"] = "",
 	-- {item:2319} Medium Leather · {skill:202} Engineering · {skill:393} Skinning
 	-- plural, as words: Bronze Frameworks = {spell:3953} Bronze Framework
-	["25 {item:2319} for {skill:202} 150-225: 25 Bronze Frameworks. {skill:393}: beasts of level 18-30. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["25 {item:2319} for {skill:202} 150-225: 25 Bronze Frameworks. {skill:393}: beasts of level 18-30. The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 28: Get Wool Cloth
 	-- {item:2592} Wool Cloth
@@ -211,20 +211,20 @@ return {
 	["Get {item:3575}"] = "",
 	-- {item:3575} Iron Bar · {skill:202} Engineering · {item:2772} Iron Ore · {skill:186} Mining
 	-- plural, as words: Big Iron Bombs = {spell:3967} Big Iron Bomb
-	["81 {item:3575} for {skill:202} 150-225: 27 Big Iron Bombs. Mine {item:2772} and smelt it at a forge ({skill:186} 125). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["81 {item:3575} for {skill:202} 150-225: 27 Big Iron Bombs. Mine {item:2772} and smelt it at a forge ({skill:186} 125). The window lists the {skill:186} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 32: Get Mithril Bar
 	-- {item:3860} Mithril Bar
 	["Get {item:3860}"] = "",
 	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:3858} Mithril Ore · {skill:186} Mining
-	["22 {item:3860} for {skill:202} 150-225: 22 {item:10512}. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["22 {item:3860} for {skill:202} 150-225: 22 {item:10512}. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The window lists the {skill:186} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 33: Get Solid Stone
 	-- {item:7912} Solid Stone
 	["Get {item:7912}"] = "",
 	-- {item:7912} Solid Stone · {skill:202} Engineering · {item:10505} Solid Blasting Powder · {item:10512} Hi-Impact Mithril Slugs · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
 	-- plural, as words: Mithril Gyro-Shots = {item:10513} Mithril Gyro-Shot
-	["390 {item:7912} for {skill:202} 150-225: 103 {item:10505}, 79 {item:10512} and 33 Mithril Gyro-Shots (184 of them for 225-300: get them all now). {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["390 {item:7912} for {skill:202} 150-225: 103 {item:10505}, 79 {item:10512} and 33 Mithril Gyro-Shots (184 of them for 225-300: get them all now). {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The window lists the {skill:186} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 34: Aquadynamic Fish Attractor to 166
 	-- {item:6533} Aquadynamic Fish Attractor
@@ -298,14 +298,14 @@ return {
 	-- Step 45: Get Mithril Bar
 	-- {item:3860} Mithril Bar · {skill:202} Engineering · {item:10512} Hi-Impact Mithril Slugs · {item:3858} Mithril Ore · {skill:186} Mining
 	-- plural, as words: Mithril Gyro-Shots = {item:10513} Mithril Gyro-Shot
-	["145 {item:3860} for {skill:202} 225-300: 79 {item:10512} and 33 Mithril Gyro-Shots. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["145 {item:3860} for {skill:202} 225-300: 79 {item:10512} and 33 Mithril Gyro-Shots. Mine {item:3858} and smelt it at a forge ({skill:186} 175). The window lists the {skill:186} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 46: Get Thorium Bar
 	-- {item:12359} Thorium Bar
 	["Get {item:12359}"] = "",
 	-- {item:12359} Thorium Bar · {skill:202} Engineering · {item:10620} Thorium Ore · {skill:186} Mining
 	-- plural, as words: Thorium Widgets = {item:15994} Thorium Widget · Thorium Tubes = {item:16000} Thorium Tube
-	["174 {item:12359} for {skill:202} 225-300: 26 Thorium Widgets and 16 Thorium Tubes. Mine {item:10620} and smelt it at a forge ({skill:186} 250). The arrow takes the {skill:186} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["174 {item:12359} for {skill:202} 225-300: 26 Thorium Widgets and 16 Thorium Tubes. Mine {item:10620} and smelt it at a forge ({skill:186} 250). The window lists the {skill:186} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 47: Get Runecloth
 	-- {item:14047} Runecloth

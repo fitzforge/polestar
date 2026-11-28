@@ -9,87 +9,75 @@ return {
 	-- Step 1: Learn Skinning
 	-- {skill:393} Skinning
 	["Learn {skill:393}"] = "学习{skill:393}",
-	-- {skill:393} Skinning · {item:7005} Skinning Knife · {item:11584} Cactus Apple Surprise · {item:247846} Pelt Collecting for Beginners · {item:277114} Apprentice's Skinning Satchel · {spell:1229517} Camp Chair
-	["Any {skill:393} trainer of your faction teaches Apprentice {skill:393} at any level (10c), and so does the Junior Skinning Trainer in each starting area; the arrow picks the nearest. Buy a {item:7005} from a trade goods or general vendor: keep it in your bags, you cannot skin without it. The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247846} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors and the junior trainers sell the {item:277114}, a four-slot bag for leather and hides (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:393}: hand it in to the skinning trainer it names once you reach skill 20, for the {spell:1229517} recipe."] = "任意本阵营 {skill:393} 训练师都可在任意等级教授初级 {skill:393}（10 铜），各起始地区的初级剥皮训练师也可以；箭头会选择最近的一位。向贸易货物商人或杂货商购买 {item:7005}：留在背包中，没有它就不能剥皮。各起始地区最初一小时内的任务（“鼠辈泛滥”、“寒脊山谷的送信任务”、“森林守护者”、高戈尔的 {item:11584}、“一件琐事”、“玛拉的遗愿”）会提供 {item:247846} 作为奖励：阅读可提升 2 点技能，最多提升至 15。贸易货物商人和初级训练师出售 {item:277114}，这是一个装皮革和毛皮的四格包（25 铜）。如果你为“广阔天地”在起始地区的营火旁坐过，当地露营向导还会提供露营 101: {skill:393}：技能达到 20 后，向任务指定的剥皮训练师交还，即可取得 {spell:1229517} 配方。",
+	-- {zone:2521} Zephras Isle · {item:247846} Pelt Collecting for Beginners
+	["No character level needed. On {zone:2521}, {item:247846} from Harvesting Windstones teaches it too."] = "",
 
-	-- Step 2: Beasts 1-4 (1-50)
-	["Beasts 1-4 (1-50)"] = "",
-	-- {npc:250873} Juvenile Vuldren · {npc:1513} Mangy Duskbat · {npc:2032} Mangy Nightsaber · {npc:525} Mangy Wolf · {npc:3098} Mottled Boar · {npc:704} Ragged Timber Wolf · {npc:705} Ragged Young Wolf · {npc:3124} Scorpid Worker · {npc:250926} Scrawny Ursera · {npc:708} Small Crag Boar · {npc:1985} Thistle Boar · {npc:69} Timber Wolf · {npc:250937} Ursera Scavenger · {npc:2031} Young Nightsaber · {npc:1984} Young Thistle Boar · {npc:299} Young Wolf · {skill:393} Skinning · {npc:3050} Veren Tallstrider · {zone:1412} Mulgore · {npc:6306} Helene Peltskinner · {zone:1429} Elwynn Forest · {item:2934} Ruined Leather Scraps · {skill:165} Leatherworking
-	-- plural, as words: Rough Wolf Pelts = {item:247877} Rough Wolf Pelt
-	["Walk the loop and kill and skin Duskbat (1), {npc:250873} (1), {npc:1513} (3), {npc:2032} (2), {npc:525} (4), {npc:3098} (1), Plainstrider (1), {npc:704} (2), {npc:705} (1), {npc:3124} (3), {npc:250926} (3), {npc:708} (3), {npc:1985} (2), {npc:69} (2), {npc:250937} (4), {npc:2031} (1), {npc:1984} (1), {npc:299} (1) until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Quests in these zones need {skill:393}: Gathering Leather (level 8, {npc:3050}, {zone:1412}; Horde), Rough Wolf Pelts (level 8, {npc:6306}, {zone:1429}; Alliance). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 60 beasts for these 49 points: about 60 {item:2934}. For {skill:165}: about 55 {item:2934} in all."] = "",
+	-- Step 2: Buy a Skinning Knife
+	-- {item:7005} Skinning Knife
+	["Buy a {item:7005}"] = "",
+	["A tool: it stays in your bags, and every corpse needs it."] = "",
 
-	-- Step 3: Journeyman Skinning
+	-- Step 3: Skin beasts of level 1-10 until 50
+	["Skin beasts of level 1-10 until 50"] = "",
+	["Loot each beast, then skin it. Starting-area beasts give points all the way to 75."] = "",
+
+	-- Step 4: Train Journeyman Skinning
 	-- {skill:393} Skinning
-	["Journeyman {skill:393}"] = "中级{skill:393}",
-	-- {skill:393} Skinning · {spell:1229517} Camp Chair · {item:2318} Light Leather · {item:4470} Simple Wood
-	["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:393} trainer of your faction. {spell:1229517}, Forever's camping item for {skill:393}, is taught from skill 20 (1s, or free from Camping 101: {skill:393}): three {item:2318} and two {item:4470} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "中级 {skill:393} 将上限提高到 150；要求技能 50，无角色等级要求，费用 5 银币：一到 50 就去学。箭头会选择本阵营最近的 {skill:393} 训练师。无限的 {skill:393} 露营物品 {spell:1229517} 在技能 20 起可学（1 银币，或通过露营 101: {skill:393} 免费学习）：每次需要三个 {item:2318} 和两个 {item:4470}，制作可涨技能至 25；放在营火旁，会给予营地内所有人持续一小时的增益。",
-
-	-- Step 4: Beasts 1-15 (50-75)
-	["Beasts 1-15 (50-75)"] = "",
-	-- {npc:833} Coyote Packleader · {npc:251284} Hippogryph Protector · {npc:251291} Hippogryph Youth · {npc:2070} Moonstalker Runt · {npc:1190} Mountain Boar · {npc:704} Ragged Timber Wolf · {npc:705} Ragged Young Wolf · {npc:708} Small Crag Boar · {npc:1186} Elder Black Bear · {npc:3244} Greater Plainstrider · {npc:3254} Sunscale Lashtail · {npc:2163} Thistle Bear · {npc:3246} Fleeting Plainstrider · {npc:454} Young Goretusk · {npc:712} Redridge Thrasher · {npc:3242} Zhevra Runner · {npc:547} Great Goretusk · {skill:393} Skinning · {item:2934} Ruined Leather Scraps · {item:2318} Light Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin Cloudrunner (6), Coyote (10), {npc:833} (10), Galestrider (5), {npc:251284} (6), {npc:251291} (6), {npc:2070} (10), {npc:1190} (10), Prideclaw (5), {npc:704} (2), {npc:705} (1), {npc:708} (3), Vuldren (6), Worg (10), {npc:1186} (11), {npc:3244} (11), {npc:3254} (11), {npc:2163} (11), {npc:3246} (12), {npc:454} (12), {npc:712} (13), {npc:3242} (13), Goretusk (14), {npc:547} (15) until {skill:393} 75; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 120 beasts for these 25 points: about 75 {item:2934} and 45 {item:2318}. For {skill:165}: about 55 {item:2934} and 350 {item:2318} in all."] = "",
-
-	-- Step 5: Beasts 5-17 (75-100)
-	["Beasts 5-17 (75-100)"] = "",
-	-- {npc:833} Coyote Packleader · {npc:251284} Hippogryph Protector · {npc:251291} Hippogryph Youth · {npc:3244} Greater Plainstrider · {npc:3254} Sunscale Lashtail · {npc:454} Young Goretusk · {npc:1188} Grizzled Black Bear · {npc:2164} Rabid Thistle Bear · {npc:1693} Loch Crocolisk · {npc:1191} Mangy Mountain Boar · {npc:3241} Savannah Patriarch · {npc:1189} Black Bear Patriarch · {npc:1923} Bloodsnout Worg · {npc:1192} Elder Mountain Boar · {npc:3245} Ornery Plainstrider · {npc:3256} Sunscale Scytheclaw · {npc:3426} Zhevra Charger · {skill:393} Skinning · {item:2934} Ruined Leather Scraps · {item:2318} Light Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin Cloudrunner (6), Coyote (10), {npc:833} (10), Galestrider (5), {npc:251284} (6), {npc:251291} (6), Prideclaw (5), Vuldren (6), {npc:3244} (11), {npc:3254} (11), {npc:454} (12), {npc:1188} (13), {npc:2164} (13), Goretusk (14), {npc:1693} (14), {npc:1191} (14), Moonstalker (14), {npc:3241} (15), {npc:1189} (16), {npc:1923} (16), {npc:1192} (16), {npc:3245} (16), {npc:3256} (16), {npc:3426} (17) until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 100 beasts for these 25 points: about 50 {item:2934} and 50 {item:2318}. For {skill:165}: about 55 {item:2934} and 350 {item:2318} in all."] = "",
-
-	-- Step 6: Beasts 11-20 (100-125)
-	["Beasts 11-20 (100-125)"] = "",
-	-- {npc:3244} Greater Plainstrider · {npc:3254} Sunscale Lashtail · {npc:3241} Savannah Patriarch · {npc:1923} Bloodsnout Worg · {npc:3245} Ornery Plainstrider · {npc:3256} Sunscale Scytheclaw · {npc:3426} Zhevra Charger · {npc:3823} Ghostpaw Runner · {npc:213} Starving Dire Wolf · {npc:3809} Ashenvale Bear · {skill:393} Skinning · {item:2318} Light Leather · {item:2319} Medium Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:3244} (11), {npc:3254} (11), {npc:3241} (15), {npc:1923} (16), {npc:3245} (16), {npc:3256} (16), {npc:3426} (17), {npc:3823} (19), {npc:213} (19), {npc:3809} (20) until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 beasts for these 25 points: about 40 {item:2318} and 10 {item:2319}. For {skill:165}: about 350 {item:2318} and 150 {item:2319} in all."] = "",
-
-	-- Step 7: Expert Skinning
+	["Train Journeyman {skill:393}"] = "",
 	-- {skill:393} Skinning
-	["Expert {skill:393}"] = "高级{skill:393}",
+	["Needs {skill:393} skill 50. The trainers in the starting areas teach only up to 75."] = "",
+
+	-- Step 5: Skin beasts of level 1-15 until 75
+	["Skin beasts of level 1-15 until 75"] = "",
+
+	-- Step 6: Skin beasts of level 1-17 until 100
+	["Skin beasts of level 1-17 until 100"] = "",
+	["Higher-level beasts become skinnable as the skill rises."] = "",
+
+	-- Step 7: Skin beasts of level 8-20 until 125
+	["Skin beasts of level 8-20 until 125"] = "",
+
+	-- Step 8: Train Expert Skinning
 	-- {skill:393} Skinning
-	["Expert {skill:393} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:393} trainer of your faction."] = "高级{skill:393}将技能上限提高到225；需要技能125，无角色等级要求，费用50银币：达到125后立刻学习。箭头指向本阵营最近的{skill:393}训练师。",
-
-	-- Step 8: Beasts 21-25 (125-150)
-	["Beasts 21-25 (125-150)"] = "",
-	-- {npc:2351} Gray Bear · {npc:3817} Shadowhorn Stag · {npc:1020} Mottled Raptor · {npc:2354} Vicious Gray Bear · {npc:2384} Starving Mountain Lion · {npc:3810} Elder Ashenvale Bear · {skill:393} Skinning · {item:2318} Light Leather · {item:2319} Medium Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:2351} (21), {npc:3817} (21), {npc:1020} (22), {npc:2354} (22), {npc:2384} (23), {npc:3810} (25) until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 20 {item:2318} and 15 {item:2319}. For {skill:165}: about 350 {item:2318} and 150 {item:2319} in all."] = "",
-
-	-- Step 9: Beasts 27-30 (150-175)
-	["Beasts 27-30 (150-175)"] = "",
-	-- {npc:1018} Highland Razormaw · {npc:1019} Elder Razormaw · {npc:681} Young Stranglethorn Tiger · {npc:2559} Highland Strider · {npc:1150} River Crocolisk · {npc:4147} Saltstone Basilisk · {npc:4142} Sparkleshell Tortoise · {npc:683} Young Panther · {skill:393} Skinning · {item:2319} Medium Leather · {item:4234} Heavy Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:1018} (27), {npc:1019} (29), Snapjaw (29), {npc:681} (29), {npc:2559} (30), {npc:1150} (30), {npc:4147} (30), {npc:4142} (30), {npc:683} (30) until {skill:393} 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 20 {item:2319} and 5 {item:4234}. For {skill:165}: about 150 {item:2319} and 280 {item:4234} in all."] = "",
-
-	-- Step 10: Beasts 25-35 (175-200)
-	["Beasts 25-35 (175-200)"] = "",
-	-- {npc:2356} Elder Gray Bear · {npc:681} Young Stranglethorn Tiger · {npc:2248} Cave Yeti · {npc:1150} River Crocolisk · {npc:683} Young Panther · {npc:2249} Ferocious Yeti · {npc:688} Stone Maw Basilisk · {npc:2406} Mountain Lion · {npc:2250} Mountain Yeti · {npc:682} Stranglethorn Tiger · {npc:2251} Giant Yeti · {npc:2407} Hulking Mountain Lion · {npc:4726} Raging Thunder Lizard · {npc:685} Stranglethorn Raptor · {npc:4697} Scorpashi Lasher · {npc:2727} Crag Coyote · {skill:393} Skinning · {item:2319} Medium Leather · {item:4234} Heavy Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:2356} (25), {npc:681} (29), {npc:2248} (30), {npc:1150} (30), {npc:683} (30), {npc:2249} (31), {npc:688} (31), {npc:2406} (32), {npc:2250} (32), Panther (32), {npc:682} (32), {npc:2251} (33), {npc:2407} (33), {npc:4726} (33), {npc:685} (33), {npc:4697} (34), {npc:2727} (35) until {skill:393} 200; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 15 {item:2319} and 15 {item:4234}. For {skill:165}: about 150 {item:2319} and 280 {item:4234} in all."] = "",
-
-	-- Step 11: Artisan Skinning
+	["Train Expert {skill:393}"] = "",
 	-- {skill:393} Skinning
-	["Artisan {skill:393}"] = "专家级{skill:393}",
+	["Needs {skill:393} skill 125; past 150 nothing gives points without it."] = "",
+
+	-- Step 9: Skin beasts of level 13-25 until 150
+	["Skin beasts of level 13-25 until 150"] = "",
+	["They come back fast."] = "",
+
+	-- Step 10: Skin beasts of level 19-30 until 175
+	["Skin beasts of level 19-30 until 175"] = "",
+	["The cave yetis come back fast."] = "",
+
+	-- Step 11: Skin beasts of level 19-35 until 200
+	["Skin beasts of level 19-35 until 200"] = "",
+
+	-- Step 12: Train Artisan Skinning
 	-- {skill:393} Skinning
-	["Artisan {skill:393} raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest {skill:393} trainer of your faction."] = "大师级 {skill:393} 将上限提高到300；需要技能200，无角色等级要求，费用5金币：达到200就立即学习。箭头会选择本阵营最近的 {skill:393} 训练师。",
+	["Train Artisan {skill:393}"] = "",
+	-- {skill:393} Skinning
+	["Needs {skill:393} skill 200; past 225 nothing gives points without it."] = "",
 
-	-- Step 12: Beasts 38-40 (200-225)
-	["Beasts 38-40 (200-225)"] = "",
-	-- {npc:4344} Mottled Drywallow Crocolisk · {npc:1082} Sawtooth Crocolisk · {npc:4356} Bloodfen Razormaw · {npc:768} Shadow Panther · {npc:4357} Bloodfen Lashtail · {npc:1557} Elder Mistvale Gorilla · {skill:393} Skinning · {item:4234} Heavy Leather · {item:4304} Thick Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:4344} (38), {npc:1082} (38), {npc:4356} (39), {npc:768} (39), {npc:4357} (40), {npc:1557} (40) until {skill:393} 225; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 20 {item:4234} and 10 {item:4304}. For {skill:165}: about 280 {item:4234} and 400 {item:4304} in all."] = "",
+	-- Step 13: Skin beasts of level 21-40 until 225
+	["Skin beasts of level 21-40 until 225"] = "",
 
-	-- Step 13: Beasts 41-45 (225-250)
-	["Beasts 41-45 (225-250)"] = "",
-	-- {npc:5268} Ironfur Bear · {npc:5419} Glasshide Basilisk · {npc:5260} Groddoc Ape · {npc:5423} Scorpid Tail Lasher · {npc:2927} Vicious Owlbeast · {npc:5426} Blisterpaw Hyena · {npc:5292} Feral Scar Yeti · {npc:2924} Silvermane Wolf · {npc:2928} Primitive Owlbeast · {npc:8759} Mosshoof Runner · {skill:393} Skinning · {item:4304} Thick Leather · {item:4234} Heavy Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:5268} (41), {npc:5419} (42), {npc:5260} (42), {npc:5423} (42), {npc:2927} (42), {npc:5426} (43), {npc:5292} (43), {npc:2924} (43), {npc:2928} (44), {npc:8759} (45) until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 15 {item:4304} and 15 {item:4234}. For {skill:165}: about 400 {item:4304} and 280 {item:4234} in all."] = "",
+	-- Step 14: Skin beasts of level 35-45 until 250
+	["Skin beasts of level 35-45 until 250"] = "",
 
-	-- Step 14: Beasts 46-49 (250-275)
-	["Beasts 46-49 (250-275)"] = "",
-	-- {npc:2929} Savage Owlbeast · {npc:2926} Silvermane Stalker · {npc:6507} Ravasaur Hunter · {npc:6506} Ravasaur Runner · {skill:393} Skinning · {item:4304} Thick Leather · {item:8170} Rugged Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:2929} (46), {npc:2926} (47), Ravasaur (48), {npc:6507} (49), {npc:6506} (49) until {skill:393} 275; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 20 {item:4304} and 10 {item:8170}. For {skill:165}: about 400 {item:4304} and 1205 {item:8170} in all."] = "",
+	-- Step 15: Skin beasts of level 40-50 until 275
+	["Skin beasts of level 40-50 until 275"] = "",
 
-	-- Step 15: Beasts 48-54 (275-300)
-	-- was: ["Beasts 48-54: {zone:1449} (275-300)"] = "48-54级野兽：{zone:1449}（275-300）"
-	["Beasts 48-54 (275-300)"] = "",
-	-- {npc:9165} Fledgling Pterrordax · {npc:9162} Young Diemetradon · {npc:6514} Un'Goro Gorilla · {npc:6513} Un'Goro Stomper · {npc:6516} Un'Goro Thunderer · {npc:1817} Diseased Wolf · {npc:7450} Ragged Owlbeast · {npc:7444} Shardtooth Bear · {npc:11735} Stonelash Scorpid · {skill:393} Skinning · {item:8170} Rugged Leather · {item:4304} Thick Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:9165} (48), {npc:9162} (49), {npc:6514} (50), {npc:6513} (51), {npc:6516} (52), {npc:1817} (53), {npc:7450} (53), {npc:7444} (53), {npc:11735} (54) until {skill:393} 300; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 15 {item:8170} and 10 {item:4304}. For {skill:165}: about 1205 {item:8170} and 400 {item:4304} in all."] = "",
+	-- Step 16: Skin beasts of level 48-55 until 300
+	["Skin beasts of level 48-55 until 300"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:393} trainer of your faction teaches Apprentice {skill:393} (character level 5); the arrow picks the nearest. Buy a {item:7005} from a trade goods or general vendor: keep it in your bags, you cannot skin without it."] = "本阵营的任何{skill:393}训练师都能教授初级{skill:393}（角色等级5级）；箭头指向最近的训练师。从商业供应商或杂货商处购买一把{item:7005}：放在背包里，没有它就无法剥皮。",
+	-- ["Any {skill:393} trainer of your faction teaches Apprentice {skill:393} at any level (10c), and so does the Junior Skinning Trainer in each starting area; the arrow picks the nearest. Buy a {item:7005} from a trade goods or general vendor: keep it in your bags, you cannot skin without it. The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247846} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors and the junior trainers sell the {item:277114}, a four-slot bag for leather and hides (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:393}: hand it in to the skinning trainer it names once you reach skill 20, for the {spell:1229517} recipe."] = "任意本阵营 {skill:393} 训练师都可在任意等级教授初级 {skill:393}（10 铜），各起始地区的初级剥皮训练师也可以；箭头会选择最近的一位。向贸易货物商人或杂货商购买 {item:7005}：留在背包中，没有它就不能剥皮。各起始地区最初一小时内的任务（“鼠辈泛滥”、“寒脊山谷的送信任务”、“森林守护者”、高戈尔的 {item:11584}、“一件琐事”、“玛拉的遗愿”）会提供 {item:247846} 作为奖励：阅读可提升 2 点技能，最多提升至 15。贸易货物商人和初级训练师出售 {item:277114}，这是一个装皮革和毛皮的四格包（25 铜）。如果你为“广阔天地”在起始地区的营火旁坐过，当地露营向导还会提供露营 101: {skill:393}：技能达到 20 后，向任务指定的剥皮训练师交还，即可取得 {spell:1229517} 配方。",
+	-- ["Artisan {skill:393}"] = "专家级{skill:393}",
 	-- ["Artisan {skill:393} raises the cap to 300; it needs skill 200 and character level 35. The arrow picks the nearest {skill:393} trainer of your faction."] = "专家级{skill:393}将上限提高到300；需要技能200和角色等级35级。箭头指向本阵营最近的{skill:393}训练师。",
+	-- ["Artisan {skill:393} raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest {skill:393} trainer of your faction."] = "大师级 {skill:393} 将上限提高到300；需要技能200，无角色等级要求，费用5金币：达到200就立即学习。箭头会选择本阵营最近的 {skill:393} 训练师。",
 	-- ["Battleboar, Plainstrider"] = "斗猪、平原陆行鸟",
 	-- ["Battleboar, {npc:2961}"] = "斗猪、{npc:2961}",
 	-- ["Beasts 1-10: {zone:2521} (1-50)"] = "1-10级野兽：{zone:2521}（1-50）",
@@ -131,12 +119,16 @@ return {
 	-- ["Diemetradon"] = "双帆龙",
 	-- ["Duskbat"] = "夜行蝙蝠",
 	-- ["Duskbat, {npc:1513}"] = "夜行蝙蝠、{npc:1513}",
+	-- ["Expert {skill:393}"] = "高级{skill:393}",
 	-- ["Expert {skill:393} raises the cap to 225; it needs skill 125 and character level 20. The arrow picks the nearest {skill:393} trainer of your faction."] = "高级{skill:393}将上限提高到225；需要技能125和角色等级20级。箭头指向本阵营最近的{skill:393}训练师。",
+	-- ["Expert {skill:393} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:393} trainer of your faction."] = "高级{skill:393}将技能上限提高到225；需要技能125，无角色等级要求，费用50银币：达到125后立刻学习。箭头指向本阵营最近的{skill:393}训练师。",
 	-- ["Galestrider, Cloudrunner"] = "疾风陆行鸟、云行者",
 	-- ["Galestrider, Prideclaw"] = "疾风陆行鸟、傲爪",
 	-- ["Goretusk"] = "血牙野猪",
 	-- ["Goretusk, {npc:547}"] = "血牙野猪、{npc:547}",
+	-- ["Journeyman {skill:393}"] = "中级{skill:393}",
 	-- ["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:393} trainer of your faction."] = "中级{skill:393}将上限提高到150；需要技能50和角色等级10级。箭头指向本阵营最近的{skill:393}训练师。",
+	-- ["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:393} trainer of your faction. {spell:1229517}, Forever's camping item for {skill:393}, is taught from skill 20 (1s, or free from Camping 101: {skill:393}): three {item:2318} and two {item:4470} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "中级 {skill:393} 将上限提高到 150；要求技能 50，无角色等级要求，费用 5 银币：一到 50 就去学。箭头会选择本阵营最近的 {skill:393} 训练师。无限的 {skill:393} 露营物品 {spell:1229517} 在技能 20 起可学（1 银币，或通过露营 101: {skill:393} 免费学习）：每次需要三个 {item:2318} 和两个 {item:4470}，制作可涨技能至 25；放在营火旁，会给予营地内所有人持续一小时的增益。",
 	-- ["Kill and skin Cloudrunner (6), Galestrider (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Prideclaw (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10), {npc:254588} (8) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-15. Expect about 60 beasts for these 49 points."] = "沿环线击杀并剥取踏云兽（6级）、疾风陆行鸟（5级）、{npc:250928}（7级）、{npc:251284}（6级）、{npc:251291}（6级）、{npc:250873}（1级）、{npc:251707}（8级）、傲爪（5级）、{npc:250926}（3级）、{npc:256092}（10级）、{npc:253282}（8级）、{npc:250937}（4级）、瓦尔德伦（6级）、{npc:250874}（10级）、{npc:254588}（8级），直到 {skill:393} 50；每具尸体先拾取再剥皮，优先剥取技能允许的最高等级野兽。20 级及以下的野兽，所需剥皮技能为（怪物等级 − 10）× 10。超过 20 级时，所需技能为怪物等级 × 5。地区等级1—15。提升这49点预计需要约60只野兽。",
 	-- ["Kill and skin Coyote (10), {npc:833} (10), {npc:454} (12), Goretusk (14), {npc:547} (15) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "沿着路线击杀并剥皮郊狼（10）、{npc:833}（10）、{npc:454}（12）、血牙野猪（14）、{npc:547}（15），直到{skill:393}达到100；先拾取每具尸体再剥皮，并剥你技能允许的最高等级野兽。L级野兽在20级以下需要技能(L-10)x10，以上需要Lx5。地区等级10-20。这50点大约需要120只野兽。",
 	-- ["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (15) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "沿环线击杀并剥取山狗（10 级）、{npc:833}（11 级）、{npc:454}（12 级）、血牙野猪（14 级）、{npc:547}（15 级）的皮，直到 {skill:393} 达到 100；先拾取每具尸体，再剥皮，并优先选择当前技能允许剥皮的最高等级野兽。20 级及以下的野兽，所需剥皮技能为（怪物等级 − 10）× 10。超过 20 级时，所需技能为怪物等级 × 5。地区等级为 10-20 级。提升这 50 点预计需要约 120 只野兽。",

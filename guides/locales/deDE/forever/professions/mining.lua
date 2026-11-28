@@ -9,102 +9,148 @@ return {
 	-- Step 1: Learn Mining
 	-- {skill:186} Mining
 	["Learn {skill:186}"] = "{skill:186} erlernen",
-	-- {skill:186} Mining · {item:2901} Mining Pick · {spell:2580} Find Minerals · {item:2770} Copper Ore · {item:2835} Rough Stone · {item:11584} Cactus Apple Surprise · {item:247840} Mining for Dummies · {item:277115} Apprentice's Mining Pack · {spell:1230161} Lodestone
-	-- plural, as words: Poor Copper Veins = {object:562111} Poor Copper Vein
-	["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} at any level (10c), and so does the Junior Mining Trainer in each starting area; the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it. Turn on {spell:2580} (spellbook, General tab) so veins show on the minimap. Forever's starting areas also have Poor Copper Veins ({item:2770} and {item:2835}, from skill 1). The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247840} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors and the junior trainers sell the {item:277115}, a four-slot bag for ore and stone (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:186}: hand it in to the mining trainer it names once you reach skill 20, for the {spell:1230161} recipe."] = "Jeder {skill:186}-Lehrer deiner Fraktion lehrt Lehrling in {skill:186} auf jeder Stufe (10c), und der Junior-Lehrer für Bergbau in jedem Startgebiet ebenso; der Pfeil wählt den nächsten. Kauf bei einem Händler für Handwerkswaren oder einem Gemischtwarenhändler eine {item:2901}: Behalte sie in deinen Taschen, ohne sie kannst du nicht abbauen. Schalte {spell:2580} an (Zauberbuch, Reiter Allgemein), damit Adern auf der Minikarte angezeigt werden. Forevers Startgebiete haben außerdem Poor Copper Veins ({item:2770} und {item:2835}, ab Fertigkeit 1). Die Quest der ersten Stunde in jedem Startgebiet (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) bietet {item:247840} als Belohnung: Lesen bringt 2 Fertigkeit, bis 15. Händler für Handwerkswaren und die Junior-Lehrer verkaufen den {item:277115}, eine Tasche mit vier Plätzen für Erz und Stein (25c). Wenn du für The Great Outdoors am Lagerfeuer deines Startgebiets gesessen hast, bietet der dortige Camping-Guide auch Camping 101: {skill:186} an: Gib sie ab Fertigkeit 20 beim genannten Bergbaulehrer ab, für das Rezept {spell:1230161}.",
+	-- {item:247840} Mining for Dummies
+	["No character level needed. On Zephras Isle, {item:247840} from Harvesting Windstones teaches it too."] = "",
 
-	-- Step 2: Chunk of Amber & Poor Copper (1-50)
-	-- {object:656332} Chunk of Amber
-	["{object:656332} & Poor Copper (1-50)"] = "",
-	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every {object:656332} (1, orange), Copper (1, orange), {object:656333} (1, orange), Poor Copper (1, orange) node on the way until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 60 nodes for these 49 points: about 55 {item:2770} and 55 {item:2835}. For {skill:164}: about 130 {item:2770} and 200 {item:2835} in all. For {skill:202}: about 260 {item:2770} and 35 {item:2835} in all."] = "",
+	-- Step 2: Buy a Mining Pick
+	-- {item:2901} Mining Pick
+	["Buy a {item:2901}"] = "",
+	["A tool: it stays in your bags, and every vein needs it."] = "",
 
-	-- Step 3: Journeyman Mining
+	-- Step 3: Turn on Find Minerals · Professions tab (K by default)
+	-- {spell:2580} Find Minerals
+	["Turn on {spell:2580} · Professions tab (K by default)"] = "",
+	["Veins show on the minimap. Dying turns it off, and only one kind of tracking is on at a time."] = "",
+
+	-- Step 4: Mine 140 Copper Ore
+	-- {item:2770} Copper Ore
+	["Mine 140 {item:2770}"] = "",
 	-- {skill:186} Mining
-	["Journeyman {skill:186}"] = "{skill:186} (Geselle)",
-	-- {skill:186} Mining · {spell:1230161} Lodestone · {item:2835} Rough Stone · {item:2840} Copper Bar
-	["Journeyman {skill:186} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:186} trainer of your faction. {spell:1230161}, Forever's camping item for {skill:186}, is taught from skill 20 (1s, or free from Camping 101: {skill:186}): a {item:2835} and a {item:2840} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "Geselle in {skill:186} hebt die Obergrenze auf 150 an; er braucht Fertigkeit 50, aber keine Charakterstufe, und kostet 5s: Lerne ihn, sobald du 50 erreichst. Der Pfeil wählt den nächsten {skill:186}-Lehrer deiner Fraktion. {spell:1230161}, Forevers Camping-Gegenstand für {skill:186}, wird ab Fertigkeit 20 gelehrt (1s oder kostenlos durch Camping 101: {skill:186}): Je ein {item:2835} und ein {item:2840} ergeben Punkte bis 25; neben ein Lagerfeuer gestellt gibt es allen im Camp eine Stunde lang einen Buff.",
+	["{skill:186} it raises your skill too; enough to smelt your way to 65."] = "",
 
-	-- Step 4: Chunk of Amber & Poor Copper (50-65)
-	-- {object:656332} Chunk of Amber
-	["{object:656332} & Poor Copper (50-65)"] = "",
-	-- {object:656332} Chunk of Amber · {object:656333} Large Chunk of Amber · {skill:186} Mining · {spell:2657} Smelt Copper · {item:2770} Copper Ore · {item:2835} Rough Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every {object:656332} (1, yellow), Copper (1, yellow), {object:656333} (1, yellow), Poor Copper (1, yellow) node on the way until {skill:186} 65. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 80 nodes for these 15 points: about 75 {item:2770} and 70 {item:2835}. For {skill:164}: about 130 {item:2770} and 200 {item:2835} in all. For {skill:202}: about 260 {item:2770} and 35 {item:2835} in all."] = "",
+	-- Step 5: Go to a forge
+	["Go to a forge"] = "",
+	["Forge"] = "",
 
-	-- Step 5: Smelt Bronze & Smelt Tin
-	-- {skill:186} Mining · {spell:2659} Smelt Bronze · {spell:3304} Smelt Tin
-	["At 65 a {skill:186} trainer teaches {spell:2659} (2s; grey at 115) and {spell:3304} (50c; grey at 75): smelting at a forge raises {skill:186} too, so smelt what you mine."] = "Bei 65 lehrt ein {skill:186}-Lehrer {spell:2659} (2s; grau ab 115) und {spell:3304} (50c; grau ab 75): Schmelzen an einer Esse steigert {skill:186} ebenfalls, also schmilz, was du abbaust.",
+	-- Step 6: Smelt 140 Copper Bars · keep 70 for Bronze · Professions tab (K by default)
+	-- plural, as words: Copper Bars = {item:2840} Copper Bar
+	["Smelt 140 Copper Bars · keep 70 for Bronze · Professions tab (K by default)"] = "",
+	-- {spell:2659} Smelt Bronze · {item:2840} Copper Bar
+	["Every bar gives a point up to 25; {spell:2659} takes a {item:2840} each."] = "",
 
-	-- Step 6: Tin (65-125)
-	-- was: ["Tin: {zone:1424} (65-125)"] = "Zinn: {zone:1424} (65-125)"
-	["Tin (65-125)"] = "",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {npc:167} Morhan Coppertongue · {zone:1432} Loch Modan · {item:2770} Copper Ore · {item:2771} Tin Ore · {item:2835} Rough Stone · {item:2836} Coarse Stone · {item:5075} Blood Shard · {item:3340} Incendicite Ore · {item:249391} Pyrite · {skill:164} Blacksmithing · {skill:202} Engineering · {spell:2658} Smelt Silver
-	["Walk the loop and mine every Copper (1, green), Incendicite (65, orange), Tin (65, orange) node on the way until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. A quest in these zones needs {skill:186}: Ingredients for the Forge (level 30, {npc:167}, {zone:1432}; Alliance). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 160 nodes for these 60 points: about 80 {item:2770}, 65 {item:2771}, 55 {item:2835}, 40 {item:2836}, 15 {item:5075}, 10 {item:3340} and 5 {item:249391}. For {skill:164}: about 130 {item:2770}, 130 {item:2771}, 200 {item:2835} and 120 {item:2836} in all. For {skill:202}: about 260 {item:2770}, 95 {item:2771}, 35 {item:2835} and 45 {item:2836} in all. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "",
+	-- Step 7: Mine Chunk of Amber and Copper until 65
+	["Mine Chunk of Amber and Copper until 65"] = "",
+	["Only if the smelting left you short of 65."] = "",
 
-	-- Step 7: Expert Mining
+	-- Step 8: Train Journeyman Mining
 	-- {skill:186} Mining
-	["Expert {skill:186}"] = "{skill:186} (Experte)",
-	-- {skill:186} Mining · {spell:3307} Smelt Iron
-	["Expert {skill:186} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:186} trainer of your faction. Learn {spell:3307} (5s; orange to 130, grey at 140) on the same visit: smelting at a forge raises {skill:186} too, so smelt what you mine."] = "Experte in {skill:186} hebt die Obergrenze auf 225 an; er braucht Fertigkeit 125, aber keine Charakterstufe, und kostet 50s: Lerne ihn, sobald du 125 erreichst. Der Pfeil wählt den nächsten {skill:186}-Lehrer deiner Fraktion. Lerne beim selben Besuch {spell:3307} (5s; orange bis 130, grau ab 140): Schmelzen an einer Esse steigert {skill:186} ebenfalls, also schmilz, was du abbaust.",
-
-	-- Step 8: Iron (125-155)
-	-- was: ["Iron: {zone:1416} (125-155)"] = "Eisenvorkommen: {zone:1416} (125-155)"
-	["Iron (125-155)"] = "",
-	-- {skill:186} Mining · {spell:3307} Smelt Iron · {item:2772} Iron Ore · {item:2838} Heavy Stone · {item:2771} Tin Ore · {item:2836} Coarse Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Tin (65, green), Silver (75, green, rare), Iron (125, orange) node on the way until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 50 nodes for these 30 points: about 30 {item:2772}, 25 {item:2838}, 20 {item:2771} and 10 {item:2836}. For {skill:164}: about 315 {item:2772}, 90 {item:2838}, 130 {item:2771} and 120 {item:2836} in all. For {skill:202}: about 80 {item:2772}, 115 {item:2838}, 95 {item:2771} and 45 {item:2836} in all."] = "",
-
-	-- Step 9: Smelt Gold
-	-- {skill:186} Mining · {spell:3308} Smelt Gold
-	["At 155 a {skill:186} trainer teaches {spell:3308} (25s; orange to 170, grey at 185): smelting at a forge raises {skill:186} too, so smelt what you mine."] = "",
-
-	-- Step 10: Iron (155-175)
-	-- was: ["Iron: {zone:1417} (155-175)"] = "Eisen: {zone:1417} (155-175)"
-	["Iron (155-175)"] = "",
-	-- {skill:186} Mining · {spell:3308} Smelt Gold · {item:2772} Iron Ore · {item:2838} Heavy Stone · {item:2771} Tin Ore · {item:2836} Coarse Stone · {item:3340} Incendicite Ore · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Incendicite (65, green), Tin (65, green), Silver (75, green), Iron (125, yellow), Gold (155, orange, rare) node on the way until {skill:186} 175. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 50 nodes for these 20 points: about 30 {item:2772}, 25 {item:2838}, 15 {item:2771}, 10 {item:2836} and 5 {item:3340}. For {skill:164}: about 315 {item:2772}, 90 {item:2838}, 130 {item:2771} and 120 {item:2836} in all. For {skill:202}: about 80 {item:2772}, 115 {item:2838}, 95 {item:2771} and 45 {item:2836} in all."] = "",
-
-	-- Step 11: Mithril (175-200)
-	-- was: ["Mithril: {zone:1418} (175-200)"] = "Mithril: {zone:1418} (175-200)"
-	["Mithril (175-200)"] = "",
-	-- {skill:186} Mining · {spell:3308} Smelt Gold · {item:3858} Mithril Ore · {item:7912} Solid Stone · {item:2772} Iron Ore · {item:2838} Heavy Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node on the way until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 nodes for these 25 points: about 20 {item:3858}, 20 {item:7912}, 15 {item:2772} and 15 {item:2838}. For {skill:164}: about 375 {item:3858}, 545 {item:7912}, 315 {item:2772} and 90 {item:2838} in all. For {skill:202}: about 165 {item:3858}, 390 {item:7912}, 80 {item:2772} and 115 {item:2838} in all."] = "",
-
-	-- Step 12: Artisan Mining
+	["Train Journeyman {skill:186}"] = "",
 	-- {skill:186} Mining
-	["Artisan {skill:186}"] = "{skill:186} (Fachmann)",
+	["Needs {skill:186} skill 50. The trainers in the starting areas teach only up to 75."] = "",
+
+	-- Step 9: Learn Smelt Tin
+	-- {spell:3304} Smelt Tin
+	["Learn {spell:3304}"] = "",
+
+	-- Step 10: Learn Smelt Bronze
+	-- {spell:2659} Smelt Bronze
+	["Learn {spell:2659}"] = "",
+
+	-- Step 11: Mine 70 Tin Ore
+	-- {item:2771} Tin Ore
+	["Mine 70 {item:2771}"] = "",
 	-- {skill:186} Mining
-	["Artisan {skill:186} raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest {skill:186} trainer of your faction."] = "Meister in {skill:186} hebt die Obergrenze auf 300 an; er braucht Fertigkeit 200, aber keine Charakterstufe, und kostet 5g: Lerne ihn, sobald du 200 erreichst. Der Pfeil wählt den nächsten {skill:186}-Lehrer deiner Fraktion.",
+	-- plural, as words: Tin Veins = {object:1732} Tin Vein
+	["Tin Veins need {skill:186} skill 65."] = "",
 
-	-- Step 13: Mithril (200-230)
-	-- was: ["Mithril: {zone:1418} (200-230) cont."] = "Mithril: {zone:1418} (200-230) Forts."
-	["Mithril (200-230)"] = "",
-	-- {skill:186} Mining · {item:3858} Mithril Ore · {item:7912} Solid Stone · {item:2772} Iron Ore · {item:2838} Heavy Stone · {item:2776} Gold Ore · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Iron (125, green), Gold (155, yellow), Mithril (175, yellow) node on the way until {skill:186} 230. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 90 nodes for these 30 points: about 45 {item:3858}, 45 {item:7912}, 40 {item:2772}, 30 {item:2838} and 5 {item:2776}. For {skill:164}: about 375 {item:3858}, 545 {item:7912}, 315 {item:2772} and 90 {item:2838} in all. For {skill:202}: about 165 {item:3858}, 390 {item:7912}, 80 {item:2772} and 115 {item:2838} in all."] = "",
+	-- Step 13: Smelt 70 Tin Bars · Professions tab (K by default)
+	-- plural, as words: Tin Bars = {item:3576} Tin Bar
+	["Smelt 70 Tin Bars · Professions tab (K by default)"] = "",
+	["Tin stops giving points at 75, but Bronze needs all 70 bars."] = "",
 
-	-- Step 14: Mithril & Dark Iron (230-245)
+	-- Step 14: Smelt 70 Bronze Bars · Professions tab (K by default)
+	-- plural, as words: Bronze Bars = {item:2841} Bronze Bar
+	["Smelt 70 Bronze Bars · Professions tab (K by default)"] = "",
+	-- {item:2840} Copper Bar · {item:3576} Tin Bar
+	["A {item:2840} and a {item:3576} each. You end up near 105."] = "",
+
+	-- Step 15: Mine Copper and Tin until 125
+	["Mine Copper and Tin until 125"] = "",
+	["Cave mobs respawn fast: worth it only well above their level."] = "",
+
+	-- Step 16: Train Expert Mining
+	-- {skill:186} Mining
+	["Train Expert {skill:186}"] = "",
+	-- {skill:186} Mining
+	["Needs {skill:186} skill 125."] = "",
+
+	-- Step 17: Learn Smelt Iron
+	-- {spell:3307} Smelt Iron
+	["Learn {spell:3307}"] = "",
+
+	-- Step 18: Mine 20 Iron Ore
+	-- {item:2772} Iron Ore
+	["Mine 20 {item:2772}"] = "",
+	-- {skill:186} Mining
+	-- plural, as words: Iron Deposits = {object:1735} Iron Deposit
+	["Iron Deposits need {skill:186} skill 125."] = "",
+
+	-- Step 20: Smelt 20 Iron Bars · Professions tab (K by default)
+	-- plural, as words: Iron Bars = {item:3575} Iron Bar
+	["Smelt 20 Iron Bars · Professions tab (K by default)"] = "",
+	["Iron gives a point every time up to 130; you end up near 138."] = "",
+
+	-- Step 21: Mine Tin, Silver and Iron until 155
+	["Mine Tin, Silver and Iron until 155"] = "",
+	["No smelt gives points from 140 to 155."] = "",
+
+	-- Step 22: Mine Tin, Silver and Iron until 175
+	["Mine Tin, Silver and Iron until 175"] = "",
+	["Iron still gives points all the way to 175."] = "",
+
+	-- Step 23: Mine Iron, Gold and Mithril until 200
+	["Mine Iron, Gold and Mithril until 200"] = "",
+	-- {skill:186} Mining
+	-- plural, as words: Mithril Deposits = {object:2040} Mithril Deposit
+	["Mithril Deposits need {skill:186} skill 175."] = "",
+
+	-- Step 24: Train Artisan Mining
+	-- {skill:186} Mining
+	["Train Artisan {skill:186}"] = "",
+	-- {skill:186} Mining
+	["Needs {skill:186} skill 200; past 225 nothing gives points without it."] = "",
+
+	-- Step 25: Mine Iron, Gold and Mithril until 230
+	["Mine Iron, Gold and Mithril until 230"] = "",
+
+	-- Step 26: Mine Gold, Mithril and Truesilver until 245
+	["Mine Gold, Mithril and Truesilver until 245"] = "",
+	-- {skill:186} Mining
+	-- plural, as words: Truesilver Deposits = {object:2047} Truesilver Deposit
+	["Truesilver Deposits need {skill:186} skill 230."] = "",
+
+	-- Step 27: Mine Mithril and Small Thorium until 275
+	["Mine Mithril and Small Thorium until 275"] = "",
+	-- {skill:186} Mining
+	-- plural, as words: Small Thorium Veins = {object:324} Small Thorium Vein
+	["Small Thorium Veins need {skill:186} skill 245."] = "",
+
+	-- Step 28: Mine Dark Iron, Truesilver, Small Thorium and Rich Thorium until 300
 	-- {object:147516} Dark Iron
-	-- was: ["Mithril & {object:147516}: {zone:1427} (230-245)"] = "Mithril & {object:147516}: {zone:1427} (230-245)"
-	["Mithril & {object:147516} (230-245)"] = "",
-	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths · {item:3858} Mithril Ore · {item:7912} Solid Stone · {item:2776} Gold Ore · {item:7911} Truesilver Ore · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node on the way until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 60 nodes for these 15 points: about 50 {item:3858}, 50 {item:7912}, 5 {item:2776}, 5 {item:11099} and 5 {item:7911}. For {skill:164}: about 375 {item:3858} and 545 {item:7912} in all. For {skill:202}: about 165 {item:3858} and 390 {item:7912} in all."] = "",
-
-	-- Step 15: Small Thorium (245-275)
-	-- was: ["Truesilver & Small Thorium: {zone:1419} (245-275)"] = "Echtsilberablagerung & Kleines Thoriumvorkommen: {zone:1419} (245-275)"
-	["Small Thorium (245-275)"] = "",
-	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths · {npc:9528} Arathandris Silversky · {zone:1448} Felwood · {npc:9529} Maybess Riverbreeze · {item:10620} Thorium Ore · {item:12365} Dense Stone · {item:3858} Mithril Ore · {item:7912} Solid Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every Gold (155, green, rare), Mithril (175, green), {object:147516} (230, orange, rare), Truesilver (230, orange), Small Thorium (245, orange) node on the way until {skill:186} 275. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Quests in these zones need {skill:186}: Salve via {skill:186} (level 55, {npc:9528}, {zone:1448}; Alliance), Salve via {skill:186} (level 55, {npc:9529}, {zone:1448}; Horde). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 nodes for these 30 points: about 25 {item:10620}, 25 {item:12365}, 10 {item:3858} and 10 {item:7912}. For {skill:164}: about 1050 {item:10620}, 15 {item:12365}, 375 {item:3858} and 545 {item:7912} in all. For {skill:202}: about 175 {item:10620}, 165 {item:3858} and 390 {item:7912} in all."] = "",
-
-	-- Step 16: Small Thorium & Rich Thorium (275-300)
-	-- was: ["Small Thorium & Rich Thorium: {zone:1423} (275-300)"] = "Kleines und Reiches Thorium: {zone:1423} (275-300)"
-	["Small Thorium & Rich Thorium (275-300)"] = "",
-	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths · {item:10620} Thorium Ore · {item:12365} Dense Stone · {skill:164} Blacksmithing · {skill:202} Engineering
-	["Walk the loop and mine every {object:147516} (230, yellow), Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node on the way until {skill:186} 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 nodes for these 25 points: about 35 {item:10620} and 30 {item:12365}. For {skill:164}: about 1050 {item:10620} and 15 {item:12365} in all. For {skill:202}: about 175 {item:10620} in all."] = "",
+	["Mine {object:147516}, Truesilver, Small Thorium and Rich Thorium until 300"] = "",
+	-- {skill:186} Mining
+	-- plural, as words: Rich Thorium Veins = {object:175404} Rich Thorium Vein
+	["Rich Thorium Veins need {skill:186} skill 275."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} (character level 5); the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it."] = "Jeder Lehrer für {skill:186} deiner Fraktion bringt dir {skill:186} (Lehrling) bei (Charakterstufe 5); der Pfeil wählt den nächsten. Kauf eine {item:2901} bei einem Handwerkswaren- oder Gemischtwarenhändler: Behalte sie in deinen Taschen, ohne sie kannst du nicht abbauen.",
 	-- ["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} at any level (10c), and so does the Junior Mining Trainer in each starting area; the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it. Turn on Find Minerals (spellbook, General tab) so veins show on the minimap. Forever's starting areas also have Poor Copper Veins ({item:2770} and {item:2835}, from skill 1). The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247840} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors and the junior trainers sell the {item:277115}, a four-slot bag for ore and stone (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:186}: hand it in to the mining trainer it names once you reach skill 20, for the {spell:1230161} recipe."] = "Jeder {skill:186}-Lehrer deiner Fraktion lehrt Lehrling in {skill:186} auf jeder Stufe (10c), und der Junior-Lehrer für Bergbau in jedem Startgebiet ebenso; der Pfeil wählt den nächsten. Kauf bei einem Händler für Handwerkswaren oder einem Gemischtwarenhändler eine {item:2901}: Behalte sie in deinen Taschen, ohne sie kannst du nicht abbauen. Schalte Mineralien aufspüren an (Zauberbuch, Reiter Allgemein), damit Adern auf der Minikarte angezeigt werden. Forevers Startgebiete haben außerdem Poor Copper Veins ({item:2770} und {item:2835}, ab Fertigkeit 1). Die Quest der ersten Stunde in jedem Startgebiet (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) bietet {item:247840} als Belohnung: Lesen bringt 2 Fertigkeit, bis 15. Händler für Handwerkswaren und die Junior-Lehrer verkaufen den {item:277115}, eine Tasche mit vier Plätzen für Erz und Stein (25c). Wenn du für The Great Outdoors am Lagerfeuer deines Startgebiets gesessen hast, bietet der dortige Camping-Guide auch Camping 101: {skill:186} an: Gib sie ab Fertigkeit 20 beim genannten Bergbaulehrer ab, für das Rezept {spell:1230161}.",
+	-- ["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} at any level (10c), and so does the Junior Mining Trainer in each starting area; the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it. Turn on {spell:2580} (spellbook, General tab) so veins show on the minimap. Forever's starting areas also have Poor Copper Veins ({item:2770} and {item:2835}, from skill 1). The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247840} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors and the junior trainers sell the {item:277115}, a four-slot bag for ore and stone (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:186}: hand it in to the mining trainer it names once you reach skill 20, for the {spell:1230161} recipe."] = "Jeder {skill:186}-Lehrer deiner Fraktion lehrt Lehrling in {skill:186} auf jeder Stufe (10c), und der Junior-Lehrer für Bergbau in jedem Startgebiet ebenso; der Pfeil wählt den nächsten. Kauf bei einem Händler für Handwerkswaren oder einem Gemischtwarenhändler eine {item:2901}: Behalte sie in deinen Taschen, ohne sie kannst du nicht abbauen. Schalte {spell:2580} an (Zauberbuch, Reiter Allgemein), damit Adern auf der Minikarte angezeigt werden. Forevers Startgebiete haben außerdem Poor Copper Veins ({item:2770} und {item:2835}, ab Fertigkeit 1). Die Quest der ersten Stunde in jedem Startgebiet (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) bietet {item:247840} als Belohnung: Lesen bringt 2 Fertigkeit, bis 15. Händler für Handwerkswaren und die Junior-Lehrer verkaufen den {item:277115}, eine Tasche mit vier Plätzen für Erz und Stein (25c). Wenn du für The Great Outdoors am Lagerfeuer deines Startgebiets gesessen hast, bietet der dortige Camping-Guide auch Camping 101: {skill:186} an: Gib sie ab Fertigkeit 20 beim genannten Bergbaulehrer ab, für das Rezept {spell:1230161}.",
 	-- ["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} at any level, and so does the Junior Mining Trainer in each starting zone; the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it."] = "Jeder Lehrer für {skill:186} deiner Fraktion bringt dir auf jeder Stufe {skill:186} (Lehrling) bei, ebenso der Junior-Lehrer für Bergbau in jedem Startgebiet; der Pfeil wählt den nächsten. Kaufe {item:2901} bei einem Handelswarenhändler oder allgemeinen Händler: Behalte sie in deinen Taschen, ohne sie kannst du nicht schürfen.",
+	-- ["Artisan {skill:186}"] = "{skill:186} (Fachmann)",
 	-- ["Artisan {skill:186} raises the cap to 300; it needs skill 200 and character level 35. The arrow picks the nearest {skill:186} trainer of your faction."] = "{skill:186} (Fachmann) hebt die Obergrenze auf 300; dafür brauchst du Fertigkeit 200 und Charakterstufe 35. Der Pfeil wählt den nächsten Lehrer für {skill:186} deiner Fraktion.",
+	-- ["Artisan {skill:186} raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest {skill:186} trainer of your faction."] = "Meister in {skill:186} hebt die Obergrenze auf 300 an; er braucht Fertigkeit 200, aber keine Charakterstufe, und kostet 5g: Lerne ihn, sobald du 200 erreichst. Der Pfeil wählt den nächsten {skill:186}-Lehrer deiner Fraktion.",
+	-- ["At 65 a {skill:186} trainer teaches {spell:2659} (2s; grey at 115) and {spell:3304} (50c; grey at 75): smelting at a forge raises {skill:186} too, so smelt what you mine."] = "Bei 65 lehrt ein {skill:186}-Lehrer {spell:2659} (2s; grau ab 115) und {spell:3304} (50c; grau ab 75): Schmelzen an einer Esse steigert {skill:186} ebenfalls, also schmilz, was du abbaust.",
 	-- ["Copper"] = "Kupfervorkommen",
 	-- ["Copper & Poor Copper: {zone:1411} (1-50)"] = "Kupfer & Poor Copper: {zone:1411} (1-50)",
 	-- ["Copper & Poor Copper: {zone:1411} (50-65) cont."] = "Kupfer & Poor Copper: {zone:1411} (50-65) Forts.",
@@ -130,7 +176,9 @@ return {
 	-- ["Copper: {zone:1439} (50-65) cont."] = "Kupfervorkommen: {zone:1439} (50-65), Fortsetzung",
 	-- ["Copper: {zone:2521} (1-50)"] = "Kupfer: {zone:2521} (1-50)",
 	-- ["Copper: {zone:2521} (50-65) cont."] = "Kupfer: {zone:2521} (50-65) Forts.",
+	-- ["Expert {skill:186}"] = "{skill:186} (Experte)",
 	-- ["Expert {skill:186} raises the cap to 225; it needs skill 125 and character level 20. The arrow picks the nearest {skill:186} trainer of your faction."] = "{skill:186} (Experte) hebt die Obergrenze auf 225; dafür brauchst du Fertigkeit 125 und Charakterstufe 20. Der Pfeil wählt den nächsten Lehrer für {skill:186} deiner Fraktion.",
+	-- ["Expert {skill:186} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:186} trainer of your faction. Learn {spell:3307} (5s; orange to 130, grey at 140) on the same visit: smelting at a forge raises {skill:186} too, so smelt what you mine."] = "Experte in {skill:186} hebt die Obergrenze auf 225 an; er braucht Fertigkeit 125, aber keine Charakterstufe, und kostet 50s: Lerne ihn, sobald du 125 erreichst. Der Pfeil wählt den nächsten {skill:186}-Lehrer deiner Fraktion. Lerne beim selben Besuch {spell:3307} (5s; orange bis 130, grau ab 140): Schmelzen an einer Esse steigert {skill:186} ebenfalls, also schmilz, was du abbaust.",
 	-- ["Gold"] = "Goldvorkommen",
 	-- ["Gold & Mithril: {zone:1435} (175-200)"] = "Goldvorkommen & Mithrilablagerung: {zone:1435} (175-200)",
 	-- ["Gold & Mithril: {zone:1435} (200-230) cont."] = "Goldvorkommen & Mithrilablagerung: {zone:1435} (200-230), Fortsetzung",
@@ -146,7 +194,9 @@ return {
 	-- ["Iron: {zone:1417} (125-155)"] = "Eisen: {zone:1417} (125-155)",
 	-- ["Iron: {zone:1417} (155-175)"] = "Eisen: {zone:1417} (155-175)",
 	-- ["Iron: {zone:1431} (125-155)"] = "Eisenvorkommen: {zone:1431} (125-155)",
+	-- ["Journeyman {skill:186}"] = "{skill:186} (Geselle)",
 	-- ["Journeyman {skill:186} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:186} trainer of your faction."] = "{skill:186} (Geselle) hebt die Obergrenze auf 150; dafür brauchst du Fertigkeit 50 und Charakterstufe 10. Der Pfeil wählt den nächsten Lehrer für {skill:186} deiner Fraktion.",
+	-- ["Journeyman {skill:186} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:186} trainer of your faction. {spell:1230161}, Forever's camping item for {skill:186}, is taught from skill 20 (1s, or free from Camping 101: {skill:186}): a {item:2835} and a {item:2840} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "Geselle in {skill:186} hebt die Obergrenze auf 150 an; er braucht Fertigkeit 50, aber keine Charakterstufe, und kostet 5s: Lerne ihn, sobald du 50 erreichst. Der Pfeil wählt den nächsten {skill:186}-Lehrer deiner Fraktion. {spell:1230161}, Forevers Camping-Gegenstand für {skill:186}, wird ab Fertigkeit 20 gelehrt (1s oder kostenlos durch Camping 101: {skill:186}): Je ein {item:2835} und ein {item:2840} ergeben Punkte bis 25; neben ein Lagerfeuer gestellt gibt es allen im Camp eine Stunde lang einen Buff.",
 	-- ["Lesser Bloodstone"] = "Geringer Blutstein",
 	-- ["Lesser Bloodstone, Gold"] = "Geringer Blutstein, Gold",
 	-- ["Lesser Bloodstone, Iron"] = "Geringer Blutstein, Eisenvorkommen",

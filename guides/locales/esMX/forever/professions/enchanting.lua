@@ -20,9 +20,9 @@ return {
 	-- was: ["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "Compra de una vez todo lo de este tramo: 1 {item:6217} (1s 24c) y 32 {item:247786} (3s 20c); unos 4s 44c en total. La flecha elige el vendedor más cercano de tu facción ({zone:1453}: {npc:1286} y {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} y {npc:5817})."
 	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1318}; {zone:1454}: {npc:3346})."] = "",
 
-	-- Step 3: Get Strange Dust
+	-- Step 3: Get Strange Dust · Disenchant: Professions tab (K by default)
 	-- {item:10940} Strange Dust
-	["Get {item:10940}"] = "",
+	["Get {item:10940} · Disenchant: Professions tab (K by default)"] = "",
 	-- {item:10940} Strange Dust · {skill:333} Enchanting · {spell:7420} Enchant Chest - Inferior Stamina
 	["52 {item:10940} for {skill:333} 1-75: 52 {spell:7420}. {skill:333}: disenchant green armour that requires level 1-20. Or buy them at the Auction House."] = "",
 
@@ -73,13 +73,13 @@ return {
 	-- {item:6338} Silver Rod · {skill:333} Enchanting · {item:6339} Runed Silver Rod · {skill:164} Blacksmithing
 	["1 {item:6338} for {skill:333} 75-150: {item:6339}. {skill:164}: {item:6338}. Or buy it at the Auction House."] = "",
 
-	-- Step 11: Get Strange Dust
+	-- Step 11: Get Strange Dust · Disenchant: Professions tab (K by default)
 	-- {item:10940} Strange Dust · {skill:333} Enchanting · {spell:7420} Enchant Chest - Inferior Stamina · {spell:7771} Enchant Cloak - Minor Protection · {item:6339} Runed Silver Rod
 	["136 {item:10940} for {skill:333} 75-150: 27 {spell:7420}, 53 {spell:7771} and {item:6339}. {skill:333}: disenchant green armour that requires level 1-20. Or buy them at the Auction House."] = "",
 
-	-- Step 12: Get Soul Dust
+	-- Step 12: Get Soul Dust · Disenchant: Professions tab (K by default)
 	-- {item:11083} Soul Dust
-	["Get {item:11083}"] = "",
+	["Get {item:11083} · Disenchant: Professions tab (K by default)"] = "",
 	-- {item:11083} Soul Dust · {skill:333} Enchanting · {spell:13501} Enchant Bracer - Lesser Stamina
 	["20 {item:11083} for {skill:333} 75-150: 20 {spell:13501}. {skill:333}: disenchant green armour that requires level 21-30. Or buy them at the Auction House."] = "",
 
@@ -129,13 +129,13 @@ return {
 	-- was: ["{item:5500} (Horde)"] = "{item:5500} (Horda)"
 	["Get {item:5500} (Horde)"] = "",
 
-	-- Step 20: Get Greater Astral Essence
+	-- Step 20: Get Greater Astral Essence · Disenchant: Professions tab (K by default)
 	-- {item:11082} Greater Astral Essence
-	["Get {item:11082}"] = "",
+	["Get {item:11082} · Disenchant: Professions tab (K by default)"] = "",
 	-- {item:11082} Greater Astral Essence · {skill:333} Enchanting · {item:11130} Runed Golden Rod
 	["1 {item:11082} for {skill:333} 150-225: {item:11130}. {skill:333}: disenchant green armour that requires level 21-25. Or buy it at the Auction House."] = "",
 
-	-- Step 21: Get Soul Dust
+	-- Step 21: Get Soul Dust · Disenchant: Professions tab (K by default)
 	-- {item:11083} Soul Dust · {skill:333} Enchanting · {item:11130} Runed Golden Rod · {spell:13501} Enchant Bracer - Lesser Stamina · {spell:13637} Enchant Boots - Lesser Agility
 	["55 {item:11083} for {skill:333} 150-225: {item:11130}, 12 {spell:13501} and 42 {spell:13637}. {skill:333}: disenchant green armour that requires level 21-30. Or buy them at the Auction House."] = "",
 
@@ -145,21 +145,21 @@ return {
 	-- {item:11128} Golden Rod · {skill:333} Enchanting · {item:11130} Runed Golden Rod · {skill:164} Blacksmithing
 	["1 {item:11128} for {skill:333} 150-225: {item:11130}. {skill:164}: {item:11128}. Or buy it at the Auction House."] = "",
 
-	-- Step 23: Get Lesser Mystic Essence
+	-- Step 23: Get Lesser Mystic Essence · Disenchant: Professions tab (K by default)
 	-- {item:11134} Lesser Mystic Essence
-	["Get {item:11134}"] = "",
+	["Get {item:11134} · Disenchant: Professions tab (K by default)"] = "",
 	-- {item:11134} Lesser Mystic Essence · {skill:333} Enchanting · {spell:13663} Enchant Chest - Greater Intellect
 	["10 {item:11134} for {skill:333} 150-225: 10 {spell:13663}. {skill:333}: disenchant green armour that requires level 26-30. Or buy them at the Auction House."] = "",
 
-	-- Step 24: Get Greater Mystic Essence
+	-- Step 24: Get Greater Mystic Essence · Disenchant: Professions tab (K by default)
 	-- {item:11135} Greater Mystic Essence
-	["Get {item:11135}"] = "",
+	["Get {item:11135} · Disenchant: Professions tab (K by default)"] = "",
 	-- {item:11135} Greater Mystic Essence · {skill:333} Enchanting · {item:11145} Runed Truesilver Rod
 	["1 {item:11135} for {skill:333} 150-225: {item:11145}. {skill:333}: disenchant green armour that requires level 31-35. Or buy it at the Auction House."] = "",
 
-	-- Step 25: Get Vision Dust
+	-- Step 25: Get Vision Dust · Disenchant: Professions tab (K by default)
 	-- {item:11137} Vision Dust
-	["Get {item:11137}"] = "",
+	["Get {item:11137} · Disenchant: Professions tab (K by default)"] = "",
 	-- {item:11137} Vision Dust · {skill:333} Enchanting · {item:11145} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense
 	["21 {item:11137} for {skill:333} 150-225: {item:11145} and 20 {spell:13746}. {skill:333}: disenchant green armour that requires level 31-40. Or buy them at the Auction House."] = "",
 
@@ -252,15 +252,15 @@ return {
 	["Get {item:8831}"] = "",
 	-- {item:8831} Purple Lotus · {skill:333} Enchanting · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
 	-- plural, as words: Lesser Mana Oils = {item:20747} Lesser Mana Oil
-	["41 {item:8831} for {skill:333} 225-300: 41 Lesser Mana Oils. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["41 {item:8831} for {skill:333} 225-300: 41 Lesser Mana Oils. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The window lists the {skill:182} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
-	-- Step 41: Get Vision Dust
+	-- Step 41: Get Vision Dust · Disenchant: Professions tab (K by default)
 	-- {item:11137} Vision Dust · {skill:333} Enchanting · {spell:13815} Enchant Gloves - Agility
 	["45 {item:11137} for {skill:333} 225-300: 45 {spell:13815}. {skill:333}: disenchant green armour that requires level 31-40. Or buy them at the Auction House."] = "",
 
-	-- Step 42: Get Dream Dust
+	-- Step 42: Get Dream Dust · Disenchant: Professions tab (K by default)
 	-- {item:11176} Dream Dust
-	["Get {item:11176}"] = "",
+	["Get {item:11176} · Disenchant: Professions tab (K by default)"] = "",
 	-- {item:11176} Dream Dust · {skill:333} Enchanting · {spell:20017} Enchant Shield - Greater Stamina
 	-- plural, as words: Lesser Mana Oils = {item:20747} Lesser Mana Oil
 	["233 {item:11176} for {skill:333} 225-300: 41 Lesser Mana Oils and 32 {spell:20017}. {skill:333}: disenchant green armour that requires level 41-50. Or buy them at the Auction House."] = "",

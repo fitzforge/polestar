@@ -9,86 +9,73 @@ return {
 	-- Step 1: Learn Skinning
 	-- {skill:393} Skinning
 	["Learn {skill:393}"] = "Изучите: {skill:393}",
-	-- {skill:393} Skinning · {item:7005} Skinning Knife · {item:11584} Cactus Apple Surprise · {item:247846} Pelt Collecting for Beginners · {item:277114} Apprentice's Skinning Satchel · {spell:1229517} Camp Chair
-	["Any {skill:393} trainer of your faction teaches Apprentice {skill:393} at any level (10c), and so does the Junior Skinning Trainer in each starting area; the arrow picks the nearest. Buy a {item:7005} from a trade goods or general vendor: keep it in your bags, you cannot skin without it. The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247846} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors and the junior trainers sell the {item:277114}, a four-slot bag for leather and hides (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:393}: hand it in to the skinning trainer it names once you reach skill 20, for the {spell:1229517} recipe."] = "",
+	-- {zone:2521} Zephras Isle · {item:247846} Pelt Collecting for Beginners
+	["No character level needed. On {zone:2521}, {item:247846} from Harvesting Windstones teaches it too."] = "",
 
-	-- Step 2: Beasts 1-4 (1-50)
-	["Beasts 1-4 (1-50)"] = "",
-	-- {npc:250873} Juvenile Vuldren · {npc:1513} Mangy Duskbat · {npc:2032} Mangy Nightsaber · {npc:525} Mangy Wolf · {npc:3098} Mottled Boar · {npc:704} Ragged Timber Wolf · {npc:705} Ragged Young Wolf · {npc:3124} Scorpid Worker · {npc:250926} Scrawny Ursera · {npc:708} Small Crag Boar · {npc:1985} Thistle Boar · {npc:69} Timber Wolf · {npc:250937} Ursera Scavenger · {npc:2031} Young Nightsaber · {npc:1984} Young Thistle Boar · {npc:299} Young Wolf · {skill:393} Skinning · {npc:3050} Veren Tallstrider · {zone:1412} Mulgore · {npc:6306} Helene Peltskinner · {zone:1429} Elwynn Forest · {item:2934} Ruined Leather Scraps · {skill:165} Leatherworking
-	-- plural, as words: Rough Wolf Pelts = {item:247877} Rough Wolf Pelt
-	["Walk the loop and kill and skin Duskbat (1), {npc:250873} (1), {npc:1513} (3), {npc:2032} (2), {npc:525} (4), {npc:3098} (1), Plainstrider (1), {npc:704} (2), {npc:705} (1), {npc:3124} (3), {npc:250926} (3), {npc:708} (3), {npc:1985} (2), {npc:69} (2), {npc:250937} (4), {npc:2031} (1), {npc:1984} (1), {npc:299} (1) until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Quests in these zones need {skill:393}: Gathering Leather (level 8, {npc:3050}, {zone:1412}; Horde), Rough Wolf Pelts (level 8, {npc:6306}, {zone:1429}; Alliance). The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 60 beasts for these 49 points: about 60 {item:2934}. For {skill:165}: about 55 {item:2934} in all."] = "",
+	-- Step 2: Buy a Skinning Knife
+	-- {item:7005} Skinning Knife
+	["Buy a {item:7005}"] = "",
+	["A tool: it stays in your bags, and every corpse needs it."] = "",
 
-	-- Step 3: Journeyman Skinning
+	-- Step 3: Skin beasts of level 1-10 until 50
+	["Skin beasts of level 1-10 until 50"] = "",
+	["Loot each beast, then skin it. Starting-area beasts give points all the way to 75."] = "",
+
+	-- Step 4: Train Journeyman Skinning
 	-- {skill:393} Skinning
-	["Journeyman {skill:393}"] = "{skill:393}: Подмастерье",
-	-- {skill:393} Skinning · {spell:1229517} Camp Chair · {item:2318} Light Leather · {item:4470} Simple Wood
-	["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:393} trainer of your faction. {spell:1229517}, Forever's camping item for {skill:393}, is taught from skill 20 (1s, or free from Camping 101: {skill:393}): three {item:2318} and two {item:4470} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "Подмастерье {skill:393} поднимает предел до 150; требуется 50 навыка и любой уровень персонажа, стоит 5s: учите, как только достигнете 50. Стрелка укажет ближайшего наставника {skill:393} вашей фракции. {spell:1229517}, кемпинговый предмет Forever для {skill:393}, изучается с 20 навыка (1s, или бесплатно через Camping 101: {skill:393}): три {item:2318} и два {item:4470}, даёт очки до 25; поставленный у костра, он даёт всем в лагере усиление на час.",
-
-	-- Step 4: Beasts 1-15 (50-75)
-	["Beasts 1-15 (50-75)"] = "",
-	-- {npc:833} Coyote Packleader · {npc:251284} Hippogryph Protector · {npc:251291} Hippogryph Youth · {npc:2070} Moonstalker Runt · {npc:1190} Mountain Boar · {npc:704} Ragged Timber Wolf · {npc:705} Ragged Young Wolf · {npc:708} Small Crag Boar · {npc:1186} Elder Black Bear · {npc:3244} Greater Plainstrider · {npc:3254} Sunscale Lashtail · {npc:2163} Thistle Bear · {npc:3246} Fleeting Plainstrider · {npc:454} Young Goretusk · {npc:712} Redridge Thrasher · {npc:3242} Zhevra Runner · {npc:547} Great Goretusk · {skill:393} Skinning · {item:2934} Ruined Leather Scraps · {item:2318} Light Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin Cloudrunner (6), Coyote (10), {npc:833} (10), Galestrider (5), {npc:251284} (6), {npc:251291} (6), {npc:2070} (10), {npc:1190} (10), Prideclaw (5), {npc:704} (2), {npc:705} (1), {npc:708} (3), Vuldren (6), Worg (10), {npc:1186} (11), {npc:3244} (11), {npc:3254} (11), {npc:2163} (11), {npc:3246} (12), {npc:454} (12), {npc:712} (13), {npc:3242} (13), Goretusk (14), {npc:547} (15) until {skill:393} 75; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 120 beasts for these 25 points: about 75 {item:2934} and 45 {item:2318}. For {skill:165}: about 55 {item:2934} and 350 {item:2318} in all."] = "",
-
-	-- Step 5: Beasts 5-17 (75-100)
-	["Beasts 5-17 (75-100)"] = "",
-	-- {npc:833} Coyote Packleader · {npc:251284} Hippogryph Protector · {npc:251291} Hippogryph Youth · {npc:3244} Greater Plainstrider · {npc:3254} Sunscale Lashtail · {npc:454} Young Goretusk · {npc:1188} Grizzled Black Bear · {npc:2164} Rabid Thistle Bear · {npc:1693} Loch Crocolisk · {npc:1191} Mangy Mountain Boar · {npc:3241} Savannah Patriarch · {npc:1189} Black Bear Patriarch · {npc:1923} Bloodsnout Worg · {npc:1192} Elder Mountain Boar · {npc:3245} Ornery Plainstrider · {npc:3256} Sunscale Scytheclaw · {npc:3426} Zhevra Charger · {skill:393} Skinning · {item:2934} Ruined Leather Scraps · {item:2318} Light Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin Cloudrunner (6), Coyote (10), {npc:833} (10), Galestrider (5), {npc:251284} (6), {npc:251291} (6), Prideclaw (5), Vuldren (6), {npc:3244} (11), {npc:3254} (11), {npc:454} (12), {npc:1188} (13), {npc:2164} (13), Goretusk (14), {npc:1693} (14), {npc:1191} (14), Moonstalker (14), {npc:3241} (15), {npc:1189} (16), {npc:1923} (16), {npc:1192} (16), {npc:3245} (16), {npc:3256} (16), {npc:3426} (17) until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 100 beasts for these 25 points: about 50 {item:2934} and 50 {item:2318}. For {skill:165}: about 55 {item:2934} and 350 {item:2318} in all."] = "",
-
-	-- Step 6: Beasts 11-20 (100-125)
-	["Beasts 11-20 (100-125)"] = "",
-	-- {npc:3244} Greater Plainstrider · {npc:3254} Sunscale Lashtail · {npc:3241} Savannah Patriarch · {npc:1923} Bloodsnout Worg · {npc:3245} Ornery Plainstrider · {npc:3256} Sunscale Scytheclaw · {npc:3426} Zhevra Charger · {npc:3823} Ghostpaw Runner · {npc:213} Starving Dire Wolf · {npc:3809} Ashenvale Bear · {skill:393} Skinning · {item:2318} Light Leather · {item:2319} Medium Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:3244} (11), {npc:3254} (11), {npc:3241} (15), {npc:1923} (16), {npc:3245} (16), {npc:3256} (16), {npc:3426} (17), {npc:3823} (19), {npc:213} (19), {npc:3809} (20) until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 40 beasts for these 25 points: about 40 {item:2318} and 10 {item:2319}. For {skill:165}: about 350 {item:2318} and 150 {item:2319} in all."] = "",
-
-	-- Step 7: Expert Skinning
+	["Train Journeyman {skill:393}"] = "",
 	-- {skill:393} Skinning
-	["Expert {skill:393}"] = "{skill:393}: Умелец",
+	["Needs {skill:393} skill 50. The trainers in the starting areas teach only up to 75."] = "",
+
+	-- Step 5: Skin beasts of level 1-15 until 75
+	["Skin beasts of level 1-15 until 75"] = "",
+
+	-- Step 6: Skin beasts of level 1-17 until 100
+	["Skin beasts of level 1-17 until 100"] = "",
+	["Higher-level beasts become skinnable as the skill rises."] = "",
+
+	-- Step 7: Skin beasts of level 8-20 until 125
+	["Skin beasts of level 8-20 until 125"] = "",
+
+	-- Step 8: Train Expert Skinning
 	-- {skill:393} Skinning
-	["Expert {skill:393} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393}, ранг «Умелец»: предел 225; нужен навык 125, уровень персонажа не важен, стоит 50 с: обучитесь, как только достигнете 125. Стрелка ведет к ближайшему учителю вашей фракции ({skill:393}).",
-
-	-- Step 8: Beasts 21-25 (125-150)
-	["Beasts 21-25 (125-150)"] = "",
-	-- {npc:2351} Gray Bear · {npc:3817} Shadowhorn Stag · {npc:1020} Mottled Raptor · {npc:2354} Vicious Gray Bear · {npc:2384} Starving Mountain Lion · {npc:3810} Elder Ashenvale Bear · {skill:393} Skinning · {item:2318} Light Leather · {item:2319} Medium Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:2351} (21), {npc:3817} (21), {npc:1020} (22), {npc:2354} (22), {npc:2384} (23), {npc:3810} (25) until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 20 {item:2318} and 15 {item:2319}. For {skill:165}: about 350 {item:2318} and 150 {item:2319} in all."] = "",
-
-	-- Step 9: Beasts 27-30 (150-175)
-	["Beasts 27-30 (150-175)"] = "",
-	-- {npc:1018} Highland Razormaw · {npc:1019} Elder Razormaw · {npc:681} Young Stranglethorn Tiger · {npc:2559} Highland Strider · {npc:1150} River Crocolisk · {npc:4147} Saltstone Basilisk · {npc:4142} Sparkleshell Tortoise · {npc:683} Young Panther · {skill:393} Skinning · {item:2319} Medium Leather · {item:4234} Heavy Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:1018} (27), {npc:1019} (29), Snapjaw (29), {npc:681} (29), {npc:2559} (30), {npc:1150} (30), {npc:4147} (30), {npc:4142} (30), {npc:683} (30) until {skill:393} 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 20 {item:2319} and 5 {item:4234}. For {skill:165}: about 150 {item:2319} and 280 {item:4234} in all."] = "",
-
-	-- Step 10: Beasts 25-35 (175-200)
-	["Beasts 25-35 (175-200)"] = "",
-	-- {npc:2356} Elder Gray Bear · {npc:681} Young Stranglethorn Tiger · {npc:2248} Cave Yeti · {npc:1150} River Crocolisk · {npc:683} Young Panther · {npc:2249} Ferocious Yeti · {npc:688} Stone Maw Basilisk · {npc:2406} Mountain Lion · {npc:2250} Mountain Yeti · {npc:682} Stranglethorn Tiger · {npc:2251} Giant Yeti · {npc:2407} Hulking Mountain Lion · {npc:4726} Raging Thunder Lizard · {npc:685} Stranglethorn Raptor · {npc:4697} Scorpashi Lasher · {npc:2727} Crag Coyote · {skill:393} Skinning · {item:2319} Medium Leather · {item:4234} Heavy Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:2356} (25), {npc:681} (29), {npc:2248} (30), {npc:1150} (30), {npc:683} (30), {npc:2249} (31), {npc:688} (31), {npc:2406} (32), {npc:2250} (32), Panther (32), {npc:682} (32), {npc:2251} (33), {npc:2407} (33), {npc:4726} (33), {npc:685} (33), {npc:4697} (34), {npc:2727} (35) until {skill:393} 200; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 15 {item:2319} and 15 {item:4234}. For {skill:165}: about 150 {item:2319} and 280 {item:4234} in all."] = "",
-
-	-- Step 11: Artisan Skinning
+	["Train Expert {skill:393}"] = "",
 	-- {skill:393} Skinning
-	["Artisan {skill:393}"] = "{skill:393}: Искусник",
+	["Needs {skill:393} skill 125; past 150 nothing gives points without it."] = "",
+
+	-- Step 9: Skin beasts of level 13-25 until 150
+	["Skin beasts of level 13-25 until 150"] = "",
+	["They come back fast."] = "",
+
+	-- Step 10: Skin beasts of level 19-30 until 175
+	["Skin beasts of level 19-30 until 175"] = "",
+	["The cave yetis come back fast."] = "",
+
+	-- Step 11: Skin beasts of level 19-35 until 200
+	["Skin beasts of level 19-35 until 200"] = "",
+
+	-- Step 12: Train Artisan Skinning
 	-- {skill:393} Skinning
-	["Artisan {skill:393} raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393}, ранг «Искусник»: предел 300; нужен навык 200, уровень персонажа не важен, стоит 5 з: обучитесь, как только достигнете 200. Стрелка ведет к ближайшему учителю вашей фракции ({skill:393}).",
+	["Train Artisan {skill:393}"] = "",
+	-- {skill:393} Skinning
+	["Needs {skill:393} skill 200; past 225 nothing gives points without it."] = "",
 
-	-- Step 12: Beasts 38-40 (200-225)
-	["Beasts 38-40 (200-225)"] = "",
-	-- {npc:4344} Mottled Drywallow Crocolisk · {npc:1082} Sawtooth Crocolisk · {npc:4356} Bloodfen Razormaw · {npc:768} Shadow Panther · {npc:4357} Bloodfen Lashtail · {npc:1557} Elder Mistvale Gorilla · {skill:393} Skinning · {item:4234} Heavy Leather · {item:4304} Thick Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:4344} (38), {npc:1082} (38), {npc:4356} (39), {npc:768} (39), {npc:4357} (40), {npc:1557} (40) until {skill:393} 225; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 20 {item:4234} and 10 {item:4304}. For {skill:165}: about 280 {item:4234} and 400 {item:4304} in all."] = "",
+	-- Step 13: Skin beasts of level 21-40 until 225
+	["Skin beasts of level 21-40 until 225"] = "",
 
-	-- Step 13: Beasts 41-45 (225-250)
-	["Beasts 41-45 (225-250)"] = "",
-	-- {npc:5268} Ironfur Bear · {npc:5419} Glasshide Basilisk · {npc:5260} Groddoc Ape · {npc:5423} Scorpid Tail Lasher · {npc:2927} Vicious Owlbeast · {npc:5426} Blisterpaw Hyena · {npc:5292} Feral Scar Yeti · {npc:2924} Silvermane Wolf · {npc:2928} Primitive Owlbeast · {npc:8759} Mosshoof Runner · {skill:393} Skinning · {item:4304} Thick Leather · {item:4234} Heavy Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:5268} (41), {npc:5419} (42), {npc:5260} (42), {npc:5423} (42), {npc:2927} (42), {npc:5426} (43), {npc:5292} (43), {npc:2924} (43), {npc:2928} (44), {npc:8759} (45) until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 15 {item:4304} and 15 {item:4234}. For {skill:165}: about 400 {item:4304} and 280 {item:4234} in all."] = "",
+	-- Step 14: Skin beasts of level 35-45 until 250
+	["Skin beasts of level 35-45 until 250"] = "",
 
-	-- Step 14: Beasts 46-49 (250-275)
-	["Beasts 46-49 (250-275)"] = "",
-	-- {npc:2929} Savage Owlbeast · {npc:2926} Silvermane Stalker · {npc:6507} Ravasaur Hunter · {npc:6506} Ravasaur Runner · {skill:393} Skinning · {item:4304} Thick Leather · {item:8170} Rugged Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:2929} (46), {npc:2926} (47), Ravasaur (48), {npc:6507} (49), {npc:6506} (49) until {skill:393} 275; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 20 {item:4304} and 10 {item:8170}. For {skill:165}: about 400 {item:4304} and 1205 {item:8170} in all."] = "",
+	-- Step 15: Skin beasts of level 40-50 until 275
+	["Skin beasts of level 40-50 until 275"] = "",
 
-	-- Step 15: Beasts 48-54 (275-300)
-	-- was: ["Beasts 48-54: {zone:1449} (275-300)"] = "Звери 48-54: {zone:1449} (275-300)"
-	["Beasts 48-54 (275-300)"] = "",
-	-- {npc:9165} Fledgling Pterrordax · {npc:9162} Young Diemetradon · {npc:6514} Un'Goro Gorilla · {npc:6513} Un'Goro Stomper · {npc:6516} Un'Goro Thunderer · {npc:1817} Diseased Wolf · {npc:7450} Ragged Owlbeast · {npc:7444} Shardtooth Bear · {npc:11735} Stonelash Scorpid · {skill:393} Skinning · {item:8170} Rugged Leather · {item:4304} Thick Leather · {skill:165} Leatherworking
-	["Walk the loop and kill and skin {npc:9165} (48), {npc:9162} (49), {npc:6514} (50), {npc:6513} (51), {npc:6516} (52), {npc:1817} (53), {npc:7450} (53), {npc:7444} (53), {npc:11735} (54) until {skill:393} 300; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. The arrow takes the loop that gets you there soonest from where you are and walks it until the skill is reached; each loop keeps to creatures no more than a level above you and away from the other faction's towns, and the window names it and its lap. Expect about 30 beasts for these 25 points: about 15 {item:8170} and 10 {item:4304}. For {skill:165}: about 1205 {item:8170} and 400 {item:4304} in all."] = "",
+	-- Step 16: Skin beasts of level 48-55 until 300
+	["Skin beasts of level 48-55 until 300"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:393} trainer of your faction teaches Apprentice {skill:393} (character level 5); the arrow picks the nearest. Buy a {item:7005} from a trade goods or general vendor: keep it in your bags, you cannot skin without it."] = "Любой учитель вашей фракции ({skill:393}) обучает навыку {skill:393}, ранг «Ученик» (уровень персонажа 5); стрелка ведет к ближайшему. Купите у торговца товарами или припасами: {item:7005} – и держите в сумке, без него снимать шкуры нельзя.",
+	-- ["Artisan {skill:393}"] = "{skill:393}: Искусник",
+	-- ["Artisan {skill:393} raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393}, ранг «Искусник»: предел 300; нужен навык 200, уровень персонажа не важен, стоит 5 з: обучитесь, как только достигнете 200. Стрелка ведет к ближайшему учителю вашей фракции ({skill:393}).",
 	-- ["Battleboar, Plainstrider"] = "Боевой вепрь, Равнинный долгоног",
 	-- ["Battleboar, {npc:2961}"] = "Боевой вепрь, {npc:2961}",
 	-- ["Beasts 1-10: {zone:2521} (1-50)"] = "Звери 1-10: {zone:2521} (1-50)",
@@ -129,11 +116,15 @@ return {
 	-- ["Diemetradon"] = "Деметродон",
 	-- ["Duskbat"] = "Сумеречница",
 	-- ["Duskbat, {npc:1513}"] = "Сумеречница, {npc:1513}",
+	-- ["Expert {skill:393}"] = "{skill:393}: Умелец",
+	-- ["Expert {skill:393} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393}, ранг «Умелец»: предел 225; нужен навык 125, уровень персонажа не важен, стоит 50 с: обучитесь, как только достигнете 125. Стрелка ведет к ближайшему учителю вашей фракции ({skill:393}).",
 	-- ["Galestrider, Cloudrunner"] = "Буреног, Облакобег",
 	-- ["Galestrider, Prideclaw"] = "Ветроног, гордый коготь",
 	-- ["Goretusk"] = "Жутеклык",
 	-- ["Goretusk, {npc:547}"] = "Кабанорог, {npc:547}",
+	-- ["Journeyman {skill:393}"] = "{skill:393}: Подмастерье",
 	-- ["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393}, ранг «Подмастерье»: предел 150; нужен навык 50 и уровень персонажа 10. Стрелка ведет к ближайшему учителю вашей фракции ({skill:393}).",
+	-- ["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:393} trainer of your faction. {spell:1229517}, Forever's camping item for {skill:393}, is taught from skill 20 (1s, or free from Camping 101: {skill:393}): three {item:2318} and two {item:4470} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "Подмастерье {skill:393} поднимает предел до 150; требуется 50 навыка и любой уровень персонажа, стоит 5s: учите, как только достигнете 50. Стрелка укажет ближайшего наставника {skill:393} вашей фракции. {spell:1229517}, кемпинговый предмет Forever для {skill:393}, изучается с 20 навыка (1s, или бесплатно через Camping 101: {skill:393}): три {item:2318} и два {item:4470}, даёт очки до 25; поставленный у костра, он даёт всем в лагере усиление на час.",
 	-- ["Kill and skin Cloudrunner (6), Galestrider (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Prideclaw (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10), {npc:254588} (8) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-15. Expect about 60 beasts for these 49 points."] = "Убивайте и снимайте шкуры с Cloudrunner (6), Galestrider (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Prideclaw (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10), {npc:254588} (8) по кругу до навыка {skill:393} 50: забирайте добычу с каждого трупа, затем снимайте шкуры и бейте зверей самого высокого уровня, который позволяет навык. Зверю L уровня нужен навык (L-10)x10 до 20 уровня и Lx5 выше. Уровень зоны 1-15. На эти 49 очков нужно около 60 зверей.",
 	-- ["Kill and skin Coyote (10), {npc:833} (10), {npc:454} (12), Goretusk (14), {npc:547} (15) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "Убивайте и свежуйте по кругу: койотов (10), {npc:833} (10), {npc:454} (12), щетинорылов (14), {npc:547} (15) – пока {skill:393} не достигнет 100; обыскивайте каждый труп, затем снимайте шкуру, и свежуйте зверей самого высокого уровня, который позволяет навык. Зверю уровня L нужен навык (L-10)x10 до 20-го уровня и Lx5 выше. Уровень зоны 10-20. Ожидайте около 120 зверей на эти 50 очков.",
 	-- ["Kill and skin Coyote (10), {npc:833} (11), {npc:454} (12), Goretusk (14), {npc:547} (15) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 120 beasts for these 50 points."] = "Убивайте зверей по кругу и снимайте с них шкуры: Койот (10), {npc:833} (11), {npc:454} (12), Жутеклык (14), {npc:547} (15) – пока {skill:393} не достигнет 100; обыскивайте каждую тушу, затем снимайте шкуру; свежуйте зверей самого высокого уровня, какой позволяет навык. Зверю уровня L нужен навык (L-10)x10 до 20-го уровня и Lx5 выше. Уровень зоны: 10-20. На эти 50 очков уйдет около 120 зверей.",

@@ -24,13 +24,13 @@ return {
 	["Get {item:2318}"] = "",
 	-- {item:2318} Light Leather · {skill:165} Leatherworking · {spell:3756} Embossed Leather Gloves · {skill:393} Skinning
 	-- plural, as words: Light Armor Kits = {spell:2152} Light Armor Kit · Fine Leather Belts = {spell:3763} Fine Leather Belt
-	["352 {item:2318} for {skill:165} 1-75: 53 Light Armor Kits, 26 {spell:3756} and 40 Fine Leather Belts (240 of them for 75-150: get them all now). {skill:393}: beasts of level 5-20. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["352 {item:2318} for {skill:165} 1-75: 53 Light Armor Kits, 26 {spell:3756} and 40 Fine Leather Belts (240 of them for 75-150: get them all now). {skill:393}: beasts of level 5-20. The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 4: Get Ruined Leather Scraps
 	-- {item:2934} Ruined Leather Scraps
 	["Get {item:2934}"] = "",
 	-- {item:2934} Ruined Leather Scraps · {skill:165} Leatherworking · {item:2318} Light Leather · {skill:393} Skinning
-	["57 {item:2934} for {skill:165} 1-75: 19 {item:2318}. {skill:393}: beasts of level 1-15. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["57 {item:2934} for {skill:165} 1-75: 19 {item:2318}. {skill:393}: beasts of level 1-15. The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 5: Light Leather to 20
 	-- {item:2318} Light Leather
@@ -73,7 +73,7 @@ return {
 	-- {item:2319} Medium Leather
 	["Get {item:2319}"] = "",
 	-- {item:2319} Medium Leather · {skill:165} Leatherworking · {item:7285} Nimble Leather Gloves · {skill:393} Skinning
-	["150 {item:2319} for {skill:165} 75-150: 25 {item:7285}. {skill:393}: beasts of level 18-30. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["150 {item:2319} for {skill:165} 75-150: 25 {item:7285}. {skill:393}: beasts of level 18-30. The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 12: Get Elixir of Minor Agility
 	-- {item:2457} Elixir of Minor Agility
@@ -86,7 +86,7 @@ return {
 	["Get {item:4234}"] = "",
 	-- {item:4234} Heavy Leather · {skill:165} Leatherworking · {item:5964} Barbaric Shoulders · {item:5966} Guardian Gloves · {skill:393} Skinning
 	-- plural, as words: Heavy Armor Kits = {spell:3780} Heavy Armor Kit
-	["281 {item:4234} for {skill:165} 75-150: 33 Heavy Armor Kits, 7 {item:5964} and 15 {item:5966} (216 of them for 150-225: get them all now). {skill:393}: beasts of level 28-40. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["281 {item:4234} for {skill:165} 75-150: 33 Heavy Armor Kits, 7 {item:5964} and 15 {item:5966} (216 of them for 150-225: get them all now). {skill:393}: beasts of level 28-40. The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 14: Get Heavy Hide (Alterac Mountains)
 	-- {item:4235} Heavy Hide · {zone:1416} Alterac Mountains
@@ -150,7 +150,7 @@ return {
 	["Get {item:4304}"] = "",
 	-- {item:4304} Thick Leather · {skill:165} Leatherworking · {item:8193} Nightscape Pants · {skill:393} Skinning
 	-- plural, as words: Nightscape Headbands = {item:8176} Nightscape Headband
-	["398 {item:4304} for {skill:165} 150-225: 46 Nightscape Headbands and 12 {item:8193}. {skill:393}: beasts of level 38-50. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["398 {item:4304} for {skill:165} 150-225: 46 Nightscape Headbands and 12 {item:8193}. {skill:393}: beasts of level 38-50. The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 26: Expert Leatherworking
 	-- {skill:165} Leatherworking
@@ -236,7 +236,7 @@ return {
 	["Get {item:8170}"] = "",
 	-- {item:8170} Rugged Leather · {skill:165} Leatherworking · {item:15083} Wicked Leather Gauntlets · {skill:393} Skinning
 	-- plural, as words: Rugged Armor Kits = {item:15564} Rugged Armor Kit · Runic Leather Headbands = {item:15094} Runic Leather Headband
-	["1205 {item:8170} for {skill:165} 225-300: 29 Rugged Armor Kits, 45 {item:15083} and 50 Runic Leather Headbands. {skill:393}: beasts of level 48-60. The arrow takes the {skill:393} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["1205 {item:8170} for {skill:165} 225-300: 29 Rugged Armor Kits, 45 {item:15083} and 50 Runic Leather Headbands. {skill:393}: beasts of level 48-60. The window lists the {skill:393} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 40: Get Runecloth
 	-- {item:14047} Runecloth

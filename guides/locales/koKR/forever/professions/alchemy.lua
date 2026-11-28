@@ -23,13 +23,13 @@ return {
 	-- {item:765} Silverleaf
 	["Get {item:765}"] = "",
 	-- {item:765} Silverleaf · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1426} Dun Morogh · {zone:1429} Elwynn Forest · {zone:2521} Zephras Isle
-	["87 {item:765} for {skill:171} 1-75: 87 Elixirs of Minor Defense. {skill:182}: {item:765} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["87 {item:765} for {skill:171} 1-75: 87 Elixirs of Minor Defense. {skill:182}: {item:765} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The window lists the {skill:182} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 4: Get Peacebloom
 	-- {item:2447} Peacebloom
 	["Get {item:2447}"] = "",
 	-- {item:2447} Peacebloom · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1426} Dun Morogh · {zone:1429} Elwynn Forest · {zone:2521} Zephras Isle
-	["110 {item:2447} for {skill:171} 1-75: 87 Elixirs of Minor Defense and 23 Elixirs of Minor Fortitude (23 of them for 75-150: get them all now). {skill:182}: {item:2447} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["110 {item:2447} for {skill:171} 1-75: 87 Elixirs of Minor Defense and 23 Elixirs of Minor Fortitude (23 of them for 75-150: get them all now). {skill:182}: {item:2447} (skill 1) in {zone:1426} (1-10), {zone:1429} (1-10) and {zone:2521} (1-15). The window lists the {skill:182} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 5: Elixir of Minor Defense to 75
 	-- {item:5997} Elixir of Minor Defense
@@ -56,27 +56,27 @@ return {
 	-- {item:785} Mageroyal
 	["Get {item:785}"] = "",
 	-- {item:785} Mageroyal · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1438} Teldrassil · {zone:2521} Zephras Isle · {zone:1439} Darkshore
-	["50 {item:785} for {skill:171} 75-150: 50 Elixirs of Wisdom. {skill:182}: {item:785} (skill 50) in {zone:1438} (1-10), {zone:2521} (1-15) and {zone:1439} (10-20). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["50 {item:785} for {skill:171} 75-150: 50 Elixirs of Wisdom. {skill:182}: {item:785} (skill 50) in {zone:1438} (1-10), {zone:2521} (1-15) and {zone:1439} (10-20). The window lists the {skill:182} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 9: Get Earthroot
 	-- {item:2449} Earthroot
 	["Get {item:2449}"] = "",
 	-- {item:2449} Earthroot · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1426} Dun Morogh · {zone:2521} Zephras Isle · {zone:1433} Redridge Mountains
-	["46 {item:2449} for {skill:171} 75-150: 23 Elixirs of Minor Fortitude. {skill:182}: {item:2449} (skill 15) in {zone:1426} (1-10), {zone:2521} (1-15) and {zone:1433} (15-25). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["46 {item:2449} for {skill:171} 75-150: 23 Elixirs of Minor Fortitude. {skill:182}: {item:2449} (skill 15) in {zone:1426} (1-10), {zone:2521} (1-15) and {zone:1433} (15-25). The window lists the {skill:182} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 10: Get Briarthorn
 	-- {item:2450} Briarthorn
 	["Get {item:2450}"] = "",
 	-- {item:2450} Briarthorn · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1436} Westfall · {zone:1440} Ashenvale · {zone:1437} Wetlands
 	-- plural, as words: Lesser Troll's Blood Elixirs = {spell:3176} Lesser Troll's Blood Elixir
-	["158 {item:2450} for {skill:171} 75-150: 50 Elixirs of Wisdom and 29 Lesser Troll's Blood Elixirs (28 of them for 150-225: get them all now). {skill:182}: {item:2450} (skill 70) in {zone:1436} (10-20), {zone:1440} (18-30) and {zone:1437} (20-30). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["158 {item:2450} for {skill:171} 75-150: 50 Elixirs of Wisdom and 29 Lesser Troll's Blood Elixirs (28 of them for 150-225: get them all now). {skill:182}: {item:2450} (skill 70) in {zone:1436} (10-20), {zone:1440} (18-30) and {zone:1437} (20-30). The window lists the {skill:182} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 11: Get Bruiseweed
 	-- {item:2453} Bruiseweed
 	["Get {item:2453}"] = "",
 	-- {item:2453} Bruiseweed · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1431} Duskwood · {zone:1440} Ashenvale
 	-- plural, as words: Lesser Troll's Blood Elixirs = {spell:3176} Lesser Troll's Blood Elixir
-	["58 {item:2453} for {skill:171} 75-150: 29 Lesser Troll's Blood Elixirs (28 of them for 150-225: get them all now). {skill:182}: {item:2453} (skill 100) in {zone:1442} (15-27), {zone:1431} (18-30) and {zone:1440} (18-30). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["58 {item:2453} for {skill:171} 75-150: 29 Lesser Troll's Blood Elixirs (28 of them for 150-225: get them all now). {skill:182}: {item:2453} (skill 100) in {zone:1442} (15-27), {zone:1431} (18-30) and {zone:1440} (18-30). The window lists the {skill:182} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 12: Elixir of Minor Fortitude to 92
 	-- {spell:2334} Elixir of Minor Fortitude
@@ -118,27 +118,27 @@ return {
 	-- {object:1623} Wild Steelbloom
 	["Get {object:1623}"] = "",
 	-- {object:1623} Wild Steelbloom · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["45 {object:1623} for {skill:171} 150-225: 45 Elixirs of Defense (11 of them for 225-300: get them all now). {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["45 {object:1623} for {skill:171} 150-225: 45 Elixirs of Defense (11 of them for 225-300: get them all now). {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The window lists the {skill:182} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 19: Get Kingsblood
 	-- {item:3356} Kingsblood
 	["Get {item:3356}"] = "",
 	-- {item:3356} Kingsblood · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale · {zone:2548} Riverglades
 	-- plural, as words: Mana Potions = {spell:3452} Mana Potion
-	["42 {item:3356} for {skill:171} 150-225: 42 Mana Potions. {skill:182}: {item:3356} (skill 125) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:2548} (38-47). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["42 {item:3356} for {skill:171} 150-225: 42 Mana Potions. {skill:182}: {item:3356} (skill 125) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:2548} (38-47). The window lists the {skill:182} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 20: Get Stranglekelp
 	-- {object:2045} Stranglekelp
 	["Get {object:2045}"] = "",
 	-- {object:2045} Stranglekelp · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
 	-- plural, as words: Mana Potions = {spell:3452} Mana Potion
-	["42 {object:2045} for {skill:171} 150-225: 42 Mana Potions. {skill:182}: {object:2045} (skill 85) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:1425} (40-50). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["42 {object:2045} for {skill:171} 150-225: 42 Mana Potions. {skill:182}: {object:2045} (skill 85) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:1425} (40-50). The window lists the {skill:182} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 21: Get Goldthorn
 	-- {object:2046} Goldthorn
 	["Get {object:2046}"] = "",
 	-- {object:2046} Goldthorn · {skill:171} Alchemy · {skill:182} Herbalism · {zone:2548} Riverglades · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["45 {object:2046} for {skill:171} 150-225: 45 Elixirs of Defense (11 of them for 225-300: get them all now). {skill:182}: {object:2046} (skill 170) in {zone:2548} (38-47), {zone:1425} (40-50) and {zone:1444} (40-50). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["45 {object:2046} for {skill:171} 150-225: 45 Elixirs of Defense (11 of them for 225-300: get them all now). {skill:182}: {object:2046} (skill 170) in {zone:2548} (38-47), {zone:1425} (40-50) and {zone:1444} (40-50). The window lists the {skill:182} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 22: Expert Alchemy
 	-- {skill:171} Alchemy
@@ -195,13 +195,13 @@ return {
 	["Get {item:8831}"] = "",
 	-- {item:8831} Purple Lotus · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
 	-- plural, as words: Dreamless Sleep Potions = {item:12190} Dreamless Sleep Potion
-	["144 {item:8831} for {skill:171} 225-300: 48 Dreamless Sleep Potions. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["144 {item:8831} for {skill:171} 225-300: 48 Dreamless Sleep Potions. {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The window lists the {skill:182} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 31: Get Sungrass
 	-- {item:8838} Sungrass
 	["Get {item:8838}"] = "",
 	-- {item:8838} Sungrass · {skill:171} Alchemy · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["48 {item:8838} for {skill:171} 225-300: 48 Elixirs of Greater Defense. {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The arrow takes the {skill:182} loop that gets you them soonest from where you are and walks it until your bags hold them; the window names the loop, its lap and the laps left. Or buy them at the Auction House."] = "",
+	["48 {item:8838} for {skill:171} 225-300: 48 Elixirs of Greater Defense. {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The window lists the {skill:182} areas for your level, best first: the arrow leads to the one you pick and rests there until your bags hold them. Or buy them at the Auction House."] = "",
 
 	-- Step 32: Get Stonescale Eel
 	-- {item:13422} Stonescale Eel
@@ -232,7 +232,7 @@ return {
 	-- {item:12190} Dreamless Sleep Potion
 	["{item:12190} to 265"] = "",
 	-- {item:12190} Dreamless Sleep Potion · {item:8831} Purple Lotus · {item:8925} Crystal Vial · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {item:8838} Sungrass
-	["{item:12190} is orange at 230 (yellow 245, green 265, grey 285): about 43 crafts to 265, up to 48 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {item:8831} and 1 {item:8925}. Three {item:8831} a craft ({skill:182} 210: the {zone:1425} and {zone:1444}, mobs of level 44-47) and a {item:8925} from an alchemy vendor. The {skill:182} guide's loops there give {item:8838} for the last stretch too."] = "",
+	["{item:12190} is orange at 230 (yellow 245, green 265, grey 285): about 43 crafts to 265, up to 48 for 9 players in 10 (the gathered materials above count that many). Each takes 3 {item:8831} and 1 {item:8925}. Three {item:8831} a craft ({skill:182} 210: the {zone:1425} and {zone:1444}, mobs of level 44-47) and a {item:8925} from an alchemy vendor. The {skill:182} guide's areas there give {item:8838} for the last stretch too."] = "",
 
 	-- Step 37: Alchemy recipes at 265
 	-- {skill:171} Alchemy
