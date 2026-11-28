@@ -8,6 +8,7 @@ use forge_guide::js::{str_to_num, Obj, V};
 use forge_guide::races::CLASSES;
 use rustc_hash::{FxHashMap, FxHashSet};
 
+use super::client::ClientItem;
 use super::instances::{build_instances, Ctx};
 use super::spawns::{spawns_of, spawns_v};
 use super::util::{by_num, int, junk, key, kstr, math_round, norm_name, nums, oentries, opt, or_m1, ord, round1, slug};
@@ -1762,6 +1763,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	}
 
 	// Collectible classification.
+	let is_companion_pet = |it: &ClientItem| it.class_id == Some(15.0) && it.subclass_id == Some(2.0);
 	let mut mount_items: FxHashSet<i64> = FxHashSet::default();
 	let mut pet_items: FxHashSet<i64> = FxHashSet::default();
 	let mut tabard_items: FxHashSet<i64> = FxHashSet::default();
@@ -1812,9 +1814,12 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 				if !names.get(&ids).truthy() && !it.era {
 					names.set(&ids, it.name.as_deref().map(V::str).unwrap_or(V::Null));
 				}
-			} else if (it.class_id == Some(15.0) && it.subclass_id == Some(2.0) && learn.is_some()) || spell.is_some_and(|s| cl.pet_spells.contains(&s)) {
-				pet_items.insert(id);
-				if !names.get(&ids).truthy() && !it.era {
+			} else {
+				let pet_by_spell = spell.is_some_and(|s| cl.pet_spells.contains(&s));
+				if pet_by_spell {
+					pet_items.insert(id);
+				}
+				if (pet_by_spell || is_companion_pet(it)) && !names.get(&ids).truthy() && !it.era {
 					names.set(&ids, it.name.as_deref().map(V::str).unwrap_or(V::Null));
 				}
 			}
@@ -2005,9 +2010,13 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 				source.set("requiresQuests", V::from(quests.items()));
 			}
 		}
+		let sparse = c.filter(|c| !c.era);
+		let item = cl.and_then(|cl| cl.item_only.get(&id)).or(sparse);
+		let companion = item.or(c).is_some_and(is_companion_pet);
+		let known_pet = pet_items.contains(&id);
 		let kind = if mount_items.contains(&id) {
 			"mount"
-		} else if pet_items.contains(&id) {
+		} else if known_pet || companion {
 			"pet"
 		} else if c.is_some_and(|c| c.class_id == Some(9.0)) || recipe_spell.get(&ids).truthy() {
 			"recipe"
@@ -2017,6 +2026,8 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			"item"
 		};
 		let spell = match kind {
+			// Class-only companions keep the learn spell from the detail record, if it has one.
+			"pet" if !known_pet => opt(c.and_then(|c| c.learn)),
 			"mount" | "pet" => opt(c.and_then(|c| c.learn.or(c.use_))),
 			"recipe" => {
 				let r = recipe_spell.get(&ids);
@@ -2635,7 +2646,9 @@ impl OrObj for V {
 #[cfg(test)]
 mod tests {
 	use super::*;
+	use crate::codex::client::{client_facts, Tables};
 	use crate::codex::Forever;
+	use crate::tables::parse_csv;
 	use forge_guide::js::parse_json;
 
 	fn inputs(quests: &str, mechanics: &str) -> Inputs {
@@ -2676,6 +2689,38 @@ mod tests {
 			mechanics_public: V::Null,
 			warnings: Vec::new(),
 		}
+	}
+
+	#[test]
+	fn companion_pet_without_a_spell_is_a_pet() {
+		let mut tables = Tables::default();
+		tables.insert("Item", parse_csv("ID,ClassID,SubclassID,InventoryType\n1,15,2,0\n2,15,2,0\n3,15,2,0\n").unwrap());
+		tables.insert("ItemSparse", parse_csv("ID,Display_lang\n1,Companion Pet\n3,Companion With Use Spell\n").unwrap());
+		tables.insert("ItemEffect", parse_csv("ID,ParentItemID,SpellID,TriggerType\n1,3,42,0\n2,2,43,6\n").unwrap());
+		let mut i = inputs("{}", "{}");
+		i.client = Some(client_facts(&tables, "fixture"));
+		i.forever.items = parse_json(r#"{ "2": { "name": "Companion Without Sparse Data" } }"#).unwrap();
+
+		let items = merge_codex(&i).items;
+		for id in ["1", "2", "3"] {
+			let item = items.get(id);
+			assert_eq!(item.get("kind").as_str(), Some("pet"), "item {id}");
+			assert!(matches!(item.get("spell"), V::Null), "item {id}");
+		}
+	}
+
+	#[test]
+	fn companion_pet_with_a_learn_spell_keeps_it() {
+		let mut tables = Tables::default();
+		tables.insert("Item", parse_csv("ID,ClassID,SubclassID,InventoryType\n1,15,2,0\n").unwrap());
+		tables.insert("ItemSparse", parse_csv("ID,Display_lang\n1,Companion With Learn Spell\n").unwrap());
+		tables.insert("ItemEffect", parse_csv("ID,ParentItemID,SpellID,TriggerType\n1,1,44,6\n2,1,45,0\n").unwrap());
+		let mut i = inputs("{}", "{}");
+		i.client = Some(client_facts(&tables, "fixture"));
+
+		let item = merge_codex(&i).items.get("1");
+		assert_eq!(item.get("kind").as_str(), Some("pet"));
+		assert!(item.get("spell").strict_eq(&V::Num(44.0)), "spell: {:?}", item.get("spell"));
 	}
 
 	#[test]
