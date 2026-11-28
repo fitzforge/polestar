@@ -444,6 +444,41 @@ test('a guide that levels one gathering profession (Mining) has no shopping list
 	assert.equal(shown('', MINING_SMITHING, 'test/minesmith').shopping, true, 'Mining + Blacksmithing keeps it');
 });
 
+// The longest step titles of the profession guides: a spell step says where its spell is after a " · ".
+const SPELL_STEPS = `{ id = "test/spells", pack = "test", title = "Enchanting 1-300", minLevel = 1, maxLevel = 60, category = "Professions",
+	sections = { { skill = "Enchanting", skillLine = 333, from = 1, to = 75 } },
+	steps = {
+		{ title = "Disenchant your green items until 20 · Disenchant: Professions tab (K by default)", section = 1, goals = {
+			{ t = "skill", skill = "Enchanting", skillLine = 333, level = 20, either = true },
+			{ t = "task", text = "No green items left to break", either = true } } },
+		{ title = "Turn on Find Minerals · Professions tab (K by default)", section = 1, goals = {
+			{ t = "cast", spell = 2580, spellName = "Find Minerals" } } },
+	} }`;
+const SPELL_HEADER = `
+local out = {}
+for _, n in ipairs({ 1, 2 }) do
+	at(n); GF.Render(); GF.Layout(); stub.advance(1); GF.Layout()
+	local p = GF.parts.person
+	out[n] = { shown = p:IsShown(), name = plain(p.Name:GetText()), where = p.Where:IsShown() and plain(p.Where:GetText()) or false,
+		nameCut = p.Name:IsTruncated() or p.Name:GetWidth() + 0.5 < p.Name:GetUnboundedStringWidth(),
+		whereCut = p.Where:IsShown() and (p.Where:IsTruncated() or p.Where:GetWidth() + 0.5 < p.Where:GetUnboundedStringWidth()) or false }
+end
+emit(out)`;
+
+test('a profession step\'s title keeps whole: where its spell is goes on the line under it, in every mode and in Atlas', () => {
+	const atlas = ['Polestar', { name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }];
+	for (const [name, setup, addons] of [
+		['standard', '', undefined],
+		['compact', 'Polestar.Set("ui.compact", true)', undefined],
+		['Atlas', 'Polestar.Set("ui.layout", "atlas")', atlas],
+		['Atlas compact', 'Polestar.Set("ui.layout", "atlas"); Polestar.Set("ui.compact", true)', atlas],
+	]) {
+		const out = runAddon({ stubs: ['stub_world.lua'], addons: addons || ['Polestar'], script: script(setup, SPELL_HEADER, SPELL_STEPS, 'test/spells') }).emitted[0];
+		assert.deepEqual(out[0], { shown: true, name: 'Disenchant your green items until 20', where: 'Disenchant: Professions tab (K by default)', nameCut: false, whereCut: false }, name);
+		assert.deepEqual(out[1], { shown: true, name: 'Turn on Find Minerals', where: 'Professions tab (K by default)', nameCut: false, whereCut: false }, name);
+	}
+});
+
 test('compact: the skill line and the item\'s row, no ways and no shopping list', () => {
 	const out = run('Polestar.Set("ui.compact", true)', `${GET_ROWS}
 GF.Layout(); stub.advance(1)
