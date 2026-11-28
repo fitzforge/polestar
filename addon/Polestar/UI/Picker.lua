@@ -2331,6 +2331,7 @@ end
 --   UI.RegisterSection({
 --     key, label, icon, order,
 --     build = fn(parent, hub), render = fn(),
+--     load = fn(retry) -> ready,      -- instead of build and render until first shown: loads them (it may register again)
 --     nav = fn() -> items, activeKey,  -- optional: its index ({ key, label, icon, count })
 --     onNav = fn(key),                 -- with nav: set the state, then UI.Picker.Render()
 --     search = fn(text), enter = fn(), step = fn(delta), -- optional: the hub search drives it
@@ -2346,7 +2347,8 @@ P.GUIDES = GUIDES.key
 -- built afresh on every render they were garbage each time the menu opened.
 local railItems, footItems
 function UI.RegisterSection(spec)
-	if type(spec) ~= "table" or type(spec.key) ~= "string" or type(spec.build) ~= "function" or type(spec.render) ~= "function" then return false end
+	if type(spec) ~= "table" or type(spec.key) ~= "string" then return false end
+	if type(spec.load) ~= "function" and (type(spec.build) ~= "function" or type(spec.render) ~= "function") then return false end
 	if spec.key == GUIDES.key then return false end
 	for i = #sections, 1, -1 do if sections[i].key == spec.key then table.remove(sections, i) end end
 	sections[#sections + 1] = spec
@@ -2372,6 +2374,14 @@ function P.Query() return query end
 -- empty in every section.
 function P.ShowSection(key)
 	if key == GUIDES.key then key = nil end
+	-- A section that loads on first use finishes loading before the search
+	-- changes or its frame is built (not loaded: it stays where it is).
+	for _, s in ipairs(sections) do
+		if s.key == key and s.load and not s.build then
+			if not s.load(function() P.ShowSection(key) end) then return end
+			break
+		end
+	end
 	if key ~= section and win then
 		query = ""
 		win.Search:SetText("")

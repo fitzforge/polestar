@@ -117,7 +117,7 @@ test('every Polestar tooltip goes through Theme.TipDots before it shows', () => 
 			else if (e.name.endsWith('.lua')) out.push(p);
 		}
 	};
-	for (const a of ['Polestar', 'Polestar_Options', 'Polestar_Skins']) walk(path.join(ADDON, a));
+	for (const a of ['Polestar', 'Polestar_Options', 'Polestar_Lookup', 'Polestar_Skins']) walk(path.join(ADDON, a));
 	const missing = [];
 	for (const f of out) {
 		const lines = fs.readFileSync(f, 'utf8').split('\n');

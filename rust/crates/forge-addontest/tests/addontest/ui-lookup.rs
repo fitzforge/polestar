@@ -1,4 +1,5 @@
-//! The Lookup section of the hub (addon/Polestar/UI/Lookup.lua) and its rows in the guide menu's search, against
+//! The Lookup section of the hub (addon/Polestar_Lookup/UI/LookupWindow.lua, loaded on demand by the core's
+//! addon/Polestar/UI/Lookup.lua) and its rows in the guide menu's search (the core's), against
 //! the fake Engine of tests/lua/stub_ui.lua and the fake Search / Codex / Lookup runtime of
 //! tests/lua/stub_lookup.lua; the last test runs the real runtime over the synthetic Codex pack
 //! (tests/fixtures/codex).
@@ -30,6 +31,21 @@ local function nav(key)
 	for _, b in ipairs(PolestarPicker.navButtons) do if b.psKey == key and b:IsShown() then return b end end
 end
 local function lookupShown() return PolestarPicker:IsShown() and Polestar.UI.Picker.Section() == "Lookup" end
+local function lookupRail()
+	for _, b in ipairs(PolestarPicker.railButtons) do if b.psKey == "Lookup" and b:IsShown() then return b end end
+end
+-- The hub's Lookup section as registered now (the core's until the window's addon registers its own).
+local function lookupSection()
+	for _, s in ipairs(Polestar.UI.Picker.Sections()) do if s.key == "Lookup" then return s end end
+end
+local function countWindowLoads()
+	local loads, load = 0, C_AddOns.LoadAddOn
+	function C_AddOns.LoadAddOn(name, ...)
+		if name == "Polestar_Lookup" then loads = loads + 1 end
+		return load(name, ...)
+	end
+	return function() return loads end
+end
 local function navKeys()
 	local out = {}
 	for _, b in ipairs(PolestarPicker.navButtons) do if b:IsShown() then out[#out + 1] = b.psKey end end
@@ -50,6 +66,110 @@ fn run(script: &str) -> Value {
 		..Default::default()
 	})
 	.remove(0)
+}
+
+// The window is its own addon (Polestar_Lookup, load on demand): the rail shows Lookup from login, and the first
+// click loads the window and builds the section, once.
+#[test]
+fn the_rail_loads_the_lookup_window_on_first_use_and_builds_the_section_once() {
+	let out = run(r#"
+		local loads = countWindowLoads()
+		UI.ShowPicker()
+		assert(not C_AddOns.IsAddOnLoaded("Polestar_Lookup") and not lookupSection().build)
+		assert(lookupRail().Label:GetText() == "Lookup")
+		lookupRail():Click()
+		local spec = lookupSection()
+		local frame = assert(spec.psFrame)
+		assert(lookupShown() and LK.root:IsVisible() and nav("all"))
+		UI.Picker.ShowSection("Guides")
+		lookupRail():Click()
+		local entries = 0
+		for _, s in ipairs(UI.Picker.Sections()) do
+			if s.key == "Lookup" then entries = entries + 1 end
+		end
+		assert(lookupShown() and lookupSection() == spec and spec.psFrame == frame and entries == 1)
+		emit({ loads = loads(), loaded = C_AddOns.IsAddOnLoaded("Polestar_Lookup") })"#);
+	assert_eq!(out, json!({ "loads": 1, "loaded": true }));
+}
+
+#[test]
+fn show_lookup_loads_the_window_and_passes_the_search_on_first_use() {
+	let out = run(r#"
+		local loads = countWindowLoads()
+		local door = UI.ShowLookup
+		assert(not C_AddOns.IsAddOnLoaded("Polestar_Lookup"))
+		UI.ShowLookup({ query = "saber" })
+		assert(lookupShown() and LK.Query() == "saber" and UI.Picker.search:HasFocus())
+		UI.ToggleLookup()
+		local hidden = not PolestarPicker:IsShown()
+		UI.ToggleLookup()
+		emit({ loads = loads(), hidden = hidden, shown = lookupShown(), replaced = UI.ShowLookup ~= door })"#);
+	assert_eq!(out, json!({ "loads": 1, "hidden": true, "shown": true, "replaced": true }));
+}
+
+// Addons load nowhere near a fight: asked then, Lookup says so once, stays on Guides with its search, and opens when
+// the fight ends. The rail, the gamepad's section step and the code all go through the Picker's ShowSection.
+#[test]
+fn a_first_open_in_combat_says_so_once_and_opens_lookup_when_the_fight_ends() {
+	for open in ["lookupRail():Click()", "P.StepSection(1)", r#"P.ShowSection("Lookup")"#, r#"UI.ShowLookup({ query = "saber", kind = "quest", id = 4970 })"#] {
+		let out = run(&format!(
+			r#"
+		local P, loads = UI.Picker, countWindowLoads()
+		UI.ShowPicker()
+		P.SetQuery("elwynn")
+		stub.inCombat = true
+		{open}
+		{open}
+		local said = 0
+		for _, line in ipairs(stub.messages) do
+			if line:find("Lookup opens when combat ends.", 1, true) then said = said + 1 end
+		end
+		local during = {{ said = said, loads = loads(), section = P.Section(), query = P.Query(),
+			loaded = C_AddOns.IsAddOnLoaded("Polestar_Lookup"), built = lookupSection().psFrame ~= nil }}
+		stub.inCombat = false
+		stub.fire("PLAYER_REGEN_ENABLED")
+		local after = {{ shown = lookupShown(), frame = lookupSection().psFrame:IsVisible(), root = LK.root:IsVisible(), nav = nav("all") ~= nil }}
+		stub.fire("PLAYER_REGEN_ENABLED")
+		emit({{ during = during, after = after, loads = loads(), query = LK.Query(), selected = LK.Selected() }})"#
+		));
+		assert_eq!(out["during"], json!({ "said": 1, "loads": 0, "section": "Guides", "query": "elwynn", "loaded": false, "built": false }), "{open}");
+		assert_eq!(out["after"], json!({ "shown": true, "frame": true, "root": true, "nav": true }), "{open}");
+		assert_eq!(out["loads"], 1, "{open}");
+		if open.starts_with("UI.ShowLookup") {
+			assert_eq!(out["query"], "saber");
+			assert_eq!(out["selected"]["id"], 4970);
+		}
+	}
+}
+
+#[test]
+fn a_missing_or_disabled_lookup_folder_says_why_and_leaves_the_hub_on_guides() {
+	for reason in ["MISSING", "DISABLED"] {
+		let out = run(&format!(
+			r#"
+		local load = C_AddOns.LoadAddOn
+		function C_AddOns.LoadAddOn(name, ...)
+			if name == "Polestar_Lookup" then return false, "{reason}" end
+			return load(name, ...)
+		end
+		UI.ShowPicker()
+		UI.Picker.SetQuery("elwynn")
+		UI.ShowLookup()
+		lookupRail():Click()
+		assert(UI.Picker.Section() == "Guides" and UI.Picker.Query() == "elwynn")
+		assert(not lookupSection().psFrame and not C_AddOns.IsAddOnLoaded("Polestar_Lookup"))
+		local messages = {{}}
+		for _, line in ipairs(stub.messages) do
+			if line:find("Lookup could not be loaded", 1, true) then messages[#messages + 1] = line end
+		end
+		emit(messages)"#
+		));
+		assert_eq!(out.as_array().unwrap().len(), 2, "{reason}");
+		for message in out.as_array().unwrap() {
+			let expected = format!("Lookup could not be loaded ({}): is the Polestar_Lookup folder installed and enabled?", reason.to_ascii_lowercase());
+			assert!(text(message).contains(&expected), "{message}");
+		}
+	}
 }
 
 /// Each source's `keys`, as rows (`sources.map((s) => [s.a, s.b, ...])`; a missing field is null).
@@ -380,6 +500,7 @@ fn a_guide_result_opens_in_a_new_tab_or_among_the_hub_s_guides() {
 #[test]
 fn the_hub_s_guide_search_lists_codex_matches_under_its_guides_one_opens_the_lookup_section_at_it() {
 	let out = run(r#"
+		local loads = countWindowLoads()
 		UI.ShowPicker()
 		Polestar.UI.Picker.SetQuery("saber"); stub.advance(0.3)
 		local body = PolestarPicker.Scroll.Child
@@ -387,7 +508,10 @@ fn the_hub_s_guide_search_lists_codex_matches_under_its_guides_one_opens_the_loo
 		for _, r in ipairs(shownRows(body)) do rows[#rows + 1] = r.Title:GetText() .. " | " .. r.Sub:GetText() end
 		local empty = PolestarPicker.Empty and PolestarPicker.Empty:IsShown()
 		local count = UI.LookupCount()
+		-- The core draws these rows: the window's addon loads only when one is picked.
+		assert(loads() == 0 and not C_AddOns.IsAddOnLoaded("Polestar_Lookup"))
 		rowFor(body, "Frostsaber Provisions"):Click()
+		assert(loads() == 1 and C_AddOns.IsAddOnLoaded("Polestar_Lookup"))
 		emit({ rows = rows, count = count, empty = empty, picker = PolestarPicker:IsShown(), lookup = lookupShown(), sel = LK.Selected(), query = LK.Query() })"#);
 	assert_eq!(
 		out["rows"],

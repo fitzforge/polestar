@@ -37,6 +37,7 @@ one into the other. The addons:
 | `Polestar_Nav_EK`, `Polestar_Nav_Kalimdor` (`addon/Polestar_Nav_EK/`, `addon/Polestar_Nav_Kalimdor/`) | The map parts of each continent's walking maps when they are Leffe's (maps format 5; their metadata stays in Polestar_Nav); loaded on demand by Polestar_Nav's router the first time it searches that continent (Polestar searches only the player's continent and those already loaded), never in combat ("Leffe's navigation maps in game") | `forge nav pack --leffe` | yes | yes, when written |
 | `Polestar_Travel` (`addon/Polestar_Travel/`) | Zone crossings for the travel planner, from an optional local crossings file; loaded with Polestar | `travel build` | no (local, gitignored) | no, never packaged (Nav, "Travel planner and zone crossings") |
 | `Polestar_Options` (`addon/Polestar_Options/`) | The settings window, its Look pages and previews, the Profiles page and profile strings, Move frames; loaded on demand the first time the settings open (`UI/OptionsLoader.lua` is its door in the core) | hand-written | yes | yes |
+| `Polestar_Lookup` (`addon/Polestar_Lookup/`) | The hub's Lookup window; loaded on demand the first time Lookup opens (`UI/Lookup.lua` is its door in the core and keeps the guide menu's Codex rows before then) | hand-written | yes | yes |
 | `Polestar_FreeMode` (`addon/Polestar_FreeMode/`) | The quest-log modes: Free mode (`Free.lua`, #3701) and the finished-quest guide's planner (`Route.lua`, `Handins.lua`, #2486). Opening or restoring either guide loads it; the core keeps their doors (`Lookup/Free.lua`, `Lookup/Handins.lua`) and the guide menu's count of ready quests. | hand-written | yes | yes |
 | `Polestar_Skins` (`addon/Polestar_Skins/`) | The ten skins that ship (`Skins/<Name>/`: Vellum, Lumen, Beacon, Aurora, Hairline, Umbra, Waymark, Lanterns, Sheen, Atlas, on the Skin API, named in its TOC's `## X-Polestar-Skin`) and the guide window's layout Atlas on Skin API 2 (`Layouts/Atlas/`, `## X-Polestar-Layout`: the step on a timeline with cards above the window, a beta), each its own addon before 0.4.3; loaded on demand when one of them is wanted (`Theme.LoadSkinAddon`: the saved skin or layout at login, a pick, the settings listing the skins); `Polestar_Skin_Example` never ships (docs/SKINS-API.md) | hand-written | yes | yes |
 | `Polestar_Arcade` (`addon/Polestar_Arcade/`) | The games offered on flights by `Maps/Arcade.lua` (one picker, `arcade.game`), loaded on demand the first time Play is pressed. Freedoom Arcade by petllama, a program of its own (GPL-2.0-or-later, its `LICENSE` and `CREDITS.md`): his DOOM engine port and three Freedoom levels; Polestar talks to it only through `LoadAddOn` and `FreedoomArcadeAPI`. Sky Jewels by RikyZ90 (`games/skyjewels/`, GPL-3.0-only, its `CREDITS.md`), a match-three game with 60 levels, progress in `PolestarCharDB.skyJewels`; Tetris by beemerwt (`games/tetris/`, GPL-3.0-only, its `LICENSE`), its run and best score in `Polestar_TetrisDB`. Each hands `Arcade.Register` its `Open`, `Close` and `IsOpen`. The folder is never loaded when the standalone `FreedoomArcade` addon is installed and enabled (one engine, the same globals): then Freedoom Arcade is the only game offered | `git subtree` of github.com/petllama/FreedoomArcade with our commits on top; assets by its `tools/build_assets.py` and `tools/subset.py`; Sky Jewels' levels by `tools/sky-jewels.lua`, its textures by `tools/media/sky-jewels.js` | yes | yes |
@@ -10206,9 +10207,15 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   picking one opens the Lookup section at it. The round Polestar button
   in the quest details header opens the shared quest menu and follows
   Polestar's visibility setting.
-- **Lookup** (`UI/Lookup.lua`, the hub section "Lookup", order 20;
+- **Lookup** (`Polestar_Lookup/UI/LookupWindow.lua`, the hub section "Lookup", order 20;
   `UI.ShowLookup({ query, kind, id })` and `SHOW_LOOKUP(query, kind, id)` open
-  the hub at it). Search only, never browsing: the hub's search box drives it
+  the hub at it). The core's `UI/Lookup.lua` registers the section with a
+  `load` that loads `Polestar_Lookup` the first time it is shown (from the rail,
+  `UI.ShowLookup` or the guide menu's Codex rows; the Picker's `ShowSection`
+  asks it before building), never in combat: asked then, it says so in chat
+  once and opens Lookup when the fight ends. The window then registers the
+  section again with its build and render and puts its `UI.ShowLookup` in
+  place of the core's. Search only, never browsing: the hub's search box drives it
   (`Search.Query`, run when typing pauses for 0.15 s; the section's `search`,
   `enter`, `step` hooks); an empty search lists the recent lookups
   (`CharState().ui.recentLookups`, newest first, at most 10, kept when the

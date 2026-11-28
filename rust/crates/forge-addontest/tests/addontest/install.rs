@@ -39,6 +39,7 @@ const RELEASE: &[&str] = &[
 	"Polestar_Nav_Kalimdor",
 	"Polestar_FreeMode",
 	"Polestar_Options",
+	"Polestar_Lookup",
 	"Polestar_Skins",
 	"Polestar_Arcade",
 	"Polestar_deDE",
@@ -155,6 +156,18 @@ fn a_copy_without_the_settings_folder_is_named_at_login() {
 	let said = said(&out);
 	assert_eq!(said.len(), 1, "one line: {said:?}");
 	assert!(is_match(&said[0], r"Polestar_Options not installed"), "{}", said[0]);
+}
+
+// The Lookup window (Polestar_Lookup) loads on demand too and ships in every release.
+#[test]
+fn a_copy_without_the_lookup_folder_is_named_at_login() {
+	let without: Vec<String> = RELEASE.iter().filter(|n| **n != "Polestar_Lookup").map(|s| s.to_string()).collect();
+	let out = login(&without);
+	assert_eq!(out["missing"], "Polestar_Lookup");
+	assert_eq!(out["stale"], "");
+	let said = said(&out);
+	assert_eq!(said.len(), 1, "one line: {said:?}");
+	assert!(is_match(&said[0], r"Polestar_Lookup not installed"), "{}", said[0]);
 }
 
 #[test]

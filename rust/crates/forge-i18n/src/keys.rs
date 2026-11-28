@@ -155,12 +155,12 @@ fn lua_files(dir: &Path, skip: &Path, out: &mut Vec<PathBuf>) -> Result<(), Stri
 
 /// The load-on-demand folders whose interface strings are an addon's own: they share its locale files
 /// (addon/Polestar_<locale>/Interface.lua for Polestar), grouped by their paths inside their own folder.
-/// Polestar_Options is Polestar's settings window, loaded on first open; Polestar_Arcade
+/// Polestar_Options and Polestar_Lookup are Polestar's settings and Lookup windows, loaded on first open; Polestar_Arcade
 /// the games to play on a flight, loaded on the first Play (Freedoom Arcade has no strings of Polestar's; the other
 /// games use Polestar's). Polestar_FreeMode holds the quest-log modes, Free mode and the finished-quest guide's
 /// planner, loaded when one of them opens. Polestar_Skins holds the looks and their layouts (Atlas), which show
 /// Polestar's texts through Core.tr.
-pub const PARTS: &[(&str, &[&str])] = &[("Polestar", &["Polestar_Options", "Polestar_Arcade", "Polestar_FreeMode", "Polestar_Skins"])];
+pub const PARTS: &[(&str, &[&str])] = &[("Polestar", &["Polestar_Options", "Polestar_Lookup", "Polestar_Arcade", "Polestar_FreeMode", "Polestar_Skins"])];
 
 /// The keys of the .lua files under `dir` (its `Locales` folder skipped) into `keys`, each use under its
 /// path inside `dir`, in the order the folder loads them (TOC, XML manifests; a folder without a TOC, a
