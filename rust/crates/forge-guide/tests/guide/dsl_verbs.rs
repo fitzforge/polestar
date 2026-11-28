@@ -69,15 +69,16 @@ fn learn_names_skill_line_and_recipe_item_from_data_trainer_taught_recipes_get_e
 	// has no Era bounds in the fixture: the point is emitted live-frame.
 	assert_eq!(
 		g[0],
-		json!({ "t": "learn", "spell": 3276, "spellName": "Heavy Linen Bandage", "skillLine": 129, "candidates": [
+		json!({ "t": "learn", "spell": 3276, "spellName": "Heavy Linen Bandage", "makes": 2581, "skillLine": 129, "candidates": [
 			{ "npc": 2329, "npcName": "Michelle Belle", "map": 1429, "x": 43.39, "y": 65.55, "f": "e", "faction": "A" },
 			{ "npc": 5150, "npcName": "Nissa Firestone", "map": 1455, "x": 54.8, "y": 58.6, "faction": "A" },
 		] })
 	);
-	// A recipe learned from an item names the item instead of a trainer.
-	assert_eq!(g[1], json!({ "t": "learn", "spell": 7934, "spellName": "Anti-Venom", "item": 6454, "itemName": "Manual: Strong Anti-Venom", "skillLine": 129 }));
+	// The item the recipe makes (`makes`) is what the profession window draws for it. A recipe learned from an item
+	// names that item instead of a trainer.
+	assert_eq!(g[1], json!({ "t": "learn", "spell": 7934, "spellName": "Anti-Venom", "item": 6454, "itemName": "Manual: Strong Anti-Venom", "makes": 6452, "skillLine": 129 }));
 	// An explicit trainer stays fixed.
-	assert_eq!(g[2], json!({ "t": "learn", "spell": 3275, "spellName": "Bandage", "npc": 5150, "npcName": "Nissa Firestone", "skillLine": 129, "map": 1455, "x": 54.8, "y": 58.6 }));
+	assert_eq!(g[2], json!({ "t": "learn", "spell": 3275, "spellName": "Bandage", "npc": 5150, "npcName": "Nissa Firestone", "makes": 1251, "skillLine": 129, "map": 1455, "x": 54.8, "y": 58.6 }));
 }
 
 #[test]

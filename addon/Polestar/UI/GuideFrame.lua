@@ -537,8 +537,18 @@ GF.Part(function(GF)
 	end
 	GF.TooltipAnchor = tooltipAnchor
 
-	-- The spell a craft goal, or a learn goal of a profession guide, stands for: the recipe's spell, whose icon and
-	-- tooltip the row shows when the recipe makes no item (an enchant, a smelt, a transmute).
+	-- What a recipe goal stands for in the profession window, as the client's own window draws it: the item the recipe
+	-- makes (a craft goal's `item`, a learn goal's `makes`), else the recipe's spell (an enchant makes no item). A learn
+	-- goal of any other guide keeps its glyph and its lines: a class spell's icon is not a recipe's.
+	function GF.RecipeItem(goal)
+		if not goal then return nil end
+		if goal.t == "craft" then return type(goal.item) == "number" and goal.item or nil end
+		if goal.t == "learn" and type(goal.makes) == "number" then
+			local E = Engine()
+			return E and E.GuideKind and E.GuideKind() == "profession" and goal.makes or nil
+		end
+		return nil
+	end
 	function GF.RecipeSpell(goal)
 		local spell = goal and goal.spell
 		if type(spell) ~= "number" then return nil end
@@ -550,20 +560,18 @@ GF.Part(function(GF)
 		return nil
 	end
 
-	-- The icon a goal row wears in place of its verb's glyph (the game's own art), or nil for the glyph: a craft's item
-	-- or, with none, its recipe's spell; a learn step's spell; a profession guide's materials (collect, buy, the
+	-- The icon a goal row wears in place of its verb's glyph (the game's own art), or nil for the glyph: a craft's or
+	-- learn step's recipe item, or, with none, its recipe's spell; a profession guide's materials (collect, buy, the
 	-- Auction House) their item. The glyph stays only where the client gives nothing.
 	function GF.GoalIcon(goal)
 		local C = ns.Compat
 		if not goal then return nil end
+		local recipe = GF.RecipeSpell(goal)
+		if recipe then
+			local item = GF.RecipeItem(goal)
+			return (item and C.ItemIcon and C.ItemIcon(item)) or (C.SpellIcon and C.SpellIcon(recipe)) or nil
+		end
 		local item = type(goal.item) == "number" and goal.item or nil
-		if goal.t == "craft" then
-			return (item and C.ItemIcon and C.ItemIcon(item)) or (goal.spell and C.SpellIcon and C.SpellIcon(goal.spell)) or nil
-		end
-		if goal.t == "learn" then
-			local spell = GF.RecipeSpell(goal)
-			return spell and C.SpellIcon and C.SpellIcon(spell) or nil
-		end
 		if item and (goal.t == "collect" or goal.t == "buy" or goal.t == "auction") then
 			local E = Engine()
 			return E and E.GuideKind and E.GuideKind() == "profession" and C.ItemIcon and C.ItemIcon(item) or nil
@@ -596,7 +604,9 @@ GF.Part(function(GF)
 			lines[#lines + 1] = { left = L["NPC"], right = name and (name .. id .. goal.npc .. "|r") or ("#" .. goal.npc) }
 		end
 		-- An item goal shows the game's tooltip of its item, the guide's lines under it.
-		local itemTip = goal.item and (goal.subjectKind == "item" or goal.t == "craft") and W.ItemTip and W.TooltipLines
+		local recipeItem = GF.RecipeItem(goal)
+		local tipItem = recipeItem or (goal.item and goal.subjectKind == "item" and goal.item) or nil
+		local itemTip = tipItem and W.ItemTip and W.TooltipLines
 		-- A recipe with no item of its own: the recipe's tooltip.
 		local recipe = not itemTip and W.RecipeTip and W.TooltipLines and GF.RecipeSpell(goal) or nil
 		if goal.item and not itemTip then
@@ -665,7 +675,7 @@ GF.Part(function(GF)
 			lines[#lines + 1] = goal.dismissed and L["Skipped. Undo brings it back."] or L["Optional: not needed for the route. Skip it if you pass on it."]
 		end
 		if itemTip then
-			W.ItemTip(row, goal.item, function(tip)
+			W.ItemTip(row, tipItem, function(tip)
 				tip:AddLine(" ")
 				tip:AddLine(goal.text or "", 1, 1, 1, true)
 				W.TooltipLines(tip, lines)

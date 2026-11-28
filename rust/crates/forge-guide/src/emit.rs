@@ -86,7 +86,7 @@ pub const WHEN_KEYS: [&str; 22] =
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 93] = [
+pub const GOAL_KEYS: [&str; 94] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
@@ -114,6 +114,8 @@ pub const GOAL_KEYS: [&str; 93] = [
 	"objName",
 	"item",
 	"itemName",
+	// A `learn` goal's recipe makes this item: the profession window draws its icon.
+	"makes",
 	"count",
 	// A `collect … gather`: the item's gather way, true or { max, min, rank, skill, skillLine } (Core/Materials.lua).
 	"gather",

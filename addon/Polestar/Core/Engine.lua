@@ -6950,6 +6950,8 @@ local function goalView(s, g, goal, stepStatus, group)
 		accent = goal.accent == true or nil,
 		map = map, x = x, y = y, f = f, z = z,
 		quest = goal.quest, oi = goal.oi, npc = npc, npcName = npcName, item = goal.item,
+		-- A learn goal's recipe makes this item: the profession window shows its icon and tooltip (UI/GuideFrame.lua, GF.RecipeArt).
+		makes = goal.makes,
 		alternatives = alternatives,
 		spots = goal.spots and #goal.spots or nil, spread = goal.spread or nil, exact = goal.spots and Spots.exact(goal) or nil,
 		lvl = goal.candidates and chosen(goal) and chosen(goal).lvl or nil,
