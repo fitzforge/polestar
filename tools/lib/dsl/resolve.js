@@ -1180,7 +1180,47 @@ function resolveGuide(ast, data, diag, opts = {}) {
 	checkAlongGoals(guide.steps, warn);
 	checkBackground(ast.steps, guide.steps, err);
 	checkMaterials(guide.steps, warn);
+	markVias(guide, ast.steps, warn);
 	return guide;
+}
+
+// A leveling guide's step of places only (every goal but its notes a `goto`, `fly` or `enter`) is no step of its
+// own: the route gets there however is quickest (#4467). It is marked `via`, a hidden hint the Engine reads on
+// the way to the next step's work (docs/GUIDE_FORMAT.md, "Steps of places only"); its index stays, so saves, legs
+// and labels keep pointing where they did. `keep <kind> <reason>` keeps one as a step (its kind emitted as `keep`).
+// An `along` step is passed already. Other categories keep every step as written. A trailing run of them, with no
+// step of work after it in the guide, is where the guide goes, not a way to a step: it stays as written (a pack made
+// only of places, `polestar new`'s template, still ends and hands over).
+const PLACE_VERBS = new Set(['goto', 'fly', 'enter']);
+function placesOnly(step) {
+	let any = false;
+	for (const goal of step.goals) {
+		if (goal.t === 'note') continue;
+		if (!PLACE_VERBS.has(goal.t)) return false;
+		any = true;
+	}
+	return any;
+}
+function markVias(guide, astSteps, warn) {
+	const leveling = guide.category === 'Leveling';
+	const travel = guide.steps.map((step) => leveling && step.along === undefined && placesOnly(step));
+	// The last step a via could lead to: one with work, a kept one (not an along step).
+	let lastReal = -1;
+	guide.steps.forEach((step, i) => {
+		if (step.along === undefined && !(travel[i] && !astSteps[i].keep)) lastReal = i;
+	});
+	guide.steps.forEach((step, i) => {
+		const keep = astSteps[i].keep;
+		if (keep && !travel[i]) {
+			warn(keep.line, leveling
+				? '`keep` is for a step of places only (gotos, a flight, `enter`): this step has work of its own and stays a step anyway'
+				: '`keep` is for a leveling guide\'s step of places only: this guide keeps every step as written');
+		} else if (keep) {
+			step.keep = keep.kind;
+		} else if (travel[i] && i < lastReal) {
+			step.via = true;
+		}
+	});
 }
 
 // Step labels are guide-wide: each names one step, `along until <label>` and

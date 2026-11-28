@@ -7010,20 +7010,22 @@ test('Alliance Hyjal return: the Everlook opener uses the character’s own leve
 	const file = 'forever/alliance/50-60/06-silithus.guide';
 	const source = fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8');
 	// The opener and the pass in isolation: compiling the whole 06 alone would reject the hand-ins of quests its
-	// earlier guides give (Wasteland, Taking Back Silithus).
-	const start = source.slice(0, source.indexOf('\nstep Layo Starstrike'));
+	// earlier guides give (Wasteland, Taking Back Silithus). The flight and the pass are steps of places only, so
+	// hidden vias since #4467: a stand-in for Layo Starstrike, by his spot at Valor's Rest, is the work they lead to.
+	const start = `${source.slice(0, source.indexOf('\nstep Layo Starstrike'))}\nstep Layo Starstrike\n  zone Silithus\n  task "Talk to Layo Starstrike" @81.76,18.92 live\n`;
 	const pack = buildSimPack([{ file, text: start }]);
 	try {
 		assert.deepEqual(pack.diag.errors, []);
 		const guide = pack.guides[0];
+		// Un'Goro: no Winterspring opener; Layo's step, the arrow by the pass (step 5).
 		for (const [level, map, zone, expected] of [
-			[59, 1452, 'Winterspring', 1], [58, 1452, 'Winterspring', 1], [59, 1449, "Un'Goro Crater", 5],
+			[59, 1452, 'Winterspring', [1, null]], [58, 1452, 'Winterspring', [1, null]], [59, 1449, "Un'Goro Crater", [6, 5]],
 		]) {
 			const [first] = playGuide(pack, guide, { race: 'Human', faction: 'Alliance', cls: 'WARRIOR',
 				before: `w.level=${level}; w.moveTo(${map}, 61, 38); w.zone=${JSON.stringify(zone)}; w.complete({93197})`,
-				script: 'emit(Polestar.Engine.GetStepIndex())',
+				script: 'local E = Polestar.Engine; local wp = E.GetWaypoint(); emit({ E.GetStepIndex(), wp and wp.via or false })',
 			});
-			assert.equal(first, expected, `level ${level}, ${zone}`);
+			assert.deepEqual([first[0], first[1] || null], expected, `level ${level}, ${zone}`);
 		}
 	} finally { pack.dispose(); }
 });
@@ -7038,24 +7040,26 @@ test('Alliance Ratchet departure: approach the flight master in the current zone
 	assert.ok(!list.some(({ goal }) => goal.quest === 4842), 'no gorge step in the Silithus guide');
 });
 
-test('Alliance Ratchet boarding: a learned departure still points to the flight master before boarding', { skip }, () => {
+test('Alliance Ratchet boarding: a learned departure leads by the flight before the pass, from Winterspring', { skip }, () => {
 	const file = 'forever/alliance/50-60/06-silithus.guide';
 	const src = fs.readFileSync(path.join(OFFICIAL_DIR, file), 'utf8');
-	const text = src.slice(0, src.indexOf('\nstep Layo Starstrike'));
+	// As above: the flight and the pass are hidden vias of a stand-in for Layo Starstrike's step (#4467). From
+	// Winterspring the arrow goes by the flight's landing at Marshal's Refuge (step 4; with the travel route on, the
+	// route boards at Everlook's flight master), from Un'Goro by the pass (step 5).
+	const text = `${src.slice(0, src.indexOf('\nstep Layo Starstrike'))}\nstep Layo Starstrike\n  zone Silithus\n  task "Talk to Layo Starstrike" @81.76,18.92 live\n`;
 	const pack = buildSimPack([{ file, text }]);
 	try {
 		assert.deepEqual(pack.diag.errors, []);
-		for (const [zone, map, x, y, title] of [
-			['Winterspring', 1452, 61.0, 38.0, 'Fly to Marshal\'s Refuge'],
-			["Un'Goro Crater", 1449, 43.7, 8.3, 'Into Silithus'],
+		for (const [zone, map, x, y, via] of [
+			['Winterspring', 1452, 61.0, 38.0, 4],
+			["Un'Goro Crater", 1449, 43.7, 8.3, 5],
 		]) {
 			const [v] = playGuide(pack, pack.guides[0], { race: 'Human', faction: 'Alliance', cls: 'WARRIOR',
 				saved: 'PolestarCharDB={flags={taxi={[52]=true,[79]=true}}}',
 				before: `w.level=59; w.moveTo(${map},${x},${y}); w.zone=${JSON.stringify(zone)}`,
-				script: `local E=Polestar.Engine; local i=E.GetStepIndex(); local t=E.GetGuide().steps[i].title
-					for _,g in ipairs(E.GetStepView(i).goals) do if g.status=='active' then emit({title=t,verb=g.t});break end end`,
+				script: 'local E = Polestar.Engine; local wp = E.GetWaypoint(); emit({ step = E.GetStepIndex(), via = wp and wp.via or false })',
 			});
-			assert.deepEqual(v, { title, verb: 'goto' }, zone);
+			assert.deepEqual(v, { step: 6, via }, zone);
 		}
 	} finally { pack.dispose(); }
 });

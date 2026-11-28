@@ -148,6 +148,7 @@ step Unstable Mana Rifts: mana for the western pylon
   collect 255667 x4 npc 264149 @46.32,42.94 -- Coalesced Mana Crystal, from the Unstable Mana Rifts with the Mana Sieve
 
 step The road south of the western pylon
+  keep safety the spot to pull the Protectors to, one at a time, on the pylon's quiet side
   label western-pylon-approach
   tip North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one Decrepit Pylon Protector at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use Repair and Recharge Pylon, as players did to repair it.
   tip Careful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.

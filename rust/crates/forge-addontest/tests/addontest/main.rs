@@ -212,6 +212,8 @@ mod engine_talk;
 mod engine_training;
 #[path = "engine-travel-steps.rs"]
 mod engine_travel_steps;
+#[path = "engine-via-steps.rs"]
+mod engine_via_steps;
 #[path = "engine-unavailable.rs"]
 mod engine_unavailable;
 #[path = "engine-upgrade.rs"]
@@ -304,6 +306,8 @@ mod lookup_guides;
 mod lookup_tooltip_performance;
 #[path = "lua-helper-paths.rs"]
 mod lua_helper_paths;
+#[path = "mage-teleports.rs"]
+mod mage_teleports;
 mod maps;
 #[path = "maps-arcade.rs"]
 mod maps_arcade;

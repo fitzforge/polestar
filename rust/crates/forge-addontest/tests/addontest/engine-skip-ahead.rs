@@ -63,7 +63,9 @@ w.onQuest(5741, { { required = 1, fulfilled = 1 } })
 w.onQuest(92432, {  })"#;
 	for reload in [false, true] {
 		let out = place("Alliance", "forever/alliance/30-40/04b-stranglethorn-vale", before, reload);
-		assert_eq!(out["live"], "Fly to Darkshire", "reload {reload}: {out}");
+		// Its flight and the road into the jungle are hidden vias (#4467) and Clerk Daltry is not this player's: the
+		// placement keeps the guide's opening, the Rebel Camp, the first stop with work.
+		assert_eq!(out["live"], "Rebel Camp", "reload {reload}: {out}");
 	}
 }
 
@@ -80,7 +82,8 @@ w.onQuest(952, {  })
 w.onQuest(97894, {  })"#;
 	for reload in [false, true] {
 		let out = place("Alliance", "forever/alliance/03-darkshore", before, reload);
-		assert_eq!(out["live"], "Boat to Auberdine", "reload {reload}: {out}");
+		// The boat is a hidden via (#4467): the placement keeps the guide's first stop, Auberdine.
+		assert_eq!(out["live"], "Auberdine", "reload {reload}: {out}");
 	}
 }
 

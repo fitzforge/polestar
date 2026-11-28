@@ -6,7 +6,9 @@
 //! (so a follow-up waits for the hand-in that opens it, as Regthar Deathgate's Verog the Dervish waits for Kolkar
 //! Leaders), and every move puts the player in its map's zone, as the zone text says (the guide's own stop in the
 //! Undercity at the start of Hillsbrad, whose last flight lands there, ended it in 0.3.5). GUIDE_END must never
-//! fire while a step is still live.
+//! fire while a step is still live, unless the live step holds only work a later guide hands in (the compiled
+//! `carriedTo`: it holds no end, #3517; engine-guide-end.rs pins that end). Durotar's last step for Warriors, the
+//! thunder lizards, is such a step since the walk to Orgrimmar after it is a hidden via (#4467).
 //!
 //! GUIDES_END_ONLY=<part of an id> plays only those guides; GUIDES_END_HISTORY=<file.json>, `{ "<guide id>":
 //! [quest ids] }`, starts each guide's character with those quests turned in (a character that played an older
@@ -30,7 +32,15 @@ Polestar.Set("behavior.groupQuests", "do")
 Polestar.Set("behavior.dungeons", "skip") -- the solo route, whatever "Dungeons in my route" defaults to
 ENDS = {}
 Polestar.On("GUIDE_END", function(gid, i)
-	ENDS[#ENDS + 1] = { id = gid, undone = i.undone, live = i.live or false }
+	-- The live step's open work only carried to a later guide (#3517): an end it does not hold.
+	local carried = i.live ~= nil
+	if i.live then
+		local g = E.GetGuide()
+		for _, goal in ipairs(g and g.steps[i.live] and g.steps[i.live].goals or {}) do
+			if goal.t ~= "note" and not goal.optional and not goal.carriedTo then carried = false end
+		end
+	end
+	ENDS[#ENDS + 1] = { id = gid, undone = i.undone, live = i.live or false, carried = carried }
 end)
 do
 	local w, move = stub.world, stub.world.moveTo
@@ -197,7 +207,7 @@ fn every_leveling_guide_played_in_order_with_its_givers_windows_ends_only_at_its
 						let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before: before.clone(), addons: vec![Addon::name("Polestar")], script: script.clone(), ..Default::default() });
 						let sim = out.first().cloned().unwrap_or(Value::Null);
 						let ends = out.get(1).cloned().unwrap_or(Value::Null);
-						let early: Vec<&Value> = ends.as_array().map(|a| a.iter().filter(|e| e["live"] != false).collect()).unwrap_or_default();
+						let early: Vec<&Value> = ends.as_array().map(|a| a.iter().filter(|e| e["live"] != false && e["carried"] != true).collect()).unwrap_or_default();
 						done.push(if early.is_empty() {
 							(i, format!("ok    {who}: visited {} of {} steps, ends {}", sim["visited"], sim["steps"], ends), None)
 						} else {

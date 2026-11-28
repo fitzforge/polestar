@@ -137,7 +137,8 @@ emit({ guide = E.GetGuide().id, live = E.GetLiveStep() or false, king = STATUS(6
 	rock = STATUS(216), charm = STATUS(6462), ruul = STATUS(6482), why = why })"#,
 	);
 	assert_eq!(out["guide"], ASHENVALE, "not passed whole: {out}");
-	assert_eq!(out["live"], 1, "{out}");
+	// Step 1, the flight to Zoram'gar Outpost, is a hidden via (#4467): the live step is the outpost's.
+	assert_eq!(out["live"], 2, "{out}");
 	for q in ["king", "satyr", "befouled", "rock"] {
 		assert!(out[q] == "pending" || out[q] == "active", "{q} stays: {out}");
 	}
@@ -168,5 +169,6 @@ for i = 1, E.GetStepCount() do
 end
 emit({ catchup = kinds.catchup or false, grey = kinds.grey or false, charm = STATUS(6462) })"#,
 	);
-	assert_eq!(out, json!({ "catchup": false, "grey": false, "charm": "pending" }));
+	// The outpost's step, the troll charm's accept among its goals, is the live one (the flight before it a via, #4467).
+	assert_eq!(out, json!({ "catchup": false, "grey": false, "charm": "active" }));
 }

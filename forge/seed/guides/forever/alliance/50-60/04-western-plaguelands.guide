@@ -60,6 +60,7 @@ step Herald Moonstalker
 # (#1338). Before each of them, a goto at the building's door on its south side, 35.8,11.6 (players' recordings walk
 # in there), makes the arrow point straight at him from there.
 step Cenarion Enclave
+  keep door the walking maps have no way up inside the druids' building: its south door first (#1338)
   skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
   zone Darnassus
   goto 35.8,11.6 "Cenarion Enclave"
@@ -72,6 +73,7 @@ step Arch Druid Fandral Staghelm
   accept 6761
 
 step Cenarion Enclave
+  keep door the walking maps have no way up inside the druids' building: its south door first (#1338)
   skipto chillwind when !onquest 978,3461,4512,5216,5245,6028,6030,96812
   zone Darnassus
   goto 35.8,11.6 "Cenarion Enclave"

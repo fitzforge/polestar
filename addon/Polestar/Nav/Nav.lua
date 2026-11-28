@@ -235,6 +235,7 @@ local tZ         -- its height: the target's `z` (a guide goal, candidate or spa
 local tDock      -- true when (tX, tY, tZ) is a ship's boarding spot the goal was moved to (dockPoint), else nil
 local arrived = false
 local wetBounds, wetNew
+local viaTold    -- the via target whose reaching was told (NAV_VIA_REACHED), once per target
 local wetReach, exactPoint, pointAnnounced -- shared one-shot announcement for a measured visit
 local function number(v)
 	return not (issecretvalue and issecretvalue(v)) and type(v) == "number" and v > -math.huge and v < math.huge
@@ -831,7 +832,15 @@ local function sample()
 			floorHint = z < tZ and "up" or "down"
 		end
 	end
-	if exact then
+	if target.via then
+		-- A via (a leveling guide's hidden step of places only on the way to the live step's work, #4467) is no
+		-- arrival: no chime, never "arrived". Reaching it, on its floor, tells the Engine this frame
+		-- (NAV_VIA_REACHED(target): Own.viaReachedAt), which aims on at once.
+		if dist <= r and not floorHint and viaTold ~= target then
+			viaTold = target
+			pcall(ns.Fire, "NAV_VIA_REACHED", target)
+		end
+	elseif exact then
 		local reach = math.min(r,5)
 		arrived = false
 		if dist <= 20 or pointAnnounced then
@@ -993,8 +1002,19 @@ local function recordSample(sampled, state, ...)
 	return state, ...
 end
 
+-- A via target (#4467): the yards count on from the via to the live step's work (`rest`, straight), so the
+-- number is the way left to the work, never to the hint on the way; not on a routed leg (its own yards).
+local function toWork(state, dist, ...)
+	local rest = target and target.via and target.rest
+	if rest and dist and (state == "travel" or state == "routing") then
+		local T = Nav.travel
+		if not (T and T.Active and T.Active()) then dist = dist + rest end
+	end
+	return state, dist, ...
+end
+
 function Nav.Sample()
-	return recordSample(target, sample())
+	return recordSample(target, toWork(sample()))
 end
 
 -- "up" or "down" while the player is near the target but a floor below or

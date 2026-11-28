@@ -303,6 +303,7 @@ step Gallows' End Tavern
 
 step The cellar stairs
   when onquest 407
+  keep door the Zealot is in the cellar under the inn: the stairs down first
   tip The Captured Scarlet Zealot is in the cellar under the inn's north end. The stairs down start at the west side of that end: go down them, then turn east to him.
   goto 61.66,51.50 "The cellar stairs"
 

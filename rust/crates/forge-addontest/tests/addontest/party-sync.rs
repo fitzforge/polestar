@@ -26,6 +26,7 @@ step Marshal McBride
 
 step Warriors see Llane
   only Warrior
+  keep safety a stop of its own in this test (a step of places only is a via since #4467)
   goto 50.2,42.3 "Llane Beshere"
 
 step Kobolds
@@ -35,6 +36,7 @@ step Back to the abbey
   turnin 7
 
 step Goldshire
+  keep safety a stop of its own in this test
   goto 42.1,65.9 "Goldshire"
 "#;
 
@@ -46,6 +48,7 @@ levels 1-6
 zone Elwynn Forest
 
 step Somewhere
+  keep safety a stop of its own in this test
   goto 40.0,40.0 "Somewhere"
 "#;
 

@@ -5020,16 +5020,19 @@ end
 -- travel checks ask the steps after it again: Own.travelOnto), as
 -- Own.doneMemo keeps each goal's.
 local function stepDoneLive(s)
-	-- The route passes over an along step (Own.alongListed), a hearth-only
-	-- one (Own.hearthOnly: the arrow's route hearths when it pays), a
-	-- travel step the route flies past (Own.flightPassed), a walk to a stop
-	-- that holds nothing for the character (Own.stopEmpty), a walk to a boat,
-	-- zeppelin or portal the player is already across (Own.alreadyAcross) and a step
-	-- under a section the player's skill has passed (Own.sectionPassed).
-	if guide.steps[s].along or Own.hearthOnly(guide.steps[s]) or Own.sectionPassed(s) then return true end
+	-- The route passes over an along step (Own.alongListed), a via step (a
+	-- leveling step of places only: a hint on the way to the step after it,
+	-- Own.viasOf), a hearth-only one (Own.hearthOnly: the arrow's route
+	-- hearths when it pays), a travel step the route flies past
+	-- (Own.flightPassed), a walk to a stop that holds nothing for the character
+	-- (Own.stopEmpty), a walk to a boat, zeppelin or portal the player is
+	-- already across (Own.alreadyAcross), a kept step of places only whose
+	-- step after it is done (Own.keepPassed) and a step under a section the
+	-- player's skill has passed (Own.sectionPassed).
+	if guide.steps[s].along or guide.steps[s].via or Own.hearthOnly(guide.steps[s]) or Own.sectionPassed(s) then return true end
 	-- Waits for the player's answer (a group quest, a dungeon).
 	if Own.groupPending(guide.steps[s]) or Own.dungeonPending(guide.steps[s]) then return false end
-	return Own.goalsDone(s) or Own.flightPassed(s) or Own.stopEmpty(s) or Own.alreadyAcross(s)
+	return Own.goalsDone(s) or Own.flightPassed(s) or Own.stopEmpty(s) or Own.alreadyAcross(s) or Own.keepPassed(s)
 end
 local function stepDone(s)
 	local m = Own.passMemo
@@ -5047,9 +5050,12 @@ end
 -- `skipto` jump). An along step counts by its own goals. A step whose own
 -- `when` asks, through other steps, whether it is done is not (Own.asking).
 Own.asking = {}
+-- A via step (Own.viasOf) is done once the route is past it: the live step
+-- comes after it.
 function Own.labelDone(label)
 	local s = guide and Own.marksOf().labels[label]
 	if not s or isSkipped(s) or Own.asking[s] then return false end
+	if guide.steps[s].via then return stepApplies(guide.steps[s]) and computed ~= nil and computed > s end
 	Own.asking[s] = true
 	local ok = stepApplies(guide.steps[s]) and Own.goalsDone(s)
 	Own.asking[s] = nil
@@ -5745,7 +5751,8 @@ function Own.jumpEntered(s, to)
 			if k.to == to then same = true end
 		end
 		if same and stepApplies(step) and not (sk and sk[t]) then
-			if t < s and stepDone(t) then return true end
+			-- A via step is passed by itself, never by the player choosing the block.
+			if t < s and not step.via and stepDone(t) then return true end
 			for g, goal in ipairs(step.goals) do
 				if isQuestGoal(goal) and not goal.optional and goalApplies(goal) and goalDone(t, g, goal) then return true end
 			end
@@ -5782,8 +5789,11 @@ local function computeCurrent()
 	local steps = guide.steps
 	local sk = skippedFor(guide.id)
 	for s = 1, #steps do
+		-- A via step's jump is taken as the route reaches it (it never is the live step).
+		if steps[s].via then
+			if steps[s].skipto and stepApplies(steps[s]) and not (sk and sk[s]) and Own.jump(s) then sk = skippedFor(guide.id) end
 		-- The live step stays while the group waits on it (Own.partyHold).
-		if stepApplies(steps[s]) and not (sk and sk[s]) and (not stepDone(s) or (s == computed and Own.partyHold(s))) then
+		elseif stepApplies(steps[s]) and not (sk and sk[s]) and (not stepDone(s) or (s == computed and Own.partyHold(s))) then
 			local hold = Own.holdsBefore(s)
 			if hold then
 				return hold
@@ -6304,7 +6314,7 @@ function Own.onThroughZone(s, goal)
 	end
 	for n = s + 1, #steps do
 		local step = steps[n]
-		if not step.along and stepApplies(step) and not isSkipped(n) and step.title and step.title ~= text then
+		if not step.along and not step.via and stepApplies(step) and not isSkipped(n) and step.title and step.title ~= text then
 			return text, step.title
 		end
 	end
@@ -6640,7 +6650,7 @@ function Own.travelPurpose(s, g)
 	local k = 0
 	for n = s + 1, #steps do
 		local other = steps[n]
-		if stepApplies(other) and not isSkipped(n) and not other.along then
+		if stepApplies(other) and not isSkipped(n) and not other.along and not other.via then
 			if not Own.transitKind(n) and not stepDone(n) then
 				local text = Own.purposeOf(n)
 				if text then return text end
@@ -7190,7 +7200,7 @@ end
 -- late leads ahead of the step's errands (Own.timedAim). A flight step leads
 -- to the flight's end while the travel planner flies there (Own.flyAim), past
 -- the flight master it names.
-local function findWaypoint()
+function Own.workWaypoint()
 	if not current or Guides.OtherFaction(guide, player) or (current == computed and (Own.startGate(guide) or Own.awayStart(guide))) then return nil end
 	local goals = guide.steps[current].goals
 	if aim then
@@ -7263,6 +7273,13 @@ local function findWaypoint()
 	return nil
 end
 
+-- The arrow's waypoint: the live step's work, or a via on the way to it
+-- (Own.viaAim, #4467).
+local function findWaypoint()
+	local wp = Own.workWaypoint()
+	return Own.viaAim(wp) or wp
+end
+
 local function sameWaypoint(a, b)
 	if a == b then return true end
 	if not a or not b then return false end
@@ -7270,7 +7287,7 @@ local function sameWaypoint(a, b)
 		and a.x == b.x and a.y == b.y and a.f == b.f
 		and a.label == b.label and a.kind == b.kind and a.r == b.r
 		and a.z == b.z and a.area == b.area and a.search == b.search and a.placeGoal == b.placeGoal
-		and a.travel == b.travel and a.keepHearth == b.keepHearth
+		and a.travel == b.travel and a.keepHearth == b.keepHearth and a.via == b.via and a.rest == b.rest
 end
 
 local worldOf = setmetatable({}, { __mode = "k" }) -- goal -> { c, wx, wy }
@@ -9552,6 +9569,8 @@ local function checkArrival()
 	end
 	-- "While you're here": the nearest quick objective of a later step.
 	if Own.hereTick(c, px, py) then hit = true end
+	-- A via the arrow goes by (#4467): reached, passed or left behind.
+	if Own.viaTick(c, px, py) then hit = true end
 	if hit then requestUpdate() end
 end
 
@@ -9580,7 +9599,7 @@ local function updateTicker()
 		end
 	end
 	useActive()
-	if not need then need = Spots.waypointGoal() ~= nil or (guide ~= nil and current ~= nil and Own.nearPick[guide.steps[current]] ~= nil) end
+	if not need then need = Spots.waypointGoal() ~= nil or (guide ~= nil and current ~= nil and Own.nearPick[guide.steps[current]] ~= nil) or (waypoint ~= nil and waypoint.via ~= nil) end
 	-- A build of the While-here candidates queued for the next frame
 	-- (Own.hereLater) counts as candidates: the poll starts with the
 	-- evaluation, as when the build ran inside it, and runs that build first
@@ -10769,7 +10788,7 @@ function Own.lastWork(after, forAll, uncarried)
 	local steps = guide.steps
 	for s = #steps, after + 1, -1 do
 		local step = steps[s]
-		if not step.along and stepApplies(step) and not (forAll and Own.forSome(step)) then
+		if not step.along and not step.via and stepApplies(step) and not (forAll and Own.forSome(step)) then
 			for _, goal in ipairs(step.goals) do
 				if goal.t ~= "note" and not goal.optional and not (uncarried and goal.carriedTo) and goalApplies(goal) then return s end
 			end
@@ -12617,7 +12636,7 @@ function Own.travelOnto(s)
 	local c = Own.transitContinent(s, true)
 	for n = s + 1, #steps do
 		local step = steps[n]
-		if stepApplies(step) and not isSkipped(n) and not step.along then
+		if stepApplies(step) and not isSkipped(n) and not step.along and not step.via then
 			local kind = Own.transitKind(n)
 			if kind == "fly" or (kind == "walk" and Own.transitContinent(n, false) ~= c) then return n, kind end
 			if kind == "walk" then
@@ -12759,6 +12778,157 @@ function Own.stopEmpty(s)
 end
 
 Own.STOP_REACH = 300 -- yards from a walk's end its stop's work may lie
+
+---------------------------------------------------------------------------
+-- Steps of places only (#4467, Fitz's decision of 27 Nov 2026). In a leveling
+-- guide a step whose goals are only gotos, a flight or `enter` is compiled
+-- `via`: no step of its own (Own.hiddenStep: no number, never the live step,
+-- never waits), kept as a hint of the way to the step after it. The run of
+-- via steps right before the live step are its vias (Own.viasOf); the arrow
+-- goes by the first still ahead unless the player is past it, came another
+-- way, or has a faster way there (Nav.ViaPick), so a teleport, a flight or
+-- the Hearthstone is never pulled back to a checkpoint. A via before a step
+-- that is done is never read: that step is never the live one. A step kept
+-- as written (`keep door`, `keep boarding`, ...) passes once the step it
+-- leads to is done (Own.keepPassed).
+---------------------------------------------------------------------------
+
+-- Via step `step`'s place for the character: its last flight's landing (the
+-- town's flight master for their side, Own.flyNodeId), else its last goto or
+-- `enter` with a point: { c, wx, wy, z, map, x, y, f }, or nil. `z`: the
+-- point's height when known, so a via on a mesa ends on its floor.
+function Own.viaPlace(step)
+	local goals = step.goals
+	for g = #goals, 1, -1 do
+		local goal = goals[g]
+		if Guides.Matches(goal.only, player) then
+			if goal.t == "fly" then
+				local nav = ns.Nav
+				local id = Own.flyNodeId(goal)
+				local node = id and nav and nav.GetTaxiNode and nav.GetTaxiNode(id)
+				if node and node.c and node.map then return { c = node.c, wx = node.wx, wy = node.wy, z = node.z, map = node.map, x = node.x, y = node.y, f = node.f } end
+			elseif goal.t == "goto" or goal.t == "enter" then
+				local map, x, y, f, _, z = posOf(goal)
+				if map and x and y then
+					local c, wx, wy = Compat().MapToWorld(map, x, y, f)
+					if c then return { c = c, wx = wx, wy = wy, z = z, map = map, x = x, y = y, f = f } end
+				end
+			end
+		end
+	end
+	return nil
+end
+
+-- Step s's vias: the via steps right before it that apply to the character
+-- and were not skipped, past any step the route passes over for them (another
+-- class's, one whose `when` fails, one skipped), in route order: { place
+-- (Own.viaPlace) + s = the via step }, or nil.
+function Own.viasOf(s)
+	local steps, out = guide.steps, nil
+	for n = s - 1, 1, -1 do
+		local step = steps[n]
+		if step.via then
+			if stepApplies(step) and not isSkipped(n) then
+				local p = Own.viaPlace(step)
+				if p then
+					p.s = n
+					out = out or {}
+					table.insert(out, 1, p)
+				end
+			end
+		elseif not Own.hiddenStep(step) and stepApplies(step) and not isSkipped(n) then
+			break
+		end
+	end
+	return out
+end
+
+-- The vias of the live step that are done (reached, or passed: Nav.ViaPick,
+-- Nav.ViaJudge): guide -> { live = the live step, [via step] = true }. A via
+-- done never comes back while that step is live, so the arrow does not swing
+-- between a via and the work at the edge of a verdict (a fight beside it, the
+-- arrival poll against the next event).
+Own.viaGone = setmetatable({}, { __mode = "k" })
+
+-- The live step's done vias (Own.viaGone), made anew for another live step.
+function Own.viaDone()
+	local gone = Own.viaGone[guide]
+	if not gone or gone.live ~= current then
+		gone = { live = current }
+		Own.viaGone[guide] = gone
+	end
+	return gone
+end
+
+-- The arrow's waypoint by a via for the live step's waypoint `wp`
+-- (Nav.ViaPick), or nil: the via's place and height, the work's label, step
+-- and goal; `rest`, the yards from the via on to the work, so the arrow's
+-- number counts to the work (Nav.Sample). Not for a travel waypoint of a kept
+-- step (Own.flyAim, Own.crossAim) or a step the player pages to.
+function Own.viaAim(wp)
+	if not (wp and current and current == computed and wp.stepIndex == current and not wp.travel) then return nil end
+	local vias = Own.viasOf(current)
+	local nav = ns.Nav
+	if not (vias and nav and nav.ViaPick) then return nil end
+	local gone = Own.viaDone()
+	for _, v in ipairs(vias) do v.gone = gone[v.s] end
+	local C = Compat()
+	local pc, px, py = C.GetPlayerWorldPosition()
+	if not pc then return nil end
+	local work = { map = wp.map, x = wp.x, y = wp.y, f = wp.f, z = wp.z }
+	local v, done, pending = nav.ViaPick(vias, work, pc, px, py)
+	for n = 1, done or 0 do gone[vias[n].s] = true end
+	-- One estimate a refresh (Travel.ViaFaster): the next refresh makes the next.
+	if pending then requestUpdate() end
+	if not v then return nil end
+	local wc, wx, wy = C.MapToWorld(wp.map, wp.x, wp.y, wp.f)
+	return {
+		map = v.map, x = v.x, y = v.y, f = v.f, z = v.z, label = wp.label,
+		stepIndex = wp.stepIndex, goalIndex = wp.goalIndex, kind = "goto", r = nav.travel and nav.travel.VIA_REACH or DEFAULT_RADIUS,
+		via = v.s, detour = v.detour, work = work,
+		rest = wc == v.c and math.sqrt((wx - v.wx) ^ 2 + (wy - v.wy) ^ 2) or nil,
+	}
+end
+
+-- The via waypoint's via is done (Own.viaGone): the arrow aims on.
+function Own.viaReachedAt(wp)
+	if not (wp and wp.via and wp == waypoint and guide) then return false end
+	Own.viaDone()[wp.via] = true
+	return true
+end
+
+-- The arrival poll's check of a via waypoint (Nav.ViaJudge): true when the
+-- arrow is to move on (the via reached, on its floor, or passed), marked so.
+-- Nav marks a via reached in its own frame check first (NAV_VIA_REACHED).
+function Own.viaTick(c, px, py)
+	local wp = waypoint
+	if not (wp and wp.via and guide) then return false end
+	local nav = ns.Nav
+	if not (nav and nav.ViaJudge) then return false end
+	local wc, wx, wy = Compat().MapToWorld(wp.map, wp.x, wp.y, wp.f)
+	local verdict = nav.ViaJudge({ c = wc, wx = wx, wy = wy, z = wp.z, detour = wp.detour }, wp.work, c, px, py)
+	if verdict == "reached" or verdict == "passed" then return Own.viaReachedAt(wp) end
+	return false
+end
+
+-- A kept step of places only (`keep`) passes once the step it leads to is
+-- done: the next step after it that is a step of the character's own (not
+-- hidden: no via, along or other class's step) with work (no step of places
+-- only), applying now, not skipped, has nothing left. A door to a hand-in
+-- already made is no stop. That step not applying now (a `when` that waits,
+-- maybe on this very step: Shen'dralas' pull spot before the pylon, `when
+-- done`) or skipped keeps the step as written. Once the quest log can be read.
+function Own.keepPassed(s)
+	local steps = guide.steps
+	if not (steps[s].keep and logReady) then return false end
+	for n = s + 1, #steps do
+		local step = steps[n]
+		if not Own.hiddenStep(step) and not Own.writtenTravel(step) then
+			return stepApplies(step) and not isSkipped(n) and stepDone(n)
+		end
+	end
+	return false
+end
 
 -- Walk step s's last goto for the character: continent, world x, world y; or nil.
 function Own.walkEnd(s)
@@ -13114,7 +13284,7 @@ function Own.keepHearth(s, c, wx, wy)
 	local function scan(steps, from)
 		for n = from, #steps do
 			local step = steps[n]
-			if Guides.Matches(step.only, player) and not step.along then
+			if Guides.Matches(step.only, player) and not step.along and not step.via then
 				for _, goal in ipairs(step.goals) do
 					if Guides.Matches(goal.only, player) then
 						if goal.t == "sethome" then return true end
@@ -13154,7 +13324,9 @@ end
 -- that step's travel waypoint or no route is planned. `place`: where the
 -- step gets to. The route's first leg that is no walk names the way; a
 -- second (a flight after the Hearthstone) or a long walk after it is said
--- after it ("then fly to", "then ride to").
+-- after it ("then fly to", "then ride to"). A live step that carries the way
+-- to its work (vias before it, the player in another zone: Own.carriedWhere,
+-- #4467) reads its way too, to the zone of its work: its travel line.
 Own.WAY_WALK = 60 -- seconds: a walk after the way's last ride that is said
 Own.WAY_THEN = {
 	fly = L["%s, then fly to %s"],
@@ -13168,10 +13340,11 @@ function Own.travelWay(s)
 	if s ~= current then return nil end
 	local nav = ns.Nav
 	local t = nav and nav.GetTarget and nav.GetTarget()
-	if not (t and t.travel and t.stepIndex == s and nav.GetRoute) or (nav.IsOverride and nav.IsOverride()) then return nil end
+	local carried = t and not t.travel and t.stepIndex == s and Own.carriedWhere(s)
+	if not (t and (t.travel or carried) and t.stepIndex == s and nav.GetRoute) or (nav.IsOverride and nav.IsOverride()) then return nil end
 	local legs, ci = nav.GetRoute()
 	if not (legs and ci and legs[ci]) then return nil end
-	local place = t.place
+	local place = carried or t.place
 	if not place then
 		local goal = guide.steps[s].goals[t.goalIndex]
 		if not goal then return nil end
@@ -13200,11 +13373,27 @@ function Own.travelWay(s)
 		return first
 	end
 	-- The walk on is said only for a flight step's landing in another place than the ride's end: a crossing is
-	-- behind the player once across (Own.alreadyAcross), and "Hearth to Everlook, then ride to Everlook" says nothing.
-	if walk >= Own.WAY_WALK and not t.place and main.name ~= place then
+	-- behind the player once across (Own.alreadyAcross), and "Hearth to Everlook, then ride to Everlook" says nothing;
+	-- nor is it for a step that carries the way to its work (its title names the zone already).
+	if walk >= Own.WAY_WALK and not t.place and not carried and main.name ~= place then
 		return (rides and L["%s, then ride to %s"] or L["%s, then walk to %s"]):format(first, place)
 	end
 	return first
+end
+
+-- The zone of live step s's work when the step carries the way there: it
+-- has vias (Own.viasOf: the guide's steps of places only before it, used or
+-- not) and the player is in another zone. The step reads "<title> · <zone>"
+-- and its travel line the planner's way (Own.travelWay), never a "Get to"
+-- step of its own (#4467). nil otherwise.
+function Own.carriedWhere(s)
+	if s ~= current or not Own.viasOf(s) then return nil end
+	local t = waypoint
+	local w = t and t.stepIndex == s and (t.work or t)
+	local C = Compat()
+	local name = w and w.map and C.GetMapName and C.GetMapName(w.map)
+	if not name or name == "" or (C.GetZoneText and C.GetZoneText() == name) then return nil end
+	return name
 end
 
 -- The way (Own.travelWay) on goal g of the live travel step s: the goal the
@@ -13225,6 +13414,12 @@ ns.On("ROUTE_CHANGED", function()
 		Own.wayShown = way
 		ns.Fire("STEP_UPDATED", current)
 	end
+end)
+
+-- Nav reached the via waypoint in its own frame check (#4467): no chime, no
+-- "arrived"; the arrow aims on now, not at the next arrival poll.
+ns.On("NAV_VIA_REACHED", function(t)
+	if Own.viaReachedAt(t) then requestUpdate() end
 end)
 
 -- With TomTom's arrow leading (Own.plannerFlies is off for it; the travel
@@ -13281,14 +13476,15 @@ end
 -- along step, whose goals read under "Along the way" of the steps the player
 -- travels to (Engine.GetAlong); one whose `only` leaves out their class,
 -- race or faction, or every goal's `only` does (a Druid's Dendrite
--- Starblaze for a Mage); a hearth-only step (Own.hearthOnly). Paging never
+-- Starblaze for a Mage); a hearth-only step (Own.hearthOnly); a via step (a
+-- leveling step of places only, a hint on the way: Own.viasOf). Paging never
 -- lands on it, it has no number and no progress share, the arrow never
 -- leads to it, and nothing explains it. A step that depends on what the
 -- player does (`when`) can apply later: it keeps its number and says why it
 -- does not apply now (Own.stepWhy).
 function Own.hiddenStep(step, who)
 	who = who or player
-	if step.along or not Guides.Matches(step.only, who) then return true end
+	if step.along or step.via or not Guides.Matches(step.only, who) then return true end
 	local goals = step.goals
 	if #goals == 0 then return false end
 	if Own.hearthOnly(step, who) then return true end
@@ -13849,9 +14045,20 @@ function Own.stepView(i)
 	-- `why`: why the step holds nothing for this character now, one line
 	-- (Own.stepWhy); `section`: the skill-range heading it is under
 	-- (Engine.GetSection). The live travel step's title reads the way the
-	-- planner chose (Own.travelWay, #3922).
+	-- planner chose (Own.travelWay, #3922); a live step that carries the way
+	-- to its work reads "<title> · <zone>", with that way as its `travel`
+	-- line (Own.carriedWhere, #4467).
+	local title, travel = step.title, nil
+	if status == "current" then
+		local where = not Own.writtenTravel(step) and Own.carriedWhere(i)
+		if where then
+			title, travel = (step.title or "") .. " · " .. where, Own.travelWay(i)
+		else
+			title = Own.travelWay(i) or title
+		end
+	end
 	return {
-		index = i, title = status == "current" and Own.travelWay(i) or step.title, note = step.note, image = step.image, status = status, goals = goals,
+		index = i, title = title, travel = travel, note = step.note, image = step.image, status = status, goals = goals,
 		groups = outGroups, focus = focus,
 		current = status == "current" and (Own.currentGoal(i, groups, focus)) or nil,
 		skipped = isSkipped(i), live = computed,

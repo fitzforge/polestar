@@ -191,7 +191,9 @@ test('beside ours: a row with its credits, its own picker entry, credits in the 
 });
 
 // The hand-off by itself (behavior.guideEnd "continue"); with "ask", the default since the guide-end window,
-// the window offers it instead (engine-guide-end.rs).
+// the window offers it instead (engine-guide-end.rs). The template's walk to Goldshire is a hidden via of Deputy
+// Rainer's step (#4467), so the guide opens there; talking to him, then the walk into Westfall (the guide's last
+// step, which stays a step), ends it.
 test('the example guide played to its end hands over to our Westfall guide', { skip }, () => {
 	const [out] = run(`
 		Polestar.Set("behavior.guideEnd", "continue")
@@ -199,12 +201,14 @@ test('the example guide played to its end hands over to our Westfall guide', { s
 		local start = { guide = E.GetGuide().id, step = E.GetStepIndex() }
 		local w = stub.world
 		local trace = {}
-		for _, p in ipairs({ { 42.9, 65.6 }, { 24.2, 74.5 }, { 20.6, 80.5 } }) do
+		for _, p in ipairs({ { 42.9, 65.6 }, { 24.2, 74.5, 963 }, { 20.6, 80.5 } }) do
 			w.moveTo(1429, p[1], p[2]); stub.advance(1); flush()
+			-- A talk counts from the player's own act in the window (engine-talk.rs): an option picked.
+			if p[3] then w.gossip(p[3], { options = { { name = "What news?" } } }); C_GossipInfo.SelectOption(1); flush(); w.close(); flush() end
 			trace[#trace + 1] = { E.GetGuide().id, E.GetStepIndex() }
 		end
 		emit({ start = start, guide = E.GetGuide() and E.GetGuide().id, tabs = tabs(), trace = trace })`);
-	assert.deepEqual(out.start, { guide: 'acceptance-good/example', step: 1 });
+	assert.deepEqual(out.start, { guide: 'acceptance-good/example', step: 2 });
 	assert.equal(out.guide, WESTFALL, JSON.stringify(out));
 });
 

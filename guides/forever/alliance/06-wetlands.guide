@@ -100,6 +100,7 @@ step Aquatic Form
 # this goto is its door on the south side (players' recordings walk in there), not his spot (#1338).
 step Darnassus
   only NightElf,Skyborne,Druid
+  keep door the walking maps have no way up inside the druids' building: its south door first (#1338)
   zone Darnassus
   when onquest 5061
   goto 35.8,11.6 "Mathrengyl Bearwalker"
@@ -636,6 +637,7 @@ step Kayneth Stillwind
 step The Dor'Danil Barrow Den's entrance
   when group 1012
   when onquest 1012
+  keep door the walking maps have no way into the barrow: its mouth first (#1336)
   goto 75.95,75.45 live "The Dor'Danil Barrow Den"
 
 step Insane druids

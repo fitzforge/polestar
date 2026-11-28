@@ -205,6 +205,7 @@ step The Great Cat Spirit
 # this goto is its door on the south side (players' recordings walk in there), not his spot (#1338).
 step Darnassus
   only NightElf,Skyborne,Druid
+  keep door the walking maps have no way up inside the druids' building: its south door first (#1338)
   zone Darnassus
   goto 35.8,11.6 "Mathrengyl Bearwalker"
 
@@ -291,6 +292,7 @@ step Back to Dendrite
 # The druids' building's door, as above (#1338).
 step Darnassus
   only NightElf,Skyborne,Druid
+  keep door the walking maps have no way up inside the druids' building: its south door first (#1338)
   zone Darnassus
   goto 35.8,11.6 "Mathrengyl Bearwalker"
 

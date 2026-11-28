@@ -135,6 +135,7 @@ Step directives:
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
 | `image <path> [<w>x<h>]` | A picture shown in the guide window under the step's tip, while the tip is open, scaled to the window's width (at most 160 high): a screenshot of a spot that is hard to find, such as a cave mouth. `<path>` is the file's place in the pack folder, `/` between folders (`media/fargodeep-mine.tga`), a `.tga` or `.blp` file; without the extension the `.tga`, else the `.blp`. The file ships in the pack's addon folder at that path. `<w>x<h>` is the size it is drawn at (only the ratio counts: `512x256` is twice as wide as high); without it the compiler reads the file's own. One per step; a step with no `tip` reads "Picture of this spot" above it. See "Pictures" in the Cookbook. |
 | `loop` | The step's `goto` points, in order, are the places to search for its kill, collect, interact, skill and `use … quest Q.O` goals (or, with none of those, for the NPC of its accept, turnin and talk goals) instead of a path to walk: see "Spawn areas", Loop. |
+| `keep <kind> <reason>` | A leveling guide's step of places only stays a step of its own instead of a hidden via, for the reason given: `door`, `instance`, `boarding`, `phasing` or `safety`. See "Steps of places only". |
 
 A step must contain at least one goal.
 
@@ -918,6 +919,61 @@ step Bonus for those who met Willem
 A pack with `skipto` or a `done` predicate is written in pack format 5
 (Polestar 0.3.0 and later): Polestar 0.2.6 would refuse `done` and never
 take a jump.
+
+## Steps of places only
+
+In a leveling guide (category `Leveling`, the default), a step whose goals,
+notes aside, are only `goto`s, a `fly` or `enter` is no step of its own: the
+compiler writes it with `via = true` (#4467). The player never sees it in the
+step list, never has to complete it and it never holds the route; it stays in
+the guide as a hint of the way to the step after it. Its index stays, so saves,
+baked legs and labels point where they did. The guide's last steps of places
+only, with no step of work after them, are where it ends, not a way to a step:
+they stay steps (a guide made only of places, too).
+
+The via steps right before a step are that step's vias. While it is the live
+step, the arrow goes by the first via still ahead (its last `goto`, or the
+flight's landing), then on to the step's work, unless the player
+
+- stands within 40 yards of it, is nearer the work than it is (past it), or
+  going by it would be more than 1.5 times the straight way (they came another
+  way, or a teleport, the Hearthstone or a flight set them down elsewhere);
+- has a faster way (the travel route on): a class teleport, the Hearthstone, a
+  flight or a boat straight to the work that beats the way by the via.
+
+So a Mage who teleports past a checkpoint is never pulled back to it. A step
+that is done is never the live step, so its vias are never read: the arrow goes
+on to the next unfinished step. While the step's work is in another zone, the
+live step reads "<title> · <zone>" and its line under the title is the way the
+travel route chose ("Hearth to Everlook, then fly to Nordrassil"). With the
+travel route off, or another addon's arrow, a via is a plain waypoint passed on
+arrival. `along` steps, steps for other classes and races, and other categories
+(class, profession, reputation guides) are as written.
+
+A step of places only that must stay a step says why with `keep <kind>
+<reason>`, the reason in a few words:
+
+| Kind | When |
+|---|---|
+| `door` | a door or a cave's mouth the walking maps can't see: the druids' building in Darnassus, a barrow den, a cellar |
+| `instance` | an instance's entrance |
+| `boarding` | a ride the travel route can't plan: an NPC who teleports you, a boarding whose timing matters |
+| `phasing` | a place that starts a phase or an event |
+| `safety` | a spot to stand at, where the travel route would walk on: the place to pull to, one at a time |
+
+```
+step Cenarion Enclave
+  keep door the walking maps have no way up inside the druids' building: its south door first (#1338)
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+```
+
+A kept step passes once the step it leads to is done (a door before a hand-in
+already made). A detour for safety is better written in the walking maps (a
+wall, a dearer stretch) than as a kept step. `keep` without a known kind or a
+reason is an error; on a step with work of its own, or outside a leveling
+guide, a warning. For Polestar's own guides the `keep` comes from a
+`data/guide-fixes.json` record (`way.keep`), so a guide build writes it again.
 
 ## What the compiler fills in
 

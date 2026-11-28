@@ -1,5 +1,5 @@
 -- The rune stop (#3547): a Mage with no Rune of Teleportation, on a route that
--- flies, with a vendor who sells the rune in the same zone and a short walk
+-- flies, sails or rides a zeppelin, with a vendor who sells the rune in the same zone and a short walk
 -- away (a capital's seller counts from anywhere in it), sees that stop in While
 -- you're here when walking there, buying one and teleporting clearly beats the
 -- route.
@@ -43,13 +43,15 @@ local pending, showing, ticker = false, false, nil
 local survey -- { target, zone, list = { { place, t, after, detour } } } | nil: nothing to offer until the next change
 local verdicts, verdictCount = {}, 0
 
--- The route still ahead flies and casts no teleport.
+-- The route still ahead rides a flight, a zeppelin, an airship or a boat and casts no teleport: a ride the teleport
+-- would replace (the zeppelin from Orgrimmar to the Undercity is 10 minutes of it).
+local RIDES = { fly = true, zeppelin = true, airship = true, boat = true }
 local function fliesAhead(legs, ci)
 	local flies = false
 	for k = ci or 1, legs and #legs or 0 do
 		local kind = legs[k].kind
 		if kind == "teleport" then return false end
-		if kind == "fly" then flies = true end
+		if RIDES[kind] then flies = true end
 	end
 	return flies
 end

@@ -129,6 +129,7 @@ step Canaga Earthcaller
 # inside (quest 794); the pick lies past the first split, straight on, then
 # right along the stream to the waterfall (players' reports, quest 6394).
 step Burning Blade Coven
+  keep door the work is inside the cave: its mouth first
   goto 45.0,56.0 "Burning Blade Coven"
 
 step Thazz'ril's Pick
@@ -674,6 +675,7 @@ step Back to Durotar
 # Skull Rock's mouth: players report the entrance near 55,10 (quest 827); Gazz'uz
 # stands at its back (52.6,8.8).
 step Skull Rock's mouth
+  keep door the work is inside the cave: its mouth first
   zone Durotar
   goto 55.0,10.0 "Skull Rock"
 

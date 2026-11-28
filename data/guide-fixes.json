@@ -1,5 +1,5 @@
 {
-	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
+	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when?, keep?: { kind, reason } } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those; with keep (kind door, instance, boarding, phasing or safety, and the reason in one line) the step of places only right before the goal's step stays a step of its own (`keep <kind> <reason>`), where the compiler would make it a hidden via (#4467). levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
 			"id": "audit-91568-treasure-trowel",
@@ -10128,9 +10128,14 @@
 				"guide": "forever/alliance/50-60/01-burning-steppes"
 			},
 			"way": {
-				"when": "onquest 8251"
+				"when": "onquest 8251",
+				"keep": {
+					"kind": "boarding",
+					"reason": "Sanath teleports you up to Xylem's tower: no walk reaches it"
+				}
 			},
-			"note": "50-60/01 (Alliance): Mages walked to Archmage Xylem in Azshara for Magic Dust (8251) whether they carried it or not; the walk is for whoever does. 0.3.6 hand edit.",
+			"note": "50-60/01 (Alliance): Mages walked to Archmage Xylem in Azshara for Magic Dust (8251) whether they carried it or not; the walk is for whoever does. 0.3.6 hand edit. #4467: the walk to Sanath Lim-yo stays a step of its own (a leveling step of places only is otherwise a hidden via): he teleports you up to Xylem's tower on the cliff above his camp, and no walk reaches it.",
+			"issue": 4467,
 			"source": [
 				{
 					"kind": "questie",
@@ -18983,6 +18988,561 @@
 				}
 			],
 			"issue": 3974
+		},
+		{
+			"id": "4467-keep-shendralas-96018-objective",
+			"at": {
+				"quest": 96018,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/40-50/shendralas"
+			},
+			"way": {
+				"keep": {
+					"kind": "safety",
+					"reason": "the spot to pull the Protectors to, one at a time, on the pylon's quiet side"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a spot to stand at, not a way): the spot to pull the Protectors to, one at a time, on the pylon's quiet side.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings and reports of the way in, as the guide's comment above the step says"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-03-darkshore-return-98393-accept",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98393,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the walking maps have no way up inside the druids' building: its south door first (#1338)"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the walking maps have no way up inside the druids' building: its south door first (#1338).",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1338"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-03-darkshore-return-5061-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5061,
+				"goal": "turnin",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the walking maps have no way up inside the druids' building: its south door first (#1338)"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the walking maps have no way up inside the druids' building: its south door first (#1338).",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1338"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-03-darkshore-26-accept",
+			"faction": "Alliance",
+			"at": {
+				"quest": 26,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the walking maps have no way up inside the druids' building: its south door first (#1338)"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the walking maps have no way up inside the druids' building: its south door first (#1338).",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1338"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-03-loch-modan-86585-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86585,
+				"goal": "turnin",
+				"guide": "forever/alliance/03-loch-modan"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the walking maps have no way into Algaz Station's bunker: its south-east door first (#1506)"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the walking maps have no way into Algaz Station's bunker: its south-east door first (#1506).",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1506"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-06-wetlands-5061-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5061,
+				"goal": "turnin",
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the walking maps have no way up inside the druids' building: its south door first (#1338)"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the walking maps have no way up inside the druids' building: its south door first (#1338).",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1338"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-06-wetlands-1012-objective",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1012,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the walking maps have no way into the barrow: its mouth first (#1336)"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the walking maps have no way into the barrow: its mouth first (#1336).",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1336"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-04-tanaris-3763-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3763,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/04-tanaris"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the walking maps have no way up inside the druids' building: its south door first (#1338)"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the walking maps have no way up inside the druids' building: its south door first (#1338).",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1338"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-02-felwood-3781-accept",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3781,
+				"goal": "accept",
+				"guide": "forever/alliance/50-60/02-felwood"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the walking maps have no way up inside the druids' building: its south door first (#1338)"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the walking maps have no way up inside the druids' building: its south door first (#1338).",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1338"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-02-felwood-3781-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3781,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/02-felwood"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the walking maps have no way up inside the druids' building: its south door first (#1338)"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the walking maps have no way up inside the druids' building: its south door first (#1338).",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1338"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-04-western-plaguelands-1047-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1047,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the walking maps have no way up inside the druids' building: its south door first (#1338)"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the walking maps have no way up inside the druids' building: its south door first (#1338).",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1338"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-04-western-plaguelands-6761-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6761,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the walking maps have no way up inside the druids' building: its south door first (#1338)"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the walking maps have no way up inside the druids' building: its south door first (#1338).",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1338"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-01-elwynn-forest-76-complete",
+			"faction": "Alliance",
+			"at": {
+				"quest": 76,
+				"goal": "complete",
+				"guide": "forever/alliance/human/01-elwynn-forest"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the work is inside the mine: its entrance first"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the work is inside the mine: its entrance first.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings and reports of the way in, as the guide's comment above the step says"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-01-teldrassil-917-objective",
+			"faction": "Alliance",
+			"at": {
+				"quest": 917,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/nightelf/01-teldrassil"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the work is inside the cave: its mouth first"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the work is inside the cave: its mouth first.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings and reports of the way in, as the guide's comment above the step says"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-01-teldrassil-932-objective",
+			"faction": "Alliance",
+			"at": {
+				"quest": 932,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/nightelf/01-teldrassil"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the work is inside the cave: its mouth first"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the work is inside the cave: its mouth first.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings and reports of the way in, as the guide's comment above the step says"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-01-teldrassil-490-objective",
+			"faction": "Alliance",
+			"at": {
+				"quest": 490,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/nightelf/01-teldrassil"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the walking maps have no way into the barrow: its mouth first (#1336)"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the walking maps have no way into the barrow: its mouth first (#1336).",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1336"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-01-teldrassil-935-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 935,
+				"goal": "turnin",
+				"guide": "forever/alliance/nightelf/01-teldrassil"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the walking maps have no way up inside the druids' building: its south door first (#1338)"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the walking maps have no way up inside the druids' building: its south door first (#1338).",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1338"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-01-teldrassil-5925-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5925,
+				"goal": "turnin",
+				"guide": "forever/alliance/nightelf/01-teldrassil"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the walking maps have no way up inside the druids' building: its south door first (#1338)"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the walking maps have no way up inside the druids' building: its south door first (#1338).",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1338"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-01-teldrassil-5931-turnin",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5931,
+				"goal": "turnin",
+				"guide": "forever/alliance/nightelf/01-teldrassil"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the walking maps have no way up inside the druids' building: its south door first (#1338)"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the walking maps have no way up inside the druids' building: its south door first (#1338).",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#1338"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-07-ashenvale-6563-objective",
+			"faction": "Horde",
+			"at": {
+				"quest": 6563,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the Sapphires are in the tunnels under the sunken ruins: the stairs down into the pit first"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the Sapphires are in the tunnels under the sunken ruins: the stairs down into the pit first.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings and reports of the way in, as the guide's comment above the step says"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-02-felwood-3561-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 3561,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/02-felwood"
+			},
+			"way": {
+				"keep": {
+					"kind": "boarding",
+					"reason": "Sanath teleports you up to Xylem's tower: no walk reaches it"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (an NPC's teleport the travel planner can't take): Sanath teleports you up to Xylem's tower: no walk reaches it.",
+			"source": {
+				"kind": "questie",
+				"ref": "Archmage Xylem (8379) at 29.25,40.21 Azshara, in his tower on the cliff above Sanath Lim-yo's camp (8395)"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-01-durotar-6394-objective",
+			"faction": "Horde",
+			"at": {
+				"quest": 6394,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/orc/01-durotar"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the work is inside the cave: its mouth first"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the work is inside the cave: its mouth first.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings and reports of the way in, as the guide's comment above the step says"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-01-durotar-827-objective",
+			"faction": "Horde",
+			"at": {
+				"quest": 827,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/orc/01-durotar"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the work is inside the cave: its mouth first"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the work is inside the cave: its mouth first.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings and reports of the way in, as the guide's comment above the step says"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-01-durotar-6394-objective-2",
+			"faction": "Horde",
+			"at": {
+				"quest": 6394,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/troll/01-durotar"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the work is inside the cave: its mouth first"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the work is inside the cave: its mouth first.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings and reports of the way in, as the guide's comment above the step says"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-01-durotar-827-objective-2",
+			"faction": "Horde",
+			"at": {
+				"quest": 827,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/troll/01-durotar"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the work is inside the cave: its mouth first"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the work is inside the cave: its mouth first.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings and reports of the way in, as the guide's comment above the step says"
+			},
+			"issue": 4467
+		},
+		{
+			"id": "4467-keep-01-tirisfal-glades-407-turnin",
+			"faction": "Horde",
+			"at": {
+				"quest": 407,
+				"goal": "turnin",
+				"guide": "forever/horde/undead/01-tirisfal-glades"
+			},
+			"way": {
+				"keep": {
+					"kind": "door",
+					"reason": "the Zealot is in the cellar under the inn: the stairs down first"
+				}
+			},
+			"note": "#4467: a leveling step of places only is a hidden via on the way to the next step, and the travel planner picks the way there. This one stays a step of its own (a door or a mouth the walking maps can't see): the Zealot is in the cellar under the inn: the stairs down first.",
+			"source": {
+				"kind": "recording",
+				"ref": "players' recordings and reports of the way in, as the guide's comment above the step says"
+			},
+			"issue": 4467
 		}
 	]
 }

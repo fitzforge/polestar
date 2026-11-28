@@ -88,6 +88,7 @@ step Webwood Egg and the antidote
 # onto the cave's indoor floor in the client's geometry (the navigation grid,
 # z 1338.6). A Classic comment's 57,32 is 29 yards south-east of it (#328).
 step Shadowthread Cave
+  keep door the work is inside the cave: its mouth first
   goto 56.69,31.29 "Shadowthread Cave"
 
 step Shadowglen
@@ -314,6 +315,7 @@ step Dolanaar
 # is 30 yards west, on the hill, where the walking maps reach nothing, so the
 # arrow went straight at the hillside (#328).
 step Fel Rock's mouth
+  keep door the work is inside the cave: its mouth first
   goto 54.59,52.12 "Fel Rock"
 
 step Fel Rock
@@ -357,6 +359,7 @@ step Darnassus
 # Players' recordings: the barrow's mouth near 44.3,57.9, on its north-east side (18 people walked
 # in there); the walking maps have no way into the barrow, so the arrow would cross the hill (#1336).
 step Ban'ethil Barrow Den's entrance
+  keep door the walking maps have no way into the barrow: its mouth first (#1336)
   zone Teldrassil
   goto 44.3,57.9 live "Ban'ethil Barrow Den"
 
@@ -596,6 +599,7 @@ step Warrior trainer
 # Before each of them, a goto at the building's door on its south side, 35.8,11.6 (players'
 # recordings walk in there), makes the arrow point straight at him from there.
 step Cenarion Enclave
+  keep door the walking maps have no way up inside the druids' building: its south door first (#1338)
   zone Darnassus
   goto 35.8,11.6 "Cenarion Enclave"
 
@@ -619,6 +623,7 @@ step Cenarion Enclave trainers
 
 step Cenarion Enclave
   only Druid
+  keep door the walking maps have no way up inside the druids' building: its south door first (#1338)
   zone Darnassus
   goto 35.8,11.6 "Cenarion Enclave"
 
@@ -761,6 +766,7 @@ step Back to Darnassus
 
 step Cenarion Enclave
   only Druid
+  keep door the walking maps have no way up inside the druids' building: its south door first (#1338)
   zone Darnassus
   goto 35.8,11.6 "Cenarion Enclave"
 

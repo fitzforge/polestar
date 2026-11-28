@@ -5,14 +5,15 @@
 // parseGuide(text, file, diag) -> guide | null
 //   guide = { file, id, line, header: { ... }, lines: { <headerKey>: line, pros: [line], cons: [line], rewards: [line], nextOf: { <id>: line } }, steps: [step], sections?: [section] }
 //   (header.next: the `next` guide ids in order; header.nextWhen: { <id>: predicate with its line } for `next <id> when ...`)
-//   step  = { line, title, only, tip, image?, when?: [predicate], label?, along?, skipto?, section?, goals: [goal] }
+//   step  = { line, title, only, tip, image?, when?: [predicate], label?, along?, skipto?, keep?, section?, goals: [goal] }
 //   section = { line, skill, skillQuoted?, from, to, first } (a column-0 `section <Profession> <from>-<to>` line:
 //   a profession guide's skill range as a heading; `first`: the index in steps of its first step; a step's
 //   `section` is the 1-based index in guide.sections of the section it is under)
 //   (image: { path, ext, w, h, line }, images.js parseImagePath; w/h null unless written)
 //   (when: tools/lib/dsl/when.js predicates, each with its line; only on a step that has one;
 //   label: the step's name; along: true, or the label `along until` names; labelLine/alongLine: their lines;
-//   skipto: [{ to, when: predicate, line }], the step's `skipto <label> when <predicate>` lines in order)
+//   skipto: [{ to, when: predicate, line }], the step's `skipto <label> when <predicate>` lines in order;
+//   keep: { kind, reason, line }, its `keep <kind> <reason>` line)
 //   goal  = { line, verb, zone, note, ...positional/modifier fields }
 // `zone` on a goal is the zone spec in effect ({ name } | { map }, with line),
 // shared by every goal under the same header/step `zone` line.
@@ -45,7 +46,12 @@ const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'cla
 // and interact goals (resolve.js, applyLoop).
 // `skipto <label> when <predicate>`: when the route reaches the step and the
 // predicate holds, it jumps to the labelled step (resolve.js, checkLabels).
-const STEP_KEYS = ['zone', 'only', 'tip', 'image', 'when', 'label', 'along', 'background', 'skipto', 'loop'];
+// `keep <kind> <reason>`: a leveling guide's step of places only stays a step
+// of its own, for the reason given (resolve.js, markVias); KEEP_KINDS.
+const STEP_KEYS = ['zone', 'only', 'tip', 'image', 'when', 'label', 'along', 'background', 'skipto', 'loop', 'keep'];
+// Why a step of places only stays a step: a door or a cave's mouth the walking maps can't see, an instance's
+// entrance, a boarding whose timing the route can't plan, a phasing or event trigger, a spot to stand at for safety.
+const KEEP_KINDS = ['door', 'instance', 'boarding', 'phasing', 'safety'];
 
 // `group [N]`: the goal needs a group (of N players), shown in the guide window.
 // `either`: one of a set in its step; the step is done when any one of the set is.
@@ -408,6 +414,13 @@ function parseGuide(text, file, diag) {
 				if (toks.length > 1) err(ln, '`loop` takes nothing');
 				else if (step.loop) err(ln, 'duplicate `loop` in step');
 				else step.loop = ln;
+			} else if (kw === 'keep') {
+				const kind = toks.length > 1 && !toks[1].quoted ? toks[1].text.toLowerCase() : null;
+				const reason = toks.length > 2 ? unquoteRest(line, lex, 2) : null;
+				if (step.keep) err(ln, 'duplicate `keep` in step');
+				else if (!kind || !KEEP_KINDS.includes(kind)) err(ln, `\`keep\` needs a kind: ${KEEP_KINDS.join(', ')}`, 'keep <kind> <reason>');
+				else if (!reason) err(ln, `\`keep ${kind}\` needs its reason: keep ${kind} <why the step stays a step of its own>`);
+				else step.keep = { kind, reason, line: ln };
 			} else {
 				const tip = unquoteRest(line, lex, 1);
 				if (!tip) {
@@ -1226,4 +1239,4 @@ function parseGoal(verb, line, lex, ln, err, warn) {
 	return goal;
 }
 
-module.exports = { parseGuide, VERBS, MODS, MOD_WORDS, HEADER_KEYS, STEP_KEYS, ID_RE, RANKS, QUALITIES, STANDINGS };
+module.exports = { parseGuide, VERBS, MODS, MOD_WORDS, HEADER_KEYS, STEP_KEYS, KEEP_KINDS, ID_RE, RANKS, QUALITIES, STANDINGS };

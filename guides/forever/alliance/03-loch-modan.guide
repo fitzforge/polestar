@@ -208,6 +208,7 @@ step Mountaineer Ylva
 # have no way into it, so this goto is its door on the south-east side, where players' recordings
 # walk in, not his spot (#1506).
 step The tunnel post
+  keep door the walking maps have no way into Algaz Station's bunker: its south-east door first (#1506)
   tip West to the dwarven post at the tunnel to Dun Morogh.
   goto 23.5,75.6 "Algaz Station"
 
