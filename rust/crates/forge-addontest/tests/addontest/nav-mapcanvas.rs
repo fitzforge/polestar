@@ -324,3 +324,229 @@ emit({ shown = shown, onWorldMap = onWorldMap, hidden = hidden, back = marks(own
 	assert_eq!(r["hidden"], 0, "hiding Polestar takes it off");
 	assert_eq!(r["back"], 1, "and shows it again");
 }
+
+// OpenMap (an optional world map addon) as its 0.8.13 draws its own views (#4206). With the game's Gamepad UI and
+// its "OpenMap's map with the Gamepad UI" switch, its controller view is a frame on the world map over the scroll
+// frame whose canvas, anchored by its top left on that frame's centre, is OpenMap's whole stitched world; in a fight
+// its usual map moves onto a frame of its own on the scroll frame, its canvas laid out as the map's. Either way it
+// makes the map's canvas see-through, so Polestar's drawings there don't show. Its API (stubbed here: zone 9000 at
+// u 0.4-0.5, v 0.2-0.3 of the world, continent 9100 at u 0.2-0.7, v 0.1-0.6, as their yards place them) says
+// IsStitched false in the controller view and has nothing more for either.
+const OPENMAP: &str = r#"
+local rects = { [9000] = { 0.4, 0.2, 0.5, 0.3 }, [9100] = { 0.2, 0.1, 0.7, 0.6 } }
+OpenMapAPI = {
+	major = 1, version = 4,
+	IsStitched = function() return stub.omStitched == true end,
+	WorldFromMap = function(id, x, y)
+		local r = rects[id]
+		if r then return r[1] + x * (r[3] - r[1]), r[2] + y * (r[4] - r[2]) end
+	end,
+	MapFromWorld = function(id, u, v)
+		local r = rects[id]
+		if r then return (u - r[1]) / (r[3] - r[1]), (v - r[2]) / (r[4] - r[2]) end
+	end,
+	MapAt = function(u, v)
+		for _, id in ipairs({ 9000, 9100 }) do
+			local r = rects[id]
+			if u >= r[1] and u <= r[3] and v >= r[2] and v <= r[4] then return id end
+		end
+	end,
+	ArtTopLevel = function() return 91 end,
+	CanvasFromWorldPos = function() return nil end,
+}
+"#;
+
+const OPENMAP_SCRIPT: &str = r#"
+local P, m = Polestar.Pins, stub.maps
+stub.cascadeVisibility = true
+Polestar.Set("nav.navRouting", false)
+local clicked
+P.SetLayer("test.marks", { { map = 9000, x = 30, y = 30, tooltip = "A mark", onClick = function(button) clicked = button end } })
+Polestar.Nav.SetTarget(9000, 70, 60, "Somewhere")
+
+-- OpenMap's controller view (its PadView.lua): the stitched world 10000 x 10000 units, the view 800 x 600.
+local sc = WorldMapFrame.ScrollContainer
+local pad = CreateFrame("Frame", nil, WorldMapFrame)
+pad:SetAllPoints(sc)
+pad:SetSize(800, 600)
+pad:Hide()
+local padCanvas = CreateFrame("Frame", nil, pad)
+padCanvas:SetSize(10000, 10000)
+padCanvas:SetFrameLevel(10)
+local function padAt(u, v, px)
+	padCanvas:SetScale(px)
+	padCanvas:ClearAllPoints()
+	padCanvas:SetPoint("TOPLEFT", pad, "CENTER", -u * 10000, v * 10000)
+end
+-- Its view in a fight (OwnView.lua): its canvas the map canvas's size.
+local own = CreateFrame("Frame", nil, sc)
+own:SetAllPoints(sc)
+own:SetSize(800, 600)
+own:Hide()
+local ownCanvas = CreateFrame("Frame", nil, own)
+ownCanvas:SetSize(1000, 1000)
+ownCanvas:SetPoint("TOPLEFT", own, "TOPLEFT", -100, 50)
+ownCanvas:SetScale(1.5)
+ownCanvas:SetFrameLevel(9201)
+
+local function frames() for _ = 1, 3 do stub.runMapFrame(WorldMapFrame, 0.06) end end
+-- On screen: shown, and no frame above it see-through.
+local function onScreen(f)
+	local p = f
+	while p do
+		if not p.shown or (p.alpha or 1) <= 0 then return false end
+		p = p.parent
+	end
+	return true
+end
+local function under(f, top)
+	local p = f.parent
+	while p do
+		if p == top then return true end
+		p = p.parent
+	end
+	return false
+end
+-- What shows under `top`: the mark, the route line's strokes, and the frame the mark is placed on.
+local function seen(top)
+	local r = { marks = 0, lines = 0 }
+	for _, f in ipairs(stub.frames) do
+		if under(f, top) and onScreen(f) then
+			local d = P.WorldPinOf(f)
+			if d and d.pin.tooltip == "A mark" then
+				r.marks = r.marks + 1
+				local _, rel = f:GetPoint(1)
+				r.host = rel
+			end
+			if type(rawget(f, "strokes")) == "table" and f.strokes.n then r.lines = r.lines + f.strokes.n end
+		end
+	end
+	return r
+end
+local function place(f)
+	if not f then return false end
+	local point, rel, relPoint, x, y = f:GetPoint(1)
+	return { point = point, onCanvas = rel == padCanvas or rel == ownCanvas, relPoint = relPoint, x = x, y = y,
+		w = f:GetWidth(), h = f:GetHeight(), parent = f.parent == padCanvas and "pad" or f.parent == ownCanvas and "own" or "other",
+		level = f:GetFrameLevel(), shown = f:IsShown() }
+end
+local function tipAt(x, y)
+	GameTooltip:Hide()
+	clicked = nil
+	SoftCursor:Show()
+	SoftCursor.x, SoftCursor.y = x, y
+	stub.runMapFrame(WorldMapFrame, 0.06)
+	local tip = GameTooltip:IsShown() and GameTooltip.lines[1] or false
+	stub.keysDown.PAD1 = true
+	stub.runMapFrame(WorldMapFrame, 0.01)
+	stub.keysDown.PAD1 = false
+	SoftCursor:Hide()
+	stub.runMapFrame(WorldMapFrame, 0.01)
+	return { tip = tip, clicked = clicked or false }
+end
+
+local r = {}
+m.showMap(9000)
+frames()
+r.plain = seen(m.canvas)
+
+-- The controller view opens on the zone: the zone 1000 units across at 0.8, 800 px, the whole view.
+padAt(0.45, 0.25, 0.8)
+m.canvas:SetAlpha(0)
+pad:Show()
+frames()
+r.padSeen, r.blizzardSeen = seen(padCanvas), seen(m.canvas)
+r.padHost = place(r.padSeen.host)
+-- The gamepad's cursor: on the mark on OpenMap's view (the host's top left at (0, 1000) here, scale 0.8: map (30, 30)
+-- at (240, 560)), then where the unseen mark on Blizzard's canvas is ((300, 700)).
+r.padMark = tipAt(240, 560)
+r.hiddenMark = tipAt(300, 700)
+-- Hiding Polestar takes them off OpenMap's view too; showing it puts them back.
+Polestar.SetHidden(true)
+r.whileHidden = seen(padCanvas)
+Polestar.SetHidden(false)
+frames()
+r.unhidden = seen(padCanvas).marks
+-- Zoomed out: the zone 100 px across, the continent 500 of the view's 800.
+padAt(0.45, 0.25, 0.1)
+frames()
+r.zoomedOut = place(seen(padCanvas).host)
+-- OpenMap's frames only read.
+local point, rel, relPoint, x, y = padCanvas:GetPoint(1)
+r.padKept = { point = point, rel = rel == pad, relPoint = relPoint, x = x, y = y, scale = padCanvas:GetScale(), shown = pad:IsShown() }
+-- The controller view closes (the Gamepad UI off): back on Blizzard's map.
+pad:Hide()
+m.canvas:SetAlpha(1)
+frames()
+r.padClosed = { pad = seen(padCanvas), blizzard = seen(m.canvas) }
+
+-- A fight with OpenMap's usual map open.
+stub.omStitched = true
+m.canvas:SetAlpha(0)
+own:Show()
+frames()
+r.fightSeen = seen(ownCanvas)
+r.fightHost = place(r.fightSeen.host)
+WorldMapFrame:Hide()
+stub.advance(0.1)
+r.closed = { pad = seen(padCanvas), own = seen(ownCanvas) }
+
+emit({ r = r, writes = table.concat(stub.mapWrites, "; "), under = table.concat(stub.underGameFrames, "; ") })
+"#;
+
+fn run_openmap() -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_maps.lua"],
+		before: format!("{}{OPENMAP}", before("gamepad")),
+		addons: vec![Addon::files("Polestar", &FILES)],
+		login: true,
+		script: OPENMAP_SCRIPT.into(),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+fn num(v: &Value) -> f64 {
+	v.as_f64().unwrap_or_else(|| panic!("not a number: {v}"))
+}
+
+#[test]
+fn openmaps_controller_view_and_its_view_in_a_fight_show_the_route_line_and_the_pins_and_take_the_gamepads_cursor() {
+	let out = run_openmap();
+	let r = &out["r"];
+	assert_eq!(out["writes"], "", "nothing written into the maps");
+	assert_eq!(out["under"], "", "every frame is made with no parent, then set under its place");
+	assert_eq!(r["plain"]["marks"], 1, "Blizzard's map: the mark");
+	assert!(num(&r["plain"]["lines"]) > 0.0, "Blizzard's map: the route line");
+
+	// The controller view: Polestar's frame on OpenMap's canvas over zone 9000 (u 0.4-0.5, v 0.2-0.3 of 10000 units),
+	// above OpenMap's art (its top level 91), the mark and the route line on it.
+	assert_eq!(r["padSeen"]["marks"], 1, "the mark on OpenMap's controller view: {}", r["padSeen"]);
+	assert!(num(&r["padSeen"]["lines"]) > 0.0, "the route line on OpenMap's controller view: {}", r["padSeen"]);
+	assert_eq!(r["blizzardSeen"], json!({ "marks": 0, "lines": 0 }), "nothing shows on Blizzard's see-through canvas");
+	let host = &r["padHost"];
+	assert_eq!(json!([host["point"], host["onCanvas"], host["relPoint"], host["parent"], host["shown"]]), json!(["TOPLEFT", true, "TOPLEFT", "pad", true]));
+	assert!((num(&host["x"]) - 4000.0).abs() < 1e-6 && (num(&host["y"]) + 2000.0).abs() < 1e-6, "at the zone's place: {host}");
+	assert!((num(&host["w"]) - 1000.0).abs() < 1e-6 && (num(&host["h"]) - 1000.0).abs() < 1e-6, "the zone's size: {host}");
+	assert!(num(&host["level"]) > 91.0, "over OpenMap's art");
+	assert_eq!(r["padMark"], json!({ "tip": "A mark", "clicked": "LeftButton" }), "the gamepad's cursor and A on the mark there");
+	assert_eq!(r["hiddenMark"], json!({ "tip": false, "clicked": false }), "the unseen mark under OpenMap's view takes neither");
+	assert_eq!(r["whileHidden"], json!({ "marks": 0, "lines": 0 }), "hidden with Polestar");
+	assert_eq!(r["unhidden"], 1, "and back");
+	let out_host = &r["zoomedOut"];
+	assert!((num(&out_host["x"]) - 2000.0).abs() < 1e-6 && (num(&out_host["w"]) - 5000.0).abs() < 1e-6, "zoomed out: the continent, the zone too small to fill the view: {out_host}");
+	let kept = &r["padKept"];
+	assert_eq!(json!([kept["point"], kept["rel"], kept["relPoint"], kept["shown"]]), json!(["TOPLEFT", true, "CENTER", true]), "OpenMap's frames are only read");
+	assert!(num(&kept["x"]) == -4500.0 && num(&kept["y"]) == 2500.0 && (num(&kept["scale"]) - 0.1).abs() < 1e-12, "OpenMap's canvas where it put it: {kept}");
+	assert_eq!(r["padClosed"]["pad"], json!({ "marks": 0, "lines": 0 }), "the controller view closed: nothing left on it");
+	assert_eq!(r["padClosed"]["blizzard"]["marks"], 1, "and Blizzard's map shows the mark again");
+
+	// In a fight: Polestar's frame over all of OpenMap's canvas, laid out as the map's.
+	assert_eq!(r["fightSeen"]["marks"], 1, "the mark on OpenMap's view in a fight: {}", r["fightSeen"]);
+	assert!(num(&r["fightSeen"]["lines"]) > 0.0, "the route line there");
+	let fight = &r["fightHost"];
+	let at: Vec<f64> = ["x", "y", "w", "h"].iter().map(|k| num(&fight[*k])).collect();
+	assert_eq!((at, &fight["parent"]), (vec![0.0, 0.0, 1000.0, 1000.0], &json!("own")), "over all of OpenMap's canvas");
+	assert!(num(&fight["level"]) > 9201.0 + 80.0, "over OpenMap's art lifted onto its canvas");
+	assert_eq!(r["closed"], json!({ "pad": { "marks": 0, "lines": 0 }, "own": { "marks": 0, "lines": 0 } }), "the map closed");
+}

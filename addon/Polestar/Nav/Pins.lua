@@ -1255,13 +1255,14 @@ do
 	local wC, wLeft, wTop, wKx, wKy, wSpacing
 	local viewMap, drawTrail -- forward
 
-	-- What the map's scroll frame shows of the canvas, in percent of the
-	-- viewed map: x0, y0, x1, y1 (reads only: the canvas and its parent's place);
-	-- the whole map while the frame has no place or size yet.
+	-- What the map's scroll frame (or the frame the view shows through,
+	-- view.clip: OpenMap's view, Nav/MapCanvas.lua) shows of the canvas, in
+	-- percent of the viewed map: x0, y0, x1, y1 (reads only: the canvas and
+	-- that frame's place); the whole map while the frame has no place or size yet.
 	local function viewRect()
 		local v = wView
 		local canvas = v.canvas
-		local frame = canvas.GetParent and canvas:GetParent()
+		local frame = v.clip or canvas.GetParent and canvas:GetParent()
 		local w, h = v.width or 0, v.height or 0
 		if not frame or w <= 0 or h <= 0 then return 0, 0, 100, 100 end
 		local cl, ct, cs = canvas:GetLeft(), canvas:GetTop(), canvas:GetEffectiveScale()
@@ -1823,7 +1824,8 @@ do
 			return
 		end
 		local cursor = SoftCursor
-		if not (cursor and cursor:IsShown()) then
+		-- (Not on a map OpenMap's own view covers: its pins don't show there; the view's are on its stand-in map.)
+		if not (cursor and cursor:IsShown()) or wView.covered then
 			if hovered then unhover() end
 			padDown = false
 			return
@@ -2131,7 +2133,7 @@ do
 		ns.MapCanvas.OnAdd(function(map)
 			local w = newWorld()
 			if w.install(map) then worlds[#worlds + 1] = w end
-		end)
+		end, true)
 	end)
 end
 

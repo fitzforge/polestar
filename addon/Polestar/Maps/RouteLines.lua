@@ -900,6 +900,8 @@ end
 -- player has walked on along the current walk.
 local WORLD_INTERVAL, WORLD_MOVED = 0.25, 10
 local function worldTick(pin, elapsed)
+	-- (Under OpenMap's own view the map's canvas doesn't show: its stand-in map's pin draws instead, Nav/MapCanvas.lua.)
+	if pin.view.covered then return end
 	pin.elapsed = (pin.elapsed or 0) + elapsed
 	if sparkling then
 		if pin.elapsed < SPARKLE_INTERVAL then return end
@@ -1376,7 +1378,7 @@ ns.OnLogin(function()
 			if not v then return end
 			views[#views + 1] = v
 			refreshView(v)
-		end)
+		end, true)
 	end
 	-- Blizzard_WorldMap may load after login: watch the map when it does,
 	-- as Polestar.Pins does (review P3-8).
