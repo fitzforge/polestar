@@ -65,11 +65,11 @@ function itemLoops(data, item, per = 1) {
 	if (!data.dir) return null;
 	if (!loopsCache || loopsCache.dir !== data.dir) {
 		const { context, zoneName, fmt } = require('./gathering/common');
-		const { gatherLoops } = require('./gathering/build');
+		const { gatherLoops, loopOnly } = require('./gathering/build');
 		const ctx = context(data.dir);
-		loopsCache = { dir: data.dir, all: gatherLoops(ctx), zone: (m) => zoneName(ctx, m), fmt };
+		loopsCache = { dir: data.dir, all: gatherLoops(ctx), zone: (m) => zoneName(ctx, m), fmt, loopOnly };
 	}
-	const { all, zone, fmt } = loopsCache;
+	const { all, zone, fmt, loopOnly } = loopsCache;
 	const mine = all.filter((l) => l.item === item);
 	const picked = new Map();
 	for (const side of SIDES) {
@@ -95,8 +95,11 @@ function itemLoops(data, item, per = 1) {
 	if (!picked.size) return null;
 	const lines = [...picked.values()].map(({ l, sides }) => {
 		const words = [`  loop ${zone(l.map)}`, `lvl ${l.lvl}`, `lap ${l.lap}`, `yield ${fmt(l.yield * per)}`];
-		if (sides.size === 1) words.push(`only ${[...sides][0]}`);
+		const only = loopOnly(l.map, [...sides]);
+		if (only) words.push(`only ${only}`);
 		if (l.live) words.push('live');
+		if (l.starter) words.push('starter');
+		if (l.respawn) words.push(`respawn ${l.respawn}`);
 		words.push(`r ${l.r}`, 'at', ...l.pts.map(([x, y]) => `${fmt(x)},${fmt(y)}`));
 		return words.join(' ');
 	});

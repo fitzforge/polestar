@@ -472,14 +472,14 @@ function parseGuide(text, file, diag) {
 }
 
 // The words of a `loop <zone> …` line after its zone.
-const LOOP_WORDS = new Set(['lvl', 'lap', 'gain', 'yield', 'only', 'live', 'r', 'at']);
+const LOOP_WORDS = new Set(['lvl', 'lap', 'gain', 'yield', 'only', 'live', 'starter', 'respawn', 'r', 'at']);
 
-// `loop <zone or map <uiMapID>> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live]
+// `loop <zone or map <uiMapID>> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live] [starter] [respawn <seconds>]
 // [r <yards>] at <x,y> <x,y> …`: a farming loop a `skill` or `collect` goal of its step may pick at runtime
 // (docs/GUIDE_FORMAT.md, "Farming loops"; parse.rs parse_loop_candidate).
 function parseLoopCandidate(lex, ln, err) {
 	const toks = lex.tokens;
-	const usage = 'usage: loop <zone> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live] [r <yards>] at <x,y> <x,y> …';
+	const usage = 'usage: loop <zone> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live] [starter] [respawn <seconds>] [r <yards>] at <x,y> <x,y> …';
 	const word = (t) => !t.quoted && LOOP_WORDS.has(t.text.toLowerCase());
 	let i = 1;
 	while (i < toks.length && !word(toks[i])) i++;
@@ -505,8 +505,8 @@ function parseLoopCandidate(lex, ln, err) {
 			return null;
 		}
 		i++;
-		if (w === 'live') {
-			out.live = true;
+		if (w === 'live' || w === 'starter') {
+			out[w] = true;
 		} else if (w === 'at') {
 			while (i < toks.length && !word(toks[i])) {
 				const [x, y, more] = toks[i].text.split(',');

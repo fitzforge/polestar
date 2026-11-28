@@ -21,7 +21,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { ZONES, RANKS, color, bandWeight } = require('./tables');
-const { RACE_GROUPS, REGIONS, SIDE, maxZoneLevel } = require('./groups');
+const { RACE_GROUPS, REGIONS, SIDE, maxZoneLevel, raceCondition } = require('./groups');
 const N = require('./nodes');
 const { farm, rankScore, skillLevel, RUN } = require('./farm');
 const { OUT_DIR, GUIDE_HEADER, FACTIONS, fmt, money, zoneName, rankInfo } = require('./common');
@@ -140,6 +140,9 @@ function zonePicks(ctx, prof, band, faction) {
 	const top = rankIn(ctx, prof, band, band.zones ? zones : zonesFor(faction, { from: 300 }), faction, MAX_LEVEL);
 	for (const r of [...low.slice(0, TOP), ...high.slice(0, TOP), ...top.slice(0, TOP)]) add(r);
 	if (band.scope === 'start' || band.scope === 'next') for (const g of RACE_GROUPS[faction]) add(low.find((r) => g[band.scope].includes(r.zone)));
+	// The first band also offers each race's next zone (the Barrens, Westfall, Silverpine): a character past the
+	// starting area mines there, never round the starting area's own small loop.
+	if (band.scope === 'start') for (const g of RACE_GROUPS[faction]) add(low.find((r) => g.next.includes(r.zone)));
 	for (const g of REGIONS[faction]) {
 		if (keep.some((z) => continentOf(ctx, z) === g.c)) continue;
 		add(low.find((r) => continentOf(ctx, r.zone) === g.c && r.score >= WORTH * low[0].score));
@@ -223,12 +226,16 @@ function startParts(prof, points, from, to) {
 // both factions once with no faction of its own. Best first for a character at the part's start.
 // A range's first band (scope 'start') adds each starting area's own loop (`starter`): the best one a
 // character of level 1 to STARTER_LEVEL may walk (farm.js `maxLevel`), where the area holds the part's
-// nodes, so a new character always has a loop at their level. -> [{ zone, farm, factions, starter? }]
+// nodes, so a new character always has a loop at their level. Any loop in a starting zone that asks no more
+// than STARTER_LEVEL is a starter loop too: the engine offers starter loops to low levels only (a level 26 in
+// Durotar was sent round the Valley of Trials). -> [{ zone, farm, factions, starter? }]
 const STARTER_LEVEL = 5;
+const START_MAPS = new Set(Object.values(RACE_GROUPS).flatMap((gs) => gs.map((x) => x.start[0])));
 function partLoops(ctx, prof, picks, part) {
 	const level = skillLevel(part.from);
 	const out = [];
-	const add = (zone, f, faction, starter) => {
+	const add = (zone, f, faction, own) => {
+		const starter = own || (START_MAPS.has(zone) && f.level <= STARTER_LEVEL);
 		const key = (l) => l.farm.stops.map((s) => `${s.pt.x},${s.pt.y}`).join(' ');
 		const same = out.find((l) => l.zone === zone && l.farm.level === f.level && key(l) === key({ farm: f }));
 		if (same) {
@@ -346,14 +353,26 @@ function lapSeconds(prof, f) {
 	return (Math.max(f.lap, f.respawn * RUN) + (prof.stopYards || 0) * f.up) / RUN;
 }
 
+// Who may take a loop: its sides, and on Zephras Isle (the Skyborne's starting island, nobody else's) the
+// Skyborne only. -> the `only` condition, or null for anyone.
+function loopOnly(zone, factions) {
+	if (zone === SKYBORNE_ISLE) return raceCondition(['Skyborne'], factions);
+	return factions.length === 1 ? factions[0] : null;
+}
+const SKYBORNE_ISLE = 2521;
+
 // One farming loop line: `loop <zone> lvl <the least character level safe on it> lap <seconds> gain <points
-// a lap> [only <Faction>] [live] r <yards> at <x,y> …` (docs/GUIDE_FORMAT.md, "Farming loops").
+// a lap> [only <conditions>] [live] [starter] respawn <seconds> r <yards> at <x,y> …` (docs/GUIDE_FORMAT.md,
+// "Farming loops"): `starter` for a starting area's own loop, `respawn` its nodes' grow-back time.
 function loopLine(ctx, prof, l) {
 	const f = l.farm;
 	const live = f.stops[0].pt.f === 'l';
 	const words = [`  loop ${zoneName(ctx, l.zone)}`, `lvl ${f.level}`, `lap ${Math.round(lapSeconds(prof, f))}`, `gain ${fmt(f.gain)}`];
-	if (l.factions.length === 1) words.push(`only ${l.factions[0]}`);
+	const only = loopOnly(l.zone, l.factions);
+	if (only) words.push(`only ${only}`);
 	if (live) words.push('live');
+	if (l.starter) words.push('starter');
+	words.push(`respawn ${Math.round(f.respawn)}`);
 	words.push(`r ${prof.radius || 60}`, 'at', ...f.stops.map((s) => `${fmt(s.pt.x)},${fmt(s.pt.y)}`));
 	return words.join(' ');
 }
@@ -499,7 +518,7 @@ function listItems(got) {
 
 // Every range's loops as data for the crafting guides' Get it steps (`collect <item> xN` with `loop`
 // lines whose `yield` is that item): [{ item, kind: 'herb'|'ore'|'hide', skill: [from, to], factions,
-// map, lvl, lap, yield, r, live, pts, starter }], one per loop and item that is a twentieth or more of the
+// map, lvl, lap, yield, r, live, pts, starter, respawn }], one per loop and item that is a twentieth or more of the
 // loop's yield. `lvl`: the least character level safe on the loop; `lap`: seconds a lap takes; `yield`: that
 // item from one lap (every node up on the loop once); `factions`: the sides it is for; `starter`: a starting
 // area's own loop (partLoops).
@@ -528,6 +547,7 @@ function gatherLoops(ctx) {
 						live: l.farm.stops[0].pt.f === 'l',
 						pts: l.farm.stops.map((s) => [s.pt.x, s.pt.y]),
 						starter: !!l.starter,
+						respawn: Math.round(l.farm.respawn),
 					});
 				}
 			}
@@ -567,4 +587,4 @@ function buildAll(ctx, notes = []) {
 	return out;
 }
 
-module.exports = { plan, render, buildAll, gatherLoops, zonePicks, partLoops, starterLoops, partPoints, pointsOf, farmIn, rareKinds, startParts, bandYield, coversTop, loopLine, lapSeconds, nodeSummary, STARTER_LEVEL, OUT_DIR };
+module.exports = { loopOnly, plan, render, buildAll, gatherLoops, zonePicks, partLoops, starterLoops, partPoints, pointsOf, farmIn, rareKinds, startParts, bandYield, coversTop, loopLine, lapSeconds, nodeSummary, STARTER_LEVEL, OUT_DIR };

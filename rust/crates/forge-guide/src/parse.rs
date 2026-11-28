@@ -730,16 +730,16 @@ fn parse_zone_spec(line: &[u16], lex: &Lex, ln: f64, cx: &mut Cx) -> Option<V> {
 }
 
 /// The words of a `loop <zone> …` line after its zone.
-const LOOP_WORDS: [&str; 8] = ["lvl", "lap", "gain", "yield", "only", "live", "r", "at"];
+const LOOP_WORDS: [&str; 10] = ["lvl", "lap", "gain", "yield", "only", "live", "starter", "respawn", "r", "at"];
 
-/// `loop <zone or map <uiMapID>> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live]
+/// `loop <zone or map <uiMapID>> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live] [starter] [respawn <seconds>]
 /// [r <yards>] at <x,y> <x,y> …`: a farming loop a `skill` or `collect` goal of its step may pick at runtime
 /// (docs/GUIDE_FORMAT.md, "Farming loops"). `lvl`: the strongest creature along its walk; `lap`: the seconds a
 /// lap takes; `gain`: the skill points a lap gives (a `skill` goal), `yield`: the items of the goal's item a lap
 /// gives (a `collect` goal); its stops in order, each `r` yards wide (default 30), in the Era frame unless `live`.
 fn parse_loop_candidate(lex: &Lex, ln: f64, cx: &mut Cx) -> Option<V> {
 	let toks = &lex.tokens;
-	let usage = "usage: loop <zone> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live] [r <yards>] at <x,y> <x,y> …";
+	let usage = "usage: loop <zone> lvl <level> lap <seconds> gain|yield <per lap> [only <conditions>] [live] [starter] [respawn <seconds>] [r <yards>] at <x,y> <x,y> …";
 	let word = |t: &Tok| !t.quoted && LOOP_WORDS.contains(&t.text.to_lowercase().as_str());
 	let mut i = 1;
 	while i < toks.len() && !word(&toks[i]) {
@@ -768,8 +768,8 @@ fn parse_loop_candidate(lex: &Lex, ln: f64, cx: &mut Cx) -> Option<V> {
 		}
 		i += 1;
 		match w.as_str() {
-			"live" => {
-				out.set("live", true);
+			"live" | "starter" => {
+				out.set(&w, true);
 			}
 			"at" => {
 				while i < toks.len() && !word(&toks[i]) {

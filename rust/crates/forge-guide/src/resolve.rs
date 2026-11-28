@@ -1668,6 +1668,10 @@ fn apply_loop_candidates(step: &V, s: &V, faction: &V, r: &mut R) {
 		c.set("lvl", obj! { "min" => l.get("lvl"), "max" => l.get("lvl") });
 		c.set("lap", l.get("lap"));
 		c.set(per, l.get(per));
+		set_if(&c, "respawn", l.get("respawn"));
+		if l.get("starter").truthy() {
+			c.set("starter", true);
+		}
 		c.set("spotsPacked", crate::emit::pack_spots(&spots));
 		candidates.push((c, spots));
 	}

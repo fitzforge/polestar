@@ -907,6 +907,8 @@ function applyLoopCandidates(step, s, err, faction, resolveZone) {
 		c.lvl = { min: l.lvl, max: l.lvl };
 		c.lap = l.lap;
 		c[per] = l[per];
+		if (l.respawn) c.respawn = l.respawn;
+		if (l.starter) c.starter = true;
 		c.spotsPacked = spots.map((p) => [p.x, p.y, '', p.r].map((v) => (v === '' ? v : luaNumber(v, 2))).join(',')).join(';');
 		out.push({ c, spots });
 	}

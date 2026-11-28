@@ -535,13 +535,15 @@ test('every farming loop names the least level safe along its walk and keeps cle
 	const dir = path.join(ROOT, 'guides', 'forever', 'professions');
 	for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.guide'))) {
 		for (const line of fs.readFileSync(path.join(dir, file), 'utf8').split('\n')) {
-			const m = line.match(/^ {2}loop (.+?) lvl (\d+) .*?(?: only (\S+))?( live)? r \d+ at (.+)$/);
+			const m = line.match(/^ {2}loop (.+?) lvl (\d+) (.*?) r \d+ at (.+)$/);
 			if (!m) continue;
 			loops++;
 			const zone = byName[m[1]];
 			assert.ok(zone, `${file}: unknown zone in ${line}`);
-			const stops = m[5].split(' ').map((p) => ({ pt: ctx.project.point(zone, ...p.split(',').map(Number), m[4] ? 'l' : 'e') }));
-			const sides = ((m[3] || '').match(/\b(Alliance|Horde)\b/g) || []).filter((s, i, a) => a.indexOf(s) === i);
+			const live = /(^| )live( |$)/.test(m[3]);
+			const only = (m[3].match(/ only (\S+)/) || [])[1] || '';
+			const stops = m[4].split(' ').map((p) => ({ pt: ctx.project.point(zone, ...p.split(',').map(Number), live ? 'l' : 'e') }));
+			const sides = (only.match(/\b(Alliance|Horde)\b/g) || []).filter((s, i, a) => a.indexOf(s) === i);
 			for (const f of sides.length ? sides : ['Alliance', 'Horde']) {
 				const need = roundLevel(ctx, zone, stops, f);
 				if (need === null || need > Number(m[2])) bad.push(`${file} ${m[1]} (${f}): lvl ${m[2]}, the walk ${need === null ? 'passes an elite or a town of the other faction' : `asks ${need}`}`);
@@ -577,11 +579,33 @@ test('every starting area has a starter loop of level 5 or less in the first ban
 	assert.deepEqual(missing, []);
 });
 
+// The engine offers `starter` loops to low levels only (a level 26 in Durotar was sent round the Valley of Trials):
+// every loop in a starting zone that asks level 5 or less carries it; the first band also offers each race's next
+// zone (the Barrens for the Kalimdor Horde) for a character past the starting area; Zephras Isle's loops are the
+// Skyborne's (nobody else reaches the island). The guides' loop lines say so.
+test('starter loops are marked, the first band offers the next zones, Zephras Isle\'s loops are the Skyborne\'s', { skip: hasData ? false : 'data/forever not built' }, () => {
+	const { context } = require('../tools/lib/professions/gathering/common');
+	const { plan, STARTER_LEVEL } = require('../tools/lib/professions/gathering/build');
+	const { RACE_GROUPS } = require('../tools/lib/professions/gathering/groups');
+	const { SPECS } = require('../tools/lib/professions/gathering/specs');
+	const ctx = context(DATA);
+	const starts = new Set(Object.values(RACE_GROUPS).flatMap((gs) => gs.map((g) => g.start[0])));
+	const prof = SPECS.find((p) => p.file === 'mining');
+	const first = plan(ctx, prof).filter((e) => e.kind === 'band' && e.band.scope === 'start');
+	for (const e of first) {
+		for (const l of e.loops) assert.equal(!!l.starter, starts.has(l.zone) && l.farm.level <= STARTER_LEVEL, `${e.from}-${e.to} map ${l.zone} lvl ${l.farm.level}`);
+		assert.ok(e.loops.some((l) => l.zone === 1413 && l.factions.includes('Horde') && !l.starter), `${e.from}-${e.to}: a Barrens loop for the Horde`);
+	}
+	const text = fs.readFileSync(path.join(ROOT, 'guides', 'forever', 'professions', 'mining.guide'), 'utf8');
+	for (const line of text.split('\n').filter((l) => /^ {2}loop Zephras Isle /.test(l))) assert.match(line, / only Skyborne(,Alliance|,Horde)? /, line);
+	assert.match(text, /\n {2}loop Mulgore lvl \d .*? starter respawn \d+ /);
+});
+
 test('the gathering loops as data for the crafting guides: one entry per loop and item it gives', { skip: hasData ? false : 'data/forever not built' }, () => {
 	const { gatherLoops } = require('../tools/lib/professions/gathering/build');
 	const { context } = require('../tools/lib/professions/gathering/common');
 	const loops = gatherLoops(context(DATA));
-	const keys = ['item', 'kind', 'skill', 'factions', 'map', 'lvl', 'lap', 'yield', 'r', 'live', 'pts', 'starter'];
+	const keys = ['item', 'kind', 'skill', 'factions', 'map', 'lvl', 'lap', 'yield', 'r', 'live', 'pts', 'starter', 'respawn'];
 	for (const l of loops) assert.deepEqual(Object.keys(l), keys);
 	assert.deepEqual([...new Set(loops.map((l) => l.kind))].sort(), ['herb', 'hide', 'ore']);
 	// Briarthorn (2450) comes from loops that start at 70 or later (#2892).
