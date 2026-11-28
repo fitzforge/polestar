@@ -61,7 +61,8 @@ function table(text, heading) {
 			first = true;
 			continue;
 		}
-		const cells = line.split('|').slice(1, -1).map((c) => c.trim());
+		// A cell's `\|` is a pipe inside it (`gain\|yield`), no column edge.
+		const cells = line.split(/(?<!\\)\|/).slice(1, -1).map((c) => c.trim());
 		if (!first && !/^-+$/.test(cells[0])) rows.push(cells);
 		first = false;
 	}
