@@ -44,18 +44,6 @@ fn loop_lines_compile_to_the_skill_goal_s_loop_candidates_that_the_engine_regist
 	assert_eq!(out["c2"]["lap"], 420);
 }
 
-// A starting area's own loop (`starter`, offered to low levels: engine pickFor) and its nodes' grow-back time
-// (`respawn`, for the loop's depletion: Own.loopShare) reach the candidate.
-#[test]
-fn a_loop_s_starter_flag_and_respawn_reach_its_candidate() {
-	let text = src(&["  loop Elwynn Forest lvl 2 lap 300 gain 2.5 starter respawn 480 r 60 at 40,40 45,45", "  skill Mining 65"]);
-	let r = compile_with(&[("test.guide", &text)], &fixture_data(), Some("test"));
-	assert_eq!(r.errors, Vec::<String>::new());
-	let pack = write_our_test_pack(&r.guides);
-	let lua = pack.text(pack.guides_of("test/loops"));
-	assert!(is_match(lua, r#"lap = 300, gain = 2\.5, respawn = 480, starter = true, spotsPacked = "#), "{lua}");
-}
-
 #[test]
 fn a_loop_line_without_its_numbers_or_beside_gotos_or_a_bare_loop_is_an_error() {
 	let errors = |body: &[&str]| compile_with(&[("test.guide", &src(body))], &fixture_data(), Some("test")).errors.join("\n");

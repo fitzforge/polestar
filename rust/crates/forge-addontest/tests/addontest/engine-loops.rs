@@ -1,7 +1,7 @@
 //! Farming loops (`loop <zone> …`, docs/GUIDE_FORMAT.md "Farming loops", #3661): a `skill` goal whose
 //! candidates are loops picks one where the player is, with the farm spots' ranking (pickFor: travel seconds
 //! plus the laps left times a lap), never one whose `lvl` (the least level safe on it) is above the player, and
-//! leads round that loop's closed track (Engine.GetLoopTrack; no spawn areas). Real Core manifest, stub world.
+//! walks that loop's stops as its spawn areas. Real Core manifest, stub world.
 
 use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::Value;
@@ -34,8 +34,7 @@ const SCRIPT: &str = r#"
 	function flush() stub.advance(0.25) end
 	function view()
 		local v = E.GetStepView(1).goals[1]
-		local t = E.GetLoopTrack()
-		return { map = v.map or false, spots = v.spots or false, track = t and t.stops or false, alts = v.alternatives or false, farm = v.farm or false }
+		return { map = v.map or false, spots = v.spots or false, alts = v.alternatives or false, farm = v.farm or false }
 	end
 	stub.login()
 	E.SetGuide("test/mining")
@@ -57,8 +56,7 @@ fn run(before: &str, script: &str) -> Value {
 fn a_human_at_mining_20_standing_in_westfall_gets_the_westfall_loop_and_walks_its_stops() {
 	let out = run("w.moveTo(1436, 52, 52); w.setZone(\"Westfall\")", "emit(view())");
 	assert_eq!(out["map"], 1436, "the loop where the player stands, not the first one (Elwynn Forest)");
-	assert_eq!(out["spots"], false, "a loop goal has no spawn areas");
-	assert_eq!(out["track"], 3, "the arrow runs round the Westfall loop's track through its three points");
+	assert_eq!(out["spots"], 3, "the arrow walks the Westfall loop's three stops");
 	assert_eq!(out["alts"], 2, "Elwynn Forest, and Durotar on the other continent, rank after it");
 	let farm = &out["farm"];
 	assert_eq!(farm["loop"], true);
@@ -79,14 +77,14 @@ fn flying_to_another_continent_re_picks_the_loop_there() {
 	);
 	assert_eq!(out["westfall"]["map"], 1436);
 	assert_eq!(out["durotar"]["map"], 1411, "landing on Kalimdor re-picks: the Durotar loop");
-	assert_eq!(out["durotar"]["track"], 4);
+	assert_eq!(out["durotar"]["spots"], 4);
 }
 
 #[test]
 fn a_loop_above_the_player_is_never_taken_and_with_none_safe_the_goal_says_from_which_level() {
 	let out = run("w.level = 10; w.moveTo(1436, 52, 52); w.setZone(\"Westfall\")", "emit(view())");
 	assert_eq!(out["map"], 1429, "Westfall is safe from 14, the player 10: Elwynn Forest instead, though farther");
-	assert_eq!(out["track"], 2);
+	assert_eq!(out["spots"], 2);
 	assert_eq!(out["farm"]["above"], Value::Null, "the pick is at the player's level");
 	// Only loops above the player: no place, and the level the first one opens at.
 	let high = run("w.level = 3; w.moveTo(1436, 52, 52); w.setZone(\"Westfall\")", "emit(view())");
@@ -107,5 +105,5 @@ fn cycling_moves_the_arrow_to_the_next_loop_and_its_stops() {
 	assert_eq!(out["before"]["map"], 1436);
 	assert_eq!(out["i"], 2);
 	assert_eq!(out["after"]["map"], 1429);
-	assert_eq!(out["after"]["track"], 2);
+	assert_eq!(out["after"]["spots"], 2);
 }

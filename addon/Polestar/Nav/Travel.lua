@@ -1944,6 +1944,37 @@ local function refreshFaction()
 	playerFaction = f == "Alliance" and 1 or f == "Horde" and 2 or 0
 end
 
+-- Whether world point (wx, wy) lies inside an outline's flat corner list { wx1, wy1, wx2, wy2, … }.
+function Nav.InOutline(pts, wx, wy)
+	local inside, n = false, #pts
+	local j = n - 1
+	for i = 1, n, 2 do
+		local ax, ay, qx, qy = pts[i], pts[i + 1], pts[j], pts[j + 1]
+		if (ay > wy) ~= (qy > wy) and wx < (qx - ax) * (wy - ay) / (qy - ay) + ax then inside = not inside end
+		j = i
+	end
+	return inside
+end
+
+-- The places inside a gathering area's outline (w = { c, pts }: the Engine's Own.areaWorld) where a flight, a boat
+-- or a zeppelin of the character's side lands: the flight masters and the transports' ends, as { wx, wy } (the
+-- Engine weighs the way to each by the planner, Own.areaEntry: landing there is arriving in the area).
+function Nav.AreaLandings(w)
+	if playerFaction == 0 then refreshFaction() end
+	local out = {}
+	for _, node in ipairs(taxiList) do
+		if node.c == w.c and allowed(node.faction, playerFaction, node.class) and Nav.InOutline(w.pts, node.wx, node.wy) then out[#out + 1] = { wx = node.wx, wy = node.wy } end
+	end
+	for _, t in ipairs(transports) do
+		if allowed(t.faction, playerFaction) then
+			for _, e in ipairs({ t.a, t.b }) do
+				if e.c == w.c and Nav.InOutline(w.pts, e.wx, e.wy) then out[#out + 1] = { wx = e.wx, wy = e.wy } end
+			end
+		end
+	end
+	return out
+end
+
 -- Marks the nodes named `name` the character may fly from known, and with `seen`
 -- their continent seen. -> true when a node was added or a continent newly seen.
 local function markByName(known, name, seen)

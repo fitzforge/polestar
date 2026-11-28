@@ -750,6 +750,24 @@ local function groundAim(C,pc,px,py,d,angle,dn,dw,measured)
 	return "travel",d,angle,dn,dw,measured,Nav.danger.NearEnemyGround(pc,px,py,C.GetPlayerFaction())
 end
 
+-- Yards from (px, py) to a gathering area's outline (a flat world corner list { wx1, wy1, … }): 0 inside.
+Nav.AREA_BORDER = 15 -- yards past the edge before the player counts as out of the area again (Engine's AREA_BORDER)
+function Nav.OutlineDistance(pts, px, py)
+	local n, inside, best = #pts, false, math.huge
+	local j = n - 1
+	for i = 1, n, 2 do
+		local ax, ay, qx, qy = pts[i], pts[i + 1], pts[j], pts[j + 1]
+		if (ay > py) ~= (qy > py) and px < (qx - ax) * (py - ay) / (qy - ay) + ax then inside = not inside end
+		local dx, dy = qx - ax, qy - ay
+		local l2 = dx * dx + dy * dy
+		local t = l2 > 0 and max(0, math.min(1, ((px - ax) * dx + (py - ay) * dy) / l2)) or 0
+		local d = sqrt((px - ax - t * dx) ^ 2 + (py - ay - t * dy) ^ 2)
+		if d < best then best = d end
+		j = i
+	end
+	return inside and 0 or best
+end
+
 local function sample()
 	floorHint, Nav.noWalk = nil, nil
 	if not target then return "none" end
@@ -769,6 +787,29 @@ local function sample()
 		local leg = T and T.Active and T.Active() and T.CurrentLeg()
 		if leg and leg.kind ~= "walk" then return "instruction" end
 		return "nopos"
+	end
+
+	-- A gathering area (the Engine's waypoint `areaPoly` on continent `areaC`): arrived anywhere inside its outline,
+	-- however the player got there (walking in, a flight landing at a master inside it, a boat or a zeppelin), with
+	-- or without a route still planned, and the arrow rests there (`roam`: no needle, the area's line); out of it
+	-- again only Nav.AREA_BORDER yards past its edge. One chime per visit (Nav.roamPoly: the outline the player is
+	-- in, kept across the Engine's new waypoint tables for the same area).
+	local poly = target.areaPoly
+	if type(poly) == "table" and pc == target.areaC then
+		local d = Nav.OutlineDistance(poly, px, py)
+		if d == 0 or (Nav.roamPoly == poly and d <= Nav.AREA_BORDER) then
+			target.roam = true
+			if Nav.roamPoly ~= poly then
+				Nav.roamPoly = poly
+				playArrival()
+			end
+			arrived = true
+			return "arrived", 0
+		end
+	end
+	if target.roam or Nav.roamPoly then
+		target.roam, Nav.roamPoly = nil, nil
+		arrived = false
 	end
 
 	local T = Nav.travel

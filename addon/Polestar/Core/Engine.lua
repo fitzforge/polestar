@@ -3195,28 +3195,35 @@ Own.trainerTop = {} -- class trainer npc -> the highest level it teaches, below 
 -- levels above them"; Polestar 0.4.4, #3661).
 Own.TOO_HIGH = 2
 -- Farming loops (`loop <zone> …`, docs/GUIDE_FORMAT.md "Farming loops";
--- #3661): candidates with `lap` (the seconds a lap takes) and `gain` (skill
--- points a lap, a `skill` goal) or `yield` (the goal's items a lap, a
--- `collect` goal); `lvl` is the least character level safe along the loop
--- (the builder's rule: no creature that can reach it more than a level above
--- the player, no elite by it). A goal whose candidates are loops ranks them
--- as farm spots, and never takes one whose `lvl` is above the character's
--- level, whatever else is left (Polestar 0.4.4: a level 3 Tauren was sent on
--- Mulgore's level 8 loop): with none at their level it has no place, and the
--- window says from which level one is safe (Own.farmView `safeFrom`).
+-- #3661: Fishing's rounds of stands) and gathering areas (`area <zone> "<name>"
+-- …`, "Gathering areas": Mining, Herbalism, Skinning): candidates with `lap`
+-- (the seconds a lap or a sweep takes) and `gain` (skill points, a `skill`
+-- goal) or `yield` (the goal's items, a `collect` goal); `lvl` is the least
+-- character level safe there (the builder's rule: no creature that can reach
+-- it more than a level above the player, no elite by it). A goal whose
+-- candidates are loops or areas ranks them as farm spots, and never takes one
+-- whose `lvl` is above the character's level, whatever else is left
+-- (Polestar 0.4.4: a level 3 Tauren was sent on Mulgore's level 8 loop): with
+-- none at their level it has no place, and the window says from which level
+-- one is safe (Own.farmView `safeFrom`). An area candidate has `poly` (its
+-- outline); a loop's places are its stops.
 function Own.isLoopGoal(goal)
 	local c = goal.candidates and goal.candidates[1]
-	return c ~= nil and c.lap ~= nil
+	return c ~= nil and c.lap ~= nil and c.poly == nil
+end
+function Own.isAreaGoal(goal)
+	local c = goal.candidates and goal.candidates[1]
+	return c ~= nil and c.poly ~= nil
 end
 
--- A loop candidate's `lvl`: the least character level safe on it.
+-- A loop or area candidate's `lvl`: the least character level safe there.
 function Own.loopLevel(c)
 	local l = c.lvl
 	if type(l) == "table" then l = l[1] or l.min end
 	return tonumber(l) or 1
 end
 
--- What a loop goal still needs: skill points to its `skill` target, or items.
+-- What a loop or area goal still needs: skill points to its `skill` target, or items.
 function Own.loopNeed(goal)
 	local C = Compat()
 	if goal.t == "skill" then
@@ -3226,78 +3233,21 @@ function Own.loopNeed(goal)
 	return Own.needOf(goal) - (goal.item and C.GetItemCount(goal.item) or 0)
 end
 
--- Depletion (Polestar 0.4.4: a level 26 lapping a starting area's small copper loop found it mined out). What
--- the player gathers on a loop (the goal's need going down while they are on its track: Own.loopAim) is noted
--- per loop; a node grows back over the loop's `respawn` seconds (the builder's, from the server's spawn times),
--- else LOOP_RESPAWN's for the profession (a conservative guess: ore and herbs 600 s, beasts 420 s; Fishing's
--- waters never run out). Own.loopShare: the share of a lap's normal yield the next lap finds, 1 minus what was
--- gathered there in its last respawn, each gather counting less as it grows back (linearly). Below
--- LOOP_DEPLETED the loop is mined out: the pick moves to the next best (Own.loopCheck), and the window says so;
--- it may come back once it is at LOOP_RECOVERED again.
-Own.LOOP_RESPAWN = { [186] = 600, [182] = 600, [393] = 420 }
-Own.LOOP_DEPLETED, Own.LOOP_RECOVERED = 0.5, 0.8
-Own.loopGathers = setmetatable({}, { __mode = "k" }) -- candidate -> { t1, n1, t2, n2, ... }
-Own.loopLastNeed = setmetatable({}, { __mode = "k" }) -- goal -> its need when last looked at
-Own.loopOut = setmetatable({}, { __mode = "k" }) -- goal -> the loop it left mined out, until that grows back
-
--- The skill line a loop goal gathers with: a `skill` goal's own, a `collect` goal's `gather` one.
-function Own.loopLine(goal)
+-- The skill line an area goal gathers with: a `skill` goal's own, a `collect` goal's `gather` one; its verb.
+function Own.gatherLine(goal)
 	if goal.t == "skill" then return goal.skillLine end
 	return type(goal.gather) == "table" and goal.gather.skillLine or nil
 end
-
-function Own.loopRespawn(goal, c)
-	local r = tonumber(c.respawn)
-	if r and r > 0 then return r end
-	return Own.LOOP_RESPAWN[Own.loopLine(goal) or 0]
-end
-
-function Own.loopShare(goal, c)
-	local list = Own.loopGathers[c]
-	local respawn = list and Own.loopRespawn(goal, c)
-	local per = tonumber(goal.t == "skill" and c.gain or c.yield)
-	if not (list and respawn and per and per > 0) then return 1 end
-	local now, gone = GetTime(), 0
-	for i = 1, #list, 2 do
-		local age = now - list[i]
-		if age < respawn then gone = gone + list[i + 1] * (1 - age / respawn) end
-	end
-	local share = 1 - gone / per
-	return share < 0.05 and 0.05 or share > 1 and 1 or share
-end
-
--- Note what the player gathered since last looked at, when on the loop's track (d yards from it).
-function Own.loopNote(goal, c, d)
-	local need = Own.loopNeed(goal)
-	local last = Own.loopLastNeed[goal]
-	Own.loopLastNeed[goal] = need
-	if not (last and need < last and d and d <= Own.LOOP_ON) then return end
-	local list = Own.loopGathers[c]
-	if not list then
-		list = {}
-		Own.loopGathers[c] = list
-	end
-	local now, respawn = GetTime(), Own.loopRespawn(goal, c) or 0
-	-- Only what can still count is kept.
-	if #list >= 2 and now - list[1] > respawn then
-		local keep = {}
-		for i = 1, #list, 2 do
-			if now - list[i] <= respawn then keep[#keep + 1], keep[#keep + 2] = list[i], list[i + 1] end
-		end
-		for i = #list, 1, -1 do list[i] = nil end
-		for i = 1, #keep do list[i] = keep[i] end
-	end
-	list[#list + 1], list[#list + 2] = now, last - need
-end
+Own.AREA_VERB = { [186] = "mine", [182] = "herb", [393] = "skin" }
 
 local function farmSeconds(goal, c)
 	local level = player.level or 1
 	local lo, hi = level, level
 	if type(c.lvl) == "table" then lo, hi = c.lvl[1] or c.lvl.min or level, c.lvl[2] or c.lvl.max or level end
 	local gap = lo - level
-	-- A loop: laps to finish times its lap, each lap yielding what of it has grown back (Own.loopShare).
+	-- A loop or an area: laps (sweeps) to finish times its lap.
 	if c.lap then
-		local per = (tonumber(goal.t == "skill" and c.gain or c.yield) or 0) * Own.loopShare(goal, c)
+		local per = tonumber(goal.t == "skill" and c.gain or c.yield) or 0
 		if per <= 0 then return Own.UNMEASURED, gap end
 		local need = Own.loopNeed(goal)
 		if need < 1 then need = 1 end
@@ -3332,20 +3282,21 @@ local function pickFor(goal)
 	local hc, hx, hy
 	if here then hc, hx, hy = C.MapToWorld(here.map, here.x, here.y, here.f) end
 	local loopGoal = Own.isLoopGoal(goal)
-	local farm = (goal.t == "collect" and not goal.quest) or loopGoal
+	local areaGoal = Own.isAreaGoal(goal)
+	local farm = (goal.t == "collect" and not goal.quest) or loopGoal or areaGoal
 	local zoneLevels = ns.Maps and ns.Maps.GetZoneLevels
 	local list, tier, cost, extra, order, gap = {}, {}, {}, {}, {}, {}
 	local reasonable = false
 	local level, safeFrom = player.level or 1, nil
 	for i, c in ipairs(goal.candidates) do
 		local usable = Guides.CandidateMatches(c, player)
-		if usable and loopGoal and Own.loopLevel(c) > level then
+		if usable and (loopGoal or areaGoal) and Own.loopLevel(c) > level then
 			local l = Own.loopLevel(c)
 			if not safeFrom or l < safeFrom then safeFrom = l end
 			usable = false
 		end
-		-- A loop only reached through zones well above the character is none of theirs (Own.tripSafe).
-		if usable and loopGoal and not Own.tripSafe(c, here, hc, hx, hy) then usable = false end
+		-- An area only reached through zones well above the character is none of theirs (Own.tripSafe).
+		if usable and areaGoal and not Own.tripSafe(c, here, hc, hx, hy) then usable = false end
 		if usable then
 			list[#list + 1] = c
 			order[c] = i * 1e-6 -- stable among equals
@@ -3409,9 +3360,9 @@ local function pickFor(goal)
 		end
 		list = kept
 	end
-	-- A starting area's own loop (`starter`) is for a new character: past its safe level plus STARTER_BAND it
-	-- goes while another loop is left (a level 26 in Durotar was sent round the Valley of Trials' copper).
-	if loopGoal then
+	-- A starting area's own (`starter`) is for a new character: past its safe level plus STARTER_BAND it goes
+	-- while another area is left (a level 26 in Durotar was sent round the Valley of Trials' copper).
+	if areaGoal then
 		local other = false
 		for _, c in ipairs(list) do
 			if not c.starter or (player.level or 1) <= Own.loopLevel(c) + Own.STARTER_BAND then
@@ -3425,6 +3376,18 @@ local function pickFor(goal)
 			end
 			list = kept
 		end
+		-- One area of a name: the largest one safe for the character (the builder cuts a subzone again at a
+		-- higher level when more of it opens there).
+		local best = {}
+		for _, c in ipairs(list) do
+			local k = c.map .. "|" .. tostring(c.area) .. "|" .. tostring(c.near)
+			if not best[k] or (tonumber(c.count) or 0) > (tonumber(best[k].count) or 0) then best[k] = c end
+		end
+		local kept = {}
+		for _, c in ipairs(list) do
+			if best[c.map .. "|" .. tostring(c.area) .. "|" .. tostring(c.near)] == c then kept[#kept + 1] = c end
+		end
+		list = kept
 	end
 	local function better(a, b)
 		if tier[a] ~= tier[b] then return tier[a] < tier[b] end
@@ -3440,31 +3403,29 @@ local function pickFor(goal)
 		end
 		table.sort(list, better)
 	end
-	-- A loop on the player's own map comes first while it is competitive (within LOOP_HOME of the best one's
+	-- An area on the player's own map comes first while it is competitive (within AREA_HOME of the best one's
 	-- minutes): mining where they stand beats a ride for a little less time.
-	if loopGoal and here and list[1] and list[1].map ~= here.map then
+	if areaGoal and here and list[1] and list[1].map ~= here.map then
 		local best = list[1]
 		for k = 2, #list do
 			local c = list[k]
-			if c.map == here.map and tier[c] <= tier[best] and cost[c] + extra[c] <= (cost[best] + extra[best]) * (1 + Own.LOOP_HOME) then
+			if c.map == here.map and tier[c] <= tier[best] and cost[c] + extra[c] <= (cost[best] + extra[best]) * (1 + Own.AREA_HOME) then
 				table.remove(list, k)
 				table.insert(list, 1, c)
 				break
 			end
 		end
 	end
-	-- The loop being walked stays (Own.LOOP_KEEP, Own.onLoop): a zone or
-	-- subzone change, a landing or a level-up never swaps it for another that
-	-- is only a little faster on paper (a Horde miner in Mulgore was sent off to
-	-- Durotar's loop); one the player picked with "Other" stays the same way.
-	-- Mined out (Own.loopShare under LOOP_DEPLETED), it stays only on its time.
-	local on = loopGoal and Own.loopOn[goal]
+	-- The loop being walked stays (Own.LOOP_KEEP): a zone or subzone change, a landing or a level-up never swaps
+	-- it for another that is only a little faster on paper. An area: the player's pick while it is still safe
+	-- for them, else the one they stand in (Own.areaKeep).
+	local best1 = list[1]
+	local on = loopGoal and Own.loopOn[goal] or areaGoal and Own.areaKeep(goal, list) or nil
 	if on and list[1] ~= on then
 		for k = 2, #list do
 			if list[k] == on then
 				local best = list[1]
-				local kept = Own.loopShare(goal, on) >= Own.LOOP_DEPLETED and Own.onLoop(on)
-				if tier[on] <= tier[best] and (cost[on] + extra[on] <= (cost[best] + extra[best]) * (1 + Own.LOOP_KEEP) or kept) then
+				if areaGoal or (tier[on] <= tier[best] and cost[on] + extra[on] <= (cost[best] + extra[best]) * (1 + Own.LOOP_KEEP)) then
 					table.remove(list, k)
 					table.insert(list, 1, on)
 				end
@@ -3472,9 +3433,9 @@ local function pickFor(goal)
 			end
 		end
 	end
-	p = { list = list, i = #list > 0 and 1 or 0, gen = contextGen, tier = tier, safeFrom = safeFrom }
+	p = { list = list, i = #list > 0 and 1 or 0, gen = contextGen, tier = tier, safeFrom = safeFrom, cost = cost, extra = extra, best = best1 }
 	picks[goal] = p
-	Own.applyLoop(goal, list[p.i])
+	if areaGoal then Own.applyArea(goal, list[p.i]) else Own.applyLoop(goal, list[p.i]) end
 	return p
 end
 
@@ -3489,19 +3450,20 @@ end
 -- the items still missing take at the chosen spot (`rate`: items a looted
 -- kill yields), how many levels its weakest mobs are above the player (nil at
 -- or below), and the second choice: the next spot of the ranking on another
--- map, else the next one. A farming loop instead: `loop` (what it gathers:
--- the skill, or the item), its lap in minutes, the laps and minutes left;
--- with no loop safe at the character's level, `safeFrom`: the level the first
--- one opens at (pickFor). Nil for no farm goal, no usable spot, or nothing
--- left to farm.
+-- map, else the next one. A farming loop or a gathering area instead: `loop`
+-- (or `area`: the window lists the areas, Engine.AreaChoices), its lap in
+-- minutes, the laps and minutes left; with none safe at the character's level,
+-- `safeFrom`: the level the first one opens at (pickFor). Nil for no farm
+-- goal, no usable spot, or nothing left to farm.
 function Own.farmView(goal)
 	if not goal.candidates then return nil end
-	local loop = Own.isLoopGoal(goal)
+	local area = Own.isAreaGoal(goal) or nil
+	local loop = Own.isLoopGoal(goal) or area
 	if not loop and (goal.t ~= "collect" or goal.quest) then return nil end
 	local p = pickFor(goal)
 	local c = p.list[p.i]
 	if not c then
-		if loop and p.safeFrom and Own.loopNeed(goal) >= 1 then return { loop = true, safeFrom = p.safeFrom } end
+		if loop and p.safeFrom and Own.loopNeed(goal) >= 1 then return { loop = true, area = area, safeFrom = p.safeFrom } end
 		return nil
 	end
 	local need = loop and Own.loopNeed(goal) or Own.needOf(goal) - (goal.item and Compat().GetItemCount(goal.item) or 0)
@@ -3521,14 +3483,9 @@ function Own.farmView(goal)
 	second = second or after
 	if loop then
 		local per = tonumber(goal.t == "skill" and c.gain or c.yield) or 0
-		-- The loop it left mined out (Own.loopOut), while that has not grown back: the window says so.
-		local out = Own.loopOut[goal]
-		if out and Own.loopShare(goal, out) >= Own.LOOP_RECOVERED then
-			Own.loopOut[goal], out = nil, nil
-		end
 		return {
 			loop = true,
-			out = out and out ~= c and { map = out.map, line = Own.loopLine(goal) } or nil,
+			area = area,
 			lap = math.max(1, math.floor(c.lap / 60 + 0.5)),
 			laps = per > 0 and math.ceil(need / per) or nil,
 			minutes = secs < Own.UNMEASURED and math.max(1, math.floor(secs / 60 + 0.5)) or nil,
@@ -3655,24 +3612,27 @@ function Own.applyLoop(goal, c)
 	Own.loopOn[goal] = c
 end
 
--- A re-pick (pickFor) keeps the loop being walked while it is still safe for
--- the character, unless another would take less than 1 / (1 + LOOP_KEEP) of
--- its time (travel there plus the laps left: a third saved), or always while
--- the player is on it (Own.onLoop: within LOOP_ON yards of its track). Nothing
--- gathered on a loop holds or moves its aim: the arrow's place on the track
--- is the player's alone (Own.loopAim), not the dwell or the work noted for
--- spawn areas (Spots), which a loop goal has none of.
-Own.LOOP_KEEP, Own.LOOP_ON = 0.5, 60
--- A starting area's own loop (`starter`) is offered up to its safe level plus STARTER_BAND (pickFor). A loop on
--- the player's own map comes first while it takes at most 1 + LOOP_HOME times the best one's minutes.
-Own.STARTER_BAND, Own.LOOP_HOME = 5, 0.5
-
--- Whether the trip to a loop is safe for the character (Polestar 0.4.4: a level 3 Tauren on Red Cloud Mesa was
+-- A re-pick (pickFor) keeps the loop being walked while it is still safe for the character, unless another would
+-- take less than 1 / (1 + LOOP_KEEP) of its time (travel there plus the laps left: a third saved).
+Own.LOOP_KEEP = 0.5
+-- Gathering areas (Polestar 0.4.4, Fitz: "areas, not circuits"). A starting area's own (`starter`) is offered up
+-- to its safe level plus STARTER_BAND (pickFor). An area on the player's own map comes first while it takes at
+-- most 1 + AREA_HOME times the best one's minutes. The player is in an area once inside its outline and out of it
+-- again AREA_BORDER yards past its edge (no flapping at the border); outside, the arrow leads into it the fastest
+-- way (Own.areaEntry), looked for again each AREA_ENTRY_MOVE yards the player moves; inside it rests. Mined out:
+-- inside it with nothing gathered for the area's respawn times AREA_IDLE seconds (AREA_IDLE_MIN to AREA_IDLE_MAX;
+-- the builder's `respawn`, else AREA_RESPAWN's), the window offers the next area; that holds until something is
+-- gathered there again or another area is picked.
+Own.STARTER_BAND, Own.AREA_HOME = 5, 0.5
+Own.AREA_BORDER, Own.AREA_ENTRY_MOVE, Own.AREA_INSET = 15, 150, 8
+Own.AREA_IDLE, Own.AREA_IDLE_MIN, Own.AREA_IDLE_MAX = 0.6, 150, 420
+Own.AREA_RESPAWN = { [186] = 300, [182] = 300, [393] = 300 }
+-- Whether the trip to an area is safe for the character (Polestar 0.4.4: a level 3 Tauren on Red Cloud Mesa was
 -- sent to Durotar's loop across the Barrens, 10.3k yd through creatures of 10-20): every zone the straight way
--- from the player to the loop's first point crosses (Nav's walking maps, Nav.danger.ZoneAt, every TRIP_STEP
--- yards) other than the player's and the loop's own starts at most TRIP_ABOVE levels above the character (its
--- danger floor, Maps.GetZoneLevels). Without the walking maps: a loop on another map than the player's must lie
--- in a zone that starts at most TRIP_ABOVE above them. True for a loop on the player's own map; one on another
+-- from the player to the area's middle crosses (Nav's walking maps, Nav.danger.ZoneAt, every TRIP_STEP
+-- yards) other than the player's and the area's own starts at most TRIP_ABOVE levels above the character (its
+-- danger floor, Maps.GetZoneLevels). Without the walking maps: an area on another map than the player's must lie
+-- in a zone that starts at most TRIP_ABOVE above them. True for an area on the player's own map; one on another
 -- continent (a boat or a zeppelin away) is ranked after the player's continent's as before.
 Own.TRIP_STEP, Own.TRIP_ABOVE = 150, 2
 function Own.tripSafe(c, here, hc, hx, hy)
@@ -3709,13 +3669,218 @@ function Own.tripSafe(c, here, hc, hx, hy)
 			if lo and lo > level + Own.TRIP_ABOVE then return false end
 		end
 	end
-	-- Nothing to tell the zones by: the loop's own zone must suit the character.
+	-- Nothing to tell the zones by: the area's own zone must suit the character.
 	if not seen then
 		local lo = low(c.map)
 		return not lo or lo <= level + Own.TRIP_ABOVE
 	end
 	return true
 end
+
+-- An area candidate's outline in world yards, read once: { c (continent), pts = { wx1, wy1, wx2, wy2, … },
+-- mx, my (its middle) }, or nil when its corners do not lie on one continent.
+Own.areaWorlds = setmetatable({}, { __mode = "k" })
+function Own.areaWorld(c)
+	local w = Own.areaWorlds[c]
+	if w ~= nil then return w or nil end
+	local C = Compat()
+	if not (type(c.poly) == "string" and C.MapToWorld) then return nil end
+	local pts, cont, sx, sy = {}, nil, 0, 0
+	for x, y in c.poly:gmatch("(-?[%d%.]+),(-?[%d%.]+)") do
+		local wc, wx, wy = C.MapToWorld(c.map, tonumber(x), tonumber(y), c.f)
+		if not wc then return nil end -- not resolvable yet: again later
+		if cont and wc ~= cont then
+			pts = nil
+			break
+		end
+		cont, pts[#pts + 1], pts[#pts + 2], sx, sy = wc, wx, wy, sx + wx, sy + wy
+	end
+	w = pts and #pts >= 6 and { c = cont, pts = pts, mx = sx * 2 / #pts, my = sy * 2 / #pts } or false
+	Own.areaWorlds[c] = w
+	return w or nil
+end
+
+-- Yards from a world point to an outline (0 inside), the nearest point of its edge, and whether it is inside.
+function Own.areaDistance(w, px, py)
+	local pts = w.pts
+	local n, inside, best, bx, by = #pts, false, math.huge, nil, nil
+	local j = n - 1
+	for i = 1, n, 2 do
+		local ax, ay, qx, qy = pts[i], pts[i + 1], pts[j], pts[j + 1]
+		if (ay > py) ~= (qy > py) and px < (qx - ax) * (py - ay) / (qy - ay) + ax then inside = not inside end
+		local dx, dy = qx - ax, qy - ay
+		local l2 = dx * dx + dy * dy
+		local t = l2 > 0 and math.max(0, math.min(1, ((px - ax) * dx + (py - ay) * dy) / l2)) or 0
+		local ex, ey = ax + t * dx, ay + t * dy
+		local d = ((px - ex) ^ 2 + (py - ey) ^ 2) ^ 0.5
+		if d < best then best, bx, by = d, ex, ey end
+		j = i
+	end
+	return inside and 0 or best, bx, by, inside
+end
+
+Own.areaOn = setmetatable({}, { __mode = "k" }) -- goal -> its current area
+Own.areaIn = setmetatable({}, { __mode = "k" }) -- goal -> the area the player stands in (AREA_BORDER hysteresis)
+Own.areaEnter = setmetatable({}, { __mode = "k" }) -- goal -> GetTime() the player came into it
+Own.areaGather = setmetatable({}, { __mode = "k" }) -- goal -> GetTime() of the last gather there
+Own.areaLastNeed = setmetatable({}, { __mode = "k" }) -- goal -> its need when last looked at
+Own.areaOut = setmetatable({}, { __mode = "k" }) -- goal -> the area it found mined out
+Own.areaEntries = setmetatable({}, { __mode = "k" }) -- goal -> the way into its area, where from
+
+-- Whether the player (pc, px, py) is in area c of goal: inside its outline, or within AREA_BORDER yards of its
+-- edge while they were in it already.
+function Own.areaInside(goal, c, pc, px, py)
+	local w = Own.areaWorld(c)
+	if not (w and pc == w.c) then return false end
+	local d = Own.areaDistance(w, px, py)
+	if Own.areaIn[goal] == c then return d <= Own.AREA_BORDER end
+	return d == 0
+end
+
+-- The area a goal's pick chose (pickFor): its current area. The way into it is looked for again.
+function Own.applyArea(goal, c)
+	if Own.areaOn[goal] == c then return end
+	Own.areaOn[goal] = c
+	Own.areaEntries[goal] = nil
+	if ns.Fire then ns.Fire("AREA_CHANGED") end
+end
+
+-- The player's pick of an area (Engine.PickArea), kept per character, guide and step (CharState `areaPicks`):
+-- { map, area, near } by name, so a rebuilt guide keeps it. Its key: the guide's id, step and goal index.
+Own.goalPlaces = setmetatable({}, { __mode = "k" }) -- goal -> "guide#step#goal"
+function Own.areaKey(goal)
+	local k = Own.goalPlaces[goal]
+	if k then return k end
+	if not guide then return nil end
+	for s, step in ipairs(guide.steps) do
+		for g, gg in ipairs(step.goals or {}) do
+			if gg == goal then
+				k = guide.id .. "#" .. s .. "#" .. g
+				Own.goalPlaces[goal] = k
+				return k
+			end
+		end
+	end
+	return nil
+end
+function Own.areaPicked(goal)
+	local k = Own.areaKey(goal)
+	local all = k and ns.CharState().areaPicks
+	return all and all[k] or nil
+end
+function Own.setAreaPick(goal, c)
+	local k = Own.areaKey(goal)
+	if not k then return end
+	local st = ns.CharState()
+	st.areaPicks = st.areaPicks or {}
+	st.areaPicks[k] = c and { map = c.map, area = c.area, near = c.near or nil } or nil
+end
+function Own.sameArea(c, rec)
+	return rec ~= nil and c.map == rec.map and c.area == rec.area and (c.near or nil) == (rec.near or nil)
+end
+
+-- The area pickFor keeps first among the usable `list`: the player's pick while it is still usable (safe for
+-- their level, a safe trip, not a starter area they have outgrown), else forgotten; else the one they stand in.
+function Own.areaKeep(goal, list)
+	local pick = Own.areaPicked(goal)
+	if pick then
+		for _, c in ipairs(list) do
+			if Own.sameArea(c, pick) then return c end
+		end
+		Own.setAreaPick(goal, nil)
+	end
+	local inside = Own.areaIn[goal]
+	for _, c in ipairs(list) do
+		if c == inside then return c end
+	end
+	return nil
+end
+
+-- The seconds with nothing gathered inside an area after which it counts as mined out.
+function Own.areaIdle(goal, c)
+	local r = tonumber(c.respawn) or Own.AREA_RESPAWN[Own.gatherLine(goal) or 0] or 300
+	return math.max(Own.AREA_IDLE_MIN, math.min(Own.AREA_IDLE_MAX, r * Own.AREA_IDLE))
+end
+
+-- Where the arrow leads for area c of goal: inside it, its middle (the arrow rests: Nav.Sample); outside on its
+-- continent, the fastest way in by the travel planner's costs (ns.TravelCost): walking to the nearest point of its
+-- edge (AREA_INSET yards in), or flying or sailing to a flight master, dock or zeppelin tower inside it (Nav's
+-- Nav.AreaLandings), so a landing there is an arrival; on another continent, its middle (the planner rides there
+-- and the way in is looked for on arrival). Looked for again each AREA_ENTRY_MOVE yards. -> map, x, y, f
+function Own.areaEntry(goal, c)
+	local C = Compat()
+	local w = Own.areaWorld(c)
+	local pc, px, py = C.GetPlayerWorldPosition()
+	if not (w and pc) then return c.map, c.x, c.y, c.f end
+	local inside = pc == w.c and Own.areaInside(goal, c, pc, px, py)
+	local e = Own.areaEntries[goal]
+	if e and e.c == c and e.pc == pc and e.inside == inside and (inside or (px - e.px) ^ 2 + (py - e.py) ^ 2 < Own.AREA_ENTRY_MOVE ^ 2) then return e.map, e.x, e.y, e.f end
+	local map, x, y, f = c.map, c.x, c.y, c.f
+	if pc == w.c and not inside then
+		local _, bx, by = Own.areaDistance(w, px, py)
+		local dx, dy = w.mx - bx, w.my - by
+		local l = (dx * dx + dy * dy) ^ 0.5
+		if l > 0 then bx, by = bx + dx / l * math.min(Own.AREA_INSET, l), by + dy / l * math.min(Own.AREA_INSET, l) end
+		local best, cost
+		local function try(wx, wy)
+			local mx, my = C.WorldToMap(w.c, wx, wy, c.map)
+			if not mx then return end
+			local q = { map = c.map, x = mx, y = my }
+			local s = ns.TravelCost(nil, q)
+			if s and (not cost or s < cost) then best, cost = q, s end
+		end
+		try(bx, by)
+		local landings = ns.Nav and ns.Nav.AreaLandings and ns.Nav.AreaLandings(w)
+		for _, l in ipairs(landings or {}) do try(l.wx, l.wy) end
+		if best then map, x, y, f = best.map, best.x, best.y, nil end
+	end
+	Own.areaEntries[goal] = { c = c, pc = pc, px = px, py = py, inside = inside, map = map, x = x, y = y, f = f }
+	return map, x, y, f
+end
+
+-- An area's name in the player's language: its subzone's (the client's), "<Zone>: near <Subzone>" for open ground.
+function Own.areaName(c)
+	local sub = (c.aid and ns.Names and ns.Names.Area and ns.Names.Area(c.aid)) or c.area or ""
+	if not c.near then return sub end
+	local C = Compat()
+	return L["%s: near %s"]:format((C.GetMapName and C.GetMapName(c.map)) or "", sub)
+end
+
+-- The arrival poll for an area goal (checkArrival): whether the player came into or left its current area (the
+-- AREA_BORDER hysteresis), what they gathered there (the goal's need going down while inside), whether it is mined
+-- out (Own.areaIdle), and whether they moved far enough for the way in to be looked for again. Fires AREA_CHANGED
+-- when what the window or the arrow shows changes. -> true when the waypoint needs another look.
+function Own.areaTick(goal, pc, px, py)
+	local c = chosen(goal)
+	if not c then return false end
+	local now, changed, again = GetTime(), false, false
+	local inside = Own.areaInside(goal, c, pc, px, py)
+	if inside ~= (Own.areaIn[goal] == c) then
+		Own.areaIn[goal] = inside and c or nil
+		if inside then Own.areaEnter[goal] = now end
+		changed, again = true, true
+	end
+	local need, last = Own.loopNeed(goal), Own.areaLastNeed[goal]
+	Own.areaLastNeed[goal] = need
+	if inside then
+		if last and need < last then
+			Own.areaGather[goal] = now
+			if Own.areaOut[goal] == c then
+				Own.areaOut[goal] = nil
+				changed = true
+			end
+		end
+		local since = math.max(Own.areaGather[goal] or 0, Own.areaEnter[goal] or 0)
+		if Own.areaOut[goal] ~= c and now - since >= Own.areaIdle(goal, c) then
+			Own.areaOut[goal] = c
+			changed = true
+		end
+	else
+		local e = Own.areaEntries[goal]
+		if e and (e.pc ~= pc or (px - e.px) ^ 2 + (py - e.py) ^ 2 >= Own.AREA_ENTRY_MOVE ^ 2) then again = true end
+	end
+	if changed then ns.Fire("AREA_CHANGED") end
+	return again or changed
 end
 
 -- Whether goal's spots are exact points: every one's radius 0 (a packed
@@ -3984,10 +4149,11 @@ local function posOf(goal)
 	local shop = Own.recipeVendor(goal)
 	if shop then return posOf(shop) end
 	local c = chosen(goal)
-	-- A farming loop's place is its spawn areas (Own.applyLoop), below; with
-	-- none safe at the character's level, it has none.
+	-- A farming loop's place is its spawn areas (Own.applyLoop), below; a gathering area's the way into it
+	-- (Own.areaEntry). With none safe at the character's level, it has none.
+	if c and c.poly then return Own.areaEntry(goal, c) end
 	if c and not c.lap then return c.map, c.x, c.y, c.f, nil, c.z end
-	if not c and goal.candidates and Own.isLoopGoal(goal) then return nil end
+	if not c and goal.candidates and (Own.isLoopGoal(goal) or Own.isAreaGoal(goal)) then return nil end
 	local s = goal.spots and Spots.get(goal)
 	if s and Own.onePlace(goal) then
 		if #goal.spots == 1 and goal.x then return goal.map, goal.x, goal.y, goal.f, nil, goal.z end
@@ -7295,6 +7461,10 @@ local function waypointOf(g, goal, at, s, held)
 	local verb, subject, kind, detail = describe(goal, s)
 	local many = area and #goal.spots > 1
 	local exact = area and Spots.exact(goal) or nil
+	-- A gathering area (Own.areaEntry): its outline in world yards, so the arrow arrives anywhere inside it and
+	-- rests there (Nav.Sample).
+	local ac = not at and goal.candidates and Own.isAreaGoal(goal) and chosen(goal) or nil
+	local aw = ac and Own.areaWorld(ac)
 	return {
 		map = map, x = x, y = y, f = f, z = z,
 		label = walk and (Own.rides() and L["Ride to %s"] or L["Walk to %s"]):format(subject) or (goalText(goal, verb, subject, detail, kind)),
@@ -7303,6 +7473,7 @@ local function waypointOf(g, goal, at, s, held)
 		placeGoal = (at ~= nil or (goal.t == "goto" and goal.area ~= nil)) or nil,
 		search = area and (goal.spread or exact) or nil,
 		spots = many and goal.spots or nil, spot = many and Spots.index(goal) or nil, exact = many and exact or nil,
+		areaPoly = aw and aw.pts or nil, areaC = aw and aw.c or nil,
 	}
 end
 
@@ -7670,7 +7841,8 @@ function Own.isGrind(goal)
 end
 
 function Own.isField(goal)
-	-- A farming loop (Own.applyLoop) is fought over like any spawn areas; other candidates are one NPC each.
+	-- A farming loop (Own.applyLoop) is fought over like any spawn areas; other candidates (a gathering area
+	-- among them: the arrow rests inside it) are one place each.
 	return (Own.FIELD[goal.t] == true or Own.isGrind(goal)) and (not goal.candidates or Own.isLoopGoal(goal)) and (goal.spots ~= nil or (goal.map ~= nil and goal.x ~= nil and goal.y ~= nil))
 end
 
@@ -9865,18 +10037,8 @@ local function checkArrival()
 	end
 	local sg = Spots.waypointGoal()
 	if sg and Spots.repick(sg, c, px, py) then hit = true end
-	-- A farming loop's aim moves on along its track as the player walks (Own.loopAim).
-	if wg and waypoint.loop and Own.loopOn[wg] then
-		local on = Own.loopOn[wg]
-		local t, node = Own.loopAim(wg, on, c, px, py)
-		if t and (t.x[node] ~= waypoint.x or t.y[node] ~= waypoint.y) then hit = true end
-		-- Mined out (Own.loopShare): pick again, once, so the next best loop takes over (the window says so).
-		if Own.loopOut[wg] ~= on and Own.loopShare(wg, on) < Own.LOOP_DEPLETED then
-			Own.loopOut[wg] = on
-			contextGen = contextGen + 1
-			hit = true
-		end
-	end
+	-- The waypoint's gathering area (Own.areaTick): in or out of it, gathers there, mined out, the way in.
+	if wg and Own.isAreaGoal(wg) and Own.areaTick(wg, c, px, py) then hit = true end
 	-- A step with several open field goals: the nearest may have changed.
 	if guide and current and Own.nearPick[guide.steps[current]] then
 		Own.nearMoved = false
@@ -9914,7 +10076,8 @@ local function updateTicker()
 		end
 	end
 	useActive()
-	if not need then need = Spots.waypointGoal() ~= nil or (guide ~= nil and current ~= nil and Own.nearPick[guide.steps[current]] ~= nil) end
+	-- A gathering area as the waypoint: in or out of it, its gathers, mined out, the way in (Own.areaTick).
+	if not need then need = Spots.waypointGoal() ~= nil or (waypoint ~= nil and waypoint.areaPoly ~= nil) or (guide ~= nil and current ~= nil and Own.nearPick[guide.steps[current]] ~= nil) end
 	-- A build of the While-here candidates queued for the next frame
 	-- (Own.hereLater) counts as candidates: the poll starts with the
 	-- evaluation, as when the build ran inside it, and runs that build first
@@ -18510,10 +18673,132 @@ function Engine.CycleCandidate(stepIndex, goalIndex)
 	local p = pickFor(goal)
 	if #p.list < 2 then return p.i > 0 and p.i or nil end
 	p.i = p.i % #p.list + 1
-	Own.applyLoop(goal, p.list[p.i])
+	if Own.isAreaGoal(goal) then
+		Own.setAreaPick(goal, p.list[p.i])
+		Own.applyArea(goal, p.list[p.i])
+	else
+		Own.applyLoop(goal, p.list[p.i])
+	end
 	if stepIndex == current then aim = goal else ns.Fire("STEP_UPDATED", current) end
 	evaluate()
 	return p.i
+end
+
+---------------------------------------------------------------------------
+-- Gathering areas for the guide window, the maps and the arrow (Polestar 0.4.4; the UI's side reads these only).
+---------------------------------------------------------------------------
+
+function Engine.IsAreaGoal(goal)
+	return goal ~= nil and Own.isAreaGoal(goal) or false
+end
+
+function Own.areaGoalAt(stepIndex, goalIndex)
+	local step = guide and guide.steps[stepIndex]
+	local goal = step and step.goals and step.goals[goalIndex]
+	if goal and Own.isAreaGoal(goal) then return goal end
+	return nil
+end
+
+-- An area's beasts' levels as the window and the arrow read them: { min, max, min = , max = } or nil.
+function Own.areaLevels(c)
+	local l = c.levels
+	return type(l) == "table" and l.min and { l.min, l.max, min = l.min, max = l.max } or nil
+end
+
+-- The areas a step's area goal offers the character now, best first (pickFor: safe for their level, a safe trip,
+-- a starter area only while they are new, the largest of a name), each with its travel minutes, whether they
+-- stand in it, the arrow's (`current`), the best (`best`) and their pick (`picked`); the level the first opens at
+-- when none is safe yet (`safeFrom`); and the mined-out line (`out`: the area the arrow is on found mined out,
+-- the next one). nil for another goal.
+function Engine.AreaChoices(stepIndex, goalIndex)
+	local goal = Own.areaGoalAt(stepIndex, goalIndex)
+	if not goal then return nil end
+	if not player then refreshPlayer() end
+	local p = pickFor(goal)
+	local index = {}
+	for i, c in ipairs(goal.candidates) do index[c] = i end
+	local pick, inside, C = Own.areaPicked(goal), Own.areaIn[goal], Compat()
+	local view = { verb = Own.AREA_VERB[Own.gatherLine(goal) or 0] or "mine", list = {}, safeFrom = #p.list == 0 and p.safeFrom or nil }
+	for k, c in ipairs(p.list) do
+		local s = p.cost and p.cost[c]
+		local e = {
+			i = index[c], name = Own.areaName(c), zone = C.GetMapName and C.GetMapName(c.map) or nil, map = c.map,
+			count = tonumber(c.count), levels = Own.areaLevels(c), safeFrom = Own.loopLevel(c),
+			minutes = inside == c and 0 or (s and s < Own.UNMEASURED and math.max(1, math.floor(s / 60 + 0.5))) or nil,
+			here = inside == c, starter = c.starter == true, current = k == p.i, best = c == p.best, picked = Own.sameArea(c, pick),
+		}
+		view.list[k] = e
+		if e.picked then view.picked = k end
+	end
+	local out = Own.areaOut[goal]
+	if out and out == p.list[p.i] then
+		for _, c in ipairs(p.list) do
+			if c ~= out then
+				view.out = { name = Own.areaName(out), next = Own.areaName(c), i = index[c] }
+				break
+			end
+		end
+	end
+	return view
+end
+
+-- The player's pick of area i (a candidate index) for a step's area goal: kept per character, guide and step
+-- (Own.setAreaPick), and the arrow leads there when the step is the current one. False for no such area.
+function Engine.PickArea(stepIndex, goalIndex, i)
+	local goal = Own.areaGoalAt(stepIndex, goalIndex)
+	local c = goal and goal.candidates[i]
+	if not c then return false end
+	Own.setAreaPick(goal, c)
+	if Own.areaOut[goal] ~= c then Own.areaOut[goal] = nil end
+	Own.areaEntries[goal] = nil -- the way in, looked for again from where they stand
+	contextGen = contextGen + 1
+	ns.Fire("AREA_CHANGED")
+	if stepIndex == current then return Engine.AimGoal(stepIndex, goalIndex) end
+	ns.Fire("STEP_UPDATED", current)
+	return true
+end
+
+-- The current area of a step's area goal as the maps draw it: its outline and node spots in map percent (frame
+-- `f`), and its name. nil without one.
+Own.areaShapes = setmetatable({}, { __mode = "k" })
+function Engine.AreaShape(stepIndex, goalIndex)
+	local goal = Own.areaGoalAt(stepIndex, goalIndex)
+	local c = goal and chosen(goal)
+	if not c then return nil end
+	local shape = Own.areaShapes[c]
+	if not shape then
+		local function read(s)
+			local out = {}
+			for x, y in (s or ""):gmatch("(-?[%d%.]+),(-?[%d%.]+)") do
+				x, y = tonumber(x), tonumber(y)
+				out[#out + 1] = { x, y, x = x, y = y }
+			end
+			return out
+		end
+		shape = { map = c.map, f = c.f, poly = read(c.poly), dots = read(c.dots) }
+		Own.areaShapes[c] = shape
+	end
+	shape.name = Own.areaName(c)
+	return shape
+end
+
+-- The arrow resting inside the current area of the active step's area goal (Own.areaTick): what the arrow's line
+-- says ("Roam Red Cloud Mesa for Copper Ore"): the area's name, the verb, the items (a collect goal's own, else
+-- the area's `items`) and the beasts' levels. nil when the arrow leads somewhere.
+function Engine.AreaRoam()
+	if not (waypoint and guide and current and waypoint.stepIndex == current) then return nil end
+	local goal = guide.steps[current].goals[waypoint.goalIndex]
+	if not (goal and Own.isAreaGoal(goal)) then return nil end
+	local c = Own.areaIn[goal]
+	if not c or c ~= chosen(goal) then return nil end
+	local items
+	if goal.t == "collect" and goal.item then
+		items = { goal.item }
+	elseif type(c.items) == "string" then
+		items = {}
+		for id in c.items:gmatch("%d+") do items[#items + 1] = tonumber(id) end
+	end
+	return { name = Own.areaName(c), verb = Own.AREA_VERB[Own.gatherLine(goal) or 0] or "mine", items = items, levels = Own.areaLevels(c) }
 end
 
 -- Move a goal with spawn areas on to its next spot: the nearest one not
