@@ -110,21 +110,40 @@ emit({ first = first, three = three, eight = eight, off = view() })`);
 	assert.equal(out.off.lap, 9, 'off it, between the two: the denser loop finishes the ore sooner');
 });
 
-test('the arrow leads a short way ahead along the track, in the points\' order, and wraps round the lap', () => {
+test('on the track the arrow points along the line at the corner ahead, in the points\' order, and wraps round the lap', () => {
 	const out = engine([SQUARE], 10, [41, 40], `
 local wp = E.GetWaypoint()
-emit({ walk = { view(), at(42, 40), at(43, 40) }, corner = at(59.9, 40), last = at(40, 40.2), wp = { loop = wp.loop or false, search = wp.search or false } })`);
-	// 40 yards (0.8 %) ahead, on the next node (every 20 yards, 0.4 %) past that.
-	assert.deepEqual(out.walk.map((v) => [v.x, v.y]), [[42, 40], [42.8, 40], [44, 40]], 'moves on as the player walks the first side');
-	assert.deepEqual([out.corner.x, out.corner.y], [60, 40.8], 'round the corner onto the second side');
-	assert.deepEqual([out.last.x, out.last.y], [40.8, 40], 'from the last side on round the lap to the first');
+emit({ walk = { view(), at(42, 40), at(50, 40.2) }, corner = at(59.8, 40), last = at(40.2, 40.2), wp = { loop = wp.loop or false, search = wp.search or false } })`);
+	assert.deepEqual(out.walk.map((v) => [v.x, v.y]), [[60, 40], [60, 40], [60, 40]], 'walking the first side: its corner, the same target all the way');
+	assert.deepEqual([out.corner.x, out.corner.y], [60, 60], '15 yards before the corner, the next one: round onto the second side');
+	assert.deepEqual([out.last.x, out.last.y], [60, 40], 'from the last side round the lap past the first point');
 	assert.deepEqual(out.wp, { loop: true, search: true }, 'a track aim: never "arrived"');
 });
 
-test('off the track the arrow leads back to the nearest point of it, a short way ahead', () => {
-	const out = engine([SQUARE], 10, [50, 30], 'emit({ off = view(), inside = at(50, 47) })');
+// Every target move is a new walk search (Nav/Walk.lua GOAL_MOVED): walking a whole lap a yard at a time moves the
+// target once per corner, never at every poll.
+test('a lap walked a yard at a time moves the arrow\'s target once per corner', () => {
+	const out = engine([SQUARE], 10, [40.2, 40], `
+local moves, last = 0, E.GetWaypoint().x .. "," .. E.GetWaypoint().y
+local function step(x, y)
+	w.moveTo(1412, x, y); stub.advance(0.6)
+	local wp = E.GetWaypoint()
+	local key = wp and (wp.x .. "," .. wp.y)
+	if key ~= last then moves, last = moves + 1, key end
+end
+for i = 1, 50 do step(40 + i * 0.4, 40) end
+for i = 1, 50 do step(60, 40 + i * 0.4) end
+for i = 1, 50 do step(60 - i * 0.4, 60) end
+for i = 1, 50 do step(40, 60 - i * 0.4) end
+emit({ moves = moves })`);
+	assert.equal(out.moves, 4, 'four corners, four targets');
+});
+
+test('off the track the arrow leads back to the nearest point of it, a short way ahead, and keeps that aim on the way', () => {
+	const out = engine([SQUARE], 10, [50, 30], 'emit({ off = view(), nearer = at(50.4, 35), passed = at(52, 40.4) })');
 	assert.deepEqual([out.off.x, out.off.y], [50.8, 40], '500 yards north of the first side: just past its nearest point');
-	assert.deepEqual([out.inside.x, out.inside.y], [50.8, 40], 'inside the square, the first side is nearest');
+	assert.deepEqual([out.nearer.x, out.nearer.y], [50.8, 40], 'walking back to the track: the same aim');
+	assert.deepEqual([out.passed.x, out.passed.y], [60, 40], 'back on the track past it: the corner ahead');
 });
 
 test('with no route to follow, the next loop point is a plain waypoint', () => {

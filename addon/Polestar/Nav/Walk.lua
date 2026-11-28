@@ -2989,7 +2989,15 @@ end
 -- (city.GotoClear); a blocked one is walked like any other target. A kill or
 -- collect goal's spots stay straight: walked round, the nearest spot changes
 -- under the player and the arrow flips between two (the Elwynn stretch).
+-- A farming loop's aim (the waypoint's `loop`) with the player on the loop's
+-- track (Engine.LoopOnTrack) is straight too: the track is the way, its
+-- corner the target, and no walk is searched along it; off the track the walk
+-- to the rejoin point is searched as for any target.
 function Walk.FollowsGoto(target)
+	if type(target) == "table" and target.loop then
+		local E = ns.Engine
+		return E and E.LoopOnTrack and E.LoopOnTrack() or false
+	end
 	if target ~= gotoTarget then
 		gotoTarget, gotoStep, gotoGoal = target, nil, nil
 		if type(target) ~= "table" or not (target.stepIndex and target.goalIndex) then return false end
