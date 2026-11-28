@@ -106,7 +106,6 @@ return {
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["The Lar'korwi Mates prowl the jungle west of {npc:9619}. The wrecked raft lies on the shore of the lake there; the small pack sits in the water beside it. Keep the compass, map and key for {npc:8737}. Any beast in the crater may drop {item:11116}: right-click it."] = "As Lar'korwi Fêmeas rondam a selva a oeste de {npc:9619}. A jangada destruída fica na margem do lago ali; a mochila pequena está na água ao lado. Guarde a bússola, o mapa e a chave para {npc:8737}. Qualquer fera da cratera pode deixar cair {item:11116}: clique com o botão direito nele.",
 	-- {item:11107} A Small Pack
-	-- was: ["{object:161504}, underwater"] = "{object:161504}, debaixo d'água"
 	["{item:11107}, underwater"] = "",
 
 	-- Step 23: Torwa Pathfinder

@@ -135,8 +135,14 @@ return {
 
 	-- Step 29: Tanaris Field Sampling
 	["A sample can fail, so it can take several tries to get eight of each."] = "",
-	-- {item:8524} Model 4711-FTZ Power Source · {npc:7407} Chief Engineer Bilgewhizzle · {area:976} Gadgetzan · {quest:654} Tanaris Field Sampling
-	["Use the {item:8524}: it starts the quest and its two-hour timer. No power source, or the timer ran out? Another Power Source? from {npc:7407} trades a new one for ten Wastewander Water Pouches, from the Wastewander camps east of {area:976}, once {quest:654} is out of your log."] = "",
+	-- {quest:654} Tanaris Field Sampling · {npc:7407} Chief Engineer Bilgewhizzle
+	["Only without a power source ({quest:654} abandoned, or its two hours ran out): {npc:7407}"] = "",
+	-- {area:976} Gadgetzan
+	["Wastewander Water Pouches, from the Wastewander camps east of {area:976}"] = "",
+	-- {npc:7407} Chief Engineer Bilgewhizzle · {item:8524} Model 4711-FTZ Power Source
+	["{npc:7407}: a new {item:8524}"] = "",
+	-- {item:8524} Model 4711-FTZ Power Source · {quest:841} Another Power Source? · {npc:7407} Chief Engineer Bilgewhizzle · {area:976} Gadgetzan · {quest:654} Tanaris Field Sampling
+	["Use the {item:8524}: it starts the quest and its two-hour timer. No power source, or the timer ran out? {quest:841} from {npc:7407} trades a new one for ten Wastewander Water Pouches, from the Wastewander camps east of {area:976}, once {quest:654} is out of your log."] = "",
 
 	-- Step 30: Gadgetzan
 	-- {npc:5204} Apothecary Zinge · {zone:1458} Undercity
