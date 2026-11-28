@@ -1163,9 +1163,15 @@ local function paintRow(r, g, note, width, title, home, suggested)
 	r.psCard = r.psIndex and true or nil
 	r:SetHeight(home and HOME_ROW_H or ROW_H)
 	r.Rule:SetShown(home and home.rule and true or false)
-	r.Icon:SetShown(home ~= nil)
-	if home then r.Icon:SetTexture(Theme.Media(CATEGORY_ICON[categoryOf(g)] or "icon-level")) end
-	local iconW = home and (14 + 10) or 0
+	-- A profession guide wears its profession's own icon in every list (UI.GuideArt); Home's rows their category glyph.
+	local art = UI.GuideArt(g)
+	r.Icon:SetShown(home ~= nil or art ~= nil)
+	if art then
+		UI.SetArtOrGlyph(r.Icon, art)
+	elseif home then
+		UI.SetArtOrGlyph(r.Icon, nil, CATEGORY_ICON[categoryOf(g)] or "icon-level", "textMuted")
+	end
+	local iconW = (home or art) and (14 + 10) or 0
 	r.Title:ClearAllPoints()
 	r.Title:SetPoint("LEFT", r, "LEFT", TEXT_X + iconW, 0)
 	local frac = home and home.frac
@@ -1198,12 +1204,12 @@ local function paintRow(r, g, note, width, title, home, suggested)
 	r.Title:SetWidth(0) -- measured below from scratch, as the note
 	r.Title:SetText(title or g.title or g.id)
 	W.Color(r.Title, sel and "text" or ((done or gate) and "textDim" or "text"))
-	if home then W.Color(r.Icon, sel and "accent" or "textMuted") end
+	if home and not art then W.Color(r.Icon, sel and "accent" or "textMuted") end
 	-- On the selected row's wash the muted range and tab note go a step up,
 	-- so they keep 4.5:1 there as on the plain ground.
 	W.Color(r.Range, sel and "textDim" or "textMuted")
 	W.Color(r.Note, sel and "textDim" or "textMuted")
-	local lv = UI.GuideLevels(g)
+	local lv = UI.GuideRange(g)
 	r.Range:SetText(lv and ("(" .. lv .. ")") or "")
 	local expW = inForeverZone(g) and (FOREVER_W + 4 + 4) or 0
 	r.Forever:SetShown(expW > 0)
@@ -1358,7 +1364,7 @@ end
 -- tooltip then has it whole. -> the card's tooltip title
 local function heroTitle(c, g, title)
 	local inner = c:GetWidth() - HERO_PAD * 2
-	local lv = UI.GuideLevels(g)
+	local lv = UI.GuideRange(g)
 	c.Range:SetText(lv and ("(" .. lv .. ")") or "")
 	local groupW = g.group == true and (W.SetChip(c.Group, L["Group"], "dungeon") + 8) or 0
 	c.Group:SetShown(groupW > 0)
@@ -1518,7 +1524,7 @@ local function layoutPlayNext(x, y, width)
 	c.Range:SetText("")
 	c.Title:SetWidth(0)
 	c.Title:SetText(baseTitle(g))
-	local lv = UI.GuideLevels(g)
+	local lv = UI.GuideRange(g)
 	c.Range:SetText(lv and ("(" .. lv .. ")") or "")
 	c.Title:SetWidth(max(40, min(textW - (lv and (c.Range:GetStringWidth() + 5) or 0), floor(c.Title:GetStringWidth() + 1))))
 	c.Why:SetWidth(textW)

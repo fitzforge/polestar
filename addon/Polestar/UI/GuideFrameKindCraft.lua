@@ -215,7 +215,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	local function paintPair(f, m)
 		for i, sub in ipairs(m.pair) do
 			local r = f.PairRows[i]
-			W.Color(r.Glyph, sub.done and "success" or "textDim")
+			UI.SetArtOrGlyph(r.Glyph, UI.ProfessionIcon(sub.skillLine), "icon-skill", sub.done and "success" or "textDim")
 			W.Color(r.Name, sub.nameKind or "skill")
 			local learned = sub.learned ~= false
 			r.Name:SetText(sub.name or "")
@@ -306,8 +306,9 @@ ns.UI.GuideFrame.Part(function(GF)
 				paintPair(f, m)
 				return
 			end
-			f.Glyph:SetTexture(Theme.VerbIcon(m.kind == "rep" and "rep" or "skill"))
-			W.Color(f.Glyph, m.done and "success" or "textDim")
+			-- A skill wears its profession's own icon (UI.ProfessionIcon: Mining's pickaxe), a standing the glyph.
+			local art = m.kind == "skill" and UI.ProfessionIcon(m.skillLine) or nil
+			UI.SetArtOrGlyph(f.Glyph, art, m.kind == "rep" and "icon-rep" or "icon-skill", m.done and "success" or "textDim")
 			W.Color(f.Name, m.nameKind or "skill")
 			if m.kind == "skill" and m.learned == false then
 				f.Name:SetText(m.name or "")
@@ -557,7 +558,16 @@ ns.UI.GuideFrame.Part(function(GF)
 		paint = function(f, m)
 			f.psModel = m
 			local r = f.Row
-			local g = r.psGoal or {}
+			-- A skill-only step's row (KindCraft's skillRow): the skill goal's own, "Raise Mining to 65  1/65", wearing
+			-- the profession's icon (GF.GoalIcon); no Open button.
+			if m.skill then
+				GF.PaintGoalRow(r, m.skill, true)
+				r.psOpenOn = false
+				return
+			end
+			-- The craft's own goal view, never the skill goal's the row may have shown before.
+			local g = r.psCraft or {}
+			r.psCraft = g
 			g.t, g.index, g.status = "craft", m.goalIndex, m.done and "done" or "active"
 			g.subject, g.subjectKind, g.item, g.spell = m.name, m.item and "item" or "spell", m.item, m.recipe
 			local mark = not m.done and skillUpMarkup(m.colour) or ""
@@ -797,13 +807,29 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- Opened per guide while the session lasts; folded at first.
 	local openOf = {}
 
+	-- A material's row: the whole row hovers as its item (the game's tooltip, what the bags, bank and mail hold of
+	-- what the section asks under it); Shift-click links it.
+	local function shopEnter(self)
+		if not self.psItem then return end
+		W.ItemTip(self, self.psItem, function(tip)
+			if self.psCount and W.TooltipLines then
+				tip:AddLine(" ")
+				W.TooltipLines(tip, { { left = L["Progress"], right = self.psCount } })
+			end
+		end, GF.TooltipAnchor and GF.TooltipAnchor() or nil)
+	end
 	local function shopRow(f, i)
 		local row = f.Rows[i]
 		if row then return row end
-		row = CreateFrame("Frame", nil, f)
+		row = CreateFrame("Button", nil, f)
+		row:SetHitRectInsets(EDGE, 0, 0, 0)
+		W.Hover(row, 0.6)
 		row.Tile = tile(row, 18)
 		row.Name = W.Text(row, "label", "item")
 		row.Count = W.Text(row, "number", "text")
+		row:SetScript("OnEnter", shopEnter)
+		row:SetScript("OnLeave", function(self) W.TipHide(self) end)
+		row:SetScript("OnClick", function(self) if self.psItem and IsModifiedClick and IsModifiedClick("CHATLINK") then W.ItemClick(self.psItem) end end)
 		f.Rows[i] = row
 		return row
 	end
@@ -841,7 +867,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		model = function(view, kind)
 			if GF.Compact() or not GF.KindHas("shoppingList") then return nil end
 			local e = E()
-			return e and e.KindModel and e.KindModel("shopping", view, kind)
+			local m = e and e.KindModel and e.KindModel("shopping", view, kind)
+			-- A section with nothing to get shows no list at all, never "0 / 0".
+			return m and m.rows[1] and m or nil
 		end,
 		paint = function(f, m)
 			f.psModel = m
@@ -849,6 +877,8 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.psOpen = open
 			f.Head.Text:SetText(L["Shopping list"])
 			f.Head.Right:SetText(format("%d / %d", m.met, #m.rows))
+			-- Everything got: the count in the success colour, as each met row's count.
+			W.Color(f.Head.Right, m.met >= #m.rows and "success" or "textDim")
 			f.Head.Chev:SetTexture(Theme.Media(open and "chevron-up" or "chevron-down"))
 			local n = 0
 			if open then
@@ -856,11 +886,13 @@ ns.UI.GuideFrame.Part(function(GF)
 					n = n + 1
 					local row = shopRow(f, n)
 					setTile(row.Tile, r.item, r.way == "buy" and "buy" or "collect")
-					row.Name:SetText(itemHex(r.item, r.name))
 					local met = r.have >= r.need
+					-- A met row steps back: its name out of its item colour into textMuted, its count in success.
+					row.Name:SetText(met and r.name or itemHex(r.item, r.name))
+					W.Color(row.Name, met and "textMuted" or "item")
 					row.Count:SetText(format("%s / %s", ns.Thousands(r.have), ns.Thousands(r.need)))
 					W.Color(row.Count, met and "success" or "text")
-					if met then W.Color(row.Name, "textMuted") end
+					row.psItem, row.psCount = r.item, row.Count:GetText()
 					GF.Hook("guideKindRow", row, r.item, { kind = "supply", done = met, current = false, way = r.way })
 				end
 			end

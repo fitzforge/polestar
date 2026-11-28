@@ -466,6 +466,7 @@
 -- Machine-translated, to be reviewed (the profession and reputation guides' window, 26 Nov 2026): translated by an
 -- AI model (Claude Opus 5.5) in this file's own wording, and waiting for a native speaker's check. Reviewing one:
 -- keep or fix its line below, and take its key off this list.
+--   Smelt
 --   %d made
 --   %d ready
 --   %s a turn-in
@@ -616,6 +617,7 @@ L["Learn"] = "学会"
 L["until %s %d"] = "直到%s达到 %d"
 L["until skill %d"] = "直到技能达到 %d"
 L["Craft"] = "制作"
+L["Smelt"] = "熔炼"
 L["Reach %s with"] = "达到%s声望："
 L["Explore"] = "探索"
 L["elite"] = "精英"

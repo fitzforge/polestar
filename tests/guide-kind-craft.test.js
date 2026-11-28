@@ -603,6 +603,15 @@ test('a paired guide, in the window: two slim lines stacked, the bars in one col
 	assert.ok(!out.xp || !String(out.xp).includes('Skinning'), 'the lines say the skills, not the XP row');
 });
 
+test('a paired guide\'s two skill lines each wear their profession\'s own icon', () => {
+	const out = runPair('Polestar.Compat.SpellIcon = function(id) return "spell" .. tostring(id) end', `
+GF.Render(); GF.Layout(); stub.advance(1)
+local icons = {}
+for i, r in ipairs(GF.RegionFrame("meter").PairRows) do icons[i] = tostring(r.Glyph:GetTexture()) end
+emit(icons)`);
+	assert.deepEqual(out, ['spell8613', 'spell2108'], 'Skinning\'s, then Leatherworking\'s');
+});
+
 test('a paired guide, compact: the same two slim lines stacked, as a single guide keeps its one line', () => {
 	const out = runPair('Polestar.Set("ui.compact", true)', PAIR_WINDOW);
 	assert.deepEqual(out.rows.map((r) => [r.shown, r.name, r.value, r.max, r.bar]), [
