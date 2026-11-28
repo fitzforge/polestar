@@ -992,31 +992,70 @@ stub.advance(0.5)`;
 function minimapRouteScene(script) {
 	return questScene(['Minimap'], script, undefined, ROUTE_FILES);
 }
-// A farming loop being walked (Polestar 0.4.4): a level 3 Tauren mining Copper in Mulgore on Red Cloud Mesa's
-// starter loop, the real Engine picking it over the zone's level 8 loop (lvl: the least level safe on each), its
-// closed track drawn in the flight lines' style with a mark on each point, the arrow a short way ahead on it.
-// The loops are the Mining guide's (guides/forever/professions/mining.guide, Get Copper Ore).
-const MULGORE = { map: 1412, name: 'Mulgore', frame: 'c = 1, left = 2047.917, right = -3089.583, top = -272.917, bottom = -3697.917', player: { x: 42.4, y: 80.6 } };
-const LOOP_TRACK = `local w = stub.world
-Polestar.RegisterMapFrames({ era = { [1412] = { ${MULGORE.frame} } } })
-w.race, w.raceName, w.faction = "Tauren", "Tauren", "Horde"
-w.setLevel(3)
+// Farming loops being walked (Polestar 0.4.4): the real Engine picks a starting area's own loop for a new
+// character over the zone's higher ones (lvl: the least level safe on each), its closed track drawn in the flight
+// lines' style with a mark on each point, the arrow a short way ahead on it. The loop lines are the generated
+// guides' own (guides/forever/professions/), as the compiler turns them into candidates (loopCandidate).
+// place: the zone (frame: its Era bounds); goal: the step's goal (Lua fields); loops: its loop lines; at: where the
+// player walks, on the starter loop's track.
+function loopCandidate(line, map) {
+	const m = line.match(/ lvl (\d+) lap (\d+) (gain|yield) ([\d.]+)(?: only (\S+))?.*? r (\d+) at (.+)$/);
+	const pts = m[7].trim().split(/\s+/);
+	const side = /Horde/.test(m[5] || '') ? 'H' : /Alliance/.test(m[5] || '') ? 'A' : 'AH';
+	const [x, y] = pts[0].split(',');
+	return `{ map = ${map}, x = ${x}, y = ${y}, f = "e", faction = "${side}", lvl = { min = ${m[1]}, max = ${m[1]} }, lap = ${m[2]}, ${m[3]} = ${m[4]}, spotsPacked = "${pts.map((p) => `${p},,${m[6]}`).join(';')}" }`;
+}
+function loopTrack(place, { race, faction, level, title, goal, loops, at }) {
+	return `local w = stub.world
+Polestar.RegisterMapFrames({ era = { [${place.map}] = { ${place.frame} } } })
+w.race, w.raceName, w.faction = "${race}", "${race}", "${faction}"
+w.setLevel(${level})
 Polestar.Set("nav.lineStyle", "line")
 Polestar.RegisterPack({ addon = "Polestar_Preview", id = "preview", format = 1, title = "Preview", author = "Polestar", version = "1", license = "GPL-3.0-only" })
-Polestar.RegisterGuide({ id = "preview/loop", pack = "preview", title = "Mining", category = "Professions", minLevel = 1, maxLevel = 60, zone = 1412, steps = {
-	{ title = "Get Copper Ore", goals = {
-		{ t = "collect", item = 2770, itemName = "Copper Ore", count = 140, gather = { rank = 1, skill = "Mining", skillLine = 186 }, candidates = {
-			{ map = 1412, x = 41.8, y = 79.8, f = "e", faction = "H", lvl = { min = 3, max = 3 }, lap = 301, yield = 4.7, spotsPacked = "41.8,79.8,,60;41.2,82,,60;48.4,74.4,,60;43.8,72.8,,60" },
-			{ map = 1412, x = 41.8, y = 79.8, f = "e", faction = "H", lvl = { min = 8, max = 8 }, lap = 540, yield = 9.7, spotsPacked = "41.8,79.8,,60;33.5,58.2,,60;31.6,60.9,,60;34,66.5,,60;33.2,70.1,,60;34.1,72.7,,60;32.9,76.2,,60;33.7,81.2,,60;34.6,79.8,,60;41.2,82,,60;49,92.8,,60;49.2,87.7,,60" },
-		} },
-	} },
+Polestar.RegisterGuide({ id = "preview/loop", pack = "preview", title = "${title}", category = "Professions", minLevel = 1, maxLevel = 60, zone = ${place.map}, steps = {
+	{ title = "${title}", goals = { { ${goal}, candidates = { ${loops.map((l) => loopCandidate(l, place.map)).join(', ')} } } } },
 } })
 Polestar.Engine.SetGuide("preview/loop")
 stub.advance(0.3)
-w.moveTo(1412, ${MULGORE.player.x}, ${MULGORE.player.y}); stub.advance(1)
-w.moveTo(1412, ${MULGORE.player.x} + 0.1, ${MULGORE.player.y} - 0.4); stub.advance(1)`;
-function loopTrackScene(root) {
-	return questScene([root], LOOP_TRACK, MULGORE, ROUTE_FILES);
+${at.map(([x, y]) => `w.moveTo(${place.map}, ${x}, ${y}); stub.advance(1)`).join('\n')}`;
+}
+const MULGORE = { map: 1412, name: 'Mulgore', frame: 'c = 1, left = 2047.917, right = -3089.583, top = -272.917, bottom = -3697.917', player: { x: 45.5, y: 83.8 } };
+// Mining: Get Copper Ore (the Blacksmithing guide's), a level 3 Tauren on Red Cloud Mesa's starter loop.
+const LOOP_MINING = loopTrack(MULGORE, {
+	race: 'Tauren', faction: 'Horde', level: 3, title: 'Get Copper Ore',
+	goal: 't = "collect", item = 2770, itemName = "Copper Ore", count = 140, gather = { rank = 1, skill = "Mining", skillLine = 186 }',
+	loops: [
+		'loop Mulgore lvl 9 lap 322 yield 6.0 only Horde r 60 at 62.7,41.1 61.1,40.1 61.5,51.0 57.6,43.0 56.6,40.4 56.9,38.6 57.9,35.4 59.3,30.9 59.4,33.7 61.2,36.6 62.7,38.3 65.5,38.2',
+		'loop Mulgore lvl 2 lap 307 yield 5.6 only Horde r 60 at 49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0',
+	],
+	at: [[45.5, 83.8], [45.0, 83.2]],
+});
+// Herbalism: Peacebloom and Silverleaf until 15 (the Herbalism guide's), a level 1 Orc on the Valley of Trials'
+// starter loop (lvl 1) beside Durotar's lvl 3 loop.
+const DUROTAR = { map: 1411, name: 'Durotar', frame: 'c = 1, left = -1962.5, right = -7250, top = 1808.333, bottom = -1716.667', player: { x: 42.7, y: 72.7 } };
+const LOOP_HERBS = loopTrack(DUROTAR, {
+	race: 'Orc', faction: 'Horde', level: 1, title: 'Pick Peacebloom and Silverleaf until 15',
+	goal: 't = "skill", skill = "Herbalism", skillLine = 182, level = 15',
+	loops: [
+		'loop Durotar lvl 3 lap 323 gain 12.3 only Horde r 60 at 40.1,68.1 41.7,72.9 43.7,72.5 44.2,70.3 45.3,71.0 51.0,66.8 44.6,67.3 43.0,64.2',
+		'loop Durotar lvl 1 lap 301 gain 8.0 only Horde r 60 at 41.7,72.9 43.7,72.5 44.2,70.3 44.6,67.3 43.0,64.2',
+	],
+	at: [[42.7, 72.7], [43.1, 72.6]],
+});
+// Skinning: beasts of level 1-6 until 50 (the Skinning guide's), a level 2 Tauren on Red Cloud Mesa's starter loop
+// over its beasts (lvl 1), not the zone's lvl 3 loop.
+const SKIN_MULGORE = { ...MULGORE, player: { x: 52.7, y: 83.8 } };
+const LOOP_SKINS = loopTrack(SKIN_MULGORE, {
+	race: 'Tauren', faction: 'Horde', level: 2, title: 'Skin beasts of level 1-6 until 50',
+	goal: 't = "skill", skill = "Skinning", skillLine = 393, level = 50',
+	loops: [
+		'loop Mulgore lvl 3 lap 1886 gain 89.3 only Horde r 80 at 52.7,89.4 48.6,90.1 45.4,88.6 50.4,86.1 49.0,83.5 49.4,80.4 52.4,80.3 54.0,82.4 53.5,86.1 56.2,86.3 59.0,89.1 56.5,90.7',
+		'loop Mulgore lvl 1 lap 1414 gain 62.7 only Horde r 80 at 53.4,85.7 52.0,81.9 49.6,77.7 47.3,75.6 45.0,73.8 46.5,78.8 43.0,81.3 45.2,85.1 46.2,81.9 48.9,82.9 47.7,87.3 50.6,85.9',
+	],
+	at: [[52.7, 83.8], [52.5, 83.2]],
+});
+function loopTrackScene(root, script = LOOP_MINING, place = MULGORE) {
+	return questScene([root], script, place, ROUTE_FILES);
 }
 // The route line's three looks (nav.lineStyle) on one route: a walk bending
 // along its path to the guide pin, then a flight on (its own colour, dashed
@@ -2251,12 +2290,22 @@ Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/h
 	},
 	{
 		file: 'loop-track.svg',
-		title: 'A farming loop being walked: a level 3 Tauren mining Copper on Red Cloud Mesa\'s starter loop (never Mulgore\'s level 8 loop), its closed track on the zone map and the minimap in the flight lines\' style, a mark on each point, the arrow a short way ahead along it; the Get step on the loop, and at level 2 before any loop is safe',
+		title: 'A farming loop being walked: a level 3 Tauren mining Copper on Red Cloud Mesa\'s starter loop (never Mulgore\'s level 9 loop), its closed track on the zone map and the minimap in the flight lines\' style, a mark on each point, the arrow a short way ahead along it; the Get step on the loop, and at level 2 before any loop is safe',
 		panels: [
 			loopTrackScene('WorldMapFrame'),
 			loopTrackScene('Minimap'),
 			{ roots: GUIDE, script: kindProfession('loop') },
 			{ roots: GUIDE, script: kindProfession('safe') },
+		],
+	},
+	{
+		file: 'loop-track-herbs-skins.svg',
+		title: 'Herbalism and Skinning loops being walked: a level 1 Orc picking Peacebloom on the Valley of Trials\' starter loop, a level 2 Tauren skinning on Red Cloud Mesa\'s, each loop\'s closed track on the zone map and the minimap, a mark on each point, the arrow a short way ahead along it',
+		panels: [
+			loopTrackScene('WorldMapFrame', LOOP_HERBS, DUROTAR),
+			loopTrackScene('Minimap', LOOP_HERBS, DUROTAR),
+			loopTrackScene('WorldMapFrame', LOOP_SKINS, SKIN_MULGORE),
+			loopTrackScene('Minimap', LOOP_SKINS, SKIN_MULGORE),
 		],
 	},
 	{
