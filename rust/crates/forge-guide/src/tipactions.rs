@@ -54,10 +54,11 @@ const ACTION: [(&str, &str); 22] = [
 	("emote", "emote"),
 ];
 
-/// The goal verbs that do each kind of action.
+/// The goal verbs that do each kind of action. A `collect` is a click too: the loot of an object (the ash
+/// piles, a chest) comes from clicking it, and the row leads there.
 const COVER: [(&str, &[&str]); 6] = [
 	("use", &["use", "cast", "equip", "task", "hearth", "destroy"]),
-	("click", &["interact", "use", "task"]),
+	("click", &["interact", "use", "task", "collect"]),
 	("equip", &["equip", "task"]),
 	("talk", &["talk", "accept", "turnin", "vendor", "train", "buy", "task", "getfp", "sethome", "learn"]),
 	("emote", &["task", "cast"]),
@@ -387,5 +388,8 @@ mod tests {
 		assert!(findings_with(bowl, &also).is_empty());
 		let other = "step S\n  tip Click the Scrying Bowl to hand it in.\n  turnin 945\n";
 		assert_eq!(findings_with(other, &also).len(), 1);
+		// The loot of an object comes from clicking it: its collect row does the click.
+		let ash = "step S\n  tip Click the ash piles along the lava river.\n  collect 22338 quest 8921.4\n";
+		assert!(findings(ash).is_empty());
 	}
 }
