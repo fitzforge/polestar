@@ -443,7 +443,7 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 				let k = &j.cuts;
 				if k.cuts > 0 {
 					log(&format!(
-						"cuts {c}: {} cuts, {} moves up taken out, {} arcs down put back, {} entrance edges dearer, {} gone, in {} clusters",
+						"cuts {c}: {} cuts, {} moves taken out, {} arcs down put back, {} entrance edges dearer, {} gone, in {} clusters",
 						k.cuts, k.moves, k.arcs, k.dearer, k.gone, k.clusters
 					));
 					lj["cuts"] = json!({ "cuts": k.cuts, "moves": k.moves, "arcs": k.arcs, "dearer": k.dearer, "gone": k.gone });

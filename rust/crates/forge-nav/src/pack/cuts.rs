@@ -2,12 +2,14 @@
 //! in joins.json's `cuts` (compiled in). Every move of his maps that crosses the line going up (its end more than RISE
 //! above its start, both ends inside the cut's height band) is taken out: a base cell's step by its data flag, a
 //! floor's step by its step mask, an explicit link, an arc. A move taken out whose way down players do walk stays as
-//! a one-way arc down (the step's length), so the arrow still walks down the face and never up it. The entrances of a
-//! cut cluster then keep their edges only where the cluster still walks them: an edge the cut makes dearer is
-//! priced by the walk round, and one it leaves no walk for goes.
+//! a one-way arc down (the step's length), so the arrow still walks down the face and never up it. A cut marked
+//! `"wall": true` takes out every move across its line inside the band, either way and level ones too, and puts
+//! nothing back: a passage walks must not go through (a tunnel full of mobs far above the ground round it). The
+//! entrances of a cut cluster then keep their edges only where the cluster still walks them: an edge the cut makes
+//! dearer is priced by the walk round, and one it leaves no walk for goes.
 //!
-//! Add a cut only where players' recordings or a report show the face can't be walked up, and walks up it are what
-//! the maps make.
+//! Add a cut only where players' recordings or a report show the face can't be walked up (or, for a wall, that the
+//! passage is no way for a player on their own), and walks through it are what the maps make.
 
 use super::ingame::{self, cost_value, yards_value, Cluster, Row, DX, DY, HERE};
 use super::joins::Geo;
@@ -18,8 +20,8 @@ use std::collections::BTreeMap;
 /// A move rises when its end is more than this above its start (yd).
 pub const RISE: f64 = 0.5;
 
-/// A cut as joins.json writes it: a line on one map between two places (world yards, UnitPosition's frame) and the
-/// band of heights it holds for.
+/// A cut as joins.json writes it: a line on one map between two places (world yards, UnitPosition's frame), the
+/// band of heights it holds for, and whether it is a wall (closed both ways) or a face (closed going up).
 #[derive(Clone, Debug)]
 pub struct Cut {
 	pub id: String,
@@ -27,6 +29,7 @@ pub struct Cut {
 	pub a: (f64, f64),
 	pub b: (f64, f64),
 	pub z: (f64, f64),
+	pub wall: bool,
 }
 
 /// The cuts of joins.json (compiled in).
@@ -43,6 +46,7 @@ pub fn cuts() -> Vec<Cut> {
 					a: pt(&c["a"]),
 					b: pt(&c["b"]),
 					z: (c["z"][0].as_f64().expect("joins.json: cut z"), c["z"][1].as_f64().expect("joins.json: cut z")),
+					wall: c["wall"].as_bool().unwrap_or(false),
 				})
 				.collect()
 		})
@@ -77,10 +81,11 @@ fn centre(g: &Geo, k: u32, lc: usize) -> (f64, f64) {
 	(g.x0 + ((kx * g.c as i64 + lx) as f64 + 0.5) * g.cs, g.y0 + ((ky * g.c as i64 + ly) as f64 + 0.5) * g.cs)
 }
 
-/// Whether the move u -> v of cluster k crosses the cut going up, inside its band.
-fn up_across(g: &Geo, k: u32, c: &Cluster, cut: &Cut, u: usize, v: usize) -> bool {
+/// Whether the move u -> v of cluster k crosses the cut the way it closes, inside its band: going up for a face,
+/// either way for a wall.
+fn closes(g: &Geo, k: u32, c: &Cluster, cut: &Cut, u: usize, v: usize) -> bool {
 	let (zu, zv) = (c.z[u], c.z[v]);
-	zv - zu > RISE && zu >= cut.z.0 && zu <= cut.z.1 && zv >= cut.z.0 && zv <= cut.z.1 && crosses(centre(g, k, c.cell(u)), centre(g, k, c.cell(v)), cut.a, cut.b)
+	(cut.wall || zv - zu > RISE) && zu >= cut.z.0 && zu <= cut.z.1 && zv >= cut.z.0 && zv <= cut.z.1 && crosses(centre(g, k, c.cell(u)), centre(g, k, c.cell(v)), cut.a, cut.b)
 }
 
 /// The clusters the cut's line passes (and their neighbours within a cell of it).
@@ -123,7 +128,7 @@ fn cut_cluster(g: &Geo, k: u32, before: &Cluster, cut: &Cut, downs: &mut Vec<(us
 				continue;
 			}
 			let (lo, hi) = if before.z[b] > before.z[a] { (a, b) } else { (b, a) };
-			if up_across(g, k, before, cut, lo, hi) {
+			if closes(g, k, before, cut, lo, hi) {
 				flags[a] |= bit;
 				downs.push((hi, lo, 1.0));
 				gone += 1;
@@ -135,7 +140,7 @@ fn cut_cluster(g: &Geo, k: u32, before: &Cluster, cut: &Cut, downs: &mut Vec<(us
 		for (bit, b) in [(4u8, (a % c < c - 1).then(|| a + c + 1)), (8u8, (a % c > 0).then(|| a + c - 1))] {
 			let Some(b) = b.filter(|&b| b < n && flags[a] & bit != 0 && before.val[a] != 0 && before.val[b] != 0) else { continue };
 			let (lo, hi) = if before.z[b] > before.z[a] { (a, b) } else { (b, a) };
-			if up_across(g, k, before, cut, lo, hi) {
+			if closes(g, k, before, cut, lo, hi) {
 				flags[a] &= !bit;
 				downs.push((hi, lo, s2));
 				gone += 1;
@@ -167,7 +172,7 @@ fn cut_cluster(g: &Geo, k: u32, before: &Cluster, cut: &Cut, downs: &mut Vec<(us
 			}
 			let Some(v) = after.surface((tx * c as i64 + ty) as usize, -1, after.z[f]) else { continue };
 			let (lo, hi) = if after.z[v] > after.z[f] { (f, v) } else { (v, f) };
-			if up_across(g, k, &after, cut, lo, hi) {
+			if closes(g, k, &after, cut, lo, hi) {
 				after.steps[f - n] &= !(1 << d);
 				downs.push((hi, lo, if d >= 4 { s2 } else { 1.0 }));
 				gone += 1;
@@ -182,7 +187,7 @@ fn cut_cluster(g: &Geo, k: u32, before: &Cluster, cut: &Cut, downs: &mut Vec<(us
 		let v = (tx >= 0 && ty >= 0 && tx < c as i64 && ty < c as i64).then(|| after.surface((tx * c as i64 + ty) as usize, layer as i32, after.z[u as usize])).flatten();
 		if let Some(v) = v {
 			let (lo, hi) = if after.z[v] > after.z[u as usize] { (u as usize, v) } else { (v, u as usize) };
-			if up_across(g, k, &after, cut, lo, hi) {
+			if closes(g, k, &after, cut, lo, hi) {
 				downs.push((hi, lo, if d8 >= 4 { s2 } else { 1.0 }));
 				gone += 1;
 				continue;
@@ -193,7 +198,7 @@ fn cut_cluster(g: &Geo, k: u32, before: &Cluster, cut: &Cut, downs: &mut Vec<(us
 	// arcs up across the line (jumps and climbs of his)
 	let arcs = std::mem::take(&mut after.arcs);
 	for ((a, b), y) in arcs {
-		if up_across(g, k, &after, cut, a as usize, b as usize) {
+		if closes(g, k, &after, cut, a as usize, b as usize) {
 			gone += 1;
 			continue;
 		}
@@ -226,23 +231,24 @@ fn apply_list(g: &Geo, outs: &mut [(u32, Out)], list: &[Cut], log: &(dyn Fn(&str
 			if gone == 0 {
 				continue;
 			}
-			// the ways down players walk, back as one-way arcs (where the cluster has no other move down there)
+			// the ways down players walk, back as one-way arcs (where the cluster has no other move down there); a
+			// wall puts none back
 			let mut buf = Vec::new();
-			for &(hi, lo, len) in &downs {
+			for &(hi, lo, len) in downs.iter().filter(|_| !cut.wall) {
 				after.moves(hi, false, &mut buf);
 				if !buf.iter().any(|m| m.0 == lo) {
 					after.add_arc(hi, lo, len * g.cs);
 					arcs += 1;
 				}
 			}
-			// what is left of the cut's moves up (none, unless the line misses a move's cells): logged
+			// what is left of the cut's moves (none, unless the line misses a move's cells): logged
 			let mut left = 0;
 			for u in 0..after.t() {
 				after.moves(u, false, &mut buf);
-				left += buf.iter().filter(|m| up_across(g, k, &after, cut, u, m.0)).count();
+				left += buf.iter().filter(|m| closes(g, k, &after, cut, u, m.0)).count();
 			}
 			if left > 0 {
-				log(&format!("cut {}: cluster {k}: {left} moves up across the line are left", cut.id));
+				log(&format!("cut {}: cluster {k}: {left} moves across the line are left", cut.id));
 			}
 			let mut rows = o.graph.as_deref().map(ingame::decode_graph).transpose().map_err(|e| format!("cuts: cluster {k}: {e}"))?.unwrap_or_default();
 			let (dearer, went) = reprice(&before, &after, &mut rows, g.swim);
@@ -258,7 +264,7 @@ fn apply_list(g: &Geo, outs: &mut [(u32, Out)], list: &[Cut], log: &(dyn Fn(&str
 		}
 		st.moves += moves;
 		st.arcs += arcs;
-		log(&format!("cut {}: {moves} moves up taken out, {arcs} arcs down put back", cut.id));
+		log(&format!("cut {}: {moves} moves {} taken out, {arcs} arcs down put back", cut.id, if cut.wall { "across" } else { "up" }));
 	}
 	Ok(st)
 }
@@ -345,7 +351,7 @@ mod tests {
 
 	/// The line between rows 3 and 4 across the whole cluster, every height.
 	fn cut() -> Cut {
-		Cut { id: "face".into(), map: 0, a: (4.0 * CS, -CS), b: (4.0 * CS, 9.0 * CS), z: (-100.0, 100.0) }
+		Cut { id: "face".into(), map: 0, a: (4.0 * CS, -CS), b: (4.0 * CS, 9.0 * CS), z: (-100.0, 100.0), wall: false }
 	}
 
 	#[test]
@@ -386,5 +392,24 @@ mod tests {
 		assert_eq!(rows[1].edges.len(), 1, "above to below: kept");
 		let after = decoded(&outs[0].1);
 		assert!(!reaches(&after, 3 * C + 3, 6 * C + 3) && reaches(&after, 6 * C + 3, 3 * C + 3), "the written cluster: down only");
+	}
+
+	/// A wall across the flat ground (between rows 1 and 2) closes it both ways and puts nothing back: the entrances on
+	/// either side lose their edges to each other; a face there takes nothing (no move rises across it).
+	#[test]
+	fn a_wall_closes_its_line_both_ways() {
+		let line = |wall| Cut { id: "tunnel".into(), map: 0, a: (2.0 * CS, -CS), b: (2.0 * CS, 9.0 * CS), z: (-100.0, 100.0), wall };
+		let (_, gone) = cut_cluster(&geo(), 0, &decoded(&out(Vec::new())), &line(false), &mut Vec::new()).unwrap();
+		assert_eq!(gone, 0, "a face on level ground takes nothing");
+		let edge = |ent: u32| Edge { off: HERE, ent, cost: [40; 3], yards: 40 };
+		let rows = vec![Row { cell: 0, layer: 0, comp: 1, edges: vec![edge(1)] }, Row { cell: (6 * C) as u32, layer: 0, comp: 1, edges: vec![edge(0)] }];
+		let mut outs = vec![(0u32, out(rows))];
+		let st = super::apply_list(&geo(), &mut outs, &[line(true)], &|_| {}).unwrap();
+		assert_eq!((st.moves, st.arcs), (C, 0), "every step across the line goes, none comes back");
+		let rows = ingame::decode_graph(outs[0].1.graph.as_deref().unwrap()).unwrap();
+		assert!(rows.iter().all(|r| r.edges.is_empty()), "no edge across the wall either way");
+		let after = decoded(&outs[0].1);
+		assert!(!reaches(&after, 3, 6 * C + 3) && !reaches(&after, 6 * C + 3, 3), "the written cluster: no way through");
+		assert!(reaches(&after, 6 * C + 3, 2 * C + 3), "the ground on each side still walks to the wall");
 	}
 }

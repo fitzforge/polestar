@@ -36,6 +36,13 @@
 					"edges": 14534,
 					"components": 25
 				},
+				"cuts": {
+					"cuts": 1,
+					"moves": 43,
+					"arcs": 0,
+					"dearer": 0,
+					"gone": 14
+				},
 				"places": 650,
 				"unplaced": 10,
 				"unreachedFloors": 48433,
@@ -51,8 +58,8 @@
 			"components": 2665,
 			"clampedCosts": 0,
 			"maxDegree": 63,
-			"rawBytes": 40903443,
-			"packedBytes": 20845991,
+			"rawBytes": 40903220,
+			"packedBytes": 20845847,
 			"files": 42,
 			"hubs": 111,
 			"roads": {
@@ -66,7 +73,7 @@
 			},
 			"areas": 1894,
 			"occupiedFloor": {
-				"sourceManifestSha256": "0bbd248ddb20296d7275a067d408ba71cffa8ef1b8d3f6235bb694b0e05437b9",
+				"sourceManifestSha256": "60378ebedacaccaf2a3370535c32f5ffb34406bb460c6a481c2504f8a6df5fd4",
 				"cluster": 471,
 				"cell": 15594,
 				"layer": 1,
@@ -341,9 +348,9 @@
 		"Polestar_Nav_EK/Nav0_36.lua": "9a45d67e91641be51e57fa4ac21ece79a1ae8386f04406e2a7a70e892aef2e0c",
 		"Polestar_Nav_EK/Nav0_37.lua": "5546b11c959ee9d426181fda878d0f7800fb95a123fcbcaa313f0314ebf4aeb7",
 		"Polestar_Nav_EK/Nav0_38.lua": "d18f807427d390310145c5b65a8691e138dd3b4144ea3fc74108c8cd3a816b7f",
-		"Polestar_Nav_EK/Nav0_39.lua": "eb30f69a7cb43bbc8bef613548248eb9c988e09735096ee2e384e4b3bd8b9c30",
-		"Polestar_Nav_EK/Nav0_40.lua": "f2f77eff68b9f75d668cc32d1ed287ada649754cf94e3b61ac6cc42a5a69602e",
-		"Polestar_Nav_EK/Nav0_41.lua": "da86847ab7e63b90be8984ff969b39d3c3c8005e48d7ce15ee211325483852e5",
+		"Polestar_Nav_EK/Nav0_39.lua": "cc40815e39332a76cc6d961144a5b18e5bf610d1e9877250cde0e4684513c2f8",
+		"Polestar_Nav_EK/Nav0_40.lua": "ae29883d96a589a363ac8f975e8f94ec8d8541c1cca12131b5f2293372dc28ce",
+		"Polestar_Nav_EK/Nav0_41.lua": "86ccd6a91fa1beb94afb20712d4d1c1f9ff2fb8cf91a3b50105f752655038610",
 		"Nav/Nav1.lua": "9c8977d20f58fc2a1253753a0cf78cef8fb5ce0b40f8d86b0bf8f9077064d599",
 		"Polestar_Nav_Kalimdor/Nav1_1.lua": "28061816d5b1a729a3700dcba5a0be565e5f99a74c4f5c3832a37ce500f30833",
 		"Polestar_Nav_Kalimdor/Nav1_2.lua": "f75b4a9db506323dc6c01166e31ec7fcf66079c2bceef00613dd77bec5360818",
@@ -436,7 +443,7 @@
 		"Polestar_Nav_EK/Region0_6_6.lua": "365e5715d4729a5b5260848bc5941c7a08323f587ce8a8c5ee988c2d8ce2f610",
 		"Polestar_Nav_EK/Region0_6_7.lua": "b84880ebd9a2b2a2d9fc90afc5ecea7191791a7e04f4042c3091ef5bb4bb3dd6",
 		"Polestar_Nav_EK/Region0_6_8.lua": "17fd2ccc58df9c3697e0bda7bc9800da206e70bac51ab33688b5d16f1a3809d4",
-		"Polestar_Nav_EK/Region0_6_9.lua": "dfcf9ee589f868932b67d57a3f0c559836162295e914b0857ad2c95a95fdbbe7",
+		"Polestar_Nav_EK/Region0_6_9.lua": "264c71f383cd705d4ab340642ef066af7ee51c7d3c5c16ec3f6f7844fe67e5d1",
 		"Polestar_Nav_EK/Region0_7_10.lua": "944e48cb7f23f7864ea429068bc2311b85d2e6e04dbaf1567bc5d45dce87761f",
 		"Polestar_Nav_EK/Region0_7_11.lua": "c4e576d22faa739de6f517870734685cb4bdc52c283b15f8e13f00af7801dc22",
 		"Polestar_Nav_EK/Region0_7_6.lua": "10fcb52011b82d6d2dbf224cf3c0f4359ad09c37905391a829e81fa5d6dfde63",
@@ -535,7 +542,7 @@
 	},
 	"import": {
 		"command": "node tools/lib/nav/import-regions.js",
-		"manifestSha256": "4aa1514bd15bdd5aff8836b4a78eefb2a49b7a6c5d3593f2ce7632f1d6527bc5",
+		"manifestSha256": "bd75e051ddf09dd74b2bcee591ef47d2fa1d550cb2af15fc6b38f783195efbd3",
 		"terminalSha256": {
 			"0": "38288a037e6fb2397f1cd26f36cd9f8bfa74a743508c3408e12db62ff40cff7a",
 			"1": "823b7365bf07629fc79c187decf2921f18e6dd518255b9ad1266d5814e842a75",
@@ -558,9 +565,9 @@
 			"data/forever/spawnz.json": "266d149082242e4fd987107099ebfcf8ebbece8b4078349ca9af9f82dc214036",
 			"data/sources/wago/1.60.1.70888/AreaTable.csv": "6e34c93426bf9ba46dfc8f7dd1b140bb556c1bf2a6ace8a1a3556f434c8c6989",
 			"data/crossings.json": "22047a0ea18d31b5afb7020ea0e6bef74940578879d8c136ed841f8cfbc1ffd4",
-			"joins.json": "8cfcae34a6aab93632e054bae1603c0c50d3ad91fba3659f7d39374056fffa18"
+			"joins.json": "06d271fb618317291bb1b467a896a4c9446df6122442dc7842cbbb396c4aea7c"
 		},
-		"packManifestSha256": "8c4fade892d18185949e2537a6e000a17c1c7dd6445146fe2093d146249e209c",
+		"packManifestSha256": "fb37c25cf488310d319b62af3b0b535d8e860e4ca4a73ed0d354d164053c997d",
 		"graft": {
 			"baseManifestSha256": "bcbe88bbe5a93e8d483150433273ca606721c35d84570d8c8525825f2bec3088",
 			"plainManifestSha256": "03b28056dafa3619f6241105d73b2a42a18ff454cd3fa54720b04242572db1db",
@@ -570,7 +577,7 @@
 				"Polestar_Nav_Kalimdor/TerminalGround.lua"
 			]
 		},
-		"derivedManifestSha256": "0bbd248ddb20296d7275a067d408ba71cffa8ef1b8d3f6235bb694b0e05437b9",
-		"rebuiltManifestSha256": "4aa1514bd15bdd5aff8836b4a78eefb2a49b7a6c5d3593f2ce7632f1d6527bc5"
+		"derivedManifestSha256": "60378ebedacaccaf2a3370535c32f5ffb34406bb460c6a481c2504f8a6df5fd4",
+		"rebuiltManifestSha256": "bd75e051ddf09dd74b2bcee591ef47d2fa1d550cb2af15fc6b38f783195efbd3"
 	}
 }

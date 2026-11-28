@@ -331,13 +331,12 @@ step Melisara
 
 # ---------------------------------------------------------------- The mine
 
-step Hillsbrad Foothills
-  zone Hillsbrad Foothills
-  goto 28.5,55.0 "Azurelode Mine"
-
+# The miners work in the tunnels under the hill; the goto is the mine's south-west mouth, where players' recordings
+# walk in, not a point over the tunnels (#3642, #4238).
 step Azurelode Mine
   zone Hillsbrad Foothills
-  tip Head south-west past Hillsbrad town to the Azurelode Mine. Miners (26-27) work the tunnels; Foreman Bonds (30) and Miner Hackett (29) are deep inside. Keep killing Miners until Samsa's thirty skulls are in your bags: most Hillsbrad humans drop one.
+  tip Head south-west past Hillsbrad town to the Azurelode Mine. The miners work inside the Azurelode Mine, below the hill: go in at its mouth on the west side, where the arrow leads first. Miners (26-27) work the tunnels; Foreman Bonds (30) and Miner Hackett (29) are deep inside. Keep killing Miners until Samsa's thirty skulls are in your bags: most Hillsbrad humans drop one.
+  goto 27.6,59.6 "Azurelode Mine"
   kill 2269 quest 539.2
   kill 2450 quest 567.3
   kill 2305 quest 539.1               -- Inside Azurelode Mine
