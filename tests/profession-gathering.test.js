@@ -49,6 +49,29 @@ test('skinning requirement by beast level', () => {
 	assert.equal(T.skinningReq(60), 300);
 });
 
+test('skinning points use the creature with skinning loot when two entries share a name (#4504)', () => {
+	const { SKINNING_POINTS } = require('../tools/lib/professions/gathering/skinning');
+	const map = 2521;
+	const project = makeProjector({ forever: { [map]: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 } } });
+	const galestrider = (id, x) => ({ id, name: 'Galestrider', level: 5, spawns: { [map]: { f: 'l', pts: [[x, 50]] } } });
+	const npcs = { 251661: galestrider(251661, 20), 262523: galestrider(262523, 80) };
+	const points = SKINNING_POINTS({ data: { npcs }, project }, map, 1, 50);
+	assert.deepEqual(points.map((p) => p.pt.x), [20]);
+});
+
+test('Hinterlands skinning points include wolves and snapjaws and exclude owlbeasts (#4504)', () => {
+	const { SKINNING_POINTS } = require('../tools/lib/professions/gathering/skinning');
+	const map = 1425;
+	const creatures = [
+		[2924, 'Silvermane Wolf', 43], [2926, 'Silvermane Stalker', 47], [2505, 'Saltwater Snapjaw', 49],
+		[2927, 'Vicious Owlbeast', 42], [2928, 'Primitive Owlbeast', 44], [2929, 'Savage Owlbeast', 46],
+	];
+	const npcs = Object.fromEntries(creatures.map(([id, name, level]) => [id, { id, name, level, spawns: { [map]: { f: 'l', pts: [[50, 50]] } } }]));
+	const project = makeProjector({ forever: { [map]: { c: 0, left: 0, right: -1000, top: 0, bottom: -1000 } } });
+	const points = SKINNING_POINTS({ data: { npcs }, project }, map, 225, 250);
+	assert.deepEqual(points.map((p) => p.name).sort(), ['Saltwater Snapjaw', 'Silvermane Stalker', 'Silvermane Wolf']);
+});
+
 test('expected crafts: one per point below yellow, more as the recipe greys', () => {
 	const r = { name: 'Test', yellow: 50, grey: 100 };
 	assert.equal(expectedCrafts(r, 1, 50), 49);
