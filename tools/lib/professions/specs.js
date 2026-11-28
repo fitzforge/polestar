@@ -79,7 +79,7 @@ const SPECS = {
 		// to 80) takes over.
 		levelTo: { 2331: 75 },
 		// Dreamless Sleep Potion has Draught of Detect Undead's colours and trainers (players learned it at 230
-		// from Kylanna Windwhisper, Rogvar and Shurome) and takes Purple Lotus, which the Herbalism loops of
+		// from Kylanna Windwhisper, Rogvar and Shurome) and takes Purple Lotus, which the Herbalism areas of
 		// the Hinterlands and Feralas give at level 44-47; Arthas' Tears grow among level 53-61 mobs (the
 		// Plaguelands, Jaedenar in Felwood), above an Artisan alchemist from level 35.
 		use: [{ spell: 15833, from: 230, to: 265 }],
@@ -90,7 +90,7 @@ const SPECS = {
 			3176: 'Two Bruiseweed and two Briarthorn a craft; Bruiseweed grows in the 15-30 zones.',
 			3452: 'Stranglekelp grows under water along the coasts: bring a water breathing elixir or come up for air. Kingsblood grows in the 20-40 zones.',
 			11450: 'Wild Steelbloom and Goldthorn are the herbs of the 30-45 zones (Stranglethorn, Arathi, the Badlands).',
-			15833: "Three Purple Lotus a craft (Herbalism 210: the Hinterlands and Feralas, mobs of level 44-47) and a Crystal Vial from an alchemy vendor. The Herbalism guide's loops there give Sungrass for the last stretch too.",
+			15833: "Three Purple Lotus a craft (Herbalism 210: the Hinterlands and Feralas, mobs of level 44-47) and a Crystal Vial from an alchemy vendor. The Herbalism guide's areas there give Sungrass for the last stretch too.",
 			17554: 'Stonescale Eel comes from the Stonescale Eel schools on the coasts of the 40-55 zones, or the Auction House (fishers sell them in stacks). Sungrass grows in the 40-55 zones.',
 		},
 	},

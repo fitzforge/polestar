@@ -80,8 +80,8 @@ function stubCtx(npcs = []) {
 	return { project, data };
 }
 
-test('farm: a loop through the densest ground a character of the band\'s level can work, never by the other faction\'s town', () => {
-	const { farm, skillLevel } = require('../tools/lib/professions/gathering/farm');
+test('areas: the densest ground a character of the band\'s level can roam, never by the other faction\'s town', () => {
+	const { areasIn, skillLevel } = require('../tools/lib/professions/gathering/areas');
 	const mobs = [];
 	// Level 30 creatures stand over the dense ground at 70,70; a Horde town (three kinds of NPC) at 15,42.
 	for (let x = 68; x <= 74; x += 2) for (let y = 68; y <= 80; y += 2) mobs.push([100, 'Ogre', 30, null, x, y]);
@@ -96,19 +96,19 @@ test('farm: a loop through the densest ground a character of the band\'s level c
 	at(30, 30, 6);
 	at(22, 31, 9);
 	at(70, 70, 40);
-	const prof = { radius: 40, stopYards: 35 };
-	const near = (f, x, y, yards) => f.stops.some((s) => Math.hypot(s.pt.x - x, s.pt.y - y) * 10 < yards);
-	const low = farm(ctx, prof, 1, pts, { faction: 'Alliance', level: skillLevel(50) });
+	const prof = { stopYards: 35 };
+	const holds = (a, x, y, yards) => a.on.some((p) => Math.hypot(p.pt.x - x, p.pt.y - y) * 10 < yards);
 	assert.equal(skillLevel(50), 10);
-	assert.ok(!near(low, 70, 70, 100), 'the guarded ground is left out at level 10');
-	assert.ok(low.level <= 10 && low.stops.length >= 3, `level ${low.level}, ${low.stops.length} stops`);
-	assert.ok(!near(low, 22.6, 31.6, 40), 'no stop by the Horde town');
-	const horde = farm(ctx, prof, 1, pts, { faction: 'Horde', level: skillLevel(50) });
-	assert.ok(near(horde, 22, 31, 50), 'the Horde may work by its own town');
-	const high = farm(ctx, prof, 1, pts, { faction: 'Alliance', level: skillLevel(150) });
-	assert.ok(near(high, 70, 70, 50), 'at level 30 the dense ground wins');
-	assert.equal(high.level, 29, 'a level-30 creature on the loop: it asks 29');
-	assert.ok(high.on.length >= 30 && high.lap > 0);
+	const ally = areasIn(ctx, prof, 1, pts, { faction: 'Alliance' });
+	const low = ally.filter((a) => a.level <= 10);
+	assert.ok(low.length >= 1, `an area at level 10: ${ally.map((a) => a.level)}`);
+	assert.ok(low.every((a) => !holds(a, 70, 70, 100)), 'the guarded ground is in no area safe at 10');
+	assert.ok(ally.every((a) => !holds(a, 22.6, 31.6, 40)), 'no Alliance area by the Horde town');
+	const horde = areasIn(ctx, prof, 1, pts, { faction: 'Horde' });
+	assert.ok(horde.some((a) => holds(a, 22, 31, 50)), 'the Horde may work by its own town');
+	const high = ally.find((a) => holds(a, 70, 70, 50));
+	assert.ok(high && high.level === 29, `at level 29 the dense ground opens: ${high && high.level}`);
+	assert.ok(high.up >= 30 && high.walk > 0 && high.poly.length >= 3 && high.dots.length > 0);
 });
 
 test('loop safety: no creature that can reach a place more than a level above you, and no elite near it', () => {
@@ -157,24 +157,18 @@ test('a range\'s loops take only what its starting skill can skin, mine or pick:
 	assert.equal(partPoints(pts, 105, 125), partPoints(pts, 105, 125), 'one array per part: the loops are memoised on it');
 });
 
-test('a range offers the loops of several zones for both factions, one loop once when both sides share it', () => {
-	const { partLoops } = require('../tools/lib/professions/gathering/build');
+test('a range offers the areas of several zones for both factions, one area once when both sides share it', () => {
+	const { partAreas } = require('../tools/lib/professions/gathering/build');
 	const ctx = stubCtx([[200, 'Guard', 30, 'H', 90, 90], [201, 'Vendor', 30, 'H', 91, 90], [202, 'Innkeeper', 30, 'H', 90, 91]]);
 	const line = (zone, x0) => Array.from({ length: 12 }, (_, i) => ({ name: 'Copper Vein', req: 1, up: 1, w: 1, pt: ctx.project.point(zone, x0 + (i % 4) * 4, 10 + Math.floor(i / 4) * 4, 'e') }));
 	const zones = { 1: line(1, 10), 2: line(2, 80) };
-	// Zone 2's ground lies by a Horde town: no Alliance loop there.
+	// Zone 2's ground lies by a Horde town: no Alliance area there.
 	ctx.data.npcs[200].spawns[2] = { f: 'e', pts: [[86, 14]] };
 	ctx.data.npcs[201].spawns[2] = { f: 'e', pts: [[87, 14]] };
 	ctx.data.npcs[202].spawns[2] = { f: 'e', pts: [[86, 15]] };
-	const prof = { skill: 'Mining', radius: 40, points: (c, zone) => zones[zone] };
-	const loops = partLoops(ctx, prof, { Alliance: [1, 2], Horde: [1, 2] }, { from: 1, to: 50, band: { from: 1, to: 50 } });
-	assert.deepEqual(
-		loops.map((l) => [l.zone, l.factions.join(',')]).sort(),
-		[
-			[1, 'Alliance,Horde'],
-			[2, 'Horde'],
-		],
-	);
+	const prof = { skill: 'Mining', points: (c, zone) => zones[zone] };
+	const areas = partAreas(ctx, prof, { Alliance: [1, 2], Horde: [1, 2] }, { from: 1, to: 50, band: { from: 1, to: 50 } });
+	assert.deepEqual([...new Set(areas.map((l) => `${l.zone}:${l.factions.join(',')}`))].sort(), ['1:Alliance,Horde', '2:Horde']);
 });
 
 test('every generated gathering band lists something the band\'s starting skill can gather (#3355)', () => {
@@ -215,9 +209,9 @@ test('a step splits where a common kind first becomes gatherable: Loch Modan\'s 
 	assert.deepEqual(startParts({ rareLeads: true }, pts, 50, 100), [{ from: 50, to: 100 }], 'skinning: one part');
 });
 
-test('a rare herb that becomes common after a split is on no loop before its skill (#2892)', () => {
+test('a rare herb that becomes common after a split is in no area before its skill (#2892)', () => {
 	const { startParts, partPoints, rareKinds } = require('../tools/lib/professions/gathering/build');
-	const { farm } = require('../tools/lib/professions/gathering/farm');
+	const { areasIn } = require('../tools/lib/professions/gathering/areas');
 	const ctx = stubCtx();
 	const points = [];
 	const add = (name, count, x, y) => {
@@ -232,31 +226,30 @@ test('a rare herb that becomes common after a split is on no loop before its ski
 	add('Stranglekelp', 1, 15, 15);
 	assert.ok(rareKinds({}, points).has('Stranglekelp'));
 	const [early] = startParts({}, points, 50, 100);
-	const f = farm(ctx, { radius: 40 }, 1432, partPoints(points, early.from, early.to), { level: 10 });
-	assert.ok(f.on.length > 0 && f.on.every((p) => p.req <= 50), 'nothing on the loop needs more than 50');
-	assert.ok(f.stops.every((s) => Object.keys(s.counts).every((k) => k === 'Mageroyal')));
+	const areas = areasIn(ctx, {}, 1432, partPoints(points, early.from, early.to));
+	assert.ok(areas.length > 0 && areas.every((a) => a.on.every((p) => p.req <= 50)), 'nothing in an area needs more than 50');
 });
 
-test('no Herbalism loop holds a herb its range\'s starting skill cannot pick (#2892)', { skip: hasData ? false : 'data/forever not built' }, () => {
+test('no Herbalism area holds a herb its range\'s starting skill cannot pick (#2892)', { skip: hasData ? false : 'data/forever not built' }, () => {
 	const { plan } = require('../tools/lib/professions/gathering/build');
 	const { context } = require('../tools/lib/professions/gathering/common');
 	const { SPECS } = require('../tools/lib/professions/gathering/specs');
 	const bad = [];
 	for (const e of plan(context(DATA), SPECS.find((s) => s.file === 'herbalism'))) {
 		if (e.kind !== 'band') continue;
-		for (const l of e.loops) for (const p of l.farm.on) if (p.req > e.from) bad.push(`${e.from}-${e.to} ${l.zone}: ${p.name} (${p.req})`);
+		for (const l of e.areas) for (const p of l.area.on) if (p.req > e.from) bad.push(`${e.from}-${e.to} ${l.zone}: ${p.name} (${p.req})`);
 	}
 	assert.deepEqual([...new Set(bad)], []);
 });
 
 // Winterspring's Small Thorium was the pick here until 0.4.4's no-elite rule: its densest veins lie by the Frostmaul
-// giants, Hailspite and the Hederine elites, so its safe loop now ranks below other zones'.
-test('a band also offers its densest zones for a character past every zone\'s level: Mining 245-275 has a loop for level 50 and up', { skip: hasData ? false : 'data/forever not built' }, () => {
+// giants, Hailspite and the Hederine elites, so its safe areas now rank below other zones'.
+test('a band also offers its densest zones for a character past every zone\'s level: Mining 245-275 has an area for level 45 and up', { skip: hasData ? false : 'data/forever not built' }, () => {
 	const { plan } = require('../tools/lib/professions/gathering/build');
 	const { context } = require('../tools/lib/professions/gathering/common');
 	const { SPECS } = require('../tools/lib/professions/gathering/specs');
 	const band = plan(context(DATA), SPECS.find((s) => s.file === 'mining')).find((e) => e.kind === 'band' && e.from === 245);
-	assert.ok(band.loops.some((l) => l.farm.level >= 50), String(band.loops.map((l) => `${l.zone}:${l.farm.level}`)));
+	assert.ok(band.areas.some((l) => l.area.level >= 45), String(band.areas.map((l) => `${l.zone}:${l.area.level}`)));
 });
 
 test('live-frame spawns come out in the Era frame, so loops on redrawn maps match `coords era`', () => {
@@ -518,11 +511,11 @@ test('the Fishing guide\'s coast spots lie by sea pools, never a lake\'s Sagefis
 	}
 });
 
-// Every farming loop of every profession guide (`loop <zone> lvl <n> … at …`) names the least character
-// level safe along its whole walk (`lvl`; loop.js roundLevel: no creature that can reach it more than a level
-// above the player, no elite by it; the engine takes no loop above the player) and never passes a town of the
-// other faction, for every faction it is for. Catches a hand edit or a generator change that sends a player at
-// creatures 2+ levels above them.
+// Every farming loop of every profession guide (`loop <zone> lvl <n> … at …`: Fishing's rounds of stands) names
+// the least character level safe along its whole walk (`lvl`; loop.js roundLevel: no creature that can reach it
+// more than a level above the player, no elite by it; the engine takes no loop above the player) and never passes a
+// town of the other faction, for every faction it is for. Catches a hand edit or a generator change that sends a
+// player at creatures 2+ levels above them.
 test('every farming loop names the least level safe along its walk and keeps clear of elites and the other faction\'s towns', { skip: hasData ? false : 'data/forever not built' }, () => {
 	const { context, zoneName } = require('../tools/lib/professions/gathering/common');
 	const { roundLevel } = require('../tools/lib/professions/gathering/loop');
@@ -554,10 +547,46 @@ test('every farming loop names the least level safe along its walk and keeps cle
 	assert.deepEqual(bad, []);
 });
 
-// Every starting area has its own loop a new character may walk (lvl 5 or less) in the first band of Mining,
-// Herbalism and Skinning, where its nodes or beasts are: a level 3 Tauren gets Red Cloud Mesa's, never a loop
+// Every gathering area of every profession guide (`area <zone> "<name>" lvl <n> … dots …`) holds no node by an
+// elite or a town of the other faction, and most of its nodes (areas.js levelShare) are safe at its `lvl`
+// (loop.js pointLevels), for every faction it is for: the engine offers no area above the player.
+test('every gathering area names a level its nodes are safe at and holds none by an elite or the other faction\'s town', { skip: hasData ? false : 'data/forever not built' }, () => {
+	const { context, zoneName } = require('../tools/lib/professions/gathering/common');
+	const { pointLevels } = require('../tools/lib/professions/gathering/loop');
+	const { DEFAULTS } = require('../tools/lib/professions/gathering/areas');
+	const ctx = context(DATA);
+	const byName = {};
+	for (const id of Object.keys(ctx.data.zones || {})) byName[zoneName(ctx, Number(id))] = Number(id);
+	for (const id of Object.keys(T.ZONES)) byName[zoneName(ctx, Number(id))] = Number(id);
+	const bad = [];
+	let areas = 0;
+	const dir = path.join(ROOT, 'guides', 'forever', 'professions');
+	for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.guide'))) {
+		for (const line of fs.readFileSync(path.join(dir, file), 'utf8').split('\n')) {
+			const m = line.match(/^ {2}area (.+?) "([^"]+)"(.*?) lvl (\d+) (.*?) at (.+?) dots (.+)$/);
+			if (!m) continue;
+			areas++;
+			const zone = byName[m[1]];
+			assert.ok(zone, `${file}: unknown zone in ${line}`);
+			const live = / live /.test(` ${m[5]} `);
+			const only = (m[5].match(/ ?only (\S+)/) || [])[1] || '';
+			const dots = m[7].split(' ').map((p) => ({ pt: ctx.project.point(zone, ...p.split(',').map(Number), live ? 'l' : 'e') }));
+			const sides = (only.match(/\b(Alliance|Horde)\b/g) || []).filter((s, i, a) => a.indexOf(s) === i);
+			for (const f of sides.length ? sides : ['Alliance', 'Horde']) {
+				const lv = pointLevels(ctx, zone, dots, f);
+				const over = lv.filter((l) => l === null || l > Number(m[4])).length;
+				if (lv.includes(null) || over > dots.length * (1 - DEFAULTS.levelShare) + 1) bad.push(`${file} ${m[1]} "${m[2]}" (${f}): lvl ${m[4]}, nodes ${lv.join(',')}`);
+			}
+		}
+	}
+	assert.ok(areas > 200, `${areas} areas`);
+	assert.deepEqual(bad, []);
+});
+
+// Every starting area has its own area a new character may roam (lvl 5 or less) in the first band of Mining,
+// Herbalism and Skinning, where its nodes or beasts are: a level 3 Tauren gets Red Cloud Mesa, never an area
 // asking level 7 or 8 (Fitz's fresh Tauren, 0.4.4).
-test('every starting area has a starter loop of level 5 or less in the first band of each gathering profession', { skip: hasData ? false : 'data/forever not built' }, () => {
+test('every starting area has a starter area of level 5 or less in the first band of each gathering profession', { skip: hasData ? false : 'data/forever not built' }, () => {
 	const { context } = require('../tools/lib/professions/gathering/common');
 	const { plan, STARTER_LEVEL } = require('../tools/lib/professions/gathering/build');
 	const { RACE_GROUPS } = require('../tools/lib/professions/gathering/groups');
@@ -569,21 +598,37 @@ test('every starting area has a starter loop of level 5 or less in the first ban
 		const first = plan(ctx, prof).filter((e) => e.kind === 'band' && e.band.scope === 'start');
 		for (const side of ['Alliance', 'Horde']) {
 			for (const g of RACE_GROUPS[side]) {
-				const has = first.some((e) => e.loops.some((l) => l.starter && l.zone === g.start[0] && l.factions.includes(side) && l.farm.level <= STARTER_LEVEL));
+				const has = first.some((e) => e.areas.some((l) => l.starter && l.zone === g.start[0] && l.factions.includes(side) && l.area.level <= STARTER_LEVEL));
 				if (!has) missing.push(`${prof.skill} ${g.key} (${side})`);
 			}
 		}
-		const tauren = first[0].loops.filter((l) => l.zone === 1412 && l.factions.includes('Horde'));
-		assert.ok(tauren.some((l) => l.starter && l.farm.level <= 3), `${prof.skill}: Mulgore loops ${tauren.map((l) => l.farm.level).join(', ')}`);
+		const tauren = first[0].areas.filter((l) => l.zone === 1412 && l.factions.includes('Horde'));
+		assert.ok(tauren.some((l) => l.starter && l.area.level <= 3), `${prof.skill}: Mulgore areas ${tauren.map((l) => `${l.area.name} ${l.area.level}`).join(', ')}`);
 	}
 	assert.deepEqual(missing, []);
 });
 
-// The engine offers `starter` loops to low levels only (a level 26 in Durotar was sent round the Valley of Trials):
-// every loop in a starting zone that asks level 5 or less carries it; the first band also offers each race's next
-// zone (the Barrens for the Kalimdor Horde) for a character past the starting area; Zephras Isle's loops are the
-// Skyborne's (nobody else reaches the island). The guides' loop lines say so.
-test('starter loops are marked, the first band offers the next zones, Zephras Isle\'s loops are the Skyborne\'s', { skip: hasData ? false : 'data/forever not built' }, () => {
+// Mulgore's copper (about 29 nodes up at once safe by level 3) and Durotar's (about 27) are several areas for a low
+// level, not one small patch; a level 26 in Durotar has areas there beyond the Valley of Trials.
+test('Mulgore and Durotar offer several copper areas: Red Cloud Mesa first for a new Tauren, more than the Valley in Durotar', { skip: hasData ? false : 'data/forever not built' }, () => {
+	const { context } = require('../tools/lib/professions/gathering/common');
+	const { plan } = require('../tools/lib/professions/gathering/build');
+	const { SPECS } = require('../tools/lib/professions/gathering/specs');
+	const first = plan(context(DATA), SPECS.find((p) => p.file === 'mining')).find((e) => e.kind === 'band' && e.band.scope === 'start');
+	const of = (zone) => first.areas.filter((l) => l.zone === zone && l.factions.includes('Horde'));
+	const mulgore = of(1412).filter((l) => l.area.level <= 3);
+	assert.ok(mulgore.length >= 2, `Mulgore at 3: ${mulgore.map((l) => l.area.name)}`);
+	assert.ok(mulgore.reduce((s, l) => s + l.area.up, 0) >= 12, 'more than one small cluster');
+	assert.ok(mulgore.some((l) => l.area.name === 'Red Cloud Mesa'));
+	const durotar = of(1411).filter((l) => !l.starter);
+	assert.ok(durotar.length >= 2, `Durotar beyond the Valley: ${durotar.map((l) => l.area.name)}`);
+});
+
+// The engine offers `starter` areas to low levels only (a level 26 in Durotar was sent round the Valley of
+// Trials): every area in a starting zone that asks level 5 or less carries it; the first band also offers each
+// race's next zone (the Barrens for the Kalimdor Horde) for a character past the starting area; Zephras Isle's areas
+// are the Skyborne's (nobody else reaches the island). The guides' area lines say so.
+test('starter areas are marked, the first band offers the next zones, Zephras Isle\'s areas are the Skyborne\'s', { skip: hasData ? false : 'data/forever not built' }, () => {
 	const { context } = require('../tools/lib/professions/gathering/common');
 	const { plan, STARTER_LEVEL } = require('../tools/lib/professions/gathering/build');
 	const { RACE_GROUPS } = require('../tools/lib/professions/gathering/groups');
@@ -593,23 +638,22 @@ test('starter loops are marked, the first band offers the next zones, Zephras Is
 	const prof = SPECS.find((p) => p.file === 'mining');
 	const first = plan(ctx, prof).filter((e) => e.kind === 'band' && e.band.scope === 'start');
 	for (const e of first) {
-		for (const l of e.loops) assert.equal(!!l.starter, starts.has(l.zone) && l.farm.level <= STARTER_LEVEL, `${e.from}-${e.to} map ${l.zone} lvl ${l.farm.level}`);
-		assert.ok(e.loops.some((l) => l.zone === 1413 && l.factions.includes('Horde') && !l.starter), `${e.from}-${e.to}: a Barrens loop for the Horde`);
+		for (const l of e.areas) assert.equal(!!l.starter, starts.has(l.zone) && l.area.level <= STARTER_LEVEL, `${e.from}-${e.to} map ${l.zone} lvl ${l.area.level}`);
+		assert.ok(e.areas.some((l) => l.zone === 1413 && l.factions.includes('Horde') && !l.starter), `${e.from}-${e.to}: a Barrens area for the Horde`);
 	}
 	const text = fs.readFileSync(path.join(ROOT, 'guides', 'forever', 'professions', 'mining.guide'), 'utf8');
-	for (const line of text.split('\n').filter((l) => /^ {2}loop Zephras Isle /.test(l))) assert.match(line, / only Skyborne(,Alliance|,Horde)? /, line);
-	assert.match(text, /\n {2}loop Mulgore lvl \d .*? starter respawn \d+ /);
+	for (const line of text.split('\n').filter((l) => /^ {2}area Zephras Isle /.test(l))) assert.match(line, / only Skyborne(,Alliance|,Horde)? /, line);
+	assert.match(text, /\n {2}area Mulgore "Red Cloud Mesa" lvl \d .*? starter respawn \d+ /);
 });
 
-test('the gathering loops as data for the crafting guides: one entry per loop and item it gives', { skip: hasData ? false : 'data/forever not built' }, () => {
-	const { gatherLoops } = require('../tools/lib/professions/gathering/build');
+test('the gathering areas as data for the crafting guides: one entry per area and item it gives', { skip: hasData ? false : 'data/forever not built' }, () => {
+	const { gatherAreas } = require('../tools/lib/professions/gathering/build');
 	const { context } = require('../tools/lib/professions/gathering/common');
-	const loops = gatherLoops(context(DATA));
-	const keys = ['item', 'kind', 'skill', 'factions', 'map', 'lvl', 'lap', 'yield', 'r', 'live', 'pts', 'starter', 'respawn'];
-	for (const l of loops) assert.deepEqual(Object.keys(l), keys);
-	assert.deepEqual([...new Set(loops.map((l) => l.kind))].sort(), ['herb', 'hide', 'ore']);
-	// Briarthorn (2450) comes from loops that start at 70 or later (#2892).
-	const briar = loops.filter((l) => l.item === 2450);
+	const areas = gatherAreas(context(DATA));
+	for (const l of areas) assert.deepEqual(Object.keys(l), ['item', 'kind', 'skill', 'factions', 'rec']);
+	assert.deepEqual([...new Set(areas.map((l) => l.kind))].sort(), ['herb', 'hide', 'ore']);
+	// Briarthorn (2450) comes from areas that start at 70 or later (#2892).
+	const briar = areas.filter((l) => l.item === 2450);
 	assert.ok(briar.length > 0 && briar.every((l) => l.skill[0] >= 70), JSON.stringify(briar.map((l) => l.skill)));
-	for (const l of loops) assert.ok(l.pts.length >= 2 && l.yield > 0 && l.lap > 0 && l.lvl >= 1, JSON.stringify(l));
+	for (const l of areas) assert.ok(l.rec.poly.length >= 3 && l.rec.value > 0 && l.rec.lap > 0 && l.rec.lvl >= 1 && l.rec.per === 'yield', JSON.stringify(l.rec.name));
 });

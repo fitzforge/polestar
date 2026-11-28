@@ -51,7 +51,7 @@ function steps(text) {
 	return out;
 }
 
-test('no farming loop asks a level under its zone\'s own (no "lvl 2" among level 15-55 creatures, no 9999 placeholder)', { skip }, () => {
+test('no farming loop or gathering area asks a level under its zone\'s own (no "lvl 2" among level 15-55 creatures, no 9999 placeholder)', { skip }, () => {
 	const { ZONES } = require('../tools/lib/professions/gathering/tables');
 	const byName = new Map(Object.values(ZONES).map((z) => [z.name, z.min]));
 	const bad = [];
@@ -60,7 +60,7 @@ test('no farming loop asks a level under its zone\'s own (no "lvl 2" among level
 		fs.readFileSync(path.join(GUIDES, file), 'utf8')
 			.split('\n')
 			.forEach((l, i) => {
-				const m = /^\s*loop (.+?) lvl (\d+) /.exec(l);
+				const m = /^\s*(?:loop|area) (.+?)(?: "[^"]+"(?: near)?)? lvl (\d+) /.exec(l);
 				if (!m) return;
 				const lvl = Number(m[2]);
 				const min = byName.get(m[1]);

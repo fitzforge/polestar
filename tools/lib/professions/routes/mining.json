@@ -5,7 +5,7 @@
 	"intro": [
 		"Mining gathers ore and stone from veins and smelts the ore into bars at a forge. Blacksmithing and Engineering use both, so it pairs well with either.",
 		"Ranks: Apprentice at any level; Journeyman from skill 50, Expert from 125 and Artisan from 200, at the trainers in the capitals and the larger towns. The trainers in the starting areas teach only up to 75. Darnassus has no Mining trainer: the nearest is in Auberdine. On Zephras Isle the quest Harvesting Windstones offers Mining for Dummies, which teaches Mining.",
-		"The route smelts where smelting gives points (Copper to 65, Tin and Bronze to about 105, Iron to about 138) and mines everywhere else. Every ore can be mined on the loops or bought at the Auction House: the Materials setting decides. From 140 to 155 and from 175 no smelt gives points, so those stretches are mined.",
+		"The route smelts where smelting gives points (Copper to 65, Tin and Bronze to about 105, Iron to about 138) and mines everywhere else. Every ore can be mined in the areas or bought at the Auction House: the Materials setting decides. From 140 to 155 and from 175 no smelt gives points, so those stretches are mined.",
 		"Optional skill bonuses: Enchant Gloves - Mining (+2) or Advanced Mining (+5), the Goblin Mining Helmet (+5, Engineering 205 to wear), the Twilight Mine Light (+4, from A Miner Problem in the Riverglades) and the Miner's Cape (+2, Miner Johnson in The Deadmines). With +5, Iron Deposits can be mined from 120."
 	],
 	"starter": {

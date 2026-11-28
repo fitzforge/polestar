@@ -87,7 +87,7 @@
 							"Darkshore"
 						]
 					},
-					"tip": "The loops get busier with herbs as the skill rises."
+					"tip": "The areas get busier with herbs as the skill rises."
 				},
 				{ "gather": 115,
 					"zones": {
@@ -192,7 +192,7 @@
 					"tip": "Needs Herbalism skill 200. Tanaris and Searing Gorge have no Herbalism trainer."
 				},
 				{ "gather": 210,
-					"tip": "Tanaris and Searing Gorge come at 210, once the loops there suit your level."
+					"tip": "Tanaris and Searing Gorge come at 210, once the areas there suit your level."
 				}
 			]
 		},

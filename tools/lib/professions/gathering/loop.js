@@ -1,7 +1,7 @@
 'use strict';
-// Farming loops: a short round of places the arrow walks and repeats, for a gathering band (fishing
-// stands, and the herb, ore and skinning rounds next). A guide writes one as a `loop` step
-// (docs/GUIDE_FORMAT.md, "Spawn areas", Loop): its gotos, in this order, are the places of its goal.
+// Farming loops: a short round of places the arrow walks and repeats, for a fishing band's stands (fish-rounds.js).
+// A guide writes one as a `loop` line (docs/GUIDE_FORMAT.md, "Spawn areas", Farming loops). The safety rule below
+// (pointLevels) is the gathering areas' too (areas.js).
 //
 // buildLoop(points, project, opts) -> { stops, lap }
 //   points: [{ pt, w, name? }]: world points (route.js projector) with a weight (what a visit is worth).
@@ -95,6 +95,10 @@ function killable(data) {
 	}
 	return killCache.get(data);
 }
+// An NPC whose only source is QuestieDB's Forever store (npcs.json `source`).
+function oneSource(n) {
+	return Array.isArray(n.source) && n.source.length === 1 && n.source[0] === 'questie-forever';
+}
 const spawnCache = new WeakMap();
 // `strict`: an elite's level counts ELITE_LEVELS higher and a guard of a side is a town on its own (the fishing
 // rounds); without it the herb, ore and skinning loops keep the plain rule.
@@ -114,6 +118,11 @@ function mapSpawns(ctx, map, strict = false) {
 			// battle NPCs): no level to go by, so a hostile one asks none ("Ashenvale lvl 9999"); one of a
 			// side still marks its camp.
 			if (!n.faction && lo > MAX_LEVEL) continue;
+			// An elite only QuestieDB's Forever store places (no pfQuest record, no world-database spawn): the
+			// Season of Discovery leftovers it carries, such as the Undying Laborers over Elwynn Forest and Westfall
+			// (level 14 elites in Northshire), which would rule out every starting area patch. Two sources before an
+			// elite counts for the gathering areas; the fishing rounds (`strict`) keep every elite.
+			if (!strict && !n.faction && ELITE.has(n.rank) && oneSource(n)) continue;
 			const hi = Math.min(MAX_LEVEL, Math.max(lo, Number(n.levelMax) || 0));
 			const level = (hi - lo > SCALING ? lo : hi) + (strict && !n.faction && ELITE.has(n.rank) ? ELITE_LEVELS : 0);
 			const pts = allPoints(s);
