@@ -1350,8 +1350,8 @@ uistub.update()`;
 }
 // A paired profession guide (Skinning + Leatherworking): its two skill lines and a get step whose gathering way is
 // Skinning's. Models as Core/KindCraft.lua hands them; the numbers are the guide's own first Light Leather stretch, the
-// character at Skinning 58 and Leatherworking 31. Atlas says both skills in its XP slot (Engine.SkillBar's two bars,
-// GF.SkillText).
+// character at Skinning 58 and Leatherworking 31. Every layout and mode stacks the two lines in the window, as a
+// single guide's one.
 function kindPair() {
 	return `${KIND_MAPS}
 ${TABS}
@@ -1378,7 +1378,7 @@ E.KindModel = function(region, view)
 	return m
 end
 uistub.update()
--- The XP row (Atlas's XP slot) reads Engine.SkillBar through GF.SkillText: the live window updates it on its events.
+-- The XP row says nothing for a profession guide whose meter shows (GF.SkillInRow): drawn as the live window has it.
 Polestar.UI.GuideFrame.UpdateXP()`;
 }
 const ATLAS = [{ name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }];
@@ -1546,7 +1546,7 @@ const SCENES = [
 	},
 	{
 		file: 'guide-kind-pair.svg',
-		title: 'A paired profession guide (Skinning + Leatherworking): two skill lines over a get step whose gathering way is Skinning\'s; compact; the Atlas layout, standard and compact: both skills in its XP slot',
+		title: 'A paired profession guide (Skinning + Leatherworking): two skill lines over a get step whose gathering way is Skinning\'s; compact; the Atlas layout, standard and compact: the two lines in the window, as a single guide\'s one',
 		panels: [
 			{ roots: GUIDE, script: kindPair() },
 			{ roots: GUIDE, script: `Polestar.Set("ui.compact", true); ${kindPair()}` },

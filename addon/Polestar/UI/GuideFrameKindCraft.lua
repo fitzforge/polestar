@@ -2,8 +2,8 @@
 -- contract in docs/ARCHITECTURE.md, "Guide kind regions"; the models in Core/KindCraft.lua).
 --
 -- Profession: steps a first-timer follows, drawn as the leveling view's goal rows (GF.NewGoalRow). The slim skill
--- line on top ("Blacksmithing 12 / 75", "Not learned yet"; a paired guide's two, gathering first, or in a layout that
--- says them in the XP row (GF.Shows "pairMeter", Atlas) none); then the step: a train, learn, buy or go-to step is
+-- line on top ("Blacksmithing 12 / 75", "Not learned yet"; a paired guide's two such lines stacked, gathering first,
+-- in every mode and layout, as its single guides draw theirs); then the step: a train, learn, buy or go-to step is
 -- the step's own rows (UI/GuideFrameRegions.lua, "step"); a get step is "Get 200 Rough Stone 64/200" with a row
 -- per way its goals allow, picked like an option (a radio mark), each with one button ("Guide me"; the Auction
 -- House's "Buy list" at an open Auction House, else "Guide me" too, the arrow to the nearest auctioneer of the
@@ -201,62 +201,32 @@ ns.UI.GuideFrame.Part(function(GF)
 		return min(full, max(40, room)), 0
 	end
 
-	-- A slim line of a paired guide's skill: its glyph, name, bar, rank / max.
+	-- A slim line of a paired guide's skill, as the single guide's line: its glyph, name, bar, rank / max.
 	local function pairRow(parent)
 		local r = CreateFrame("Frame", nil, parent)
-		r.Glyph = glyph(r, "skill", 13)
+		r.Glyph = glyph(r, "skill", 14)
 		r.Name = W.Text(r, "name", "skill")
 		r.Value = W.Text(r, "title", "text")
 		r.Max = W.Text(r, "label", "textDim")
 		r.Bar = meterBar(r, 3)
 		return r
 	end
-	-- What a paired guide's meter says: a line each, and in compact mode one line: "Skinning 72 · Leatherworking 51",
-	-- or a line each where that is wider than the window (layoutPair picks).
+	-- What a paired guide's meter says: a line each.
 	local function paintPair(f, m)
-		local words, plain = {}, {}
 		for i, sub in ipairs(m.pair) do
 			local r = f.PairRows[i]
+			W.Color(r.Glyph, sub.done and "success" or "textDim")
 			W.Color(r.Name, sub.nameKind or "skill")
 			local learned = sub.learned ~= false
 			r.Name:SetText(sub.name or "")
 			r.Value:SetText(learned and tostring(sub.value) or "")
 			r.Max:SetText(learned and ("/ " .. tostring(sub.max)) or L["Not learned yet"])
-			local name = hexed(sub.nameKind or "skill", sub.name or "")
-			words[i] = name .. " " .. (learned and tostring(sub.value) or hexed("textDim", L["Not learned yet"]))
-			plain[i] = (sub.name or "") .. " " .. (learned and tostring(sub.value) or L["Not learned yet"])
 			GF.Hook("guideMeter", f, { kind = sub.kind, frac = sub.frac, bar = r.Bar, pair = i })
 		end
-		-- The one line's width, measured here (it does not change with the window's): layoutPair compares it.
-		f.PairLine:SetText(table.concat(plain, DOT))
-		f.psPairOneW = f.PairLine:GetUnboundedStringWidth()
-		f.psPairOne = table.concat(words, DOT)
-		f.psPairTwo = table.concat(words, "\n")
-		f.PairLine:SetText(f.psPairOne)
 	end
-	local function layoutPair(f, m, width, mode)
-		-- A layout that says the two skills in the XP row (GF.Shows "pairMeter", Atlas) leaves the window none.
-		if not GF.Shows("pairMeter", true) then return 0 end
-		local compact = mode == "compact"
-		for _, r in ipairs(f.PairRows) do r:SetShown(not compact) end
-		f.PairLine:SetShown(compact)
-		f.PairGlyph:SetShown(compact)
+	-- The two lines in every mode (the single guide's line is the same in compact mode).
+	local function layoutPair(f, m, width)
 		local textX = PAD + 22
-		if compact then
-			-- One line when it fits, else a skill a line ("Skinning Not learned yet" over "Leatherworking Not
-			-- learned yet"): the whole text either way.
-			local lineW = max(40, width - textX - PAD)
-			f.PairLine:SetWidth(lineW)
-			local two = (f.psPairOneW or 0) > lineW
-			f.PairLine:SetText((two and f.psPairTwo or f.psPairOne) or "")
-			f.PairLine:SetWordWrap(two)
-			local h = two and max(26, ceil(f.PairLine:GetStringHeight() + 12)) or 26
-			f.PairGlyph:ClearAllPoints()
-			f.PairGlyph:SetPoint("LEFT", f, "TOPLEFT", PAD, -h / 2)
-			f.PairLine:ClearAllPoints()
-			f.PairLine:SetPoint("LEFT", f, "TOPLEFT", textX, -h / 2)
-			return h
-		end
 		-- The lines that draw a bar share their columns: names, then the bars, then the ranks, so the bars line up. A
 		-- skill not learned yet draws no bar: "Not learned yet" at its right. The names keep whole (measured unbounded,
 		-- rounded up) beside bars of BAR_MIN or more; where the line is too short for both, the bars give way.
@@ -309,13 +279,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Rank = W.Text(f, "label", "textDim")
 			f.Bar = meterBar(f, 3)
 			f.Line = W.Text(f, "small", "textDim")
-			-- A paired guide's two skills: two slim lines, or one line in compact mode.
+			-- A paired guide's two skills: two slim lines, the single's.
 			f.PairRows = { pairRow(f), pairRow(f) }
-			f.PairGlyph = glyph(f, "skill", 14)
-			f.PairLine = W.Text(f, "goal", "text")
 			for _, r in ipairs(f.PairRows) do r:Hide() end
-			f.PairGlyph:Hide()
-			f.PairLine:Hide()
 			return f
 		end,
 		model = function(view, kind)
@@ -335,8 +301,6 @@ ns.UI.GuideFrame.Part(function(GF)
 					f.Line:Hide()
 				end
 				for _, r in ipairs(f.PairRows) do r:SetShown(pair) end
-				f.PairGlyph:SetShown(pair)
-				f.PairLine:SetShown(pair)
 			end
 			if pair then
 				paintPair(f, m)

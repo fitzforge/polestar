@@ -1203,9 +1203,7 @@ The regions add names to three hooks of the table below. `guidePlace` is
 also asked for `"meter"`, `"stretch"`, `"get"`, `"shopping"`, `"turnin"`,
 `"more"` and the dungeon kind's `"brief"`, `"ready"`, `"pickups"` and
 `"entrance"` (Atlas takes the turn-in into its cards above the window).
-`guideShows` is asked for `"pairMeter"` (a paired profession guide's two
-skills as two lines in the window; `default` true; false leaves them to the XP
-row, which says both: Atlas's XP slot). `guideSpace` is asked for `"bossRow"` (a boss's row in the dungeon tracker,
+`guideSpace` is asked for `"bossRow"` (a boss's row in the dungeon tracker,
 20).
 
 `Theme.GuideReach(window)` (capability `guideReach`) answers how far that

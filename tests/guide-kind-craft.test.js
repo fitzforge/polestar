@@ -551,7 +551,7 @@ local rows = {}
 for i, r in ipairs(m.PairRows) do
 	rows[i] = { shown = r:IsShown(), name = r.Name:GetText(), value = r.Value:GetText(), max = r.Max:GetText(), bar = r.Bar:IsShown(), w = r.Name:GetWidth() }
 end
-emit({ meterShown = m:IsShown(), meterH = m:GetHeight(), rows = rows, single = m.Name:IsShown(), line = plain(m.PairLine:GetText()), lineShown = m.PairLine:IsShown(),
+emit({ meterShown = m:IsShown(), meterH = m:GetHeight(), rows = rows, single = m.Name:IsShown(),
 	xp = GF.xp.psHas and plain(GF.xp.Text:GetText()) or false })`;
 
 test('a paired guide, in the window: two slim lines stacked, the bars in one column; the XP row leaves them out', () => {
@@ -563,17 +563,19 @@ test('a paired guide, in the window: two slim lines stacked, the bars in one col
 		[true, 'Leatherworking', '32', '/ 75', true],
 	]);
 	assert.equal(out.rows[0].w, out.rows[1].w, 'one name column: the bars line up');
-	assert.equal(out.lineShown, false, 'the one line is the compact window\'s');
+	assert.equal(out.xp, false, 'no XP or pace line: a profession guide\'s');
 	assert.equal(out.meterH, 26 * 2);
 	assert.ok(!out.xp || !String(out.xp).includes('Skinning'), 'the lines say the skills, not the XP row');
 });
 
-test('a paired guide, compact: one line, "Skinning 55 · Leatherworking 32"', () => {
+test('a paired guide, compact: the same two slim lines stacked, as a single guide keeps its one line', () => {
 	const out = runPair('Polestar.Set("ui.compact", true)', PAIR_WINDOW);
-	assert.equal(out.lineShown, true);
-	assert.equal(out.line, 'Skinning 55 · Leatherworking 32');
-	assert.deepEqual(out.rows.map((r) => r.shown), [false, false]);
-	assert.equal(out.meterH, 26);
+	assert.deepEqual(out.rows.map((r) => [r.shown, r.name, r.value, r.max, r.bar]), [
+		[true, 'Skinning', '55', '/ 75', true],
+		[true, 'Leatherworking', '32', '/ 75', true],
+	]);
+	assert.equal(out.meterH, 26 * 2);
+	assert.equal(out.xp, false);
 });
 
 test('a paired guide, a skill not learned yet: "Not learned yet" at its right, no bar; the craft row says to learn it first', () => {
@@ -582,24 +584,24 @@ test('a paired guide, a skill not learned yet: "Not learned yet" at its right, n
 	const none = runPair(RANKS('nil', 'nil'), `
 at(2); GF.Render(); GF.Layout(); stub.advance(1)
 local r = GF.RegionFrame("stretch").Row
-emit({ sub = plain(r.Sub:GetText()), open = r.psOpen:IsShown(), line = plain(GF.RegionFrame("meter").PairLine:GetText()) })`);
+local maxes = {}
+for i, p in ipairs(GF.RegionFrame("meter").PairRows) do maxes[i] = p.Max:GetText() end
+emit({ sub = plain(r.Sub:GetText()), open = r.psOpen:IsShown(), maxes = maxes })`);
 	assert.equal(none.sub, 'Learn Leatherworking first');
 	assert.equal(none.open, false);
-	assert.equal(none.line, 'Skinning Not learned yet · Leatherworking Not learned yet');
+	assert.deepEqual(none.maxes, ['Not learned yet', 'Not learned yet']);
 });
 
-// A narrow window: every name and the compact line stay whole (a wide look's font cut "Leatherworking" by a pixel
-// beside its bar, and the compact line of two unlearned skills by a third of its width).
+// A narrow window: every name stays whole (a wide look's font cut "Leatherworking" by a pixel beside its bar).
 const PAIR_FIT = `
 GF.Render(); GF.Layout(); stub.advance(1)
 local m = GF.RegionFrame("meter")
 local rows = {}
 for i, r in ipairs(m.PairRows) do
-	rows[i] = { shown = r:IsShown(), cut = r.Name:IsTruncated(), w = r.Name:GetWidth(), need = r.Name:GetUnboundedStringWidth(), bar = r.Bar:IsShown() }
+	rows[i] = { shown = r:IsShown(), cut = r.Name:IsTruncated(), w = r.Name:GetWidth(), need = r.Name:GetUnboundedStringWidth(), bar = r.Bar:IsShown(),
+		maxCut = r.Max:IsTruncated() }
 end
-local l = m.PairLine
-emit({ rows = rows, line = plain(l:GetText()), lineCut = l:IsTruncated(), lineShown = l:IsShown(), h = m:GetHeight(),
-	oneW = m.psPairOneW, lineW = l:GetWidth() })`;
+emit({ rows = rows, h = m:GetHeight() })`;
 
 test('a paired guide in a narrow window: each skill\'s name keeps whole, the bars giving way before a name is cut', () => {
 	for (const width of [240, 260, 280, 320]) {
@@ -611,30 +613,37 @@ test('a paired guide in a narrow window: each skill\'s name keeps whole, the bar
 	}
 });
 
-test('a paired guide, compact, neither skill learned: one line when it fits, else a skill a line, each whole', () => {
-	const narrow = runPair(`${RANKS('nil', 'nil')}\nPolestar.Set("ui.compact", true)\nPolestar.Set("ui.width", 260)`, PAIR_FIT);
-	assert.equal(narrow.lineShown, true);
-	assert.equal(narrow.line, 'Skinning Not learned yet\nLeatherworking Not learned yet');
-	assert.equal(narrow.lineCut, false);
-	assert.ok(narrow.h > 26, `the meter grows for the second line: ${narrow.h}`);
-	const wide = runPair(`${RANKS('nil', 'nil')}\nPolestar.Set("ui.compact", true)\nPolestar.Set("ui.width", 700)`, PAIR_FIT);
-	assert.equal(wide.line, 'Skinning Not learned yet · Leatherworking Not learned yet');
-	assert.ok(wide.oneW <= wide.lineW, `the one line fits its width: ${wide.oneW} in ${wide.lineW}`);
-	assert.ok(narrow.oneW > narrow.lineW, `the narrow window's one line would not: ${narrow.oneW} in ${narrow.lineW}`);
-	assert.equal(wide.h, 26);
+test('a paired guide, compact, neither skill learned: two lines, each whole, in a narrow window and a wide one', () => {
+	for (const width of [260, 700]) {
+		const out = runPair(`${RANKS('nil', 'nil')}\nPolestar.Set("ui.compact", true)\nPolestar.Set("ui.width", ${width})`, PAIR_FIT);
+		assert.deepEqual(out.rows.map((r) => [r.shown, r.cut, r.maxCut, r.bar]), [[true, false, false, false], [true, false, false, false]], `width ${width}`);
+		assert.equal(out.h, 26 * 2);
+	}
 });
 
-test('a paired guide in Atlas: both skills in the XP slot, none stacked in the window; compact too', () => {
-	for (const compact of [false, true]) {
-		const out = runPair(`Polestar.Set("ui.layout", "atlas")${compact ? '; Polestar.Set("ui.compact", true)' : ''}`, `
-GF.Render(); GF.Layout(); stub.advance(1); GF.Layout()
-local m = GF.RegionFrame("meter")
-emit({ meter = m:IsShown(), xpHas = GF.xp.psHas, xpShown = GF.xp:IsShown(), text = plain(GF.xp.Text:GetText()) })`, ['Polestar', { name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }]);
-		assert.equal(out.meter, false, `compact ${compact}: the meter leaves the window`);
-		assert.equal(out.xpHas, true);
-		assert.equal(out.xpShown, true);
-		assert.match(out.text, /Skinning 55 \/ 75 · Leatherworking 32 \/ 75/);
-		assert.match(out.text, /next stretch to 51/);
+// The window a paired guide shows in each mode and layout: its two lines, a get step's ways, a craft row, no XP row.
+const PAIR_STEPS = `
+local function shown(id) local f = GF.RegionFrame(id); return f and f:IsShown() and GF.RegionShown(id) or false end
+local out = {}
+for _, n in ipairs({ 1, 2 }) do
+	at(n); GF.Render(); GF.Layout(); stub.advance(1); GF.Layout()
+	local m = GF.RegionFrame("meter")
+	out[n] = { meter = shown("meter"), rows = m.PairRows[1]:IsShown() and m.PairRows[2]:IsShown(), get = shown("get"), stretch = shown("stretch"),
+		xp = GF.xp.psHas and plain(GF.xp.Text:GetText()) or false }
+end
+emit(out)`;
+
+test('a paired guide in every mode and in Atlas: the two lines in the window, the get step\'s ways and the craft row, no XP or pace line', () => {
+	const atlas = ['Polestar', { name: 'Polestar_Skins', files: ['Layouts/Atlas/Atlas.lua'] }];
+	for (const [name, setup, addons] of [
+		['standard', '', undefined],
+		['compact', 'Polestar.Set("ui.compact", true)', undefined],
+		['Atlas', 'Polestar.Set("ui.layout", "atlas")', atlas],
+		['Atlas compact', 'Polestar.Set("ui.layout", "atlas"); Polestar.Set("ui.compact", true)', atlas],
+	]) {
+		const out = runPair(setup, PAIR_STEPS, addons);
+		assert.deepEqual(out[0], { meter: true, rows: true, get: true, stretch: false, xp: false }, `${name}, the get step`);
+		assert.deepEqual(out[1], { meter: true, rows: true, get: false, stretch: true, xp: false }, `${name}, the craft step`);
 	}
 });
 

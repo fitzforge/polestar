@@ -141,12 +141,10 @@ ns.UI.GuideFrame.Part(function(GF)
 		return nil
 	end
 
-	-- Whether the XP row says the skill: no meter shows, or a layout takes a paired guide's two skills into the row
-	-- (GF.Shows "pairMeter", default true: the meter stacks them in the window).
+	-- Whether the XP row says the skill: no meter shows (a paired guide's two skills stand in the meter, as a single
+	-- guide's one, in every layout).
 	function GF.SkillInRow()
-		local m = GF.RegionModel("meter")
-		if not m then return true end
-		return m.pair ~= nil and not GF.Shows("pairMeter", true)
+		return GF.RegionModel("meter") == nil
 	end
 
 	function GF.RegionFrame(id) return frames[id] end
