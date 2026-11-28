@@ -273,7 +273,7 @@ step The Earthen Ring
 
 step Gloomrise: kill these as you meet them
   zone Mulgore
-  tip North of the camp, spiders overrun the burial ground at Gloomrise. Use Mazu'kon's Toxin Extractor on the Gnawed Corpses; the Spinners drop the Crystalline Silk. Broodmother Valraxx (30, elite) sits at the north end: leave her unless you do The Broodmother with a group; her Bloody Parchment starts A Darker Truth.
+  tip Spiders overrun the burial ground at Gloomrise, north of the camp, and the Spinners drop the Crystalline Silk. Broodmother Valraxx (level 30, elite) sits at the north end and is meant for a group doing The Broodmother; her Bloody Parchment starts A Darker Truth.
   collect 273181 quest 96260.1        -- Crystalline Silk, from Gloomrise Spinners
   kill 264083 quest 96259.2
   kill 264079 quest 96259.1
@@ -506,7 +506,7 @@ step Wizlo Bearingshiner
 
 step Hypercapacitor Gizmo
   when group 5151
-  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Enraged Panther is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone.
+  tip The Enraged Panther is a level 30 elite. Most classes can solo it at level 32, but some may need a group.
   use 12942 quest 5151.1 @22.8,24.6 map 1441
   collect 12946 quest 5151.1 @22.8,24.6 map 1441
 

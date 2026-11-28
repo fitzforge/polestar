@@ -40,7 +40,7 @@
 				"objective": 1,
 				"guide": "forever/horde/50-60/02-felwood"
 			},
-			"tip": "Izvi's Treasure Trowel 3000, in your bags, digs up the Highborne Treasure Fragments: use it on the sands just east of the ruins, where the Makrinni Burrowers (50-51) dig, on the way north-east. The Burrowers and the buried caches there give fragments too.",
+			"tip": "The Highborne Treasure Fragments come from the sands just east of the ruins, where Makrinni Burrowers (50-51) dig. The Burrowers and the buried caches there also give fragments.",
 			"note": "Horde 50-60 audit (2026-11-23): Long Walks on the Beach provides the Treasure Trowel 3000 and asks to dig the fragments up with it; the step named only the Burrowers and the caches.",
 			"source": [
 				{
@@ -247,7 +247,7 @@
 				"goal": "turnin",
 				"guide": "forever/horde/50-60/04-azshara"
 			},
-			"tip": "Jabbering Ghouls on Felstone Farm carry the Good Luck Other-Half-Charm: kill them until one drops it, then right-click the halves in your bags to join them into the Good Luck Charm, and take it to Janice upstairs.",
+			"tip": "Jabbering Ghouls on Felstone Farm carry the Good Luck Other-Half-Charm. Janice is upstairs.",
 			"note": "Horde 50-60 audit (2026-11-23): the step had no tip: the quest wants the two halves joined into the Good Luck Charm, its objective.",
 			"source": [
 				{
@@ -375,7 +375,7 @@
 				"objective": 1,
 				"guide": "forever/horde/50-60/05-eastern-plaguelands"
 			},
-			"tip": "Ride north-west to Jaedenar and go down into Shadow Hold, the cave in its north: the four braziers stand inside. Use Greta's Purified Moonwell Water from your bags on each one. Careful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time.",
+			"tip": "The four braziers are inside Shadow Hold, the cave in the north of Jaedenar. The cave is full of level 53-55 Shadow Council mobs, often in linked groups, and many of them can stun.",
 			"note": "Horde 50-60 audit (2026-11-23): the tip put the braziers among the camp's buildings and named the Cleansed Water; they are inside Shadow Hold and the quest provides Purified Moonwell Water.",
 			"source": [
 				{
@@ -484,7 +484,7 @@
 				"objective": 1,
 				"guide": "forever/horde/50-60/06-silithus"
 			},
-			"tip": "Open Torwa's Pouch: it holds the meat and the pheromone mixture. Lar'korwi's lair is the bone-strewn valley just south of the pylon: place the meat among the bones, then use the mixture on it to call Lar'korwi. He is level 56 and hits hard, so start at full health.",
+			"tip": "Torwa's Pouch holds the meat and the pheromone mixture. Lar'korwi's lair is the bone-strewn valley just south of the pylon, and he is level 56 and hits hard.",
 			"note": "Horde 50-60 audit (2026-11-23): the step said to use Torwa's bait; the quest provides Torwa's Pouch, whose meat is placed at the lair and then the mixture used on it.",
 			"source": [
 				{
@@ -13548,7 +13548,7 @@
 				"goal": "accept",
 				"guide": "forever/alliance/06-wetlands"
 			},
-			"tip": "Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake, just north of the road to Krolg. Befouled Water Elementals wade in the lake; Tideress, a level 27 water elemental, walks among them and drops the bracers too.",
+			"tip": "Sentinel Velene Starstrike is at Silverwind Refuge on the east shore of Mystral Lake, just north of the road to Krolg. Befouled Water Elementals wade in the lake, and Tideress, a level 27 water elemental among them, also drops the bracers.",
 			"note": "Alliance 20-30 audit (0.4.0, #2025): Elemental Bracers (1016, quest level 24) is worked at about 23-24 on 06-ashenvale's Mystral Lake stop. Tideress (npc 12759, level 27) walks the lake among the Befouled Water Elementals (npc 3917, level 23) and drops the Intact Elemental Bracer as they do (items.json 12220: npcs 3917 and 12759), so players attack her. Players' recordings (addon 0.3.5 and later): Tideress killed 4 people (5 deaths) there and the Befouled Water Elementals 5 (6 deaths), at about 23.3. The step's tip named neither; the tip keeps the step's old tip, the sentence added.",
 			"source": [
 				{
@@ -16356,7 +16356,7 @@
 				"goal": "accept",
 				"guide": "forever/alliance/06-ashenvale"
 			},
-			"tip": "Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake. Befouled Water Elementals (23-25) wade in the lake. Careful: Tideress, a level 27 water elemental, walks the lake's west shore among them: leave it be.",
+			"tip": "Sentinel Velene Starstrike is at the Silverwind Refuge on the east shore of Mystral Lake, where Befouled Water Elementals (23-25) wade. Tideress, a level 27 water elemental, walks the west shore among them.",
 			"note": "Ashenvale fix round (2026-11-20): Elemental Bracers is back on 06-ashenvale's first visit, on the south-east loop after Stonetalon (about 24-25). The Befouled Water Elementals (23-25) are at most one over the player; Tideress (27), who killed 4 recorded players at about 23 when the quest was done at 23-24 (a2130-mystral-lake-tideress), walks the west shore (46.0,70.0) and is named as the one to leave alone.",
 			"source": [
 				{
@@ -17608,7 +17608,7 @@
 				"objective": 1,
 				"guide": "forever/horde/40-50/04-tanaris"
 			},
-			"tip": "A sample can fail: keep going until you have eight of each.",
+			"tip": "A sample can fail, so it can take several tries to get eight of each.",
 			"note": "Tanaris Field Sampling (654): with the samples looted and used on rows of their own (the records above) and the power source on the accept's note (#3619), the step's tip keeps only why the rows repeat: an untested sample makes an acceptable one or nothing.",
 			"source": [
 				{
@@ -21258,7 +21258,7 @@
 			"id": "4231-tainted-ooze-jar-use",
 			"faction": "Alliance",
 			"at": { "quest": 4512, "goal": "objective", "objective": 2, "guide": "forever/alliance/50-60/02-felwood" },
-			"tip": "Tainted Oozes slide about Jaedenar's fel pools: kill them and use the Empty Tainted Ooze Jar on their remains.",
+			"tip": "Jaedenar is the ruined temple north of the glen, and Tainted Oozes slide around its fel pools. Careful: the Spirit of Trey Lightforge (53, elite) haunts the west end around 35,60.",
 			"note": "#4231: a Filled Tainted Ooze Jar is made by using an Empty Tainted Ooze Jar (from Laris's package) on a Tainted Ooze's remains, as the Cursed Ooze tip of Jadefire Glen says for its jar; the Jaedenar step named the oozes only in a comment, so the player was told to kill them and nothing more.",
 			"source": [
 				{ "kind": "in-game-check", "ref": "#4231 (Pokey): the jars in the bags are used on the ooze's corpse to fill them" }
@@ -21311,6 +21311,444 @@
 				{ "kind": "in-game-check", "ref": "#4435 (foggel, 0.4.3.1): handing in Tabetha's Task in Dustwallow Marsh made Hadoken offer Stinglasher; #4487 (Akuma) and #4491 (ArcticWildWolf): the accept was not offered" }
 			],
 			"issue": 4487
+		},
+		{
+			"id": "no-instructions-02-westfall-the-binding",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1688,
+				"goal": "turnin",
+				"guide": "forever/alliance/02-westfall"
+			},
+			"tip": "Gakin the Darkbinder is in the cellar of the Slaughtered Lamb, in the Mage Quarter of Stormwind, north along the road from Goldshire. The summoning circle is there too, and it calls a voidwalker.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the seed's step has another title.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-03-darkshore-return-the-master-s-glaive",
+			"faction": "Alliance",
+			"at": {
+				"quest": 944,
+				"goal": "complete",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"tip": "Moonstalker Sires prowl the woods around the glaive. The Twilight Tome is at the bottom of the crater, and for Onu's quest the Phial of Scrying makes the Scrying Bowl there, which takes the turn-in.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over gh036-darkshore-masters-glaive-phial's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-03-darkshore-return-trial-of-the-sea-lion",
+			"faction": "Alliance",
+			"at": {
+				"goal": "turnin",
+				"quest": 272,
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"tip": "The two halves come from Westfall and the north coast of Darkshore, and the Shrine of Remulos is on the north-west shore of the lake. Dendrite Starblaze is upstairs in his building, and the arrow cannot tell the floors apart.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over upstairs-dendrite-starblaze-turnin-272's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-03-darkshore-the-red-crystal",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4811,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/03-darkshore"
+			},
+			"tip": "The Mysterious Red Crystal sits on a ledge in the mountains east of Ameth'Aran.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the seed's step has another title.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-06-wetlands-trial-of-the-sea-lion",
+			"faction": "Alliance",
+			"at": {
+				"goal": "turnin",
+				"quest": 272,
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"tip": "The Shrine of Remulos is on the north-west shore of the lake. Dendrite Starblaze is upstairs in his building in Nighthaven, and the arrow cannot tell the floors apart.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over upstairs-dendrite-starblaze-turnin-272's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-06-searing-gorge-sentry-braziers",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3463,
+				"goal": "objective",
+				"objective": 4,
+				"guide": "forever/alliance/40-50/06-searing-gorge"
+			},
+			"tip": "The four Sentry Braziers sit along the rim of the Cauldron, from the south-west round to the south-east.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the seed's step has another title.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-01-burning-steppes-the-ruins-of-eldarath",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3449,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/50-60/01-burning-steppes"
+			},
+			"tip": "Spitelash naga guard the Ruins of Eldarath, and Tymor's runes stand among the ruins.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over azshara-eldarath-runes-before-the-top-up's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-04-western-plaguelands-plaguewood-kill-these-as-you-meet-them",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5542,
+				"goal": "objective",
+				"objective": 3,
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"tip": "Terrordale is west through the Plaguewood, and the big termite mounds are on the way. The Frenzied Plaguehounds are level 57-58, so pulling more than one is dangerous.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over epl-plaguehounds-careful's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-01-dun-morogh-tram-to-stormwind",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6661,
+				"goal": "accept",
+				"guide": "forever/alliance/dwarf/01-dun-morogh"
+			},
+			"tip": "Monty is on the Ironforge platform of the Deeprun Tram, and his brother Nipsy is at the Stormwind end. The tram has no map inside, so the city markers show the entrances, not the brothers.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over a043-deeprun-city-entrances's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-01-dun-morogh-tram-to-stormwind-2",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6661,
+				"goal": "accept",
+				"guide": "forever/alliance/gnome/01-dun-morogh"
+			},
+			"tip": "Monty is on the Ironforge platform of the Deeprun Tram, and his brother Nipsy is at the Stormwind end. The tram has no map inside, so the city markers show the entrances, not the two brothers.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over a043-deeprun-city-entrances's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-02-darkshore-the-red-crystal",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4811,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/nightelf/02-darkshore"
+			},
+			"tip": "The Mysterious Red Crystal sits on a ledge in the mountains east of Ameth'Aran.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the seed's step has another title.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-02-darkshore-ameth-aran",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4722,
+				"goal": "accept",
+				"guide": "forever/alliance/nightelf/02-darkshore"
+			},
+			"tip": "The flame burns in the south of the Ameth'Aran ruins, to the north.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the seed's step has another title.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-02-the-barrens-raptor-nests",
+			"faction": "Horde",
+			"at": {
+				"quest": 905,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"tip": "The three nests are together in the Raptor Grounds, south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs one Sunscale Feather, and most Sunscale raptors drop one.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over gh036-barrens-scytheclaw-nests-feathers's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-02-the-barrens-verog-the-dervish",
+			"faction": "Horde",
+			"at": {
+				"quest": 851,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/02-the-barrens"
+			},
+			"tip": "Verog only appears after enough Kolkar centaurs die at the Stagnant Oasis, south-east of the Crossroads. The bubbling fissure is on the oasis' east bank.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over 2479-barrens-verog-from-the-kolkar's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-04-the-barrens-field-of-giants",
+			"faction": "Horde",
+			"at": {
+				"quest": 868,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/04-the-barrens"
+			},
+			"tip": "The Silithid Mounds holding the eggs are in the Field of Giants, south of Camp Taurajo on the road to Gann. Silithid Swarmers defend them and release many tiny adds that interrupt spells, and damage shields such as Thorns kill those adds in one hit.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over 1175-barrens-silithid-eggs-on-the-road-to-gann's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-04-the-barrens-the-charred-vale-kill-these-as-you-meet-",
+			"faction": "Horde",
+			"at": {
+				"quest": 6393,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/04-the-barrens"
+			},
+			"tip": "The Charred Vale is south-west of Sun Rock, and its fire elementals drop Incendrites. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches are level 27, and the valley floor is crowded.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over 2025-h21-charred-vale-level-27's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-06-hillsbrad-foothills-trial-of-the-sea-lion",
+			"faction": "Horde",
+			"at": {
+				"quest": 30,
+				"goal": "turnin",
+				"guide": "forever/horde/06-hillsbrad-foothills"
+			},
+			"tip": "The Shrine of Remulos is on the north-west shore of the lake. Dendrite Starblaze is upstairs in his building in Nighthaven, and the arrow cannot tell the floors apart.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over upstairs-dendrite-starblaze-turnin-30's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-07-ashenvale-gloomrise-kill-these-as-you-meet-them",
+			"faction": "Horde",
+			"at": {
+				"quest": 96260,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"tip": "Spiders overrun the burial ground at Gloomrise, north of the camp, and the Spinners drop the Crystalline Silk. Broodmother Valraxx (level 30, elite) sits at the north end and is meant for a group doing The Broodmother; her Bloody Parchment starts A Darker Truth.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over 2025-h21-gloomrise-broodmother-elite's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-04-dustwallow-marsh-portals-of-the-legion",
+			"faction": "Horde",
+			"at": {
+				"quest": 5581,
+				"goal": "complete",
+				"guide": "forever/horde/30-40/04-dustwallow-marsh"
+			},
+			"tip": "Each portal releases a Demon Portal Guardian (38-39), and there are six portals. Infernals, Doomguards and Burning Blade Summoners patrol near many portals and may join the fight.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, over horde-3040-portals-of-the-legion-hand's tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-05-eastern-plaguelands-pamela-s-doll",
+			"faction": "Horde",
+			"at": {
+				"quest": 5149,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"tip": "The doll's head and its two sides are in the houses around Pamela.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the seed's step has another title.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-05-eastern-plaguelands-terrordale-kill-these-as-you-meet-them",
+			"faction": "Horde",
+			"at": {
+				"quest": 5901,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"tip": "The book lies in the ruined inn of Terrordale, and the undead in town are level 54-56. Large Termite Mounds stand all over the hills east of Terrordale, but elite level 58 Ziggurat Protectors guard the ziggurats east and north-east of town.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the seed's step has another title.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-06-silithus-marshal-s-refuge",
+			"faction": "Horde",
+			"at": {
+				"quest": 3914,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/06-silithus"
+			},
+			"tip": "The flight lands at Marshal's Refuge. Linken stands by the cave a few steps from the flight master, and J.D. Collie is inside it.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the seed's step has another title.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-07-felwood-are-we-there-yeti",
+			"faction": "Horde",
+			"at": {
+				"quest": 5163,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/07-felwood"
+			},
+			"tip": "Legacki is in Everlook, to the north.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the seed's step has another title.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-01-durotar-call-of-earth",
+			"faction": "Horde",
+			"at": {
+				"quest": 1517,
+				"goal": "turnin",
+				"guide": "forever/horde/orc/01-durotar"
+			},
+			"tip": "Canaga stands outside the Den, and Spirit Rock is the hill just south of it. The Earth Sapta reveals the Minor Manifestation of Earth.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the seed's step has another title.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
+		},
+		{
+			"id": "no-instructions-01-durotar-call-of-earth-2",
+			"faction": "Horde",
+			"at": {
+				"quest": 1517,
+				"goal": "turnin",
+				"guide": "forever/horde/troll/01-durotar"
+			},
+			"tip": "Canaga stands outside the Den, and Spirit Rock is the hill just south of it. The Earth Sapta reveals the Minor Manifestation of Earth there.",
+			"note": "The step's goal rows do every action now (the item uses and clicks of the tip-only actions sweep), so its tip keeps only where and why, with no instructions; for this guide, where the seed's step has another title.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#4519: the step's own goal rows, checked by forge guide lint's tip rule"
+				}
+			]
 		}
 	]
 }

@@ -228,7 +228,7 @@ step Tinker Town: Laris Geardawdle
 
 step Felwood: Cursed and Tainted Oozes
   zone Felwood
-  tip The Cursed and Tainted Oozes slide about the streams and fel pools around Jaedenar and Bloodvenom Falls: kill one and use an empty jar on its remains.
+  tip Cursed and Tainted Oozes are found around the streams and fel pools near Jaedenar and Bloodvenom Falls.
   level 51
   use 11912 @40.4,69.6 map 1448
   use 11914 quest 4512.1 @40.4,69.6 map 1448

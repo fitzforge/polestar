@@ -56,7 +56,7 @@ step The Grove of the Ancients
   turnin 1003                                 -- Buzzbox 525
 
 step The Master's Glaive
-  tip Moonstalker Sires prowl the woods around the glaive. The Twilight Tome sits at the bottom of the crater. For Onu's quest, use the Phial of Scrying at the bottom of the crater: it makes the Scrying Bowl, and you hand the quest in to the bowl.
+  tip Moonstalker Sires prowl the woods around the glaive. The Twilight Tome is at the bottom of the crater, and for Onu's quest the Phial of Scrying makes the Scrying Bowl there, which takes the turn-in.
   collect 5386 quest 986                      -- Fine Moonstalker Pelts
   accept 968 optional                         -- Only if a Disciple or Thug dropped Book: The Powers Below: right-click it
   use 5251 quest 944.1 @38.48,86.45 map 1439 era
@@ -160,7 +160,7 @@ step Back south
   turnin 98013                                -- Arbal
 
 step Volcor
-  tip Volcor hides in the hills east of the Master's Glaive, inside Blackwood Den.
+  tip Volcor is in Blackwood Den, in the hills east of the Master's Glaive.
   turnin 993                                  -- Volcor, inside Blackwood Den
   use 15826 quest 6124.1 @43.5,83.4 map 1439 only NightElf,Skyborne,Druid
   kill 12298 quest 6124.1 "Cure Sickly Deer" only NightElf,Skyborne,Druid -- Sickly Deer: use the Curative Animal Salve on them; they roam all of Darkshore
@@ -255,7 +255,7 @@ step Trial of the Sea Lion
   when onquest 272
   when has 15882
   when has 15883
-  tip Both half pendants in your bags (the Westfall half from your last Westfall visit, the Darkshore half from the north coast): stand by the Shrine of Remulos on the north-west shore of the lake and use a half to join them, then take the pendant to Dendrite Starblaze with the Cat Form hand-in. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  tip The two halves come from Westfall and the north coast of Darkshore, and the Shrine of Remulos is on the north-west shore of the lake. Dendrite Starblaze is upstairs in his building, and the arrow cannot tell the floors apart.
   use 15883 quest 272.1 @36.0,41.4
   collect 15885 quest 272.1                   -- Pendant of the Sea Lion: join the halves at the Shrine of Remulos
   turnin 272                                  -- Dendrite Starblaze

@@ -168,7 +168,7 @@ step The skeletal turtle
   turnin 4681                                 -- Gwennyth Bly'Leggonde
 
 step Plagued bears
-  tip Rabid Thistle Bears roam the hills just east of Auberdine. Use Tharnariun's Hope on one and lead it back to him.
+  tip Rabid Thistle Bears roam the hills just east of Auberdine.
   use 7586 quest 2118.1 @38.21,52.59 map 1439 era only Dwarf,Gnome,Human,Skyborne
   complete 2118 @38.21,52.59 map 1439 era only Dwarf,Gnome,Human,Skyborne -- the Rabid Thistle Bears nearest Tharnariun
   turnin 2118 only Dwarf,Gnome,Human,Skyborne -- Tharnariun Treetender
@@ -297,7 +297,7 @@ step The red crystal
   accept 4813 only Dwarf,Gnome,Human,Skyborne
 
 step Cliffspring Falls
-  tip Follow the hills north to the Cliffspring River and up to the falls. Two more beached remains lie on the north shore: near the Ruins of Mathystra and north of Bashal'Aran.
+  tip Cliffspring Falls is north along the hills, up the Cliffspring River. Two more beached remains lie on the north shore, near the Ruins of Mathystra and north of Bashal'Aran.
   use 12350 quest 4762.1 @50.8,25.6 map 1439
   collect 12349 quest 4762                    -- Cliffspring River Sample, at the waterfall
   use 15844 quest 6122.1 @54.9,33.3 map 1439 only NightElf,Skyborne,Druid

@@ -254,7 +254,7 @@ step Felflick
   accept 96435 @49.3,77.1               -- A Fitting End
 
 step The bone pile
-  tip West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the Awakened Fel Ash Slime, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once.
+  tip The bone pile is to the west by the slime pools, and the quest is handed in at the pile itself. Handing it in wakes the Awakened Fel Ash Slime, a level 58 elite that hits hard and is dangerous without a group.
   use 273296 @40.8,80.3
   complete 96435 @40.8,80.3
   turnin 96435                          -- Bone Pile
@@ -291,7 +291,7 @@ step The Curious Crow
   turnin 96322
 
 step The Ashen workstations
-  tip Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up.
+  tip Four workstations stand in the Ashen camp, running from south to north.
   goto 42.5,73.1 "Slime Workstation"
   goto 44.3,68.3 "Alchemy Workstation"
   goto 46.6,68.0 "Disease Workstation"
@@ -686,7 +686,7 @@ step Head Scratcher
   accept 92446                          -- Zet'gan
 
 step The overlook
-  tip West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story.
+  tip The veteran's old scabbard lies at the overlook above the valley, to the west. The scabbard calls up his spirit, who tells his story.
   turnin 92100                          -- Embroidered Scabbard
   accept 96550                          -- Battle Recall
   use 274795 @8.8,46.5 map 2482 live
@@ -978,8 +978,8 @@ step Johun "Punchy" Dillas
 
 step Bethra'zel
   when onquest 96003
-  tip North-east to Bethra'zel. Drain him first: use Elaena's eye on him, and only then fight him. Undrained, he and Mazzogore are level 60 elites. Doomguard Xarkul, an elite (level 61), walks this corner of Dae'gun: keep out of his way.
-  tip Careful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps: give them room.
+  tip Bethra'zel is to the north-east. If he isn't drained first, he and Mazzogore are level 60 elites, and Doomguard Xarkul (level 61 elite) patrols this corner of Dae'gun.
+  tip Legion Hulks (level 60 rare elites) roam Dae'gun's camps.
   use 271879 quest 96003.1 @57.4,36.3 map 2482 live
   kill 263394 quest 96003.1             -- Bethra'zel
 

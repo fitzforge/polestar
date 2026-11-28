@@ -82,7 +82,7 @@ step The Binding: succubus
   turnin 1739                         -- Gakin the Darkbinder: Summon Succubus
 
 step The Binding: incubus
-  tip Give Gakin the figurine, then use the Wooden Figurine at the middle of the same circle and defeat the incubus it calls (level 20, not elite; it can charm you) with your voidwalker tanking. Keep the figurine: Gakin takes it back.
+  tip The incubus is level 20 and not elite, but it can charm you. Gakin takes the figurine back afterward.
   turnin 65602                        -- Gakin the Darkbinder
   accept 65603
   use 190186 quest 65603.1 @39.1,84.4 map 1453 live

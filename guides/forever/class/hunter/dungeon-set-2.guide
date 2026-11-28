@@ -101,14 +101,14 @@ step Mux Manascrambler: the Distiller
 
 step Scorched Ectoplasm
   zone Silithus
-  tip The Tortured Druids and Sentinels haunt Southwind Village in Silithus (level 55-57, not elite; silithid can join when they die). Place the Ectoplasmic Distiller among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again.
+  tip The Tortured Druids and Sentinels haunt Southwind Village in Silithus (level 55-57, not elite), and silithid can join when they die. Ectoplasm only drops from a ghost that dies inside the Distiller's glow, which lasts a few minutes.
   level 59
   use 21946 quest 8924.1 @62.8,53.2 map 1451
   collect 21937 quest 8924.1
 
 step Frozen Ectoplasm and the Fel Elemental Rod
   zone Winterspring
-  tip The Suffering and Anguished Highborne drift around Lake Kel'Theril in Winterspring (level 54-56, not elite). Place the Ectoplasmic Distiller among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again. While you are in Winterspring, buy the Fel Elemental Rod (40 gold) from Vi'el, an imp in the cave at the mouth of Darkwhisper Gorge in the far south: keep to the right-hand wall to slip past the elite demons in the gorge. A Shifty Merchant asks for it later, and this saves the trip back.
+  tip The Suffering and Anguished Highborne around Lake Kel'Theril are level 54-56 and not elite. Ectoplasm only drops from a ghost that dies inside the distiller's glow, and the distiller lasts only a few minutes. Vi'el, an imp, sells the Fel Elemental Rod (40 gold) in the cave at the mouth of Darkwhisper Gorge in the far south, where elite demons patrol the gorge, and a Shifty Merchant asks for the rod later.
   level 59
   use 21946 quest 8924.2 @52.9,42.8 map 1452
   collect 21936 quest 8924.2
@@ -116,7 +116,7 @@ step Frozen Ectoplasm and the Fel Elemental Rod
 
 step Stable Ectoplasm
   zone Eastern Plaguelands
-  tip The ghosts and banshees of the Eastern Plaguelands (Unseen Servants, Eyeless Watchers, Death Singers, Hate Shriekers; level 55-59, not elite) drop it; Northdale in the north-east is a good spot. The shriekers fear: fight close to the distiller. Place the Ectoplasmic Distiller among the ghosts, pull them into its glow and kill them there, standing in it yourself: ectoplasm only drops from a ghost that dies inside the glow. It lasts a few minutes, then place it again.
+  tip Ghosts and banshees here drop it (Unseen Servants, Eyeless Watchers, Death Singers, Hate Shriekers; level 55-59, not elite), and Northdale in the north-east is a good spot. Ectoplasm only drops from a ghost that dies inside the distiller's glow, which lasts a few minutes, and the shriekers fear.
   level 59
   use 21946 quest 8924.3 @45.5,46.7 map 1423 live
   collect 21935 quest 8924.3
@@ -171,7 +171,7 @@ step Mokvar: Just Compensation
 
 step Anthion Harmon
   zone Eastern Plaguelands
-  tip Anthion's ghost waits on the bridge before Stratholme's main gate, at the north end of the Eastern Plaguelands. Use the Extra-Dimensional Ghost Revealer there to see him.
+  tip Anthion's ghost is on the bridge before Stratholme's main gate, at the north end of the Eastern Plaguelands. He can only be seen with the Extra-Dimensional Ghost Revealer.
   use 22115 @26.1,11.3 map 1423 live
   turnin 8929 only Alliance
   turnin 8930 only Horde
@@ -263,7 +263,7 @@ step The Instigator's Enchantment
 step The Challenge
   when group 9015
   zone Feralas
-  tip Falrin finishes the Banner of Provocation, for the Ring of Law in Blackrock Depths.
+  tip Falrin finishes the Banner of Provocation, which is for the Ring of Law in Blackrock Depths.
   level 59
   accept 9015 @59.2,45.1 live
 
@@ -310,7 +310,7 @@ step Mokvar: Bodley's Unfortunate Fate
 step Bodley
   when group 9015
   zone Burning Steppes
-  tip Bodley's ghost stands on the ledge before the Blackrock Spire portal, high inside Blackrock Mountain: use the Ghost Revealer there. Three Kings of Flame wants the Incendicite of Incendius (Lord Incendius in Blackrock Depths), the Ember of Emberseer (Pyroguard Emberseer in Upper Blackrock Spire), the Cinder of Cynders (the Duke of Cynders in Silithus) and a Hallowed Brazier from the Argent Dawn.
+  tip Bodley's ghost stands on the ledge before the Blackrock Spire portal, high inside Blackrock Mountain. Three Kings of Flame needs the Incendicite of Incendius (Lord Incendius, Blackrock Depths), the Ember of Emberseer (Pyroguard Emberseer, Upper Blackrock Spire), the Cinder of Cynders (Duke of Cynders, Silithus) and a Hallowed Brazier from the Argent Dawn.
   use 22115 @32.2,25.8 map 1428
   turnin 8960 only Alliance
   turnin 9032 only Horde
@@ -325,7 +325,7 @@ step Honored with the Argent Dawn
   when onquest 8961
   when !rep "Argent Dawn" Honored
   zone Eastern Plaguelands
-  tip The Hallowed Brazier is sold only to Honored. Take the Argent Dawn Commission (Argent Officer Pureheart at Chillwind Camp, Argent Officer Garush at the Bulwark, or Duke Nicholas Zverenhoff at Light's Hope Chapel) and wear it: Scourgestones then drop from the Scourge, and the Argent officers take them back for reputation. Every Scourge kill in the Plaguelands counts, Stratholme's and Scholomance's undead give 5 each up to Honored, and Light's Hope Chapel's dungeon quests give 100-200 each. Polestar's Argent Dawn Reputation guide (Reputation) walks it step by step.
+  tip The Hallowed Brazier is sold only at Honored. While the Argent Dawn Commission is worn, Scourge drop Scourgestones that Argent officers accept for reputation, and every Scourge kill in the Plaguelands counts toward it. Undead in Stratholme and Scholomance give 5 each up to Honored, and the dungeon quests at Light's Hope Chapel give 100-200 each.
   equip 12846 optional            -- Argent Dawn Commission, while you fight the Scourge
   rep 529 Honored
 

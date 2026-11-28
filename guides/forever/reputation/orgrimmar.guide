@@ -63,7 +63,7 @@ step Valley of Trials (optional hub)
 
 step Boars, weapons and peons
   when done valley
-  tip The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping Lazy Peon and use the Foreman's Blackjack on it.
+  tip The training weapons lie on the ground in the Den and among the boars to the north.
   kill 3098 x10 quest 788.1           -- Mottled Boar
   collect 277653 x6 quest 97279.1     -- Abandoned Training Weapon
   use 16114 quest 5441.1 @42.3,73.2 map 1411
@@ -380,7 +380,7 @@ step The Crossroads: hand in again
 
 step Prowlers, Serena and Echeyakee
   when done crossroads
-  tip Savannah Prowlers lie west and north of the Crossroads. Serena Bloodfeather leads the Witchwing harpies in the far north-west. Then Sergra gives you the Horn of Echeyakee: blow it beside the kodo bones at Echeyakee's Lair, north of the town, and kill the white lion.
+  tip Savannah Prowlers roam west and north of the Crossroads, and Serena Bloodfeather leads the Witchwing harpies in the far north-west. Echeyakee, a white lion, appears at the kodo bones of Echeyakee's Lair, north of the town.
   level 19
   collect 5096 x7 quest 903.1         -- Prowler Claws
   collect 5067 quest 876.1            -- Serena's Head

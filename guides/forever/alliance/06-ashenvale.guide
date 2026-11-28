@@ -266,8 +266,7 @@ step Gleaming Crescent Pendant
 
 step Mystral Lake
   zone Ashenvale
-  tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake. Befouled Water Elementals (23-25) wade in the lake.
-  tip Careful: Tideress, a level 27 water elemental, walks the lake's west shore among them: leave it be.
+  tip Sentinel Velene Starstrike is at the Silverwind Refuge on the east shore of Mystral Lake, where Befouled Water Elementals (23-25) wade. Tideress, a level 27 water elemental, walks the west shore among them.
   accept 1016                             -- Sentinel Velene Starstrike
   collect 12220 x5 optional           -- Underwater
   use 5456 quest 1016.1 @49.6,71.3

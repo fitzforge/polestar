@@ -55,9 +55,7 @@ step Grazle
 # ---------------------------------------------------------------- The south
 
 step Jadefire Glen
-  tip The Jadefire satyrs hold the glen west of the road, with Xavathras at its back.
-  tip Careful: Jadefire Shadowstalkers (level 51-52) use Sneak and Slowing Poison and are stealthed, so they often join fights uninvited.
-  tip Cursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains.
+  tip The Jadefire satyrs hold the glen west of the road, with Xavathras at its back, and Cursed Oozes roam its streams. Jadefire Shadowstalkers (level 51-52) are stealthed and use Sneak and Slowing Poison, so they often join fights uninvited.
   kill 7109 quest 4421.1              -- Jadefire Felsworn
   use 11912 @40.4,72.5 map 1448
   use 11914 quest 4512.1 @40.4,72.5 map 1448
@@ -70,9 +68,7 @@ step Ruins of Constellas
   kill 9454 quest 4421.4              -- Xavathras
 
 step Jaedenar
-  tip Jaedenar is the ruined temple north of the glen.
-  tip Careful: the Spirit of Trey Lightforge (53, elite) haunts the west end of Jaedenar, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him.
-  tip Tainted Oozes slide about Jaedenar's fel pools: kill them and use the Empty Tainted Ooze Jar on their remains.
+  tip Jaedenar is the ruined temple north of the glen, and Tainted Oozes slide around its fel pools. Careful: the Spirit of Trey Lightforge (53, elite) haunts the west end around 35,60.
   kill 7125 quest 5155.1 @38.7,61.9   -- Jaedenar Hound
   kill 7113 quest 5155.2 @38.5,61.1   -- Jaedenar Guardian
   kill 7115 quest 5155.3 @38.2,61.5   -- Jaedenar Adept

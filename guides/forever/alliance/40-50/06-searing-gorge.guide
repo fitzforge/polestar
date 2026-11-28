@@ -223,7 +223,7 @@ step Velarok Windblade
 
 step Sentry Braziers
   when onquest 3463
-  tip Carry the Torch of Retribution south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east.
+  tip The four Sentry Braziers sit along the rim of the Cauldron, from the south-west round to the south-east.
   use 10515 quest 3463.4 @33.3,54.5 map 1427
   interact 149032 quest 3463.4 @33.3,54.5 map 1427
   use 10515 quest 3463.1 @35.7,60.7 map 1427

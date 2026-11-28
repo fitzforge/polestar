@@ -135,8 +135,7 @@ step Grunt Logmar
 
 step Field of Giants
   zone The Barrens
-  tip South of Camp Taurajo, on the road to Gann, the Silithid Mounds dot the Field of Giants; the eggs lie in them, and Silithid Swarmers come out to defend them.
-  tip Careful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit.
+  tip The Silithid Mounds holding the eggs are in the Field of Giants, south of Camp Taurajo on the road to Gann. Silithid Swarmers defend them and release many tiny adds that interrupt spells, and damage shields such as Thorns kill those adds in one hit.
   use 5059 quest 868.1 @44.9,69.4 map 1413
   collect 5058 quest 868.1
 
@@ -359,7 +358,7 @@ step Sun Rock Retreat
 
 step The Charred Vale: kill these as you meet them
   zone Stonetalon Mountains
-  tip South-west of Sun Rock lies the burned Charred Vale. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop Incendrites. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: the Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches here are level 27 and the valley floor is crowded: pull one at a time and keep to its edges.
+  tip The Charred Vale is south-west of Sun Rock, and its fire elementals drop Incendrites. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches are level 27, and the valley floor is crowded.
   collect 16312 quest 6393
   collect 277936 quest 86576.1        -- Glittering Sunstone, from any Bloodfury harpy
   kill 4022 quest 6282.1
@@ -391,7 +390,7 @@ step Gerenzo Wrenchwhistle
 step The Flying Machine Airport
   zone Stonetalon Mountains
   when onquest 1086
-  tip The Venture Co. Copter Pad is the platform just south-east of Gerenzo's tower: place Zamah's Toxic Fogger on it. Zamah takes it back on the next guide's Thunder Bluff stop.
+  tip The Venture Co. Copter Pad is the platform just south-east of Gerenzo's tower. Zamah takes the fogger back at the next guide's Thunder Bluff stop.
   use 5638 quest 1086.1 @66.4,45.5
   complete 1086 @66.44,45.46          -- Place the Toxic Fogger on the Venture Co. Copter Pad
 

@@ -131,8 +131,7 @@ step Northdale
 # ---------------------------------------------------------------- Corin's Crossing and back west
 
 step Corin's Crossing
-  tip Living Rot spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the Mortar and Pestle at once.
-  tip With Defenders of Darrowshire in your log (from Carlin at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the Living Rot.
+  tip Corin's Crossing is south, on the road, and Living Rot spoils within ten minutes. Unseen Servants call for help within 25 yd at 40% health and turn invisible out of combat, so a call inside the town can pull many mobs, less so on the outskirts; with Defenders of Darrowshire in the log, Scourge here leave Darrowshire Spirits.
   goto 52.3,58.2 "Corin's Crossing" live
   talk 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
   kill 8530 optional                  -- Cannibal Ghoul: a Darrowshire Spirit rises where one dies

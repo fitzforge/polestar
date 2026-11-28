@@ -874,7 +874,7 @@ step The Deeprun Tram
 
 step Tram to Stormwind
   zone Ironforge
-  tip On the Ironforge platform of the Deeprun Tram, Monty asks for help with the rats: use his Rat Catcher's Flute on the Deeprun Rats around the platform, hand them in, then take his letter to his brother Nipsy at the Stormwind end. The tram has no map inside. The city markers show the entrances, not the two brothers.
+  tip Monty is on the Ironforge platform of the Deeprun Tram, and his brother Nipsy is at the Stormwind end. The tram has no map inside, so the city markers show the entrances, not the brothers.
   enter "Deeprun Tram" @78.0,51.4 map 1455
   accept 6661 @78.0,51.4                      -- Monty, on the Ironforge platform
   use 17117 quest 6661.1 @78.0,51.4 map 1455

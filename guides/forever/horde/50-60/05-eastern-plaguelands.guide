@@ -160,7 +160,7 @@ step Pamela Redpath
   accept 5149
 
 step Pamela's Doll
-  tip The doll's head and its two sides lie in the houses around Pamela; join them from your bags.
+  tip The doll's head and its two sides are in the houses around Pamela.
   collect 12886                       -- Inside
   collect 12887
   collect 12888                       -- Inside
@@ -326,9 +326,7 @@ step Egan
 
 step Terrordale: kill these as you meet them
   zone Eastern Plaguelands
-  tip The book lies in the ruined inn of Terrordale; the undead in the town are 54-56, so pull them one at a time.
-  tip The Large Termite Mounds stand all over the hills east of Terrordale. Use the Empty Termite Jar on each mound you pass.
-  tip Careful: Ziggurat Protectors (58, elite) stand by the ziggurats east and north-east of the town: take the mounds nearer the town and stay clear of them.
+  tip The book lies in the ruined inn of Terrordale, and the undead in town are level 54-56. Large Termite Mounds stand all over the hills east of Terrordale, but elite level 58 Ziggurat Protectors guard the ziggurats east and north-east of town.
   collect 15884 quest 6164 @17.4,31.1 -- Upstairs
   use 15042 quest 5901.1 @15.9,26.8 map 1423 live
   collect 15043 quest 5901
@@ -355,9 +353,7 @@ step Eastern Plaguelands: kill these as you meet them
 # ---------------------------------------------------------------- Corin's Crossing and back west
 
 step Corin's Crossing
-  tip Ride south to Corin's Crossing, on the road. Living Rot spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the Mortar and Pestle at once.
-  tip Careful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with Greater Invisibility. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.
-  tip With Defenders of Darrowshire in your log (from Carlin at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the Living Rot.
+  tip Corin's Crossing is south, on the road, and Living Rot spoils within ten minutes. Unseen Servants call for help within 25 yd at 40% health and turn invisible out of combat, so a call inside the town can pull many mobs, less so on the outskirts; with Defenders of Darrowshire in the log, Scourge here leave Darrowshire Spirits.
   goto 52.3,58.2 "Corin's Crossing" live
   talk 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
   kill 8530 optional                  -- Cannibal Ghoul: a Darrowshire Spirit rises where one dies
@@ -556,7 +552,7 @@ step The Emerald Sanctuary
   accept 5165
 
 step Dousing the Flames of Protection
-  tip Ride north-west to Jaedenar and go down into Shadow Hold, the cave in its north: the four braziers stand inside. Use Greta's Purified Moonwell Water from your bags on each one. Careful: Shadow Council mobs of level 53-55 fill the cave and often come in linked groups, many with stuns: pull them one group at a time.
+  tip The four braziers are inside Shadow Hold, the cave in the north of Jaedenar. The cave is full of level 53-55 Shadow Council mobs, often in linked groups, and many of them can stun.
   use 12906 quest 5165.2 @37.7,52.7 map 1448
   interact 176159 quest 5165.2        -- Below ground
   use 12906 quest 5165.3 @36.7,53.3 map 1448
