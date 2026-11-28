@@ -11571,7 +11571,8 @@ was already built without it.
   repFaction, repStanding, reqSkill, reqSkillRank, status, sources }`; a source
   is `{ type: vendor|drop|object|quest|craft|rep|pvp|
   container|world, from, ... }`), `npcs.json`, `objects.json`, `quests.json`
-  (with `pre` = every blocking prerequisite, `preAny`, rewards from recordings,
+  (with `pre` = every blocking prerequisite, `preAny` (both keep a prerequisite no NPC gives, one that starts
+  inside a dungeon: Somber News before Shaw Needs To Know, #4492), rewards from recordings,
   the curated tables and the web quest lists, `xp` = the full XP reward from `data/forever/quests.json`
   where known (what a guide or dungeon is worth in levels: Core/Levels.lua),
   `skill`/`skillLevel` = the profession the quest needs and its rank (#1913;
