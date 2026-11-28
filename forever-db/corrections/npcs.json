@@ -750,6 +750,26 @@
 		},
 		"note": "Ayessa Dawnsinger is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
 	},
+	"251997": {
+		"set": {
+			"faction": "A"
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature_template faction 3562, the faction of the City of Dalaran's people: 28 of them (Dominique Stefano, Charles Worth, Harold Winston and others) are Alliance in the merged data"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-28: Norvin Alderman's merchant window opened by 7 people, all Alliance (Human, Gnome, Night Elf); no Horde character met him"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#4569 (Strider, 0.4.3.1): a Horde character can't get into Dalaran to buy Pattern: Azure Silk Cloak from him"
+			}
+		],
+		"note": "Norvin Alderman, the cloak vendor in the City of Dalaran, serves the Alliance like the city's other people. The merged data had no side for him, so the Tailoring guide offered him to the Horde for Pattern: Azure Silk Cloak (#4569)."
+	},
 	"252475": {
 		"set": {
 			"rank": 1
