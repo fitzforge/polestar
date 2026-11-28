@@ -381,7 +381,7 @@ return {
 	-- Step 66: Taming the Beast
 	-- {item:15908} Taming Rod · {area:131} Kharanos
 	-- plural, as words: Large Crag Boars = {npc:1126} Large Crag Boar · Snow Leopards = {npc:1201} Snow Leopard · Ice Claw Bears = {npc:1196} Ice Claw Bear
-	["Each of Grif Wildheart's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "Cada misión de Grif Corazón Salvaje te da una {item:15908}: úsala en la bestia que indica y luego llévale la fusta a la herrería de {area:131}. Los Grandes jabalíes del risco, los Leopardos de la nieve y los Osos zarpahelada recorren los campos justo al sur y al este de {area:131}.",
+	["Each of Grif Wildheart's quests comes with a {item:15908} for the beast he names, and the rod goes back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "",
 	-- {npc:1231} Grif Wildheart
 	["{npc:1231}, at the smithy"] = "{npc:1231}, en la herrería",
 	-- {npc:1126} Large Crag Boar · {item:15908} Taming Rod
@@ -716,6 +716,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back through the tunnel to {npc:257597}' cave above the farm."] = "Vuelve por el túnel a la cueva de {npc:257597} sobre la granja.",
 	-- ["Defensive Stance"] = "Actitud defensiva",
+	-- ["Each of Grif Wildheart's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "Cada misión de Grif Corazón Salvaje te da una {item:15908}: úsala en la bestia que indica y luego llévale la fusta a la herrería de {area:131}. Los Grandes jabalíes del risco, los Leopardos de la nieve y los Osos zarpahelada recorren los campos justo al sur y al este de {area:131}.",
 	-- ["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "Sigue el camino hasta el final hacia el este hasta {area:806}, en el túnel de {area:38}.",
 	-- ["Follow the road up to {zone:1455} and train with your class trainer. The {area:2257} leaves from {object:171524}, in the east of the city. Ride it to {zone:1453}."] = "Sigue el camino hasta {zone:1455} y entrena con tu instructor de clase. El {area:2257} sale de {object:171524}, en el este de la ciudad. Tómalo hasta {zone:1453}.",
 	-- ["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Sal de {zone:1453} por la puerta principal, ve al sur hasta {area:87} y al este por el camino hasta {area:62}. {npc:881} (nivel 9) está junto a su granja.",

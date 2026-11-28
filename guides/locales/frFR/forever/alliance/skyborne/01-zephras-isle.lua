@@ -26,7 +26,7 @@ return {
 
 	-- Step 4: Rorian the Dayseeker
 	-- {spell:1259416} Walk on Air · {npc:251361} Rorian the Dayseeker
-	["Jump off the top of the watchtower and use {spell:1259416} to float down to {npc:251361}, west of the tower."] = "Sautez du haut de la tour de guet et utilisez {spell:1259416} pour descendre en planant jusqu'à {npc:251361}, à l'ouest de la tour.",
+	["{spell:1259416} floats down from the top of the watchtower to {npc:251361}, west of the tower."] = "",
 	-- {npc:251361} Rorian the Dayseeker · {item:4100} Crumpled Note
 	["{npc:251361}: the {item:4100}"] = "{npc:251361} : {item:4100}",
 	-- {npc:251361} Rorian the Dayseeker
@@ -575,6 +575,7 @@ return {
 	-- ["Head north-west to the hippogryph nests on the western cliffs. {item:263493} lies around the nests; the Matriarch patrols among them."] = "Allez au nord-ouest jusqu'aux nids d'hippogriffes sur les falaises ouest. {item:263493} se trouve autour des nids ; la Matriarche hippogriffe patrouille parmi eux.",
 	-- ["Heal 7 druids in the Nightfang Den, then find {npc:258130}"] = "Soigner 7 druides dans la tanière, puis trouver {npc:258130}",
 	-- ["Hearth to {area:16638}"] = "Pierre de foyer vers {area:16638}",
+	-- ["Jump off the top of the watchtower and use {spell:1259416} to float down to {npc:251361}, west of the tower."] = "Sautez du haut de la tour de guet et utilisez {spell:1259416} pour descendre en planant jusqu'à {npc:251361}, à l'ouest de la tour.",
 	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {area:40}: fill {item:7207} at its base."] = "Sortez de {zone:1453} par la porte principale. La cascade du {quest:1861} se trouve au sud-ouest des portes, sur le chemin vers l'ouest et la {area:40} : remplissez la {item:7207} à son pied.",
 	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Quittez {zone:1453} par la porte principale. La cascade du {quest:1861} se trouve au sud-ouest des portes, sur le chemin de la {zone:1436} à l'ouest : remplissez la {item:7207} à son pied.",
 	-- ["Level 6 spells"] = "Sorts de niveau 6",

@@ -53,7 +53,7 @@ return {
 
 	-- Step 9: Astor Hadren
 	-- {npc:6497} Astor Hadren · {area:228} Sepulcher · {zone:1458} Undercity
-	["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark. Talk to him and pick both of his answers: he turns hostile. Kill him for the letter (it always drops). Fight him away from guards, who can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "{npc:6497} (niveau 13) arpente la route entre le {area:228} et {zone:1458}, au nord du {area:228}. Il ressemble à un voyageur amical sans marque de quête. Parlez-lui et choisissez ses deux réponses : il devient hostile. Tuez-le pour la lettre (elle tombe toujours). Combattez-le loin des gardes, qui peuvent le tuer à votre place et ne rien laisser à fouiller ; un seul voleur par victoire obtient la lettre. Il revient 5 minutes après sa mort.",
+	["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark, and both of his answers turn him hostile. His letter always drops, but guards nearby can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "",
 
 	-- Step 10: Back to Mennet Carkad
 	-- {npc:6467} Mennet Carkad
@@ -79,6 +79,7 @@ return {
 	-- ["{npc:6466} drinks in the inn in the {object:172982}. Pick his pocket for {item:7208}, then open {item:7209}."] = "{npc:6466} boit à l'auberge de la {object:172982}. Faites-lui les poches pour obtenir la {item:7208}, puis ouvrez la {item:7209}.",
 	-- ["{npc:6467} sends the ledger on to {npc:2425} in the Hall of the Dark Lady, the {object:36126}."] = "{npc:6467} transmet le registre à {npc:2425}, dans la salle de la Dame noire, le {object:36126}.",
 	-- ["{npc:6494} stands on the {zone:1413} coast south of {area:392}. Kill him for his satchel."] = "{npc:6494} se tient sur la côte des {zone:1413} au sud de {area:392}. Tuez-le pour prendre sa sacoche.",
+	-- ["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark. Talk to him and pick both of his answers: he turns hostile. Kill him for the letter (it always drops). Fight him away from guards, who can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "{npc:6497} (niveau 13) arpente la route entre le {area:228} et {zone:1458}, au nord du {area:228}. Il ressemble à un voyageur amical sans marque de quête. Parlez-lui et choisissez ses deux réponses : il devient hostile. Tuez-le pour la lettre (elle tombe toujours). Combattez-le loin des gardes, qui peuvent le tuer à votre place et ne rien laisser à fouiller ; un seul voleur par victoire obtient la lettre. Il revient 5 minutes après sa mort.",
 	-- ["{npc:6497} stands north-east of the {area:228}. Take his Letter of Introduction from him."] = "{npc:6497} se tient au nord-est du {area:228}. Prenez-lui sa lettre d'introduction.",
 	-- ["{npc:6522}'s ledger sits on the bookshelf beside him."] = "Le registre de {npc:6522} se trouve sur l'étagère à côté de lui.",
 }

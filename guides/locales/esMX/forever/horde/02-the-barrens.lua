@@ -76,7 +76,7 @@ return {
 
 	-- Step 15: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
-	["Back east over the bridge and up the trail to {npc:5900}'s shrine again. {npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "De vuelta al este por el puente y sube por el sendero hasta el santuario de {npc:5900} otra vez. {npc:5900} hace {item:6636} con el alquitrán y la bolsa. Úsalo junto al brasero a su lado para revelar a {npc:5893}, mátala para obtener {item:6655} y luego coloca la brasa en el brasero.",
+	["{npc:5900}'s shrine is back east over the bridge and up the trail, and he makes {item:6636} from the tar and pouch. The Sapta shows the {npc:5893} by the brazier next to him, and its {item:6655} goes into the brazier."] = "",
 
 	-- Step 17: Kranal Fiss
 	-- {npc:5907} Kranal Fiss · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
@@ -735,6 +735,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end."] = "De vuelta playa abajo, pasando el campamento pirata: la caja de botas y la caja frágil con la lente están en su extremo sur.",
+	-- ["Back east over the bridge and up the trail to {npc:5900}'s shrine again. {npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "De vuelta al este por el puente y sube por el sendero hasta el santuario de {npc:5900} otra vez. {npc:5900} hace {item:6636} con el alquitrán y la bolsa. Úsalo junto al brasero a su lado para revelar a {npc:5893}, mátala para obtener {item:6655} y luego coloca la brasa en el brasero.",
 	-- ["Back north into {area:378} before the antennae fade: {npc:6394} is inside."] = "Regresa al norte a {area:378} antes de que se desvanezcan las antenas: {npc:6394} está adentro.",
 	-- ["Back north into {area:378} on the way to the Crossroads: {npc:3387} takes the thunderhawk wings."] = "Regresa al norte a {area:378} de camino al Cruce: {npc:3387} recibe las alas de halcón trueno.",
 	-- ["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them."] = "De vuelta al campamento Crines de Acero. Las geománticas y los defensores ocupan su mitad este; {npc:3438} camina entre ellos.",

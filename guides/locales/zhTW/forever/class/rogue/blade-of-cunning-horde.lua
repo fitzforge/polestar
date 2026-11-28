@@ -53,7 +53,7 @@ return {
 
 	-- Step 9: Astor Hadren
 	-- {npc:6497} Astor Hadren · {area:228} Sepulcher · {zone:1458} Undercity
-	["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark. Talk to him and pick both of his answers: he turns hostile. Kill him for the letter (it always drops). Fight him away from guards, who can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "{npc:6497}（13級）在{area:228}與{zone:1458}之間的大路上來回走，位於{area:228}以北。他看上去像個友善的旅人，頭上沒有任務標記。與他交談，兩個回答選項都點一遍：他就會轉為敵對。殺掉他拿信件（必掉）。打他時離守衛遠一點，守衛可能搶走擊殺而且不掉落；每次擊殺只有一名盜賊能拿到信。他死後5分鐘重新出現。",
+	["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark, and both of his answers turn him hostile. His letter always drops, but guards nearby can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "",
 
 	-- Step 10: Back to Mennet Carkad
 	-- {npc:6467} Mennet Carkad
@@ -77,6 +77,7 @@ return {
 	-- ["{npc:6466} drinks in the inn in the {object:172982}. Pick his pocket for {item:7208}, then open {item:7209}."] = "{npc:6466}在{object:172982}的旅店裡喝酒。對他偷竊取得{item:7208}，然後打開{item:7209}。",
 	-- ["{npc:6467} sends the ledger on to {npc:2425} in the Hall of the Dark Lady, the {object:36126}."] = "{npc:6467}會把帳本轉交給黑暗女王大廳{object:36126}的{npc:2425}。",
 	-- ["{npc:6494} stands on the {zone:1413} coast south of {area:392}. Kill him for his satchel."] = "{npc:6494}站在{area:392}南邊的{zone:1413}海岸上。擊殺他取得他的背包。",
+	-- ["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark. Talk to him and pick both of his answers: he turns hostile. Kill him for the letter (it always drops). Fight him away from guards, who can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "{npc:6497}（13級）在{area:228}與{zone:1458}之間的大路上來回走，位於{area:228}以北。他看上去像個友善的旅人，頭上沒有任務標記。與他交談，兩個回答選項都點一遍：他就會轉為敵對。殺掉他拿信件（必掉）。打他時離守衛遠一點，守衛可能搶走擊殺而且不掉落；每次擊殺只有一名盜賊能拿到信。他死後5分鐘重新出現。",
 	-- ["{npc:6497} stands north-east of the {area:228}. Take his Letter of Introduction from him."] = "{npc:6497}站在{area:228}東北方。向他取得阿斯托的介紹信。",
 	-- ["{npc:6522}'s ledger sits on the bookshelf beside him."] = "{npc:6522}的帳本放在他旁邊的書架上。",
 }

@@ -28,7 +28,7 @@ return {
 
 	-- Step 4: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir · {area:976} Gadgetzan
-	["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "{npc:9299} vous a déjà rencontré : buvez {item:11243} au cimetière juste à l'est de {area:976} et trouvez-le, en fantôme, dans la crevasse rocheuse plein nord.",
+	["{npc:9299} has already met you. He is seen only as a ghost, after the {item:11243}, in the rocky crevice due north of the graveyard just east of {area:976}."] = "",
 
 	-- Step 5: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
@@ -151,7 +151,7 @@ return {
 
 	-- Step 30: Sandy Cookbook
 	-- {object:180503} Sandy Cookbook · {npc:15174} Calandrath
-	["The {object:180503} lies in the outpost: read it and take its torn page back to {npc:15174}."] = "",
+	["The {object:180503} lies in the outpost, and its torn page goes back to {npc:15174}."] = "",
 
 	-- Step 31: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
@@ -398,6 +398,7 @@ return {
 	-- ["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565} se promène autour de {area:2276} : cherchez dans le cercle sur la carte",
 	-- ["{npc:9117} is inside the cave."] = "{npc:9117} est dans la grotte.",
 	-- ["{npc:9167} walks around here: look inside the circle on the map"] = "{npc:9167} se promène par ici : cherchez dans le cercle sur la carte",
+	-- ["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "{npc:9299} vous a déjà rencontré : buvez {item:11243} au cimetière juste à l'est de {area:976} et trouvez-le, en fantôme, dans la crevasse rocheuse plein nord.",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "{npc:9619} demande maintenant la peau d'{npc:9622}, dans la grotte du nord-est : passez-la.",
 	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "Le repaire de {npc:9684} est juste au sud du pylône. Utilisez-y l'appât de {npc:9619} ; {npc:9684} est de niveau 56 et frappe fort, commencez donc avec toute votre vie.",
 	-- ["{quest:105}'s shard lies at {npc:1852}'s feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group."] = "Le fragment de {quest:105} gît aux pieds de {npc:1852}, au milieu d'Andorhal : c'est un élite de niveau 61 entouré de Seigneurs de guerre squelettes élites, un combat de groupe.",

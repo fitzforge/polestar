@@ -477,19 +477,22 @@ return {
 	["Back to {zone:1429}"] = "",
 
 	-- Step 95: Taming the Beast
-	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:15908} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
+	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:266158} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar · Young Forest Bears = {npc:822} Young Forest Bear
-	["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507}은(는) {area:87} 상급자들과 함께 있습니다. 퀘스트마다 {item:15908}을(를) 주니, 지정한 야수에게 사용한 뒤 막대를 그녀에게 가져가십시오. 돌가죽멧돼지와 새끼곰은 {area:64} 남쪽 언덕에, 회색 숲늑대는 {area:18} 동쪽 숲에 있습니다.",
-	-- {npc:524} Rockhide Boar · {item:15908} Taming Rod
-	["{npc:524}: tame it with the {item:15908}"] = "{npc:524}: {item:15908}(으)로 길들이기",
+	["{npc:251507} stands with the {area:87} trainers. Each of her quests comes with a {item:266158} for the beast she names, and the rod goes back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "",
+	-- {npc:524} Rockhide Boar · {item:266158} Taming Rod
+	-- was: ["{npc:524}: tame it with the {item:15908}"] = "{npc:524}: {item:15908}(으)로 길들이기"
+	["{npc:524}: tame it with the {item:266158}"] = "",
 	-- {npc:524} Rockhide Boar
 	["Tame {npc:524}"] = "{npc:524} 길들이기",
-	-- {npc:1922} Gray Forest Wolf · {item:15908} Taming Rod
-	["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}: {item:15908}(으)로 길들이기",
+	-- {npc:1922} Gray Forest Wolf · {item:266158} Taming Rod
+	-- was: ["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}: {item:15908}(으)로 길들이기"
+	["{npc:1922}: tame it with the {item:266158}"] = "",
 	-- {npc:1922} Gray Forest Wolf
 	["Tame {npc:1922}"] = "{npc:1922} 길들이기",
-	-- {npc:822} Young Forest Bear · {item:15908} Taming Rod
-	["{npc:822}: tame it with the {item:15908}"] = "{npc:822}: {item:15908}(으)로 길들이기",
+	-- {npc:822} Young Forest Bear · {item:266158} Taming Rod
+	-- was: ["{npc:822}: tame it with the {item:15908}"] = "{npc:822}: {item:15908}(으)로 길들이기"
+	["{npc:822}: tame it with the {item:266158}"] = "",
 	-- {npc:822} Young Forest Bear
 	["Tame {npc:822}"] = "{npc:822} 길들이기",
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
@@ -581,9 +584,11 @@ return {
 	-- ["{npc:1430} cooks in the inn's kitchen."] = "{npc:1430}은(는) 여관 부엌에서 요리합니다.",
 	-- ["{npc:1632}: Camping 101, leatherworkers"] = "{npc:1632}: 야영 기초, 가죽세공",
 	-- ["{npc:1651}: Camping 101, fishers"] = "{npc:1651}: 야영 기초, 낚시",
+	-- ["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}: {item:15908}(으)로 길들이기",
 	-- ["{npc:2329}, in the inn: Camping 101, {skill:129}"] = "{npc:2329}, 여관 안: 야영 기초, {skill:129}",
 	-- ["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277}은(는) 멀록 해안 동쪽 {area:798}에서 경계를 서고 있습니다. 그다음 북서쪽으로 다리까지 돌아가십시오.",
 	-- ["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415}은(는) 대성당 뒤 마구간 옆에 있습니다.",
+	-- ["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507}은(는) {area:87} 상급자들과 함께 있습니다. 퀘스트마다 {item:15908}을(를) 주니, 지정한 야수에게 사용한 뒤 막대를 그녀에게 가져가십시오. 돌가죽멧돼지와 새끼곰은 {area:64} 남쪽 언덕에, 회색 숲늑대는 {area:18} 동쪽 숲에 있습니다.",
 	-- ["{npc:263399} camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, {skill:129} and blacksmithing in {area:87}."] = "{npc:263399}은(는) 여관 북동쪽에 야영하고 있습니다. 전문 기술을 배웠다면 해당 기술의 야영 기초 퀘스트도 주며, 이는 해당 기술 상급자가 받습니다. 무두질, 가죽세공, 낚시는 호숫가에서, {skill:129}와(과) 대장기술은 {area:87}에서 받습니다.",
 	-- ["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:1632}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town. With a profession learned, Sam also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing here on the shore, {skill:129} and blacksmithing in {area:87}."] = "{npc:263399}은(는) 여관 북동쪽에 야영하고 있으며, {npc:6306}, {npc:1632}, {npc:383}, {npc:1651}은(는) 마을 동쪽 {area:18} 호숫가에 있습니다. 전문 기술을 배웠다면 샘이 해당 기술의 야영 기초 퀘스트도 주며, 이는 해당 기술 상급자가 받습니다. 무두질, 가죽세공, 낚시는 이곳 호숫가에서, {skill:129}와(과) 대장기술은 {area:87}에서 받습니다.",
 	-- ["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:263399}은(는) 여관 북동쪽에 야영하고 있으며, {npc:6306}, {npc:383}, {npc:1651}은(는) 마을 동쪽 {area:18} 호숫가에 있습니다.",
@@ -595,8 +600,10 @@ return {
 	-- ["{npc:279} in {zone:1453} takes it (02-westfall)"] = "{zone:1453}의 {npc:279}이(가) 받습니다 (02-westfall)",
 	-- ["{npc:514}, at the smithy across the road: Camping 101, blacksmiths"] = "{npc:514}, 길 건너 대장간: 야영 기초, 대장기술",
 	-- ["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, 듀간 옆 대장간: {zone:1453}의 {npc:1416}이(가) 받습니다 (02-westfall)",
+	-- ["{npc:524}: tame it with the {item:15908}"] = "{npc:524}: {item:15908}(으)로 길들이기",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}: 구원",
 	-- ["{npc:6306}: Camping 101, skinners; inside"] = "{npc:6306}: 야영 기초, 무두질; 실내",
+	-- ["{npc:822}: tame it with the {item:15908}"] = "{npc:822}: {item:15908}(으)로 길들이기",
 	-- ["{npc:927}: {npc:6171} in {zone:1453} takes it"] = "{npc:927}: {zone:1453}의 {npc:6171}이(가) 받습니다",
 	-- ["{quest:87} is inside the {area:57}, not on the hill above it: go in at the mouth and keep left to the back of the mine floor; don't take the stairs up. Defias Bandits around the vineyards drop a {item:1972} now and then: right-click it."] = "{quest:87}은(는) 언덕 위가 아니라 {area:57} 안에 있습니다. 입구로 들어가 왼쪽을 따라 광산 바닥 안쪽까지 가십시오. 위층 계단은 오르지 마십시오. 포도밭 주변의 데피아즈단 좀도둑이 가끔 {item:1972}을(를) 떨어뜨리니 오른쪽 클릭하십시오.",
 }

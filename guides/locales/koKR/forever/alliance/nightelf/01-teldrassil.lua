@@ -30,16 +30,16 @@ return {
 	-- Step 4: Back at Aldrassil
 	-- {area:256} Aldrassil
 	["Back at {area:256}"] = "{area:256}(으)로 돌아가기",
-	-- {npc:3595} Shanda · {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light
-	["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "{npc:3595}의 퀘스트 {quest:97979}은(는) 나이트 엘프 종족 주문 두 개를 요구합니다: 주문책(P)을 열고 {spell:1259799}과(와) 그림자 숨기를 한 번씩 시전한 뒤 그녀에게 제출하십시오.",
+	-- {npc:3595} Shanda · {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {spell:20580} Shadowmeld
+	["{npc:3595}'s quest, {quest:97979}, asks for the two night elf racial spells, {spell:1259799} and {spell:20580}, once each; both are in the spellbook (P)."] = "",
 	-- {npc:2079} Conservator Ilthalaine · {npc:3596} Ayanna Everstride
 	["{npc:2079}: a sigil for {npc:3596}"] = "{npc:2079}: {npc:3596}에게 줄 문장",
 	-- {npc:2082} Gilshalan Windwalker
 	["{npc:2082}, on the tree's ramp"] = "나무 경사로의 {npc:2082}",
 	-- {npc:3595} Shanda
 	["{npc:3595}: in at the tree's front entrance and up the ramp; upstairs"] = "",
-	-- {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {npc:3595} Shanda
-	["{quest:97979}: cast {spell:1259799} and Shadowmeld, then hand it back to {npc:3595}"] = "{quest:97979}: {spell:1259799}와(과) 그림자 숨기를 시전한 뒤 {npc:3595}에게 완료하세요",
+	-- {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {spell:20580} Shadowmeld · {npc:3595} Shanda
+	["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979}: {spell:1259799}와(과) {spell:20580}을(를) 시전한 뒤 {npc:3595}에게 완료하세요",
 	-- {npc:8583} Dirania Silvershine
 	["{npc:8583}, east of the tree"] = "나무 동쪽의 {npc:8583}",
 
@@ -461,15 +461,18 @@ return {
 	["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "우르살의 굴에서 북동쪽으로 {area:186}에 돌아가세요. {npc:6094}은(는) 잎과 약병과 함께 {item:159}을(를) 받습니다. 마셔 버렸다면 제출하기 전에 이 여관의 {npc:6736}에게서 하나 더 사세요.",
 
 	-- Step 74: Taming the Beast
-	-- {item:15908} Taming Rod · {area:186} Dolanaar
+	-- {item:15921} Taming Rod · {area:186} Dolanaar
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker · Nightsaber Stalkers = {npc:2043} Nightsaber Stalker · Strigid Screechers = {npc:1996} Strigid Screecher
-	["Each of Dazalar's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "다잘라의 퀘스트마다 {item:15908}을(를) 줍니다. 그가 말한 야수에게 사용한 뒤 {area:186}의 그에게 막대를 가져가세요. 나무그물 늑대거미는 마을 주변을 기어 다니고, 긴발톱 흑호와 비명소리 스트리기드 올빼미는 마을 남쪽 숲을 돌아다닙니다.",
-	-- {npc:1998} Webwood Lurker · {item:15908} Taming Rod
-	["{npc:1998}: tame it with the {item:15908}"] = "{npc:1998}: {item:15908}(으)로 길들이세요",
-	-- {npc:2043} Nightsaber Stalker · {item:15908} Taming Rod
-	["{npc:2043}: tame it with the {item:15908}"] = "{npc:2043}: {item:15908}(으)로 길들이세요",
-	-- {npc:1996} Strigid Screecher · {item:15908} Taming Rod
-	["{npc:1996}: tame it with the {item:15908}"] = "{npc:1996}: {item:15908}(으)로 길들이세요",
+	["Each of Dazalar's quests comes with a {item:15921} for the beast he names, and the rod goes back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "",
+	-- {npc:1998} Webwood Lurker · {item:15921} Taming Rod
+	-- was: ["{npc:1998}: tame it with the {item:15908}"] = "{npc:1998}: {item:15908}(으)로 길들이세요"
+	["{npc:1998}: tame it with the {item:15921}"] = "",
+	-- {npc:2043} Nightsaber Stalker · {item:15921} Taming Rod
+	-- was: ["{npc:2043}: tame it with the {item:15908}"] = "{npc:2043}: {item:15908}(으)로 길들이세요"
+	["{npc:2043}: tame it with the {item:15921}"] = "",
+	-- {npc:1996} Strigid Screecher · {item:15921} Taming Rod
+	-- was: ["{npc:1996}: tame it with the {item:15908}"] = "{npc:1996}: {item:15908}(으)로 길들이세요"
+	["{npc:1996}: tame it with the {item:15921}"] = "",
 	-- {npc:4146} Jocaste · {zone:1457} Darnassus
 	["{npc:4146} in {zone:1457} takes it"] = "{zone:1457}의 {npc:4146}에게 가져가세요",
 
@@ -614,8 +617,8 @@ return {
 	-- Step 107: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "{object:177525}",
-	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
-	["Go back down to {area:702} and fly to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "{area:702}(으)로 다시 내려가 {area:442}(으)로 날아가세요. {object:177525}은(는) 마을 바로 동쪽 언덕에 있습니다. 그곳에서 {item:15208}을(를) 사용하고, 초승달발톱을 물리친 뒤 {npc:12144}와(과) 대화하세요.",
+	-- {object:177525} Moonkin Stone · {area:442} Auberdine · {item:15208} Cenarion Moondust
+	["The {object:177525} stands in the hills just east of {area:442}. The {item:15208} calls Lunaclaw there, and her spirit appears once she is defeated."] = "",
 
 	-- Step 108: Auberdine flight master
 	-- {area:442} Auberdine
@@ -633,12 +636,14 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to {zone:1453}"] = "배를 타고 {zone:1453}(으)로 가십시오",
+	-- ["Each of Dazalar's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "다잘라의 퀘스트마다 {item:15908}을(를) 줍니다. 그가 말한 야수에게 사용한 뒤 {area:186}의 그에게 막대를 가져가세요. 나무그물 늑대거미는 마을 주변을 기어 다니고, 긴발톱 흑호와 비명소리 스트리기드 올빼미는 마을 남쪽 숲을 돌아다닙니다.",
 	-- ["Each of {npc:3601}'s quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "{npc:3601}의 퀘스트마다 {item:15908}을(를) 줍니다. 그가 말한 야수에게 사용한 뒤 {area:186}의 그에게 막대를 가져가세요. 나무그물 늑대거미는 마을 주변을 기어 다니고, 긴발톱 흑호와 {npc:1996}은(는) 마을 남쪽 숲을 돌아다닙니다.",
 	-- ["East to {area:260}"] = "동쪽 {area:260}(으)로",
 	-- ["Follow the road south-west out of {area:188} to {area:186}."] = "{area:188}에서 남서쪽 길을 따라 {area:186}(으)로 가세요.",
 	-- ["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "길을 따라 서쪽 {zone:1457}(으)로 가서, 마지막 올빼미 둘을 위해 {area:1659}의 여관과 {area:3425} 아래 굴 입구에서 {item:279378}을(를) 사용하세요. {npc:4241}은(는) 도시 입구 바로 안쪽 {area:1659}에 있습니다. {npc:3516}은(는) 도시 북쪽 끝 {area:1658}에, {quest:922}은(는) 그 바로 남쪽에 있으며, {npc:4092}, {npc:7999}, {npc:7313}, {npc:8396}은(는) 남쪽 끝 달의 신전에 있습니다.",
 	-- ["From the harbour walk into {object:2100}. {npc:5480} trains warriors there; {npc:6089} and {npc:6090} stand together by the {object:2152}. {npc:6090} fights you for his mug."] = "항구에서 {object:2100}(으)로 걸어가세요. {npc:5480}이(가) 그곳에서 전사를 가르칩니다. {npc:6089}와(과) {npc:6090}은(는) {object:2152} 옆에 함께 서 있습니다. {npc:6090}은(는) 자기 머그잔을 걸고 당신과 싸웁니다.",
 	-- ["From {area:17203}, ride through the city gates into {zone:1429} and follow the road west to {zone:1436}."] = "{area:17203}에서 도시 성문을 지나 {zone:1429}(으)로 간 뒤 서쪽 길을 따라 {zone:1436}(으)로 가세요.",
+	-- ["Go back down to {area:702} and fly to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "{area:702}(으)로 다시 내려가 {area:442}(으)로 날아가세요. {object:177525}은(는) 마을 바로 동쪽 언덕에 있습니다. 그곳에서 {item:15208}을(를) 사용하고, 초승달발톱을 물리친 뒤 {npc:12144}와(과) 대화하세요.",
 	-- ["Hearth to {area:186}"] = "귀환석으로 {area:186}에 가기",
 	-- ["Learn the {area:442} flight path on the hill south of the inn, then cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path in {area:2361} and fly to {area:702} (by way of {area:442})."] = "여관 남쪽 언덕에서 {area:442} 비행 경로를 배운 뒤 {spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있고, {quest:5929}은(는) 북서쪽 숲에 있습니다. {area:2361}에서 {area:493} 비행 경로를 배우고 ({area:442}을(를) 거쳐) {area:702}(으)로 날아가세요.",
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of {area:260}."] = "흑호, 스트리기드 올빼미, 나무그물 늑대거미가 동쪽 길을 따라 삽니다. 달샘은 {area:260} 서쪽 끝에 있습니다.",
@@ -663,6 +668,9 @@ return {
 	-- ["Young Nightsabers and Young Thistle Boars roam around {area:256}. Grells carry {item:3297} in the woods west of the tree, where the Gnarlpine Totems stand."] = "새끼 흑호와 새끼 엉겅퀴멧돼지가 {area:256} 주변을 돌아다닙니다. 나무 서쪽 숲의 그렐이 {item:3297}을(를) 지니고 있으며, 그곳에 나무옹이일족 토템이 서 있습니다.",
 	-- ["{area:186} quests"] = "{area:186} 퀘스트",
 	-- ["{npc:11401}, in the Temple of the Moon: {spell:10797}"] = "달의 신전의 {npc:11401}: {spell:10797}",
+	-- ["{npc:1996}: tame it with the {item:15908}"] = "{npc:1996}: {item:15908}(으)로 길들이세요",
+	-- ["{npc:1998}: tame it with the {item:15908}"] = "{npc:1998}: {item:15908}(으)로 길들이세요",
+	-- ["{npc:2043}: tame it with the {item:15908}"] = "{npc:2043}: {item:15908}(으)로 길들이세요",
 	-- ["{npc:2150}, on the way back"] = "돌아오는 길의 {npc:2150}",
 	-- ["{npc:265811}, alchemists: for {npc:3603}"] = "{npc:265811}, 연금술사: {npc:3603}에게",
 	-- ["{npc:265811}, herbalists: for {npc:3604}"] = "{npc:265811}, 약초채집가: {npc:3604}에게",
@@ -671,6 +679,7 @@ return {
 	-- ["{npc:265811}, {skill:129}: for {npc:6094}"] = "{npc:265811}, {skill:129}: {npc:6094}에게",
 	-- ["{npc:272034} and {npc:272044} fly just west of the moonwell, {npc:272046} further north."] = "{npc:272034}와(과) {npc:272044}은(는) 달샘 바로 서쪽에, {npc:272046}은(는) 더 북쪽에 날아다닙니다.",
 	-- ["{npc:3567}, back in {area:186}"] = "{area:186}(으)로 돌아가 {npc:3567}",
+	-- ["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "{npc:3595}의 퀘스트 {quest:97979}은(는) 나이트 엘프 종족 주문 두 개를 요구합니다: 주문책(P)을 열고 {spell:1259799}과(와) 그림자 숨기를 한 번씩 시전한 뒤 그녀에게 제출하십시오.",
 	-- ["{npc:3595}, inside the tree"] = "나무 안의 {npc:3595}",
 	-- ["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "내려가는 길에 경사로의 사제 상급자 {npc:3595}: {area:186}의 {npc:3600}에게 가져가세요",
 	-- ["{npc:3603}, beside {npc:6286}: Camping 101, alchemists"] = "{npc:6286} 옆의 {npc:3603}: 야영 기초, 연금술사",
@@ -682,5 +691,6 @@ return {
 	-- ["{npc:7318}, in the den"] = "굴 안의 {npc:7318}",
 	-- ["{object:7510}, beside him"] = "그 옆의 {object:7510}",
 	-- ["{quest:488} and the Starbreeze moonwell"] = "{quest:488}와(과) 별바람 마을 달샘",
+	-- ["{quest:97979}: cast {spell:1259799} and Shadowmeld, then hand it back to {npc:3595}"] = "{quest:97979}: {spell:1259799}와(과) 그림자 숨기를 시전한 뒤 {npc:3595}에게 완료하세요",
 	-- ["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979}: {spell:1259799}와(과) {spell:20580}을(를) 시전한 뒤 {npc:3595}에게 완료하세요",
 }

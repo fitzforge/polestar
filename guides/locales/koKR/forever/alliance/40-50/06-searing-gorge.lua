@@ -35,7 +35,7 @@ return {
 
 	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
-	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "도리우스는 {area:247} 옆 길가에 서 있습니다. 그를 북동쪽 {area:1959}까지 호위하며 살려 두십시오. 끝나면 그가 길에 남긴 {object:175704}을(를) 읽으십시오.",
+	["Dorius stands by the road beside the {area:247}. The escort runs north-east to {area:1959}, and the {object:175704} he leaves on the road takes the hand-in."] = "",
 	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
 	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "이 가이드의 마지막에 {zone:1455}의 {npc:8256}에게",
 
@@ -182,6 +182,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "{object:149047}을(를) 들고 용광로 가장자리를 따라 남쪽으로 가서, 남서쪽부터 남동쪽까지 돌며 감시용 화로 네 개에 불을 붙이십시오.",
+	-- ["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "도리우스는 {area:247} 옆 길가에 서 있습니다. 그를 북동쪽 {area:1959}까지 호위하며 살려 두십시오. 끝나면 그가 길에 남긴 {object:175704}을(를) 읽으십시오.",
 	-- ["For {npc:8256} in {area:1537}, later"] = "나중에 {area:1537}의 {npc:8256}에게",
 	-- ["Greater Lava Spiders"] = "거대한 용암거미",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Velarok; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "벨라로크 아래 용광로 바닥을 육중한 전투골렘이 순찰하고, 그 사이를 용암 정령이 떠다닙니다. 골렘 기름은 골렘과 정령이, 화염의 심장은 정령이 떨어뜨립니다.",

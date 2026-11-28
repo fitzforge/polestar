@@ -62,7 +62,8 @@ return {
 
 	-- Step 13: Orgrimmar
 	-- {object:405149} Mural of Ta'zo (no name in this language: may be words) · {object:172961} Valley of Spirits
-	["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "El {object:405149} es la tabla de piedra apoyada contra la pared en {object:172961}, de camino a los instructores de magos. Úsala para tomar el libro.",
+	-- was: ["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "El {object:405149} es la tabla de piedra apoyada contra la pared en {object:172961}, de camino a los instructores de magos. Úsala para tomar el libro."
+	["The {object:405149}, the stone tablet leaning against the wall in the {object:172961} on the way to the mage trainers, holds the book."] = "",
 
 	-- Step 14: The library: first books
 	["The library: first books"] = "La biblioteca: primeros libros",
@@ -188,4 +189,7 @@ return {
 	["The level 60 books: {npc:7825}"] = "Los libros de nivel 60: {npc:7825}",
 	-- {npc:7825} Oran Snakewrithe · {npc:211022} Owen Thadd · {object:36082} Magic Quarter
 	["{npc:7825}, beside {npc:211022} in the {object:36082}, takes the level 60 books: each book's quest is offered while the book is in your bags. Take and hand them in one at a time (Polestar cannot track these quests for the Horde yet)."] = "{npc:7825}, junto a {npc:211022} en {object:36082}, acepta los libros de nivel 60: ofrece la misión de cada libro mientras el libro está en tus bolsas. Tómalas y entrégalas de una en una (Polestar todavía no puede seguir estas misiones para la Horda).",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "El {object:405149} es la tabla de piedra apoyada contra la pared en {object:172961}, de camino a los instructores de magos. Úsala para tomar el libro.",
 }

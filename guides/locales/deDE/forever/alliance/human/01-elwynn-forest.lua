@@ -477,19 +477,22 @@ return {
 	["Back to {zone:1429}"] = "Zurück nach {zone:1429}",
 
 	-- Step 95: Taming the Beast
-	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:15908} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
+	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:266158} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar · Young Forest Bears = {npc:822} Young Forest Bear
-	["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507} steht bei den Lehrern in {area:87}. Jede ihrer Quests gibt dir {item:15908}: Benutze ihn an dem Wildtier, das sie nennt, und bring den Stab dann zu ihr zurück. Steinhauteber und Junge Waldbären streifen durch die Hügel südlich von {area:64}, Graue Forstwölfe durch die Wälder östlich von {area:18}.",
-	-- {npc:524} Rockhide Boar · {item:15908} Taming Rod
-	["{npc:524}: tame it with the {item:15908}"] = "{npc:524}: Zähme ihn mit {item:15908}",
+	["{npc:251507} stands with the {area:87} trainers. Each of her quests comes with a {item:266158} for the beast she names, and the rod goes back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "",
+	-- {npc:524} Rockhide Boar · {item:266158} Taming Rod
+	-- was: ["{npc:524}: tame it with the {item:15908}"] = "{npc:524}: Zähme ihn mit {item:15908}"
+	["{npc:524}: tame it with the {item:266158}"] = "",
 	-- {npc:524} Rockhide Boar
 	["Tame {npc:524}"] = "Zähme {npc:524}",
-	-- {npc:1922} Gray Forest Wolf · {item:15908} Taming Rod
-	["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}: Zähme ihn mit {item:15908}",
+	-- {npc:1922} Gray Forest Wolf · {item:266158} Taming Rod
+	-- was: ["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}: Zähme ihn mit {item:15908}"
+	["{npc:1922}: tame it with the {item:266158}"] = "",
 	-- {npc:1922} Gray Forest Wolf
 	["Tame {npc:1922}"] = "Zähme {npc:1922}",
-	-- {npc:822} Young Forest Bear · {item:15908} Taming Rod
-	["{npc:822}: tame it with the {item:15908}"] = "{npc:822}: Zähme ihn mit {item:15908}",
+	-- {npc:822} Young Forest Bear · {item:266158} Taming Rod
+	-- was: ["{npc:822}: tame it with the {item:15908}"] = "{npc:822}: Zähme ihn mit {item:15908}"
+	["{npc:822}: tame it with the {item:266158}"] = "",
 	-- {npc:822} Young Forest Bear
 	["Tame {npc:822}"] = "Zähme {npc:822}",
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
@@ -595,10 +598,12 @@ return {
 	-- ["{npc:1430} cooks in the inn's kitchen."] = "{npc:1430} kocht in der Küche des Gasthauses.",
 	-- ["{npc:1632}: Camping 101, leatherworkers"] = "{npc:1632}: „Camping 101“, Lederverarbeiter",
 	-- ["{npc:1651}: Camping 101, fishers"] = "{npc:1651}: „Camping 101“, Angler",
+	-- ["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}: Zähme ihn mit {item:15908}",
 	-- ["{npc:2329}, in the inn: Camping 101, {skill:129}"] = "{npc:2329}, im Gasthaus: „Camping 101“, {skill:129}",
 	-- ["{npc:247229}, in the library"] = "{npc:247229}, in der Bibliothek",
 	-- ["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277} hält Wache bei {area:798}, östlich des Murlocufers. Geh danach nach Nordwesten zurück zur Brücke.",
 	-- ["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415} steht hinter der Abtei, bei den Ställen.",
+	-- ["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507} steht bei den Lehrern in {area:87}. Jede ihrer Quests gibt dir {item:15908}: Benutze ihn an dem Wildtier, das sie nennt, und bring den Stab dann zu ihr zurück. Steinhauteber und Junge Waldbären streifen durch die Hügel südlich von {area:64}, Graue Forstwölfe durch die Wälder östlich von {area:18}.",
 	-- ["{npc:258930}, beside her: Beast Training"] = "{npc:258930}, neben ihr: Wildtierausbildung",
 	-- ["{npc:263399} camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, {skill:129} and blacksmithing in {area:87}."] = "{npc:263399} lagert nordöstlich des Gasthauses. Hast du einen Beruf erlernt, bietet er auch dessen „Camping 101“ an, das dessen Lehrer annimmt: Kürschnerei, Lederverarbeitung und Angeln am Seeufer, {skill:129} und Schmiedekunst in {area:87}.",
 	-- ["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:1632}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town. With a profession learned, Sam also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing here on the shore, {skill:129} and blacksmithing in {area:87}."] = "{npc:263399} lagert nordöstlich des Gasthauses; {npc:6306}, {npc:1632}, {npc:383} und {npc:1651} stehen am Ufer von {area:18} östlich des Ortes. Hast du einen Beruf erlernt, bietet Sam auch dessen „Camping 101“ an, das dessen Lehrer annimmt: Kürschnerei, Lederverarbeitung und Angeln hier am Ufer, {skill:129} und Schmiedekunst in {area:87}.",
@@ -613,9 +618,11 @@ return {
 	-- ["{npc:459}: Summon Imp"] = "{npc:459}: Wichtel beschwören",
 	-- ["{npc:514}, at the smithy across the road: Camping 101, blacksmiths"] = "{npc:514}, an der Schmiede auf der anderen Straßenseite: „Camping 101“, Schmiede",
 	-- ["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, an der Schmiede neben Dughan: {npc:1416} in {zone:1453} nimmt sie an (02-westfall)",
+	-- ["{npc:524}: tame it with the {item:15908}"] = "{npc:524}: Zähme ihn mit {item:15908}",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}: Erlösung",
 	-- ["{npc:6306}: Camping 101, skinners; inside"] = "{npc:6306}: „Camping 101“, Kürschner; drinnen",
 	-- ["{npc:6306}: skinners only, the pelts are skinned"] = "{npc:6306}: nur für Kürschner, die Felle werden gehäutet",
+	-- ["{npc:822}: tame it with the {item:15908}"] = "{npc:822}: Zähme ihn mit {item:15908}",
 	-- ["{npc:911}, the warrior trainer"] = "{npc:911}, der Kriegerlehrer",
 	-- ["{npc:927}: {npc:6171} in {zone:1453} takes it"] = "{npc:927}: {npc:6171} in {zone:1453} nimmt sie an",
 	-- ["{npc:955}: he wants your {item:247824}"] = "{npc:955}: Er will deinen {item:247824}",

@@ -82,7 +82,7 @@ return {
 	-- {object:61934} Brazier of the Dormant Flame
 	["The {object:61934}"] = "{object:61934}",
 	-- {object:61934} Brazier of the Dormant Flame · {item:277329} Torch of Eternal Flame
-	["Click the {object:61934} on the plateau with the torch in your bags to place the ember, then click it a second time: the next quest does not open by itself. It gives you the lit {item:277329}."] = "",
+	["The {object:61934} on the plateau takes the ember with the torch in the bags. The next quest, the lit {item:277329}, does not open by itself: it takes a second click."] = "",
 
 	-- Step 16: Kranal Fiss
 	-- {npc:5907} Kranal Fiss · {item:5176} Fire Totem

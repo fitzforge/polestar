@@ -120,7 +120,8 @@ return {
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "{npc:8578}的营地",
 	-- {object:151286} Kaldorei Tome of Summoning
-	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "雷姆托里的营地在营地东端。在那里阅读{object:151286}：在Forever服务器上，旁边的辛多雷宝典随后会要求营地三名军官的印记。",
+	-- was: ["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "雷姆托里的营地在营地东端。在那里阅读{object:151286}：在Forever服务器上，旁边的辛多雷宝典随后会要求营地三名军官的印记。"
+	["Rimtori's camp is at the east end of the base camp. On Forever the Sin'dorei Tome beside the {object:151286} then asks for the seals of the camp's three officers."] = "",
 
 	-- Step 24: Seals of the Sin'dorei
 	-- {npc:247006} Lieutenant Suncrest · {npc:247013} Ranger Lydrea · {npc:246991} Magister Hawkhelm · {npc:250023} Blackmaw Thrall
@@ -134,7 +135,7 @@ return {
 
 	-- Step 25: Magus Rimtori
 	-- {quest:91500} An Explosive Gambit · {quest:91497} Seals of the Sin'dorei
-	["Back to the Sin'dorei Tome: hand in the seals and take {quest:91500}, which gives you the {quest:91497}. Rimtori does not come from the Tome: stand beside one of the camp's tall crystals and use the {quest:91497} from your bags; its crystal explodes and draws her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55: start at full health."] = "回到辛多雷召唤宝典处交印记，接下{quest:91500}，获得{quest:91497}。雷姆托里要靠水晶爆炸引出来。站在营地里一块高大的水晶旁，从背包使用{quest:91497}，水晶就会爆炸。能引来她的水晶随机决定，另外两块各会召唤一只敌对的地狱火。她是55级，满血再动手。",
+	["{quest:91500} gives the {quest:91497}. Rimtori does not come from the Tome: the {quest:91497}, used beside one of the camp's tall crystals, blow it up and draw her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55."] = "",
 	-- {quest:91497} Seals of the Sin'dorei · {npc:8578} Magus Rimtori
 	["Use the {quest:91497} from your bags beside a crystal: {npc:8578} (55) comes to the explosion and drops her head"] = "站在一块水晶旁，从背包使用{quest:91497}。爆炸会引来{npc:8578}（55级），击杀后会掉落她的头颅",
 	-- {quest:91538} Sin'dorei Tome of Summoning · {npc:8587} Jediga · {area:1237} Valormok
@@ -296,6 +297,7 @@ return {
 	-- ["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "拾取到{item:13140}后，使用它开始任务，再到{area:1763}北端的洞穴{area:1770}中，将{npc:11018}从笼子里救出。",
 	-- ["Back at the {area:2479}."] = "返回{area:2479}。",
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "回到{area:1762}，死木熊怪（53-54级）就在隧道附近，每杀一个都会提升你的木喉要塞声望。",
+	-- ["Back to the Sin'dorei Tome: hand in the seals and take {quest:91500}, which gives you the {quest:91497}. Rimtori does not come from the Tome: stand beside one of the camp's tall crystals and use the {quest:91497} from your bags; its crystal explodes and draws her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55: start at full health."] = "回到辛多雷召唤宝典处交印记，接下{quest:91500}，获得{quest:91497}。雷姆托里要靠水晶爆炸引出来。站在营地里一块高大的水晶旁，从背包使用{quest:91497}，水晶就会爆炸。能引来她的水晶随机决定，另外两块各会召唤一只敌对的地狱火。她是55级，满血再动手。",
 	-- ["Below ground"] = "在地下",
 	-- ["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "小心：死木守卫为53-54级，死木复仇者为54-55级；生命值低于50%时会呼叫25码内的盟友，低于15%时会逃跑求援。\n继续击杀，直到掉落一个{quest:8470}，约每三十只掉一个，然后右键点击：木喉声望达到中立后，就能交给{area:1769}的{npc:11558}；已经中立就现在交，否则等最后一份指南在59级再次经过洞穴时再交。",
 	-- ["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "小心：洞穴守卫为 53-54 级，生命值低于 50% 时会呼叫 25 码内的同伴援助，低于 15% 时还会逃跑求援。",
@@ -348,6 +350,7 @@ return {
 	-- ["Ride the road south through {area:361} to the Sanctuary."] = "沿道路向南穿过{area:361}前往翡翠圣地。",
 	-- ["Ride the road south through {zone:1448} to the Sanctuary."] = "沿道路向南穿过{zone:1448}前往翡翠圣地。",
 	-- ["Ride west to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "向西骑往{area:192}；{npc:11610}躲在它东北的山上。",
+	-- ["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "雷姆托里的营地在营地东端。在那里阅读{object:151286}：在Forever服务器上，旁边的辛多雷宝典随后会要求营地三名军官的印记。",
 	-- ["Ror stands at the far south end of {area:1761}."] = "洛尔站在{area:1761}最南端。",
 	-- ["Scarlet Crusade"] = "血色十字军",
 	-- ["Scarlet forward camp"] = "血色十字军前线营地",

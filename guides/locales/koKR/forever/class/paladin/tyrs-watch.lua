@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Aramis Hammerhand
 	-- {npc:1569} Shadow Priest Sarvis · {item:282423} Consecrated Scroll · {quest:364} The Mindless Ones · {npc:244808} Aramis Hammerhand · {npc:259377} Injured Deathguard · {area:154} Deathknell · {spell:635} Holy Light
-	["{npc:1569} gives you a {item:282423} after {quest:364}: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "",
+	["{npc:1569}'s {item:282423}, after {quest:364}, goes to {npc:244808} by the church, who wants five {npc:259377} around {area:154} healed. {spell:635} hurts a Forsaken paladin a little each time."] = "",
 	-- {npc:259377} Injured Deathguard · {spell:635} Holy Light
 	["Heal 5 {npc:259377} with {spell:635}"] = "",
 
@@ -124,7 +124,7 @@ return {
 	-- Step 21: Deathguard Falgan
 	-- {area:812} Venomweb Vale · {item:6866} Symbol of Life
 	-- plural, as words: Scarlet Crusaders = {npc:238286} Scarlet Crusader
-	["{area:812} is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there: target his body and use the {item:6866}, then talk to him at once, as he does not stay alive long. If he is already up (another player), just talk to him; if he died again, raise him again."] = "",
+	["{area:812} is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there. Raised with the {item:6866}, he does not stay alive long, and another player may have raised him already."] = "",
 
 	-- Step 22: The Scarlet attack plans
 	["The Scarlet attack plans"] = "붉은십자군 공격 계획",

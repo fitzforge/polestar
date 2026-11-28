@@ -53,7 +53,7 @@ return {
 
 	-- Step 9: Astor Hadren
 	-- {npc:6497} Astor Hadren · {area:228} Sepulcher · {zone:1458} Undercity
-	["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark. Talk to him and pick both of his answers: he turns hostile. Kill him for the letter (it always drops). Fight him away from guards, who can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "{npc:6497}（13级）在 {area:228} 北面、{area:228} 与 {zone:1458} 之间的道路上行走。他看起来像友善的旅人，没有任务标记。与他交谈，选过他的两个对话选项后，他会转为敌对。杀死他取得信件（必定掉落）。远离卫兵再战斗，否则卫兵可能抢走击杀，导致无法拾取；每次击杀只有一名潜行者能拿到信。他死亡后5分钟刷新。",
+	["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark, and both of his answers turn him hostile. His letter always drops, but guards nearby can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "",
 
 	-- Step 10: Back to Mennet Carkad
 	-- {npc:6467} Mennet Carkad
@@ -78,6 +78,7 @@ return {
 	-- ["{npc:6466} drinks in the inn in the {object:172982}. Pick his pocket for {item:7208}, then open {item:7209}."] = "{npc:6466}在{object:172982}的旅店里喝酒。从他身上偷取{item:7208}，然后打开{item:7209}。",
 	-- ["{npc:6467} sends the ledger on to {npc:2425} in the Hall of the Dark Lady, the {object:36126}."] = "{npc:6467}会把账本转交给{object:36126}的{npc:2425}。",
 	-- ["{npc:6494} stands on the {zone:1413} coast south of {area:392}. Kill him for his satchel."] = "{npc:6494}站在{area:392}南边的{zone:1413}海岸。杀死他拿到他的挎包。",
+	-- ["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark. Talk to him and pick both of his answers: he turns hostile. Kill him for the letter (it always drops). Fight him away from guards, who can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "{npc:6497}（13级）在 {area:228} 北面、{area:228} 与 {zone:1458} 之间的道路上行走。他看起来像友善的旅人，没有任务标记。与他交谈，选过他的两个对话选项后，他会转为敌对。杀死他取得信件（必定掉落）。远离卫兵再战斗，否则卫兵可能抢走击杀，导致无法拾取；每次击杀只有一名潜行者能拿到信。他死亡后5分钟刷新。",
 	-- ["{npc:6497} stands north-east of the {area:228}. Take his Letter of Introduction from him."] = "{npc:6497}站在{area:228}东北边。从他那里拿到阿斯托的介绍信。",
 	-- ["{npc:6522}'s ledger sits on the bookshelf beside him."] = "{npc:6522}的账本放在他身旁的书架上。",
 }

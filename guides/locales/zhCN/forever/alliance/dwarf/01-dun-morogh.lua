@@ -380,7 +380,7 @@ return {
 	-- Step 66: Taming the Beast
 	-- {item:15908} Taming Rod · {area:131} Kharanos
 	-- plural, as words: Large Crag Boars = {npc:1126} Large Crag Boar · Snow Leopards = {npc:1201} Snow Leopard · Ice Claw Bears = {npc:1196} Ice Claw Bear
-	["Each of Grif Wildheart's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "格瑞夫的每个任务都会给你一根{item:15908}：对他指定的野兽使用，然后把驯兽棒带回{area:131}铁匠铺交给他。{npc:1126}、{npc:1201}和{npc:1196}都在{area:131}南边和东边的田野里游荡。",
+	["Each of Grif Wildheart's quests comes with a {item:15908} for the beast he names, and the rod goes back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "",
 	-- {npc:1231} Grif Wildheart
 	["{npc:1231}, at the smithy"] = "{npc:1231}，在铁匠铺",
 	-- {npc:1126} Large Crag Boar · {item:15908} Taming Rod
@@ -718,6 +718,7 @@ return {
 	-- ["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls. {area:87} and east Elwynn are next, then {zone:1436}."] = "返回 {npc:6122} 处。在 {object:2164} 地窖的召唤法阵中使用 {item:6928}，击败召唤出的虚空行者。接下来去 {area:87} 和艾尔文东部，然后前往 {zone:1436}。",
 	-- ["Crag Boars and Young Black Bears roam the fields around {area:131} and the depot."] = "{npc:1125}和{npc:1128}在{area:131}和补给站周围的田野里游荡。",
 	-- ["Defensive Stance"] = "防御姿态",
+	-- ["Each of Grif Wildheart's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "格瑞夫的每个任务都会给你一根{item:15908}：对他指定的野兽使用，然后把驯兽棒带回{area:131}铁匠铺交给他。{npc:1126}、{npc:1201}和{npc:1196}都在{area:131}南边和东边的田野里游荡。",
 	-- ["East along the hills to the mine at the north end of the loch: the Miners' League crates sit in its tunnels, among more Tunnel Rats."] = "沿山地向东，前往湖泊北端的矿洞：矿工联盟的储物箱在洞内隧道中，周围还有更多坑道鼠。",
 	-- ["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "向东穿过南门隧道，进入 {zone:1432}。{npc:1089} 和 {npc:1092} 站在隧道出口附近的矮人哨站。",
 	-- ["Flintfire's shipments lie on the cave floor, and {npc:278166} is missing somewhere inside.\nCareful: Wendigos stand close together inside the cave, so fights easily pull several at once; drawing them out one at a time with ranged attacks from outside avoids this."] = "弗林特菲尔的货物散落在洞穴地面上，{npc:278166}在洞里某处失踪了。\n小心：洞里的雪人彼此站得很近，战斗时很容易一次引来好几只；在洞外用远程攻击一只一只地引出来就能避免。",

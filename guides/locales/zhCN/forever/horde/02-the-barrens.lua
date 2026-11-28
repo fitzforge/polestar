@@ -76,7 +76,7 @@ return {
 
 	-- Step 15: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
-	["Back east over the bridge and up the trail to {npc:5900}'s shrine again. {npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "向东返回，过桥后沿小径上山，再次前往{npc:5900}的神龛。{npc:5900}会用焦油和袋子制作{item:6636}。在他旁边的火盆处使用，显现出{npc:5893}，击杀它取得{item:6655}，然后将余烬放进火盆。",
+	["{npc:5900}'s shrine is back east over the bridge and up the trail, and he makes {item:6636} from the tar and pouch. The Sapta shows the {npc:5893} by the brazier next to him, and its {item:6655} goes into the brazier."] = "",
 
 	-- Step 17: Kranal Fiss
 	-- {npc:5907} Kranal Fiss · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
@@ -737,6 +737,7 @@ return {
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end."] = "沿海滩往回走，经过海盗营地：一箱靴子和装着镜片的易碎品箱在营地南端。",
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end.\nSunscale raptors here count toward the heads."] = "沿海滩往回走，经过海盗营地：一箱靴子和装着镜片的易碎品箱在营地南端。\n这里的赤鳞迅猛龙也算在头的数量里。",
 	-- ["Back down the {area:1076}: {npc:12816} stands just outside {area:2539}, before the village."] = "沿{area:1076}返回下方：{npc:12816}就在{area:2539}外、进村之前。",
+	-- ["Back east over the bridge and up the trail to {npc:5900}'s shrine again. {npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "向东返回，过桥后沿小径上山，再次前往{npc:5900}的神龛。{npc:5900}会用焦油和袋子制作{item:6636}。在他旁边的火盆处使用，显现出{npc:5893}，击杀它取得{item:6655}，然后将余烬放进火盆。",
 	-- ["Back north into {area:378} on the way to the Crossroads: {npc:3387} takes the thunderhawk wings. Warriors: {npc:6394} first, before the antennae fade."] = "返回十字路口途中向北进{area:378}：把雷鹰的翅膀交给{npc:3387}。战士：趁触角还没消失，先找{npc:6394}。",
 	-- ["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them."] = "回到钢鬃营地。钢鬃地卜师和钢鬃防御者占据营地东半部；{npc:3438}在他们中间走动。",
 	-- ["Back west along the road."] = "沿道路向西返回。",

@@ -40,7 +40,8 @@ return {
 	-- {zone:1431} Duskwood
 	["{zone:1431} writ customers"] = "Clientes de escrituras em {zone:1431}",
 	-- {npc:3134} Kzixx · {area:42} Darkshire
-	["{npc:3134} stands about 450 yards north of {area:42}. Customers show no quest mark: right-click them anyway."] = "{npc:3134} fica a cerca de 450 jardas ao norte de {area:42}. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- was: ["{npc:3134} stands about 450 yards north of {area:42}. Customers show no quest mark: right-click them anyway."] = "{npc:3134} fica a cerca de 450 jardas ao norte de {area:42}. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim."
+	["{npc:3134} stands about 450 yards north of {area:42}. Customers show no quest mark."] = "",
 	-- {item:6048} Shadow Protection Potion
 	["{item:6048}, 75 reputation"] = "{item:6048}, 75 de reputação",
 	-- {item:4381} Minor Recombobulator
@@ -54,7 +55,8 @@ return {
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434} writ customers"] = "Clientes de escrituras em {zone:1434}",
 	-- {area:35} Booty Bay · {npc:7853} Scooty · {npc:2663} Narkk · {npc:14508} Short John Mithril · {area:1741} Gurubashi Arena · {object:3202} Grom'gol (no name in this language: may be words) · {npc:261961} Hekshi
-	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35} tem três clientes: MacKinley “Lobo do Mar” (no último andar da estalagem), {npc:7853}, o engenheiro do transportador goblin, e {npc:2663}. {npc:14508} fica em {area:1741}, a cerca de 800 metros ao sul de {object:3202}; {npc:261961} está no norte da Selva do Espinhaço. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- was: ["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35} tem três clientes: MacKinley “Lobo do Mar” (no último andar da estalagem), {npc:7853}, o engenheiro do transportador goblin, e {npc:2663}. {npc:14508} fica em {area:1741}, a cerca de 800 metros ao sul de {object:3202}; {npc:261961} está no norte da Selva do Espinhaço. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim."
+	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark."] = "",
 	-- {item:3485} Green Iron Gauntlets
 	["{item:3485}, 75 reputation"] = "{item:3485}, 75 de reputação",
 	-- {item:7506} Gnomish Universal Remote
@@ -70,7 +72,8 @@ return {
 	-- {zone:1437} Wetlands
 	["{zone:1437} writ customers"] = "Clientes de escrituras em {zone:1437}",
 	-- {npc:8305} Kixxle · {area:205} Dun Modr
-	["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway."] = "{npc:8305} fica a cerca de 600 jardas ao sul de {area:205}. Cinco escrituras de Profissional vão para ele: mais do que qualquer outro cliente. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- was: ["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway."] = "{npc:8305} fica a cerca de 600 jardas ao sul de {area:205}. Cinco escrituras de Profissional vão para ele: mais do que qualquer outro cliente. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim."
+	["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark."] = "",
 	-- {item:5996} Draught of Water Breathing
 	["{item:5996}, 75 reputation"] = "{item:5996}, 75 de reputação",
 	-- {item:3484} Green Iron Boots
@@ -86,7 +89,8 @@ return {
 	-- {zone:1417} Arathi Highlands
 	["{zone:1417} writ customers"] = "Clientes de escrituras em {zone:1417}",
 	-- {npc:257296} Muggol Breezebeard · {area:320} Refuge Pointe · {npc:257304} Alyce
-	["{npc:257296} is about 250 yards south of {area:320}, {npc:257304} about 700 yards north-west of it. Customers show no quest mark: right-click them anyway."] = "{npc:257296} fica a cerca de 250 jardas ao sul de {area:320}, e {npc:257304} a cerca de 700 jardas a noroeste dele. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- was: ["{npc:257296} is about 250 yards south of {area:320}, {npc:257304} about 700 yards north-west of it. Customers show no quest mark: right-click them anyway."] = "{npc:257296} fica a cerca de 250 jardas ao sul de {area:320}, e {npc:257304} a cerca de 700 jardas a noroeste dele. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim."
+	["{npc:257296} is about 250 yards south of {area:320}, {npc:257304} about 700 yards north-west of it. Customers show no quest mark."] = "",
 	-- {item:3383} Elixir of Wisdom
 	["{item:3383}, 75 reputation"] = "{item:3383}, 75 de reputação",
 	-- {item:11128} Golden Rod
@@ -104,7 +108,8 @@ return {
 	-- {zone:1424} Hillsbrad Foothills
 	["{zone:1424} writ customers"] = "Clientes de escrituras em {zone:1424}",
 	-- {npc:261932} Gorgrash · {npc:3536} Kris Legace · {npc:261928} Webbed Mudsnout Gnoll · {area:271} Southshore
-	["{npc:261932} and {npc:3536} are in the east of the foothills; the {npc:261928} hangs in a spider cocoon about 500 yards south-east of {area:271}. Customers show no quest mark: right-click them anyway."] = "{npc:261932} e {npc:3536} ficam no leste do sopé das montanhas; {npc:261928} está pendurado num casulo de aranha a cerca de 500 jardas a sudeste de {area:271}. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- was: ["{npc:261932} and {npc:3536} are in the east of the foothills; the {npc:261928} hangs in a spider cocoon about 500 yards south-east of {area:271}. Customers show no quest mark: right-click them anyway."] = "{npc:261932} e {npc:3536} ficam no leste do sopé das montanhas; {npc:261928} está pendurado num casulo de aranha a cerca de 500 jardas a sudeste de {area:271}. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim."
+	["{npc:261932} and {npc:3536} are in the east of the foothills; the {npc:261928} hangs in a spider cocoon about 500 yards south-east of {area:271}. Customers show no quest mark."] = "",
 	-- {item:3491} Heavy Bronze Mace
 	["{item:3491}, 75 reputation"] = "{item:3491}, 75 de reputação",
 	["bring it: craft it or buy it at the Auction House"] = "leve até ele: fabrique ou compre na Casa de Leilões",
@@ -119,7 +124,8 @@ return {
 	-- {zone:1416} Alterac Mountains
 	["{zone:1416} writ customers"] = "Clientes de escrituras em {zone:1416}",
 	-- {npc:257281} Sos'mol · {npc:257282} Alan Sneeks · {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill
-	["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281} e {npc:257282} ficam perto um do outro, no sudoeste das montanhas; bandidos da Camarilha rondam {npc:257282}. {npc:6176} fica no limite leste, acima de {area:272}. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- was: ["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281} e {npc:257282} ficam perto um do outro, no sudoeste das montanhas; bandidos da Camarilha rondam {npc:257282}. {npc:6176} fica no limite leste, acima de {area:272}. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim."
+	["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark."] = "",
 	-- {item:3391} Elixir of Ogre Strength
 	["{item:3391}, 75 reputation"] = "{item:3391}, 75 de reputação",
 	["bring it: leatherworkers make it, or buy it at the Auction House"] = "leve até ele: coureiros fabricam, ou compre na Casa de Leilões",
@@ -138,7 +144,8 @@ return {
 	-- {zone:1440} Ashenvale
 	["{zone:1440} writ customers"] = "Clientes de escrituras em {zone:1440}",
 	-- {area:431} Splintertree Post · {npc:257315} Ash'alari · {npc:257322} Murache · {npc:257316} Cowardly Peon · {npc:257317} Grembly
-	["All four stand around {area:431}: {npc:257315} about 850 yards south-west of it, {npc:257322} to the south, the {npc:257316} about 350 yards south-east and {npc:257317} about 650 yards north-east. Customers show no quest mark: right-click them anyway."] = "Os quatro ficam em volta de {area:431}: {npc:257315} a cerca de 850 jardas a sudoeste, {npc:257322} ao sul, {npc:257316} a cerca de 350 jardas a sudeste e {npc:257317} a cerca de 650 jardas a nordeste. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- was: ["All four stand around {area:431}: {npc:257315} about 850 yards south-west of it, {npc:257322} to the south, the {npc:257316} about 350 yards south-east and {npc:257317} about 650 yards north-east. Customers show no quest mark: right-click them anyway."] = "Os quatro ficam em volta de {area:431}: {npc:257315} a cerca de 850 jardas a sudoeste, {npc:257322} ao sul, {npc:257316} a cerca de 350 jardas a sudeste e {npc:257317} a cerca de 650 jardas a nordeste. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim."
+	["All four stand around {area:431}: {npc:257315} about 850 yards south-west of it, {npc:257322} to the south, the {npc:257316} about 350 yards south-east and {npc:257317} about 650 yards north-east. Customers show no quest mark."] = "",
 	-- {item:3385} Lesser Mana Potion
 	["{item:3385}, 75 reputation"] = "{item:3385}, 75 de reputação",
 	-- {item:7349} Herbalist's Gloves
@@ -160,7 +167,8 @@ return {
 	-- {zone:1442} Stonetalon Mountains
 	["{zone:1442} writ customers"] = "Clientes de escrituras em {zone:1442}",
 	-- {npc:4201} Ziz Fizziks · {area:460} Sun Rock Retreat
-	["{npc:4201} has a small hut about 550 yards east of {area:460}. Four Journeyman writs go to him. Customers show no quest mark: right-click them anyway."] = "{npc:4201} tem uma cabana pequena a cerca de 550 jardas a leste de {area:460}. Quatro escrituras de Profissional vão para ele. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- was: ["{npc:4201} has a small hut about 550 yards east of {area:460}. Four Journeyman writs go to him. Customers show no quest mark: right-click them anyway."] = "{npc:4201} tem uma cabana pequena a cerca de 550 jardas a leste de {area:460}. Quatro escrituras de Profissional vão para ele. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim."
+	["{npc:4201} has a small hut about 550 yards east of {area:460}. Four Journeyman writs go to him. Customers show no quest mark."] = "",
 	-- {item:3390} Elixir of Lesser Agility
 	["{item:3390}, 75 reputation"] = "{item:3390}, 75 de reputação",
 	-- {item:2865} Rough Bronze Leggings
@@ -174,7 +182,8 @@ return {
 	-- {zone:1441} Thousand Needles
 	["{zone:1441} writ customers"] = "Clientes de escrituras em {zone:1441}",
 	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {area:484} Freewind Post · {npc:4720} Rizzle Brassbolts · {npc:4706} Razzeric · {npc:4496} Goblin Pit Boss · {npc:6548} Magus Tirth
-	["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark: right-click them anyway."] = "Os cinco ficam em {area:2240}, em {area:439}, a sudeste de {area:484}: {npc:4720}, a galinha Johnson “Depenado”, {npc:4706}, {npc:4496} e {npc:6548}. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- was: ["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark: right-click them anyway."] = "Os cinco ficam em {area:2240}, em {area:439}, a sudeste de {area:484}: {npc:4720}, a galinha Johnson “Depenado”, {npc:4706}, {npc:4496} e {npc:6548}. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim."
+	["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark."] = "",
 	-- {item:8951} Elixir of Defense
 	["{item:8951}, 75 reputation"] = "{item:8951}, 75 de reputação",
 	-- {item:3848} Big Bronze Knife
@@ -198,13 +207,15 @@ return {
 	-- {zone:1431} Duskwood
 	["{zone:1431} writ customers again"] = "Clientes de escrituras em {zone:1431} de novo",
 	-- {npc:3134} Kzixx · {area:42} Darkshire
-	["{npc:3134} stands about 450 yards north of {area:42}, by the road. Customers show no quest mark: right-click them anyway."] = "{npc:3134} fica a cerca de 450 jardas ao norte de {area:42}, junto à estrada. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- was: ["{npc:3134} stands about 450 yards north of {area:42}, by the road. Customers show no quest mark: right-click them anyway."] = "{npc:3134} fica a cerca de 450 jardas ao norte de {area:42}, junto à estrada. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim."
+	["{npc:3134} stands about 450 yards north of {area:42}, by the road. Customers show no quest mark."] = "",
 
 	-- Step 18: Stranglethorn Vale writ customers again
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434} writ customers again"] = "Clientes de escrituras em {zone:1434} de novo",
 	-- {area:35} Booty Bay · {npc:7853} Scooty · {npc:2663} Narkk · {npc:14508} Short John Mithril · {object:3202} Grom'gol (no name in this language: may be words) · {area:1741} Gurubashi Arena · {npc:261961} Hekshi
-	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35} tem três clientes: MacKinley “Lobo do Mar” (no último andar da estalagem), {npc:7853} na plataforma do transportador estilo zepelim e {npc:2663}. {npc:14508} fica a cerca de 800 metros ao sul de {object:3202}, junto a {area:1741}; {npc:261961} está no norte da Selva do Espinhaço. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- was: ["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35} tem três clientes: MacKinley “Lobo do Mar” (no último andar da estalagem), {npc:7853} na plataforma do transportador estilo zepelim e {npc:2663}. {npc:14508} fica a cerca de 800 metros ao sul de {object:3202}, junto a {area:1741}; {npc:261961} está no norte da Selva do Espinhaço. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim."
+	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark."] = "",
 
 	-- Step 19: Wetlands writ customers again
 	-- {zone:1437} Wetlands
@@ -281,6 +292,8 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {item:18662} for the writ"] = "Uma {item:18662} para a escritura",
 	-- ["A {item:18662} for the writ again"] = "Uma {item:18662} para a escritura de novo",
+	-- ["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark: right-click them anyway."] = "Os cinco ficam em {area:2240}, em {area:439}, a sudeste de {area:484}: {npc:4720}, a galinha Johnson “Depenado”, {npc:4706}, {npc:4496} e {npc:6548}. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- ["All four stand around {area:431}: {npc:257315} about 850 yards south-west of it, {npc:257322} to the south, the {npc:257316} about 350 yards south-east and {npc:257317} about 650 yards north-east. Customers show no quest mark: right-click them anyway."] = "Os quatro ficam em volta de {area:431}: {npc:257315} a cerca de 850 jardas a sudoeste, {npc:257322} ao sul, {npc:257316} a cerca de 350 jardas a sudeste e {npc:257317} a cerca de 650 jardas a nordeste. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
 	-- ["An {item:4384} for the writ"] = "Um {item:4384} para a escritura",
 	-- ["An {item:4384} for the writ again"] = "Um {item:4384} para a escritura de novo",
 	-- ["Dokimi"] = "Dokimi",
@@ -293,6 +306,8 @@ return {
 	-- ["Merchant's Favor Reputation"] = "Reputação: Favor Mercantil",
 	-- ["The {faction:2586} is the Alliance's tradeskill faction in Forever. Its camp is at {area:1002} in western {zone:1433}. From level 10 mobs drop Waylaid Crates: fill each with the goods its label asks for and hand the {object:1561} to {npc:214101} at the camp for reputation and Merchant's Favor. Forever's Legacy Diplomat perk increases reputation gains."] = "{faction:2586} é a facção de profissões da Aliança no Forever. O acampamento fica em {area:1002}, no oeste de {zone:1433}. A partir do nível 10, monstros deixam cair Caixotes Extraviados: encha cada um com os produtos que a etiqueta pede e entregue o {object:1561} a {npc:214101} no acampamento por reputação e Merchant's Favor. A vantagem de Legado Diplomata do Forever aumenta os ganhos de reputação.",
 	-- ["The {faction:2587} camp stands just outside the west gate of the {area:380}. The label pays 2000 reputation once (and, by beta reports, 50 Merchant's Favor): two thirds of the way to Friendly. Filled crates go to {npc:256386} too, but they pay only Merchant's Favor and silver, never reputation."] = "O acampamento de {faction:2587} fica logo fora do portão oeste de {area:380}. A etiqueta rende 2000 de reputação uma única vez (e, segundo relatos do beta, 50 de Merchant's Favor): dois terços do caminho até Amigável. Caixotes cheios também vão para {npc:256386}, mas rendem só Merchant's Favor e pratas, nunca reputação.",
+	-- ["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35} tem três clientes: MacKinley “Lobo do Mar” (no último andar da estalagem), {npc:7853} na plataforma do transportador estilo zepelim e {npc:2663}. {npc:14508} fica a cerca de 800 metros ao sul de {object:3202}, junto a {area:1741}; {npc:261961} está no norte da Selva do Espinhaço. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- ["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "{area:35} tem três clientes: MacKinley “Lobo do Mar” (no último andar da estalagem), {npc:7853}, o engenheiro do transportador goblin, e {npc:2663}. {npc:14508} fica em {area:1741}, a cerca de 800 metros ao sul de {object:3202}; {npc:261961} está no norte da Selva do Espinhaço. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
 	-- ["{faction:2586} to Exalted"] = "{faction:2586} até Exaltado",
 	-- ["{faction:2586} to Friendly"] = "{faction:2586} até Respeitado",
 	-- ["{faction:2586} to Honored"] = "{faction:2586} até Honrado",
@@ -302,4 +317,11 @@ return {
 	-- ["{faction:2587} to Friendly"] = "{faction:2587} até Respeitado",
 	-- ["{faction:2587} to Honored"] = "{faction:2587} até Honrado",
 	-- ["{faction:2587} to Revered"] = "{faction:2587} até Reverenciado",
+	-- ["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281} e {npc:257282} ficam perto um do outro, no sudoeste das montanhas; bandidos da Camarilha rondam {npc:257282}. {npc:6176} fica no limite leste, acima de {area:272}. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- ["{npc:257296} is about 250 yards south of {area:320}, {npc:257304} about 700 yards north-west of it. Customers show no quest mark: right-click them anyway."] = "{npc:257296} fica a cerca de 250 jardas ao sul de {area:320}, e {npc:257304} a cerca de 700 jardas a noroeste dele. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- ["{npc:261932} and {npc:3536} are in the east of the foothills; the {npc:261928} hangs in a spider cocoon about 500 yards south-east of {area:271}. Customers show no quest mark: right-click them anyway."] = "{npc:261932} e {npc:3536} ficam no leste do sopé das montanhas; {npc:261928} está pendurado num casulo de aranha a cerca de 500 jardas a sudeste de {area:271}. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- ["{npc:3134} stands about 450 yards north of {area:42}, by the road. Customers show no quest mark: right-click them anyway."] = "{npc:3134} fica a cerca de 450 jardas ao norte de {area:42}, junto à estrada. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- ["{npc:3134} stands about 450 yards north of {area:42}. Customers show no quest mark: right-click them anyway."] = "{npc:3134} fica a cerca de 450 jardas ao norte de {area:42}. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- ["{npc:4201} has a small hut about 550 yards east of {area:460}. Four Journeyman writs go to him. Customers show no quest mark: right-click them anyway."] = "{npc:4201} tem uma cabana pequena a cerca de 550 jardas a leste de {area:460}. Quatro escrituras de Profissional vão para ele. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
+	-- ["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway."] = "{npc:8305} fica a cerca de 600 jardas ao sul de {area:205}. Cinco escrituras de Profissional vão para ele: mais do que qualquer outro cliente. Os clientes não mostram marca de missão: clique com o botão direito neles mesmo assim.",
 }

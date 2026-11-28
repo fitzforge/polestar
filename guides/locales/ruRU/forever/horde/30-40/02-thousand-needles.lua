@@ -228,7 +228,7 @@ return {
 
 	-- Step 44: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
-	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "Идите на восток: {area:599}. Избейте культиста Пылающего Клинка и, пока он не умер, используйте на нем {item:6436}, чтобы получить {item:6435}. {npc:13019} стоит на верхнем этаже крепости со Скипетром. Культисты иногда роняют {item:20310} (1-5%); если выпадет, прочитайте. Красный {object:176581} пока не трогайте: {npc:11876} там 37-го уровня, к нему вернетесь во второй визит в зону {zone:1443}.",
+	["{area:599} is to the east. The {item:6436} fills one {item:6435} from a Burning Blade cultist brought low before it dies. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%), which starts a quest. The red {object:176581} waits: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "",
 	["On the top floor"] = "На верхнем этаже",
 
 	-- Step 45: Sargeron
@@ -294,7 +294,7 @@ return {
 
 	-- Step 55: Rackmore's Log
 	-- {object:177787} Rackmore's Log · {npc:11863} Azore Aldamort
-	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787} лежит на земле к юго-западу от башни, где ждет {npc:11863}, по пути вниз к берегу: прочитайте его. Оба ключа выпадают, только пока у вас есть задание.",
+	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore, and its two keys drop only while its quest is in the log."] = "",
 
 	-- Step 56: Clam beds
 	["Clam beds"] = "Отмели с моллюсками",
@@ -336,6 +336,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to {npc:11863}'s tower."] = "Обратно на юг к башне, где ждет {npc:11863}.",
+	-- ["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "Идите на восток: {area:599}. Избейте культиста Пылающего Клинка и, пока он не умер, используйте на нем {item:6436}, чтобы получить {item:6435}. {npc:13019} стоит на верхнем этаже крепости со Скипетром. Культисты иногда роняют {item:20310} (1-5%); если выпадет, прочитайте. Красный {object:176581} пока не трогайте: {npc:11876} там 37-го уровня, к нему вернетесь во второй визит в зону {zone:1443}.",
 	-- ["Head north along the coast, then inland to the ruined tower of {area:2405}: {npc:11863} waits inside. The coast's clams and naga come after {area:599}, on one walk north to {area:2406}."] = "Идите на север вдоль побережья, затем вглубь суши к разрушенной башне ({area:2405}): внутри ждет {npc:11863}. Моллюски и наги на побережье – после этого места: {area:599}; их вы пройдете за один переход на север сюда: {area:2406}.",
 	-- ["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at 38."] = "Идите дальше на север ({area:598}) за предметом {item:15881}: он может выпасть с любой наги Скользящего Клинка.\nОсторожно: мирмидоны (34-35) держат северную половину пляжа вместе с морскими ведьмами и оракулами (34-36, заклинатели) – до двух уровней выше вас на 33-м. Бейте наг и колдуний (32-33) южной половины, пока не выпадет ключ, а север оставьте на второй визит в зону {zone:1443}, на 38-м уровне.",
 	-- ["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time. Any Slitherblade can drop {item:15881}."] = "Продолжайте путь на север: {area:598}. Пляж удерживают мирмидоны, наги и колдуньи из клана Скользящего Клинка; выманивайте их по одному. {item:15881} может выпасть с любой наги Скользящего Клинка.",
@@ -348,4 +349,5 @@ return {
 	-- ["{npc:4877}, the trade supplies vendor, stands inside {area:484}'s inn."] = "{npc:4877}, торговец товарами для ремесел, стоит в таверне ({area:484}).",
 	-- ["{npc:5395} now offers Centaur Bounty: the second {zone:1443} visit, at 38, takes it on its way to the {area:607}."] = "{npc:5395} теперь предлагает задание «Centaur Bounty»: второй визит в зону {zone:1443}, на 38-м уровне, берет его по пути сюда: {area:607}.",
 	-- ["{npc:5641}'s next errand sends you after a demon lord with an elite guard: skip it."] = "Следующее поручение {npc:5641} – повелитель демонов с элитной охраной: пропустите его.",
+	-- ["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787} лежит на земле к юго-западу от башни, где ждет {npc:11863}, по пути вниз к берегу: прочитайте его. Оба ключа выпадают, только пока у вас есть задание.",
 }

@@ -97,8 +97,8 @@ return {
 	-- Step 19: The Minor Manifestation of Water
 	-- {npc:5895} Minor Manifestation of Water
 	["The {npc:5895}"] = "{npc:5895}",
-	-- {object:113791} Brazier of Everfount · {npc:5895} Minor Manifestation of Water · {spell:8202} Sapta Sight · {item:7813} Shard of Water · {npc:5901} Islen Waterseer · {quest:63} Call of Water · {quest:972} Water Sapta · {npc:7007} Tiev Mordune
-	["Click the {object:113791} to place the bracers and the drops. A few seconds later the pure {npc:5895} rises on the stone in the middle of the pool: speak to it while the {spell:8202} lasts (drink again by the stone if it has worn off). It gives you the {item:7813} for {npc:5901}. Gone before you could speak to it? Back at {npc:5901} ask for {quest:63} (a fresh {quest:972} for {npc:7007}, who stands just west of the shrine): hand it to Tiev, stay close while he calls the spirit back, then speak to it."] = "点击 {object:113791}，放上护腕和水滴。几秒后，纯净的 {npc:5895} 会在池中央的石头上出现：趁 {spell:8202} 仍然有效时与它交谈（若效果已经消失，在石头旁再喝一次）。它会给你要带给 {npc:5901} 的 {item:7813}。还没来得及交谈它就消失了？回 {npc:5901} 处索取 {quest:63}（一份新的 {quest:972}，交给站在神殿西侧不远处的 {npc:7007}）：把它交给提夫，留在附近等他再次召唤灵魂，再与灵魂交谈。",
+	-- {object:113791} Brazier of Everfount · {npc:5895} Minor Manifestation of Water · {spell:8202} Sapta Sight · {item:7813} Shard of Water · {npc:5901} Islen Waterseer · {quest:63} Call of Water · {item:6637} Water Sapta · {npc:7007} Tiev Mordune
+	["The {object:113791} takes the bracers and the drops. A few seconds later the pure {npc:5895} rises on the stone in the middle of the pool: seen only while the {spell:8202} lasts, and it gives the {item:7813} for {npc:5901}. If it is gone first, {npc:5901}'s {quest:63} gives a fresh {item:6637} for {npc:7007}, just west of the shrine, who calls the spirit back."] = "",
 
 	-- Step 20: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet · {item:5177} Water Totem
@@ -109,6 +109,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 20 {npc:5892} in the {object:172957} sends you to {npc:5901} in the {zone:1413}."] = "20级时，{object:172957}的{npc:5892}会让你去{zone:1413}找{npc:5901}。",
 	-- ["At 20 {npc:5906}, a shaman trainer in {zone:1456}, sends you to {npc:5901} in the {zone:1413}."] = "20级时，{zone:1456}的萨满祭司训练师{npc:5906}会让你去{zone:1413}找{npc:5901}。",
+	-- ["Click the {object:113791} to place the bracers and the drops. A few seconds later the pure {npc:5895} rises on the stone in the middle of the pool: speak to it while the {spell:8202} lasts (drink again by the stone if it has worn off). It gives you the {item:7813} for {npc:5901}. Gone before you could speak to it? Back at {npc:5901} ask for {quest:63} (a fresh {quest:972} for {npc:7007}, who stands just west of the shrine): hand it to Tiev, stay close while he calls the spirit back, then speak to it."] = "点击 {object:113791}，放上护腕和水滴。几秒后，纯净的 {npc:5895} 会在池中央的石头上出现：趁 {spell:8202} 仍然有效时与它交谈（若效果已经消失，在石头旁再喝一次）。它会给你要带给 {npc:5901} 的 {item:7813}。还没来得及交谈它就消失了？回 {npc:5901} 处索取 {quest:63}（一份新的 {quest:972}，交给站在神殿西侧不远处的 {npc:7007}）：把它交给提夫，留在附近等他再次召唤灵魂，再与灵魂交谈。",
 	-- ["Fill the {item:7766} at the quilboar watering hole"] = "在野猪人水坑装满{item:7766}",
 	-- ["Fill the {item:7767} at the fountain"] = "在喷泉装满{item:7767}",
 	-- ["Fill the {item:7768} at the {object:107045}"] = "在{object:107045}装满{item:7768}",

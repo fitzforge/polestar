@@ -28,7 +28,7 @@ return {
 	-- {npc:251361} Rorian the Dayseeker
 	["{npc:251361}'s errands"] = "{npc:251361}의 심부름",
 	-- {spell:1259416} Walk on Air · {npc:251361} Rorian the Dayseeker
-	["Jump off the top of the watchtower and use {spell:1259416} to float down to {npc:251361}, west of the tower."] = "",
+	["{spell:1259416} floats down from the top of the watchtower to {npc:251361}, west of the tower."] = "",
 	-- {npc:251361} Rorian the Dayseeker · {item:4100} Crumpled Note
 	["{npc:251361}: the {item:4100}"] = "{npc:251361}: {item:4100}",
 	-- {npc:251361} Rorian the Dayseeker
@@ -452,7 +452,7 @@ return {
 
 	-- Step 101: Valanaar
 	-- {npc:251968} Ayessa Dawnsinger · {area:16638} Valanaar · {zone:1412} Mulgore · {npc:259119} Alaana Stormwalker
-	["{npc:251968} sends you on to Kalimdor. Once you have trained, board the skycutter at the dock on {area:16638}'s south-west edge: it flies to northern {zone:1412}, where {npc:259119} waits."] = "",
+	["{npc:251968} sends you on to Kalimdor. The skycutter at the dock on {area:16638}'s south-west edge flies to northern {zone:1412}, where {npc:259119} waits."] = "",
 
 	-- Step 103: Leave Zephras Isle to Mulgore
 	-- {zone:2521} Zephras Isle · {zone:1412} Mulgore
@@ -473,8 +473,8 @@ return {
 	["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "",
 
 	-- Step 107: Traditions of the Bluff
-	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner · {item:278078} Prepared Incense
-	["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068}은(는) 타우렌 향을 원합{npc:3014}. 약초상 니다, 마법부여 상인 {npc:3012}, 가죽세공 상인 {npc:3005}, 요리 상인 {npc:3027}에게서 재료 네 가지를 사서 {item:278078}(으)로 합치세요.",
+	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner
+	["{npc:269068} wants tauren incense, made from four parts that {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier sell."] = "",
 	-- {item:278079} Bundle of Herbs · {npc:3014} Nida Winterhoof
 	["{item:278079}, from {npc:3014}"] = "{npc:3014}에게서 {item:278079}",
 	-- {item:278080} Bundle of Dried Cedar Twigs · {npc:3012} Nata Dawnstrider
@@ -602,6 +602,7 @@ return {
 	-- ["{npc:255853} waits by the falls just north of the watchtower."] = "{npc:255853}은(는) 감시탑 바로 북쪽 폭포 옆에서 기다립니다.",
 	-- ["{npc:258443} roams the slopes just south of the turncoat's house."] = "{npc:258443}은(는) 배신자의 집 바로 남쪽 비탈을 배회합니다.",
 	-- ["{npc:263664}'s campfire"] = "{npc:263664}의 모닥불",
+	-- ["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068}은(는) 타우렌 향을 원합{npc:3014}. 약초상 니다, 마법부여 상인 {npc:3012}, 가죽세공 상인 {npc:3005}, 요리 상인 {npc:3027}에게서 재료 네 가지를 사서 {item:278078}(으)로 합치세요.",
 	-- ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033}은(는) {area:1639}에서 드루이드를 가르칩니다. 그에게서 {spell:18960}을(를) 배우세요. {npc:11802}의 환영 인사는 21레벨쯤 {spell:499} 여정 때 받습니다(forever/horde/02-the-barrens).",
 	-- ["{npc:3615}, the wind rider master"] = "와이번 조련사 {npc:3615}",
 }

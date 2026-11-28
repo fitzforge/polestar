@@ -28,7 +28,7 @@ return {
 
 	-- Step 4: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir · {area:976} Gadgetzan
-	["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "{npc:9299} hat dich schon getroffen: Trink {item:11243} auf dem Friedhof direkt östlich von {area:976} und finde ihn als Geist in der Felsspalte genau nördlich davon.",
+	["{npc:9299} has already met you. He is seen only as a ghost, after the {item:11243}, in the rocky crevice due north of the graveyard just east of {area:976}."] = "",
 
 	-- Step 5: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
@@ -149,7 +149,7 @@ return {
 
 	-- Step 30: Sandy Cookbook
 	-- {object:180503} Sandy Cookbook · {npc:15174} Calandrath
-	["The {object:180503} lies in the outpost: read it and take its torn page back to {npc:15174}."] = "Das {object:180503} liegt im Außenposten: lies es und bringe die zerrissene Seite zurück zu {npc:15174}.",
+	["The {object:180503} lies in the outpost, and its torn page goes back to {npc:15174}."] = "",
 
 	-- Step 31: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
@@ -355,6 +355,7 @@ return {
 	-- ["The wooden sign beside {npc:9997}"] = "Das Holzschild neben {npc:9997}",
 	-- ["The {object:177675} is just behind the {area:2261}."] = "{object:177675} liegt gleich hinter {area:2261}.",
 	-- ["The {object:177675} is just south, behind the {area:2261}."] = "{object:177675} liegt gleich südlich, hinter {area:2261}.",
+	-- ["The {object:180503} lies in the outpost: read it and take its torn page back to {npc:15174}."] = "Das {object:180503} liegt im Außenposten: lies es und bringe die zerrissene Seite zurück zu {npc:15174}.",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:11897} is a level 60 elite: skip it if you are alone."] = "Das sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Mitspieler dafür. {npc:11897} ist ein Elite der Stufe 60: Überspring ihn, wenn du allein bist.",
 	-- ["Through the pass and east along the northern cliffs to {area:541}. {npc:8737} stands by the cave; {npc:9117} is inside it."] = "Durch den Pass und nach Osten entlang der nördlichen Klippen zu {area:541}. {npc:8737} steht bei der Höhle; {npc:9117} ist drinnen.",
 	-- ["Through the pass and east along the northern cliffs to {area:541}. {npc:9997} stands beside the flight master."] = "Durch den Pass und nach Osten entlang der nördlichen Klippen nach {area:541}. {npc:9997} steht neben dem Flugmeister.",
@@ -391,6 +392,7 @@ return {
 	-- ["{npc:1855}'s next task, Of Lost Honor, is not on this route. Skip it."] = "{npc:1855}s nächste Aufgabe, Von verlorener Ehre, ist nicht auf dieser Route. Überspring sie.",
 	-- ["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565} läuft um {area:2276} herum: schau in den Kreis auf der Karte",
 	-- ["{npc:9117} is inside the cave."] = "{npc:9117} ist in der Höhle.",
+	-- ["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "{npc:9299} hat dich schon getroffen: Trink {item:11243} auf dem Friedhof direkt östlich von {area:976} und finde ihn als Geist in der Felsspalte genau nördlich davon.",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "{npc:9619} will jetzt das Fell von {npc:9622}, zurück in der nordöstlichen Höhle: Überspringe es.",
 	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "Der Unterschlupf von {npc:9684} liegt gleich südlich des Pylons. Benutze dort {npc:9619}s Köder; {npc:9684} ist Stufe 56 und schlägt hart zu, also fang mit voller Gesundheit an.",
 	-- ["{quest:105}'s shard lies at {npc:1852}'s feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group."] = "Der Splitter für {quest:105} liegt zu Füßen von {npc:1852}, mitten in Andorhal: Er ist ein Elite der Stufe 61, umgeben von Skeletal Warlords (Elite), ein Kampf für eine Gruppe.",

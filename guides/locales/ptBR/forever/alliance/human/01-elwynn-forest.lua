@@ -477,19 +477,22 @@ return {
 	["Back to {zone:1429}"] = "De volta a {zone:1429}",
 
 	-- Step 95: Taming the Beast
-	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:15908} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
+	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:266158} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar · Young Forest Bears = {npc:822} Young Forest Bear
-	["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507} fica com os instrutores de {area:87}. Cada missão dela lhe dá um {item:15908}: use-o na fera que ela indicar e traga o bastão de volta. Javalis Couropedra e Jovens Ursos da Floresta vagam pelas colinas ao sul de {area:64}; Lobos Cinza da Floresta, pelo bosque a leste de {area:18}.",
-	-- {npc:524} Rockhide Boar · {item:15908} Taming Rod
-	["{npc:524}: tame it with the {item:15908}"] = "{npc:524}: dome-o com o {item:15908}",
+	["{npc:251507} stands with the {area:87} trainers. Each of her quests comes with a {item:266158} for the beast she names, and the rod goes back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "",
+	-- {npc:524} Rockhide Boar · {item:266158} Taming Rod
+	-- was: ["{npc:524}: tame it with the {item:15908}"] = "{npc:524}: dome-o com o {item:15908}"
+	["{npc:524}: tame it with the {item:266158}"] = "",
 	-- {npc:524} Rockhide Boar
 	["Tame {npc:524}"] = "Dome {npc:524}",
-	-- {npc:1922} Gray Forest Wolf · {item:15908} Taming Rod
-	["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}: dome-o com o {item:15908}",
+	-- {npc:1922} Gray Forest Wolf · {item:266158} Taming Rod
+	-- was: ["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}: dome-o com o {item:15908}"
+	["{npc:1922}: tame it with the {item:266158}"] = "",
 	-- {npc:1922} Gray Forest Wolf
 	["Tame {npc:1922}"] = "Dome {npc:1922}",
-	-- {npc:822} Young Forest Bear · {item:15908} Taming Rod
-	["{npc:822}: tame it with the {item:15908}"] = "{npc:822}: dome-o com o {item:15908}",
+	-- {npc:822} Young Forest Bear · {item:266158} Taming Rod
+	-- was: ["{npc:822}: tame it with the {item:15908}"] = "{npc:822}: dome-o com o {item:15908}"
+	["{npc:822}: tame it with the {item:266158}"] = "",
 	-- {npc:822} Young Forest Bear
 	["Tame {npc:822}"] = "Dome {npc:822}",
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
@@ -591,10 +594,12 @@ return {
 	-- ["{npc:1430} cooks in the inn's kitchen."] = "{npc:1430} cozinha na cozinha da estalagem.",
 	-- ["{npc:1632}: Camping 101, leatherworkers"] = "{npc:1632}: Introdução ao acampamento, coureiros",
 	-- ["{npc:1651}: Camping 101, fishers"] = "{npc:1651}: Introdução ao acampamento, pescadores",
+	-- ["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}: dome-o com o {item:15908}",
 	-- ["{npc:2329}, in the inn: Camping 101, {skill:129}"] = "{npc:2329}, na estalagem: Introdução ao acampamento, {skill:129}",
 	-- ["{npc:247229}, in the library"] = "{npc:247229}, na biblioteca",
 	-- ["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277} fica de guarda em {area:798}, a leste da margem dos murlocs. Depois volte para o noroeste até a ponte.",
 	-- ["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415} fica atrás da Abadia, perto dos estábulos.",
+	-- ["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507} fica com os instrutores de {area:87}. Cada missão dela lhe dá um {item:15908}: use-o na fera que ela indicar e traga o bastão de volta. Javalis Couropedra e Jovens Ursos da Floresta vagam pelas colinas ao sul de {area:64}; Lobos Cinza da Floresta, pelo bosque a leste de {area:18}.",
 	-- ["{npc:263399} camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, {skill:129} and blacksmithing in {area:87}."] = "{npc:263399} acampa a nordeste da estalagem. Com uma profissão aprendida, ele também oferece a Introdução ao acampamento dela, que o instrutor da profissão recebe: esfolamento, couraria e pesca na margem do lago; {skill:129} e ferraria em {area:87}.",
 	-- ["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:1632}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town. With a profession learned, Sam also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing here on the shore, {skill:129} and blacksmithing in {area:87}."] = "{npc:263399} acampa a nordeste da estalagem; {npc:6306}, {npc:1632}, {npc:383} e {npc:1651} ficam na margem de {area:18}, a leste da cidade. Com uma profissão aprendida, Sam também oferece a Introdução ao acampamento dela, que o instrutor da profissão recebe: esfolamento, couraria e pesca aqui na margem; {skill:129} e ferraria em {area:87}.",
 	-- ["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:263399} acampa a nordeste da estalagem; {npc:6306}, {npc:383} e {npc:1651} ficam na margem de {area:18}, a leste da cidade.",
@@ -608,9 +613,11 @@ return {
 	-- ["{npc:514}, at the smithy across the road: Camping 101, blacksmiths"] = "{npc:514}, na ferraria do outro lado da estrada: Introdução ao acampamento, ferreiros",
 	-- ["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, na ferraria ao lado de Dughan: {npc:1416} em {zone:1453} recebe (02-westfall)",
 	-- ["{npc:514}, at the smithy: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}, na ferraria: {npc:1416} em {zone:1453} recebe (02-westfall)",
+	-- ["{npc:524}: tame it with the {item:15908}"] = "{npc:524}: dome-o com o {item:15908}",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}: Redenção",
 	-- ["{npc:6306}: Camping 101, skinners; inside"] = "{npc:6306}: Introdução ao acampamento, esfoladores; lá dentro",
 	-- ["{npc:6306}: skinners only, the pelts are skinned"] = "{npc:6306}: só para esfoladores; as peles são esfoladas",
+	-- ["{npc:822}: tame it with the {item:15908}"] = "{npc:822}: dome-o com o {item:15908}",
 	-- ["{npc:911}, the warrior trainer"] = "{npc:911}, o instrutor de guerreiros",
 	-- ["{npc:927}: {npc:6171} in {zone:1453} takes it"] = "{npc:927}: {npc:6171} em {zone:1453} recebe",
 	-- ["{npc:955}: he wants your {item:247824}"] = "{npc:955}: ele quer seu {item:247824}",

@@ -62,7 +62,8 @@ return {
 
 	-- Step 13: Orgrimmar
 	-- {object:405149} Mural of Ta'zo (no name in this language: may be words) · {object:172961} Valley of Spirits
-	["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "{object:405149}是{object:172961}中斜靠在牆邊的石板，就在前往法師訓練師的路上。使用它即可拿到書。",
+	-- was: ["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "{object:405149}是{object:172961}中斜靠在牆邊的石板，就在前往法師訓練師的路上。使用它即可拿到書。"
+	["The {object:405149}, the stone tablet leaning against the wall in the {object:172961} on the way to the mage trainers, holds the book."] = "",
 
 	-- Step 14: The library: first books
 	["The library: first books"] = "圖書館：第一批書",
@@ -188,4 +189,7 @@ return {
 	["The level 60 books: {npc:7825}"] = "60級書籍：{npc:7825}",
 	-- {npc:7825} Oran Snakewrithe · {npc:211022} Owen Thadd · {object:36082} Magic Quarter
 	["{npc:7825}, beside {npc:211022} in the {object:36082}, takes the level 60 books: each book's quest is offered while the book is in your bags. Take and hand them in one at a time (Polestar cannot track these quests for the Horde yet)."] = "{npc:7825}在{object:36082}裡{npc:211022}旁邊，收60級的書：書在揹包裡時會給出對應任務。一次接一個、交一個（Polestar還無法為部落追蹤這些任務）。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "{object:405149}是{object:172961}中斜靠在牆邊的石板，就在前往法師訓練師的路上。使用它即可拿到書。",
 }

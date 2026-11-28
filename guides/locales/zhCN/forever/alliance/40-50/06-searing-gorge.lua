@@ -35,7 +35,7 @@ return {
 
 	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
-	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "杜里奥斯·裂石在{area:247}旁的路边。向东北护送他到{area:1959}，确保他存活；结束后阅读他留在路上的{object:175704}。",
+	["Dorius stands by the road beside the {area:247}. The escort runs north-east to {area:1959}, and the {object:175704} he leaves on the road takes the hand-in."] = "",
 	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
 	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "在本指南结尾交给{zone:1455}的{npc:8256}",
 
@@ -184,6 +184,7 @@ return {
 	-- ["Back at the {area:247}: Dorius stands by the road. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "返回{area:247}，杜里奥斯·裂石在道路旁等候。向东北护送他到{area:1959}，确保他存活；结束后阅读他留在道路上的{object:175704}。",
 	-- ["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "带着{object:149047}沿大熔炉边缘向南走，从西南绕到东南，点燃四个哨兵火盆。",
 	-- ["Dark Iron dwarves: kill these as you meet them"] = "黑铁矮人：沿途击杀",
+	-- ["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "杜里奥斯·裂石在{area:247}旁的路边。向东北护送他到{area:1959}，确保他存活；结束后阅读他留在路上的{object:175704}。",
 	-- ["For {npc:8256} in {area:1537}, later"] = "之后交给{area:1537}的{npc:8256}",
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}. {area:1446} is the scaffolded camp on the north-west rim."] = "从{area:144}向南骑进{zone:1418}，然后向西经过部落城镇{area:340}（离远点），沿小路上到{zone:1427}。{area:1446}是西北边缘搭着脚手架的营地。",
 	-- ["Golems and elementals"] = "傀儡和元素",

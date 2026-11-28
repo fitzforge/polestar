@@ -247,7 +247,7 @@ return {
 	["Magram: {quest:92873}"] = "마그람일족: {quest:92873}",
 	-- {npc:253136} Orgrul · {item:254870} Rudimentary Necromancy Staff
 	-- plural, as words: Nascent Undead Ravagers = {npc:253360} Nascent Undead Ravager · Well Cursed Bones = {item:254842} Well Cursed Bone
-	["From the quest data: {npc:253136} gives you a {item:254870}. He laid out two skeletons on the hill just east of his post: put the staff to use there, and the Nascent Undead Ravagers give the Well Cursed Bones."] = "퀘스트 데이터 기준: {npc:253136}이(가) {item:254870}을(를) 줍니다. 그는 초소 바로 동쪽 언덕에 해골 두 구를 늘어놓았습니다. 그곳에서 지팡이를 사용하면 갓 깨어난 언데드 약탈자가 잘 저주받은 뼈를 줍니다.",
+	["From the quest data: {npc:253136}'s {item:254870} raises the two skeletons he laid out on the hill just east of his post, and the Nascent Undead Ravagers give the Well Cursed Bones."] = "",
 	-- plural, as words: Well Cursed Bones = {item:254842} Well Cursed Bone · Nascent Undead Ravagers = {npc:253360} Nascent Undead Ravager
 	["Well Cursed Bones: Nascent Undead Ravagers"] = "잘 저주받은 뼈: 갓 깨어난 언데드 약탈자",
 
@@ -322,6 +322,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["From the quest data: east of {npc:253177}, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie {npc:253446}, failed summons stuck in the ground: lay eight to rest with {item:256061}, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull."] = "퀘스트 데이터 기준: {npc:253177} 동쪽, 골짜기 한가운데에서 마그람일족이 겔키스일족 포로를 붙잡고 있습니다. 다섯 명을 풀어 주십시오. 그 사이에 소환에 실패해 땅에 박힌 {npc:253446}이(가) 있습니다. 퀘스트에서 받는 {item:256061}(으)로 여덟 개를 잠재우십시오. 45레벨 정예 시체먹이와 마그람일족 강령왕이 골짜기를 돌아다니며 겔키스일족의 동맹을 공격합니다. 끌어오기 전에 지나가게 두십시오.",
 	-- ["From the quest data: south-east of {npc:253136}, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The {npc:253446} there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone."] = "퀘스트 데이터 기준: {npc:253136} 남동쪽, 골짜기 한가운데에서 마그람일족이 겔키스일족 포로를 붙잡고 있습니다. 다섯 명을 처치하십시오. 그곳의 {npc:253446}은(는) 소환에 실패해 땅에 박힌 것들입니다. 오르그룰이 준 강화된 강령술 지팡이로 열 개를 일으키고, 반격하는 것은 처치하십시오. 45레벨 정예 시체먹이는 골짜기를 돌아다니며 누구든 공격합니다. 역시 정예인 마그람일족 강령왕은 마그람일족의 동맹은 건드리지 않습니다.",
+	-- ["From the quest data: {npc:253136} gives you a {item:254870}. He laid out two skeletons on the hill just east of his post: put the staff to use there, and the Nascent Undead Ravagers give the Well Cursed Bones."] = "퀘스트 데이터 기준: {npc:253136}이(가) {item:254870}을(를) 줍니다. 그는 초소 바로 동쪽 언덕에 해골 두 구를 늘어놓았습니다. 그곳에서 지팡이를 사용하면 갓 깨어난 언데드 약탈자가 잘 저주받은 뼈를 줍니다.",
 	-- ["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "퀘스트 데이터 기준: {npc:5397}이(가) 자신의 지팡이와 {item:6071}을(를) 줍니다. 둘을 합쳐 {item:256061}을(를) 만들고, 마을 바로 동쪽 연못가의 의식 장소로 가져가 {item:255945}의 저주를 풀어 주십시오. 그런 다음 다시 동쪽 {npc:253177}에게 가십시오.",
 	-- ["three Tears of Theradras"] = "테라드라스의 눈물 세 개",
 }

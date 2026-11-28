@@ -412,7 +412,7 @@ return {
 
 	-- Step 85: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "你召唤时{npc:260244}会浮上来：右键点击箭头处漂在水里的东西，在港口西南的浅水区，它就会在那里浮出水面。精英{npc:257001}在附近的岸边走动：离他远点。",
+	["The {npc:260244} only surfaces when called with the bait, in the shallows south-west of the port. {npc:257001}, an elite, walks the shore close by."] = "",
 	-- {item:268633} Sea Monster's Head
 	["{item:268633}, where the Threshadon surfaces when you call him"] = "{item:268633}，在你召唤时脱颚龙浮出水面的地方",
 
@@ -469,7 +469,8 @@ return {
 	-- Step 98: The ogre mine
 	["The ogre mine"] = "食人魔矿洞",
 	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["North of the camps the cult works ogre miners in a mine: talk five of them into rising up against their masters.\nCareful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in."] = "营地北边，教派在一座矿洞里役使食人魔矿工：说服其中五个起来反抗他们的主人。\n小心：暮光执行者（精英，45级）在营地间巡逻时会经过矿洞口。等它走过去再进去。",
+	-- was: ["North of the camps the cult works ogre miners in a mine: talk five of them into rising up against their masters.\nCareful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in."] = "营地北边，教派在一座矿洞里役使食人魔矿工：说服其中五个起来反抗他们的主人。\n小心：暮光执行者（精英，45级）在营地间巡逻时会经过矿洞口。等它走过去再进去。"
+	["North of the camps the cult works ogre miners in a mine, and five of them can be talked into rising up against their masters.\nCareful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in."] = "",
 	-- plural, as words: Ogre Miners = {npc:260995} Ogre Miner
 	["recruit five Ogre Miners"] = "招募五名食人魔矿工",
 
@@ -488,9 +489,11 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:16743} from the port, where your Hearthstone is set. {npc:256418} in the middle of the fort: {npc:255829}'s word sends him looking for {npc:258570}, his warrior in the west."] = "从港口返回{area:16743}，你的炉石绑定在那里。{npc:256418}在要塞中央：{npc:255829}的消息让他去寻找他在西边的战士{npc:258570}。",
 	-- ["Careful: {npc:256899}, the two-headed ogre at the western edge of {area:16723}, is an elite (level 41): grouping up is advised under 43. Clear the cultists around him first and come in with full health and mana: recorded players of 42-43 killed him alone. {npc:255829}'s quests in {area:16726} wait on this one: skip him and {quest:95420}, the {area:16726} quests and {npc:258570}'s camp in the west go with him (about 21,000 XP); the guide then leaves them out."] = "小心：{area:16723}西缘的双头食人魔{npc:256899}是精英（41级）：43级以下建议组队。先清掉他周围的邪教徒，满血满蓝再上：有记录显示42-43级玩家单杀过他。{area:16726}的{npc:255829}的任务要以此为前提：跳过他，{quest:95420}、{area:16726}的任务以及西边{npc:258570}的营地也随之放弃（约21,000经验）；之后指南将不再包含这些内容。",
+	-- ["North of the camps the cult works ogre miners in a mine: talk five of them into rising up against their masters.\nCareful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in."] = "营地北边，教派在一座矿洞里役使食人魔矿工：说服其中五个起来反抗他们的主人。\n小心：暮光执行者（精英，45级）在营地间巡逻时会经过矿洞口。等它走过去再进去。",
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "再次前往海盗的悬崖。从南到北在营地下方停泊的三艘船上安放威兹巴兹的炸药；{quest:95124}站在中间那艘船旁，身边有她的战利品箱。路上留意{npc:259758}。\n小心：{quest:95124}为45级，比你高一两级：先清理她周围的甲板，满血再上。",
 	-- ["The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "暮光教派的营地遍布{npc:258570}南边和西边的山谷。沿途遇到被俘的洛格玛斥候就把他们救出来。暮光执行者（精英，45级）在营地间巡逻：每次拉怪前先看清它们的路线。{npc:256881}和{npc:256891}（精英，46级）据守山谷尽头的堡垒：把教徒从他们身边拉开。{npc:258023}的联盟营地位于山谷南端，那里的法霍德瞭望者（46级）会攻击部落：待在营地北边。",
 	-- ["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "下一份指南从{area:3}的{area:340}起飞：向北离开{npc:258570}的山谷，穿过{area:16685}，那里是通往{area:3}的路。",
+	-- ["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "你召唤时{npc:260244}会浮上来：右键点击箭头处漂在水里的东西，在港口西南的浅水区，它就会在那里浮出水面。精英{npc:257001}在附近的岸边走动：离他远点。",
 	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}在港口西南、鱼人海滩下方的浅水中游荡。精英{npc:257001}在附近岸边走动：离他远一点。",
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}：嗅嗅鼻和{npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548}位于{area:3}以南。从{area:657}向东骑到{area:75}，再飞往{area:340}：进入该地区的下山路就从那里开始。",

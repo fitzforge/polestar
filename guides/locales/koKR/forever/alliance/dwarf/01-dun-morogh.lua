@@ -381,7 +381,7 @@ return {
 	-- Step 66: Taming the Beast
 	-- {item:15908} Taming Rod · {area:131} Kharanos
 	-- plural, as words: Large Crag Boars = {npc:1126} Large Crag Boar · Snow Leopards = {npc:1201} Snow Leopard · Ice Claw Bears = {npc:1196} Ice Claw Bear
-	["Each of Grif Wildheart's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "그리프 와일드하트의 퀘스트마다 {item:15908}을(를) 줍니다. 그가 지정한 야수에게 사용한 뒤, {area:131} 대장간의 그에게 막대를 가져가세요. 큰 바위멧돼지, 눈표범, 얼음발톱흰곰 모두 {area:131} 바로 남쪽과 동쪽 들판을 돌아다닙니다.",
+	["Each of Grif Wildheart's quests comes with a {item:15908} for the beast he names, and the rod goes back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "",
 	-- {npc:1231} Grif Wildheart
 	["{npc:1231}, at the smithy"] = "{npc:1231}, 대장간에서",
 	-- {npc:1126} Large Crag Boar · {item:15908} Taming Rod
@@ -715,6 +715,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back through the tunnel to {npc:257597}' cave above the farm."] = "굴을 지나 농장 위 {npc:257597}의 동굴로 돌아가세요.",
+	-- ["Each of Grif Wildheart's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "그리프 와일드하트의 퀘스트마다 {item:15908}을(를) 줍니다. 그가 지정한 야수에게 사용한 뒤, {area:131} 대장간의 그에게 막대를 가져가세요. 큰 바위멧돼지, 눈표범, 얼음발톱흰곰 모두 {area:131} 바로 남쪽과 동쪽 들판을 돌아다닙니다.",
 	-- ["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "도로를 따라 끝까지 동쪽으로 가 {area:38} 터널의 {area:806}까지 가세요.",
 	-- ["Follow the road up to {zone:1455} and train with your class trainer. The {area:2257} leaves from {object:171524}, in the east of the city. Ride it to {zone:1453}."] = "길을 따라 {zone:1455}(으)로 올라가 직업 상급자에게 훈련을 받으세요. {area:2257}은(는) 도시 동쪽의 {object:171524}에서 출발합니다. 그것을 타고 {zone:1453}(으)로 가세요.",
 	-- ["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "정문으로 {zone:1453}을(를) 나가 남쪽으로 {area:87}까지 간 뒤, 길을 따라 동쪽으로 {area:62}까지 가세요. {npc:881}(9레벨)은(는) 농가 옆에 서 있습니다.",

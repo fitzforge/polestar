@@ -387,7 +387,8 @@ return {
 
 	-- Step 69: Fly to Stormwind
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {zone:1453} Stormwind
-	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "返回{area:442}，继续{zone:1439}南边的路线：先坐狮鹫到{zone:1453}，再从港口坐船。炉石可用（自第一次来{zone:1439}起就绑定在{area:442}）？那就直接用炉石：一到{zone:1439}，这些步骤就会自动消失。",
+	-- was: ["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "返回{area:442}，继续{zone:1439}南边的路线：先坐狮鹫到{zone:1453}，再从港口坐船。炉石可用（自第一次来{zone:1439}起就绑定在{area:442}）？那就直接用炉石：一到{zone:1439}，这些步骤就会自动消失。"
+	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. The hearthstone is bound in {area:442} since the first {zone:1439} visit, and these steps drop once you are in {zone:1439}."] = "",
 	-- {area:69} Lakeshire
 	["{area:69} flight master"] = "{area:69}的飞行管理员",
 
@@ -430,6 +431,7 @@ return {
 	["On the way to the harbour: {npc:4984}'s message goes to {npc:8997} in {area:442}, beside Terenthis, where the boat lands."] = "去港口时带上{npc:4984}的口信，交给{npc:8997}。她就在{area:442}船靠岸的地方，特伦希斯旁边。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "返回{area:442}，继续{zone:1439}南边的路线：先坐狮鹫到{zone:1453}，再从港口坐船。炉石可用（自第一次来{zone:1439}起就绑定在{area:442}）？那就直接用炉石：一到{zone:1439}，这些步骤就会自动消失。",
 	-- ["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "往镇子方向回走，从桥边向东游进{area:68}：箱子就在湖床上、沉船旁。{npc:422}和鱼人潮行者在南岸一带出没，每个都可能带着{item:1467}。",
 	-- ["Elder Mountain Boars and {npc:270693}"] = "老山猪和{npc:270693}",
 	-- ["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "不要从威利那里接「迪菲亚兄弟会」（它由{zone:1436}里{npc:234}的信开启）：跳过{zone:1436}。从{area:87}沿大路向北到{zone:1453}：{npc:466}骑着马守在城门里大桥的尽头。然后去{object:2096}的狮鹫处，飞回{area:69}。",

@@ -228,7 +228,7 @@ return {
 
 	-- Step 44: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
-	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "向东前往{area:599}。将一名火刃教徒打至残血，在其死亡前使用{item:6436}，灌满一个{item:6435}。{npc:13019}带着权杖站在堡垒顶层。教徒偶尔也会掉落{item:20310}（1-5%）；拾取后阅读。红色的{object:176581}先别碰：它召出的{npc:11876}是37级，第二次来{zone:1443}时再回来处理。",
+	["{area:599} is to the east. The {item:6436} fills one {item:6435} from a Burning Blade cultist brought low before it dies. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%), which starts a quest. The red {object:176581} waits: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "",
 	["On the top floor"] = "在最顶层",
 
 	-- Step 45: Sargeron
@@ -294,7 +294,7 @@ return {
 
 	-- Step 55: Rackmore's Log
 	-- {object:177787} Rackmore's Log · {npc:11863} Azore Aldamort
-	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787}就在{npc:11863}所在高塔西南方不远的地上，在下行前往海岸的路上：阅读它。它所需的两把钥匙只有在接了任务后才会掉落。",
+	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore, and its two keys drop only while its quest is in the log."] = "",
 
 	-- Step 56: Clam beds
 	["Clam beds"] = "蚌床",
@@ -338,6 +338,7 @@ return {
 	-- ["Back west to {npc:11863}."] = "向西返回{npc:11863}身边。",
 	-- ["East onto the flats. The Saltstone Basilisks (30-31) sun themselves north-west of it; the Sparkleshell tortoises crowd round a half-buried ship in the north-east, and the Salt Flats Scavengers and Vultures circle the eastern flats. Every vulture drops a bone, about one tortoise in three a shell.\nCareful: Scavengers and Vultures use Execute when your health is low; the Snappers (34-35) hit hardest of the tortoises."] = "向东进入盐碱地。盐石蜥蜴（30-31）在其西北方晒太阳；盐壳海龟聚集在东北方一艘半埋的船旁，盐湖食腐鹫和盐湖秃鹫盘旋在东部盐碱地上空。每只秃鹫都会掉落骨头，海龟约每三只掉一个龟壳。\n小心：盐湖食腐鹫和盐湖秃鹫会在你生命值较低时使用斩杀；盐壳钳嘴龟（34-35）是这些海龟中伤害最高的。",
 	-- ["Head east past {area:599} and along the northern hills to the satyrs' ruins of {area:603}. Kill every kind you meet for {npc:268705}; the Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "向东经过{area:599}，沿北部丘陵前往萨特占据的{area:603}废墟。为{npc:268705}击杀遇到的所有种类；怨怒巡影者会隐身游荡。\n小心：怨怒潜行者刷新时就会使用躲藏，在被发现前一直潜行。",
+	-- ["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "向东前往{area:599}。将一名火刃教徒打至残血，在其死亡前使用{item:6436}，灌满一个{item:6435}。{npc:13019}带着权杖站在堡垒顶层。教徒偶尔也会掉落{item:20310}（1-5%）；拾取后阅读。红色的{object:176581}先别碰：它召出的{npc:11876}是37级，第二次来{zone:1443}时再回来处理。",
 	-- ["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. {quest:5381}: clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}."] = "向东前往{area:599}。将一名火刃教徒打至残血，在其死亡前使用{item:6436}，灌满一个{item:6435}。{npc:13019}带着权杖站在堡垒顶层。教徒偶尔也会掉落{item:20310}（1-5%）；拾取后阅读。{quest:5381}：先清理最大建筑中央的怪物，再对那里的红色{object:176581}使用{item:14523}。随后会出现一只{npc:11876}（37级），击杀它取得{item:13542}。",
 	-- ["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre; use the {item:14523} on the {npc:11876} for the {item:13542}. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it."] = "向东前往{area:599}。把一名火刃祭司打至残血，在其死亡前使用{item:6436}，灌满一个{item:6435}。{npc:13019}带着权杖站在堡垒顶层；对{npc:11876}使用{item:14523}，取得{item:13542}。这些祭司偶尔也会掉落{item:20310}（1-5%），掉落后记得阅读。",
 	-- ["Head north along the coast, then inland to the ruined tower of {area:2405}: {npc:11863} waits inside. The coast's clams and naga come after {area:599}, on one walk north to {area:2406}."] = "沿海岸向北，再转向内陆前往{area:2405}的废塔：{npc:11863}在塔内等候。海岸上的蚌和纳迦留到{area:599}之后，一路向北前往{area:2406}时再做。",
@@ -379,6 +380,7 @@ return {
 	-- ["{npc:4877}, the trade supplies vendor, stands inside {area:484}'s inn."] = "商业用品商人{npc:4877}站在{area:484}的旅店里。",
 	-- ["{npc:5395} now offers Centaur Bounty: the second {zone:1443} visit, at 38, takes it on its way to the {area:607}."] = "{npc:5395}现在会提供“半人马赏金”：第二次来{zone:1443}时（38级），前往{area:607}的路上会接取它。",
 	-- ["{npc:5641}'s next errand sends you after a demon lord with an elite guard: skip it."] = "{npc:5641}的下一个差事要你去对付一个带着精英护卫的恶魔领主：跳过它。",
+	-- ["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787}就在{npc:11863}所在高塔西南方不远的地上，在下行前往海岸的路上：阅读它。它所需的两把钥匙只有在接了任务后才会掉落。",
 	-- ["{object:19868}, all over the northern flats"] = "{object:19868}，遍布北部盐碱地",
 	-- ["{zone:1443}'s quests are 33-38. Below 32.5? Keep killing the Sparkleshell Snappers near the silithid dig and the Saltstone Gazers south of it until level 32.5. Or, with a group, run the {area:796} dungeon (Graveyard or Library) instead."] = "{zone:1443}的任务为33-38级。还没到32.5级？继续击杀异种虫挖掘场附近的盐壳钳嘴龟，以及挖掘场南边的盐石凝视者，直到32.5级。也可组队挑战{area:796}副本（墓地或图书馆）。",
 	-- ["{zone:1443}'s quests are 33-38. Still below 32.5 after the raceway's hand-ins? Keep killing the Sparkleshell Snappers on the flats just north of the raceway until level 32.5. Or, with a group, run the {area:1717} dungeon instead."] = "{zone:1443}的任务适合33-38级。交还赛道的任务后仍未到32.5级，就在赛道正北的平原上继续击杀盐壳钳嘴龟，直到32.5级；也可以组队刷{area:1717}地下城。",

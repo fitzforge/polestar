@@ -97,8 +97,8 @@ return {
 	-- Step 19: The Minor Manifestation of Water
 	-- {npc:5895} Minor Manifestation of Water
 	["The {npc:5895}"] = "純淨的{npc:5895}",
-	-- {object:113791} Brazier of Everfount (no name in this language: may be words) · {npc:5895} Minor Manifestation of Water · {spell:8202} Sapta Sight · {item:7813} Shard of Water · {npc:5901} Islen Waterseer · {quest:63} Call of Water · {quest:972} Water Sapta · {npc:7007} Tiev Mordune
-	["Click the {object:113791} to place the bracers and the drops. A few seconds later the pure {npc:5895} rises on the stone in the middle of the pool: speak to it while the {spell:8202} lasts (drink again by the stone if it has worn off). It gives you the {item:7813} for {npc:5901}. Gone before you could speak to it? Back at {npc:5901} ask for {quest:63} (a fresh {quest:972} for {npc:7007}, who stands just west of the shrine): hand it to Tiev, stay close while he calls the spirit back, then speak to it."] = "點選{object:113791}，放上護腕和掉落物。幾秒後，純淨的{npc:5895}會浮現在水池中央的石頭上：趁著{spell:8202}還在，跟它對話（如果效果消失了，就在石頭旁再喝一次）。它會給你要交給{npc:5901}的{item:7813}。還沒輪到說話它就消失了？回到{npc:5901}處要{quest:63}（一封給{npc:7007}的新{quest:972}，他就站在神龕西邊）：把信交給蒂耶夫，在他召回幽靈的過程中保持靠近，然後再跟幽靈對話。",
+	-- {object:113791} Brazier of Everfount (no name in this language: may be words) · {npc:5895} Minor Manifestation of Water · {spell:8202} Sapta Sight · {item:7813} Shard of Water · {npc:5901} Islen Waterseer · {quest:63} Call of Water · {item:6637} Water Sapta · {npc:7007} Tiev Mordune
+	["The {object:113791} takes the bracers and the drops. A few seconds later the pure {npc:5895} rises on the stone in the middle of the pool: seen only while the {spell:8202} lasts, and it gives the {item:7813} for {npc:5901}. If it is gone first, {npc:5901}'s {quest:63} gives a fresh {item:6637} for {npc:7007}, just west of the shrine, who calls the spirit back."] = "",
 
 	-- Step 20: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet · {item:5177} Water Totem
@@ -107,6 +107,7 @@ return {
 	["{npc:5901}: {spell:5394} and your {item:5177}"] = "{npc:5901}：{spell:5394}和你的{item:5177}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Click the {object:113791} to place the bracers and the drops. A few seconds later the pure {npc:5895} rises on the stone in the middle of the pool: speak to it while the {spell:8202} lasts (drink again by the stone if it has worn off). It gives you the {item:7813} for {npc:5901}. Gone before you could speak to it? Back at {npc:5901} ask for {quest:63} (a fresh {quest:972} for {npc:7007}, who stands just west of the shrine): hand it to Tiev, stay close while he calls the spirit back, then speak to it."] = "點選{object:113791}，放上護腕和掉落物。幾秒後，純淨的{npc:5895}會浮現在水池中央的石頭上：趁著{spell:8202}還在，跟它對話（如果效果消失了，就在石頭旁再喝一次）。它會給你要交給{npc:5901}的{item:7813}。還沒輪到說話它就消失了？回到{npc:5901}處要{quest:63}（一封給{npc:7007}的新{quest:972}，他就站在神龕西邊）：把信交給蒂耶夫，在他召回幽靈的過程中保持靠近，然後再跟幽靈對話。",
 	-- ["Fill the {item:7766} at the quilboar watering hole"] = "在野豬人的水源裝滿{item:7766}",
 	-- ["Fill the {item:7767} at the fountain"] = "在噴泉裝滿{item:7767}",
 	-- ["Fill the {item:7768} at the {object:107045}"] = "在{object:107045}裝滿{item:7768}",

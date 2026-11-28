@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Aramis Hammerhand
 	-- {npc:1569} Shadow Priest Sarvis · {item:282423} Consecrated Scroll · {quest:364} The Mindless Ones · {npc:244808} Aramis Hammerhand · {npc:259377} Injured Deathguard · {area:154} Deathknell · {spell:635} Holy Light
-	["{npc:1569} gives you a {item:282423} after {quest:364}: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "完成{quest:364}後{npc:1569}給你一封{item:282423}：讀一下，然後帶給教堂旁的{npc:244808}。他要你治療躺在{area:154}各處的五名{npc:259377}。{spell:635}每次施放都會輕微傷害身為被遺忘者的聖騎士：注意自己的血量。",
+	["{npc:1569}'s {item:282423}, after {quest:364}, goes to {npc:244808} by the church, who wants five {npc:259377} around {area:154} healed. {spell:635} hurts a Forsaken paladin a little each time."] = "",
 	-- {npc:259377} Injured Deathguard · {spell:635} Holy Light
 	["Heal 5 {npc:259377} with {spell:635}"] = "用{spell:635}治療5名{npc:259377}",
 
@@ -124,7 +124,7 @@ return {
 	-- Step 21: Deathguard Falgan
 	-- {area:812} Venomweb Vale · {item:6866} Symbol of Life
 	-- plural, as words: Scarlet Crusaders = {npc:238286} Scarlet Crusader
-	["{area:812} is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there: target his body and use the {item:6866}, then talk to him at once, as he does not stay alive long. If he is already up (another player), just talk to him; if he died again, raise him again."] = "{area:812}在林地最東端，要走很長一段路。Falgan死在那裡的血色十字軍之中：選中他的屍體使用{item:6866}，然後立刻與他交談，他活不了多久。如果他已經被複活（其他玩家乾的），直接交談即可；如果他又死了，就再復活一次。",
+	["{area:812} is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there. Raised with the {item:6866}, he does not stay alive long, and another player may have raised him already."] = "",
 
 	-- Step 22: The Scarlet attack plans
 	["The Scarlet attack plans"] = "血色十字軍的攻擊計畫",
@@ -141,7 +141,9 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The Scarlet Crusaders camped around {area:812} carry the attack plans."] = "在{area:812}周圍紮營的{npc:239036}身上帶著攻擊計畫。",
 	-- ["{area:16602} stands on the bluffs north-west of the {area:156}. {npc:246349} waits at the gate."] = "{area:16602}位於{area:156}西北方的崖頂上。{npc:246349}在大門等候。",
+	-- ["{area:812} is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there: target his body and use the {item:6866}, then talk to him at once, as he does not stay alive long. If he is already up (another player), just talk to him; if he died again, raise him again."] = "{area:812}在林地最東端，要走很長一段路。Falgan死在那裡的血色十字軍之中：選中他的屍體使用{item:6866}，然後立刻與他交談，他活不了多久。如果他已經被複活（其他玩家乾的），直接交談即可；如果他又死了，就再復活一次。",
 	-- ["{area:812} is at the far east end of the glades. Use the {item:6866} on {npc:257663}, then speak to him. If you lose the symbol, {npc:246378} gives you another."] = "{area:812}位於林地的最東端。對{npc:257663}使用{item:6866}，然後與他交談。如果你弄丟了符記，{npc:246378}會再給你一個。",
+	-- ["{npc:1569} gives you a {item:282423} after {quest:364}: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "完成{quest:364}後{npc:1569}給你一封{item:282423}：讀一下，然後帶給教堂旁的{npc:244808}。他要你治療躺在{area:154}各處的五名{npc:259377}。{spell:635}每次施放都會輕微傷害身為被遺忘者的聖騎士：注意自己的血量。",
 	-- ["{npc:246152}, who trains Paladins in {area:159}, sends you to the order's keep on the west coast."] = "在{area:159}訓練聖騎士的{npc:246152}會派你前往西海岸的騎士團要塞。",
 	-- ["{object:181686}, in the root cellar"] = "{object:181686}，在地窖裡",
 	-- ["{object:554626}, in the root cellar"] = "{object:554626}，在地窖裡",

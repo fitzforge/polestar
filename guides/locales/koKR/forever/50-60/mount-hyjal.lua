@@ -270,7 +270,7 @@ return {
 
 	-- Step 59: Fenwick's survival pack
 	["Fenwick's survival pack"] = "",
-	["His pack fell just north of the tree. Open it, then wait half a minute while its safety lock discharges before you open it again."] = "",
+	["His pack fell just north of the tree. Its safety lock takes half a minute to discharge between the two hand-ins."] = "",
 
 	-- Step 60: Brerufa
 	-- {npc:256978} Brerufa
@@ -678,7 +678,7 @@ return {
 	-- Step 158: The Blackthorne camps
 	["The Blackthorne camps"] = "",
 	-- {npc:260674} Ve'han Talongrasp · {npc:40833} Tiala Whitemane
-	["The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). {npc:260674}, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.\nUse {npc:40833}'s staff on a Pact member to strip its ward, then kill it, ten times: pick Cultists and Adepts, whom Thisalee wants dead too. The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us."] = "",
+	["The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). {npc:260674}, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.\n{npc:40833}'s staff strips a Pact member's ward, and Cultists and Adepts count for Thisalee too. The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us."] = "",
 
 	-- Step 159: The Blackthorne camps
 	-- {npc:260674} Ve'han Talongrasp

@@ -28,7 +28,7 @@ return {
 
 	-- Step 4: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir · {area:976} Gadgetzan
-	["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "{npc:9299}已经见过你了：在{area:976}东边的墓地喝下{item:11243}，以灵魂状态在其正北的岩石裂缝中找到他。",
+	["{npc:9299} has already met you. He is seen only as a ghost, after the {item:11243}, in the rocky crevice due north of the graveyard just east of {area:976}."] = "",
 
 	-- Step 5: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
@@ -149,7 +149,7 @@ return {
 
 	-- Step 30: Sandy Cookbook
 	-- {object:180503} Sandy Cookbook · {npc:15174} Calandrath
-	["The {object:180503} lies in the outpost: read it and take its torn page back to {npc:15174}."] = "到前哨站阅读{object:180503}，把撕下的书页带回给{npc:15174}。",
+	["The {object:180503} lies in the outpost, and its torn page goes back to {npc:15174}."] = "",
 
 	-- Step 31: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
@@ -355,6 +355,7 @@ return {
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997}旁边的木牌",
 	-- ["The {object:177675} is just behind the {area:2261}."] = "{object:177675}就在{area:2261}后面。",
 	-- ["The {object:177675} is just south, behind the {area:2261}."] = "{object:177675}就在南边，{area:2261}后面。",
+	-- ["The {object:180503} lies in the outpost: read it and take its torn page back to {npc:15174}."] = "到前哨站阅读{object:180503}，把撕下的书页带回给{npc:15174}。",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:11897} is a level 60 elite: skip it if you are alone."] = "这些是精英怪：建议组队，找人一起打。{npc:11897}是60级精英：单人就跳过。",
 	-- ["Through the pass and east along the northern cliffs to {area:541}. {npc:8737} stands by the cave."] = "穿过山口，沿北侧峭壁向东到 {area:541}。{npc:8737} 就站在洞口旁。",
 	-- ["Through the pass and east along the northern cliffs to {area:541}. {npc:8737} stands by the cave; {npc:9117} is inside it."] = "穿过山口，沿北边的悬崖向东前往{area:541}。{npc:8737}站在洞穴旁；{npc:9117}在洞里。",
@@ -396,6 +397,7 @@ return {
 	-- ["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565}在{area:2276}附近巡逻，请在地图标出的圆圈内寻找",
 	-- ["{npc:9117} is inside the cave."] = "{npc:9117} 在洞穴内。",
 	-- ["{npc:9167} walks around here: look inside the circle on the map"] = "{npc:9167}在附近巡逻，请在地图标示的圆圈内寻找",
+	-- ["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "{npc:9299}已经见过你了：在{area:976}东边的墓地喝下{item:11243}，以灵魂状态在其正北的岩石裂缝中找到他。",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "{npc:9619}接下来要东北洞穴里{npc:9622}的毛皮：跳过它。",
 	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "{npc:9684}的巢穴就在水晶塔正南。在那里使用{npc:9619}的诱饵；{npc:9684}是56级，攻击很重，所以满血再开始。",
 	-- ["{quest:105}'s shard lies at {npc:1852}'s feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group."] = "{quest:105}的碎片就在{npc:1852}脚下，位于安多哈尔中央：他是61级精英，周围还有精英骷髅督军，需要组队应战。",

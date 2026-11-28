@@ -76,7 +76,7 @@ return {
 
 	-- Step 15: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
-	["Back east over the bridge and up the trail to {npc:5900}'s shrine again. {npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "다리를 건너 다시 동쪽으로 가서 오솔길을 따라 {npc:5900}의 제단으로 올라가세요. {npc:5900}이(가) 타르와 주머니로 {item:6636}을(를) 만들어 줍니다. 그 옆의 화로 곁에서 사용해 {npc:5893}을(를) 드러내고, 처치해 {item:6655}을(를) 얻은 뒤 잉걸불을 화로에 넣으세요.",
+	["{npc:5900}'s shrine is back east over the bridge and up the trail, and he makes {item:6636} from the tar and pouch. The Sapta shows the {npc:5893} by the brazier next to him, and its {item:6655} goes into the brazier."] = "",
 
 	-- Step 17: Kranal Fiss
 	-- {npc:5907} Kranal Fiss · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
@@ -738,6 +738,7 @@ return {
 	["The next guide goes north-east across the {zone:1413} to the {area:1703} and {zone:1440}."] = "다음 가이드는 {zone:1413}을(를) 가로질러 북동쪽으로 {area:1703}과(와) {zone:1440}으로 갑니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back east over the bridge and up the trail to {npc:5900}'s shrine again. {npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "다리를 건너 다시 동쪽으로 가서 오솔길을 따라 {npc:5900}의 제단으로 올라가세요. {npc:5900}이(가) 타르와 주머니로 {item:6636}을(를) 만들어 줍니다. 그 옆의 화로 곁에서 사용해 {npc:5893}을(를) 드러내고, 처치해 {item:6655}을(를) 얻은 뒤 잉걸불을 화로에 넣으세요.",
 	-- ["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them."] = "서슬갈기일족 야영지로 돌아가세요. 동쪽 절반은 흙점쟁이와 파수병이 차지하고 있으며, {npc:3438}은(는) 그들 사이를 돌아다닙니다.",
 	-- ["Back west along the road."] = "길을 따라 서쪽으로 돌아가세요.",
 	-- ["Burning Blade Cultists hold {area:1898} in northern {area:14}; they drop the {item:6652}. The {item:5026} comes from the Razormane on your next visit to their camp."] = "불타는칼날단 이교도는 {area:14} 북부의 {area:1898}을(를) 차지하고 있으며, {item:6652}을(를) 떨어뜨립니다. {item:5026}은(는) 다음에 서슬갈기일족 야영지에 갈 때 그들에게서 얻습니다.",

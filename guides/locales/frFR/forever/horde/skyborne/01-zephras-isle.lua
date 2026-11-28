@@ -28,7 +28,7 @@ return {
 	-- {npc:251361} Rorian the Dayseeker
 	["{npc:251361}'s errands"] = "Les commissions de {npc:251361}",
 	-- {spell:1259416} Walk on Air · {npc:251361} Rorian the Dayseeker
-	["Jump off the top of the watchtower and use {spell:1259416} to float down to {npc:251361}, west of the tower."] = "Sautez du haut de la tour de guet et utilisez {spell:1259416} pour descendre en planant jusqu'à {npc:251361}, à l'ouest de la tour.",
+	["{spell:1259416} floats down from the top of the watchtower to {npc:251361}, west of the tower."] = "",
 	-- {npc:251361} Rorian the Dayseeker · {item:4100} Crumpled Note
 	["{npc:251361}: the {item:4100}"] = "{npc:251361} : {item:4100}",
 	-- {npc:251361} Rorian the Dayseeker
@@ -452,7 +452,8 @@ return {
 
 	-- Step 101: Valanaar
 	-- {npc:251968} Ayessa Dawnsinger · {area:16638} Valanaar · {zone:1412} Mulgore · {npc:259119} Alaana Stormwalker
-	["{npc:251968} sends you on to Kalimdor. Once you have trained, board the skycutter at the dock on {area:16638}'s south-west edge: it flies to northern {zone:1412}, where {npc:259119} waits."] = "{npc:251968} vous envoie vers Kalimdor. Une fois entraîné, montez à bord du coupe-ciel au quai, à la lisière sud-ouest de {area:16638} : il vole jusqu'au nord de {zone:1412}, où {npc:259119} vous attend.",
+	-- was: ["{npc:251968} sends you on to Kalimdor. Once you have trained, board the skycutter at the dock on {area:16638}'s south-west edge: it flies to northern {zone:1412}, where {npc:259119} waits."] = "{npc:251968} vous envoie vers Kalimdor. Une fois entraîné, montez à bord du coupe-ciel au quai, à la lisière sud-ouest de {area:16638} : il vole jusqu'au nord de {zone:1412}, où {npc:259119} vous attend."
+	["{npc:251968} sends you on to Kalimdor. The skycutter at the dock on {area:16638}'s south-west edge flies to northern {zone:1412}, where {npc:259119} waits."] = "",
 
 	-- Step 103: Leave Zephras Isle to Mulgore
 	-- {zone:2521} Zephras Isle · {zone:1412} Mulgore
@@ -473,8 +474,8 @@ return {
 	["{npc:5543} stands in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart."] = "{npc:5543} se tient dans les {area:2197}, la grotte sous le {area:1640} : descendez par l'intérieur, la flèche ne distingue pas les étages.",
 
 	-- Step 107: Traditions of the Bluff
-	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner · {item:278078} Prepared Incense
-	["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068} veut de l'encens tauren : achetez ses quatre ingrédients à {npc:3014} l'herboriste, {npc:3012} la fournisseuse en enchantement, {npc:3005} le fournisseur en travail du cuir et {npc:3027} le fournisseur en cuisine, puis combinez-les en {item:278078}.",
+	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner
+	["{npc:269068} wants tauren incense, made from four parts that {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier sell."] = "",
 	-- {item:278079} Bundle of Herbs · {npc:3014} Nida Winterhoof
 	["{item:278079}, from {npc:3014}"] = "{item:278079}, chez {npc:3014}",
 	-- {item:278080} Bundle of Dried Cedar Twigs · {npc:3012} Nata Dawnstrider
@@ -555,6 +556,7 @@ return {
 	-- ["Hippogryph nests"] = "Nids d'hippogriffes",
 	-- ["Horde airship"] = "Dirigeable de la Horde",
 	-- ["Into {area:17}"] = "Vers {area:17}",
+	-- ["Jump off the top of the watchtower and use {spell:1259416} to float down to {npc:251361}, west of the tower."] = "Sautez du haut de la tour de guet et utilisez {spell:1259416} pour descendre en planant jusqu'à {npc:251361}, à l'ouest de la tour.",
 	-- ["Kuramaa"] = "Kuramaa",
 	-- ["Leave {zone:1456} by a lift and follow the road south past {area:222} and through the eastern pass into the {zone:1413}; from the pass, take the {area:458} north to the {area:380}, the Horde town in the middle of the {zone:1413}."] = "Quittez {zone:1456} par un ascenseur et suivez la route vers le sud en passant {area:222}, puis le col oriental pour entrer dans {zone:1413} ; depuis le col, prenez la {area:458} vers le nord jusqu'à la {area:380}, la ville de la Horde au milieu de {zone:1413}.",
 	-- ["Leaving {area:16635}"] = "Départ de {area:16635}",
@@ -618,6 +620,7 @@ return {
 	-- ["{npc:251374} stands in the village."] = "{npc:251374} se tient dans le village.",
 	-- ["{npc:251374}, at the village centre"] = "{npc:251374}, au centre du village",
 	-- ["{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} and {npc:251523} all stand in {area:16624}. If you are still short of {item:5469}, the Galestriders graze just south of the village."] = "{npc:251905}, {npc:251906}, {npc:251991}, {npc:252172} et {npc:251523} se tiennent tous à {area:16624}. S'il vous manque encore de la {item:5469}, les Trotteurs des trombes paissent juste au sud du village.",
+	-- ["{npc:251968} sends you on to Kalimdor. Once you have trained, board the skycutter at the dock on {area:16638}'s south-west edge: it flies to northern {zone:1412}, where {npc:259119} waits."] = "{npc:251968} vous envoie vers Kalimdor. Une fois entraîné, montez à bord du coupe-ciel au quai, à la lisière sud-ouest de {area:16638} : il vole jusqu'au nord de {zone:1412}, où {npc:259119} vous attend.",
 	-- ["{npc:252095} waits in {area:16622}, south-west of the village. The Al'Aketh camp is just beyond her; {npc:256935} leads it."] = "{npc:252095} attend au {area:16622}, au sud-ouest du village. Le camp al'aketh se trouve juste derrière elle ; {npc:256935} le dirige.",
 	-- ["{npc:252359} stands on {area:16638}'s east side."] = "{npc:252359} se tient à l'est de {area:16638}.",
 	-- ["{npc:252377} stands in the middle of {area:16638}."] = "{npc:252377} se tient au milieu de {area:16638}.",
@@ -631,6 +634,7 @@ return {
 	-- ["{npc:255853}: Bear Form"] = "{npc:255853} : Forme d’ours",
 	-- ["{npc:258443} roams the slopes just south of the turncoat's house."] = "{npc:258443} parcourt les pentes juste au sud de la maison du traître.",
 	-- ["{npc:263664}'s campfire"] = "Le feu de camp de {npc:263664}",
+	-- ["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068} veut de l'encens tauren : achetez ses quatre ingrédients à {npc:3014} l'herboriste, {npc:3012} la fournisseuse en enchantement, {npc:3005} le fournisseur en travail du cuir et {npc:3027} le fournisseur en cuisine, puis combinez-les en {item:278078}.",
 	-- ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033} entraîne les druides sur {area:1639}. Il vous apprend {spell:18960} ; l'accueil de {npc:11802} attend votre voyage pour {spell:499} vers le niveau 21 (forever/horde/02-the-barrens).",
 	-- ["{npc:3449}: the harpies come later, in the {area:383}"] = "{npc:3449} : les harpies viendront plus tard, dans {area:383}",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, le maître des coursiers du vent",

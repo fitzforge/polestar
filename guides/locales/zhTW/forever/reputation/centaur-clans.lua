@@ -247,7 +247,7 @@ return {
 	["Magram: {quest:92873}"] = "瑪格拉姆：{quest:92873}",
 	-- {npc:253136} Orgrul · {item:254870} Rudimentary Necromancy Staff
 	-- plural, as words: Nascent Undead Ravagers = {npc:253360} Nascent Undead Ravager · Well Cursed Bones = {item:254842} Well Cursed Bone
-	["From the quest data: {npc:253136} gives you a {item:254870}. He laid out two skeletons on the hill just east of his post: put the staff to use there, and the Nascent Undead Ravagers give the Well Cursed Bones."] = "依任務資料：{npc:253136}會給你一根{item:254870}。他在崗哨東邊不遠的山丘上擺了兩具骷髏：在那裡使用法杖，新生的不死掠奪者會給你精心詛咒的骨頭。",
+	["From the quest data: {npc:253136}'s {item:254870} raises the two skeletons he laid out on the hill just east of his post, and the Nascent Undead Ravagers give the Well Cursed Bones."] = "",
 	-- plural, as words: Well Cursed Bones = {item:254842} Well Cursed Bone · Nascent Undead Ravagers = {npc:253360} Nascent Undead Ravager
 	["Well Cursed Bones: Nascent Undead Ravagers"] = "精心詛咒的骨頭：新生的不死掠奪者",
 
@@ -322,6 +322,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["From the quest data: east of {npc:253177}, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie {npc:253446}, failed summons stuck in the ground: lay eight to rest with {item:256061}, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull."] = "依任務資料：在{npc:253177}東邊的山谷中心，瑪格拉姆關押著吉爾吉斯俘虜：救出五名。他們之間躺著{npc:253446}，是卡在地裡的失敗召喚物：用任務給你的{item:256061}讓八具安息。45級精英食屍者和瑪格拉姆死靈可汗在山谷中走動，會攻擊吉爾吉斯的朋友：等他們走過再拉怪。",
 	-- ["From the quest data: south-east of {npc:253136}, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The {npc:253446} there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone."] = "依任務資料：在{npc:253136}東南方的山谷中心，瑪格拉姆關押著吉爾吉斯俘虜：殺死五名。那裡的{npc:253446}是卡在地裡的失敗召喚物：用奧格魯給你的強化死靈法杖喚起十具，並殺掉反擊的那些。45級精英食屍者在山谷中走動，會攻擊任何人；同為精英的瑪格拉姆死靈可汗則不會理會瑪格拉姆的朋友。",
+	-- ["From the quest data: {npc:253136} gives you a {item:254870}. He laid out two skeletons on the hill just east of his post: put the staff to use there, and the Nascent Undead Ravagers give the Well Cursed Bones."] = "依任務資料：{npc:253136}會給你一根{item:254870}。他在崗哨東邊不遠的山丘上擺了兩具骷髏：在那裡使用法杖，新生的不死掠奪者會給你精心詛咒的骨頭。",
 	-- ["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "依任務資料：{npc:5397}會給你她的法杖和一個{item:6071}。把它們組合成{item:256061}，帶到村莊東邊不遠水池旁的儀式地點，驅散{item:255945}上的詛咒。然後再向東去找{npc:253177}。",
 	-- ["three Tears of Theradras"] = "三個瑟萊德絲之淚",
 }

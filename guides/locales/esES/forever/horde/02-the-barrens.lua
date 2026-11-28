@@ -76,7 +76,7 @@ return {
 
 	-- Step 15: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
-	["Back east over the bridge and up the trail to {npc:5900}'s shrine again. {npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "Vuelve al este por el puente y sube otra vez por el sendero hasta el santuario de {npc:5900}. {npc:5900} hace {item:6636} con el alquitrán y la bolsa. Úsalo junto al brasero a su lado para revelar a {npc:5893}, mátalo para conseguir {item:6655} y luego pon la ascua en el brasero.",
+	["{npc:5900}'s shrine is back east over the bridge and up the trail, and he makes {item:6636} from the tar and pouch. The Sapta shows the {npc:5893} by the brazier next to him, and its {item:6655} goes into the brazier."] = "",
 
 	-- Step 17: Kranal Fiss
 	-- {npc:5907} Kranal Fiss · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
@@ -738,6 +738,7 @@ return {
 	["The next guide goes north-east across the {zone:1413} to the {area:1703} and {zone:1440}."] = "La siguiente guía va al noreste a través de {zone:1413} hasta {area:1703} y {zone:1440}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back east over the bridge and up the trail to {npc:5900}'s shrine again. {npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "Vuelve al este por el puente y sube otra vez por el sendero hasta el santuario de {npc:5900}. {npc:5900} hace {item:6636} con el alquitrán y la bolsa. Úsalo junto al brasero a su lado para revelar a {npc:5893}, mátalo para conseguir {item:6655} y luego pon la ascua en el brasero.",
 	-- ["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them."] = "Vuelve al campamento Crines de Acero. Los geomantes y los defensores ocupan su mitad este; {npc:3438} camina entre ellos.",
 	-- ["Back west along the road."] = "Vuelve al oeste por el camino.",
 	-- ["Burning Blade Cultists hold {area:1898} in northern {area:14}; they drop the {item:6652}. The {item:5026} comes from the Razormane on your next visit to their camp."] = "Los Fanáticos Filo Ardiente ocupan {area:1898}, en el norte de {area:14}; sueltan {item:6652}. {item:5026} lo sueltan los Crines de Acero en tu próxima visita a su campamento.",

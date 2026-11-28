@@ -59,11 +59,14 @@ return {
 	-- {object:61934} Brazier of the Dormant Flame
 	["The {object:61934}"] = "{object:61934}",
 	-- {object:61934} Brazier of the Dormant Flame · {item:277329} Torch of Eternal Flame
-	["Click the {object:61934} atop the shrine with the torch in your bags to place the ember, then click it again for the next quest: the lit {item:277329}."] = "揹包裡帶著火把，點選神龕頂部的{object:61934}放置餘燼，然後再點選它接取下一個任務：點燃的{item:277329}。",
+	["The {object:61934} is atop the shrine and takes the ember with the torch in the bags, and a second click gives the next quest: the lit {item:277329}."] = "",
 
 	-- Step 10: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {item:5176} Fire Totem
 	["Back through the South Gate tunnel and up the trail to {npc:257597}' cave. Keep the {item:5176} in your bags for good: every fire totem needs it."] = "穿過南門隧道返回，沿小路向上到{npc:257597}的洞穴。把{item:5176}永久留在揹包裡：每個火焰圖騰都需要它。",
 	-- {npc:257597} Bruegs Kindleborn · {spell:3599} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
 	["{npc:257597}: {spell:3599}, your {item:5176} and the {item:263412}"] = "{npc:257597}：{spell:3599}、你的{item:5176}和{item:263412}",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Click the {object:61934} atop the shrine with the torch in your bags to place the ember, then click it again for the next quest: the lit {item:277329}."] = "揹包裡帶著火把，點選神龕頂部的{object:61934}放置餘燼，然後再點選它接取下一個任務：點燃的{item:277329}。",
 }

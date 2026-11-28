@@ -30,16 +30,16 @@ return {
 	-- Step 4: Back at Aldrassil
 	-- {area:256} Aldrassil
 	["Back at {area:256}"] = "Zurück bei {area:256}",
-	-- {npc:3595} Shanda · {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light
-	["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "Die Quest von {npc:3595}, {quest:97979}, verlangt deine zwei Volkszauber der Nachtelfen: Öffne dein Zauberbuch (P), wirke {spell:1259799} und Schattenhaftigkeit je einmal und gib sie dann bei ihr ab.",
+	-- {npc:3595} Shanda · {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {spell:20580} Shadowmeld
+	["{npc:3595}'s quest, {quest:97979}, asks for the two night elf racial spells, {spell:1259799} and {spell:20580}, once each; both are in the spellbook (P)."] = "",
 	-- {npc:2079} Conservator Ilthalaine · {npc:3596} Ayanna Everstride
 	["{npc:2079}: a sigil for {npc:3596}"] = "{npc:2079}: ein Siegel für {npc:3596}",
 	-- {npc:2082} Gilshalan Windwalker
 	["{npc:2082}, on the tree's ramp"] = "{npc:2082}, auf der Rampe des Baums",
 	-- {npc:3595} Shanda
 	["{npc:3595}: in at the tree's front entrance and up the ramp; upstairs"] = "{npc:3595}: Geh durch den Vordereingang in den Baum und die Rampe hinauf; oben",
-	-- {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {npc:3595} Shanda
-	["{quest:97979}: cast {spell:1259799} and Shadowmeld, then hand it back to {npc:3595}"] = "{quest:97979}: Wirke {spell:1259799} und Schattenmimik, dann gib sie bei {npc:3595} ab",
+	-- {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {spell:20580} Shadowmeld · {npc:3595} Shanda
+	["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979}: Wirke {spell:1259799} und {spell:20580}, dann gib sie bei {npc:3595} ab",
 	-- {npc:8583} Dirania Silvershine
 	["{npc:8583}, east of the tree"] = "{npc:8583}, östlich des Baums",
 
@@ -461,15 +461,18 @@ return {
 	["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "Von Ursals Höhle nach Nordosten zurück nach {area:186}. {npc:6094} nimmt {item:159} samt den Wedeln und der Phiole: Falls du deins getrunken hast, kauf vor der Abgabe ein neues bei {npc:6736} in diesem Gasthaus.",
 
 	-- Step 74: Taming the Beast
-	-- {item:15908} Taming Rod · {area:186} Dolanaar
+	-- {item:15921} Taming Rod · {area:186} Dolanaar
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker · Nightsaber Stalkers = {npc:2043} Nightsaber Stalker · Strigid Screechers = {npc:1996} Strigid Screecher
-	["Each of Dazalar's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "Jede Quest von Dazalar gibt dir eine {item:15908}: Benutze sie an dem Wildtier, das er nennt, und bring den Stab dann zu ihm nach {area:186} zurück. Waldweberlauerer schleichen um das Dorf, Pirschende Nachtsäbler und Strigidkreischer streifen durch die Wälder südlich davon.",
-	-- {npc:1998} Webwood Lurker · {item:15908} Taming Rod
-	["{npc:1998}: tame it with the {item:15908}"] = "{npc:1998}: Zähme ihn mit der {item:15908}",
-	-- {npc:2043} Nightsaber Stalker · {item:15908} Taming Rod
-	["{npc:2043}: tame it with the {item:15908}"] = "{npc:2043}: Zähme ihn mit der {item:15908}",
-	-- {npc:1996} Strigid Screecher · {item:15908} Taming Rod
-	["{npc:1996}: tame it with the {item:15908}"] = "{npc:1996}: Zähme ihn mit der {item:15908}",
+	["Each of Dazalar's quests comes with a {item:15921} for the beast he names, and the rod goes back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "",
+	-- {npc:1998} Webwood Lurker · {item:15921} Taming Rod
+	-- was: ["{npc:1998}: tame it with the {item:15908}"] = "{npc:1998}: Zähme ihn mit der {item:15908}"
+	["{npc:1998}: tame it with the {item:15921}"] = "",
+	-- {npc:2043} Nightsaber Stalker · {item:15921} Taming Rod
+	-- was: ["{npc:2043}: tame it with the {item:15908}"] = "{npc:2043}: Zähme ihn mit der {item:15908}"
+	["{npc:2043}: tame it with the {item:15921}"] = "",
+	-- {npc:1996} Strigid Screecher · {item:15921} Taming Rod
+	-- was: ["{npc:1996}: tame it with the {item:15908}"] = "{npc:1996}: Zähme ihn mit der {item:15908}"
+	["{npc:1996}: tame it with the {item:15921}"] = "",
 	-- {npc:4146} Jocaste · {zone:1457} Darnassus
 	["{npc:4146} in {zone:1457} takes it"] = "{npc:4146} in {zone:1457} nimmt sie an",
 
@@ -613,8 +616,8 @@ return {
 	-- Step 107: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "Der {object:177525}",
-	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
-	["Go back down to {area:702} and fly to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "Geh zurück hinab nach {area:702} und flieg nach {area:442}. Der {object:177525} steht in den Hügeln gleich östlich des Dorfs: Benutze dort den {item:15208}, besiege Mondklaue und sprich mit dem {npc:12144}.",
+	-- {object:177525} Moonkin Stone · {area:442} Auberdine · {item:15208} Cenarion Moondust
+	["The {object:177525} stands in the hills just east of {area:442}. The {item:15208} calls Lunaclaw there, and her spirit appears once she is defeated."] = "",
 
 	-- Step 108: Auberdine flight master
 	-- {area:442} Auberdine
@@ -635,6 +638,7 @@ return {
 	-- ["Boat to {zone:1453}"] = "Boot nach {zone:1453}",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path in {area:2361} and fly to {area:702} (by way of {area:442})."] = "Wirke {spell:18960}. {npc:11802} ist in {area:2361}; {quest:5929} steht in den Wäldern im Nordwesten. Lerne den Flugpunkt {area:493} in {area:2361} und flieg nach {area:702} (über {area:442}).",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Then {npc:11800} in {area:2361} flies Druids straight to {area:702}, no flight path needed. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Wirke {spell:18960}. {npc:11802} ist in {area:2361}; {quest:5929} sitzt in den Wäldern im Nordwesten. Danach fliegt {npc:11800} in {area:2361} Druiden direkt nach {area:702}, keine Flugroute nötig. {npc:11802} steht oben in seinem Gebäude: Geh drinnen nach oben, der Pfeil kann die Stockwerke nicht unterscheiden.",
+	-- ["Each of Dazalar's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "Jede Quest von Dazalar gibt dir eine {item:15908}: Benutze sie an dem Wildtier, das er nennt, und bring den Stab dann zu ihm nach {area:186} zurück. Waldweberlauerer schleichen um das Dorf, Pirschende Nachtsäbler und Strigidkreischer streifen durch die Wälder südlich davon.",
 	-- ["Each of {npc:3601}'s quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "Jede Quest von {npc:3601} gibt dir eine {item:15908}: Benutze sie an dem Wildtier, das er nennt, und bring den Stab dann zu ihm nach {area:186} zurück. Waldweberlauerer schleichen um das Dorf, Pirschende Nachtsäbler und Strigidkreischer streifen durch die Wälder südlich davon.",
 	-- ["East to {area:260}"] = "Nach Osten nach {area:260}",
 	-- ["Fel Cones lie under the trees all around {area:186} and {npc:2150}. Nightsabers and Webwood Lurkers keep roaming the road east. {object:126158} is in the house on the hill at the east end of the village."] = "Teufelszapfen liegen unter den Bäumen rund um {area:186} und {npc:2150}. Nachtsäbler und Waldweberlauerer streifen weiter entlang der Straße nach Osten. {object:126158} ist im Haus auf dem Hügel am Ostende des Dorfs.",
@@ -648,6 +652,7 @@ return {
 	-- ["From {area:17203}, ride through the city gates into {zone:1429} and follow the road west to {zone:1436}."] = "Reite vom {area:17203} durch die Stadttore in den {zone:1429} und folge der Straße nach Westen nach {zone:1436}.",
 	-- ["Gnarlpine Mystics and Ferocitas camp north-east of {area:260}. Ferocitas drops the {item:8049}: open it for the jewel."] = "Mystiker der Knarzklauen und Ferocitas der Traumfresser lagern nordöstlich von {area:260}. Ferocitas lässt den {item:8049} fallen: Öffne ihn für das Juwel.",
 	-- ["Gnarlpine Mystics and {npc:7234} camp north-east of {area:260}. {npc:7234} drops the {item:8049}: open it for the jewel."] = "Mystiker der Knarzklauen und {npc:7234} lagern nordöstlich von {area:260}. {npc:7234} lässt {item:8049} fallen: Öffne sie für das Juwel.",
+	-- ["Go back down to {area:702} and fly to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "Geh zurück hinab nach {area:702} und flieg nach {area:442}. Der {object:177525} steht in den Hügeln gleich östlich des Dorfs: Benutze dort den {item:15208}, besiege Mondklaue und sprich mit dem {npc:12144}.",
 	-- ["Hearth to {area:186}"] = "Ruhestein nach {area:186}",
 	-- ["Into {zone:1457}"] = "Hinein nach {zone:1457}",
 	-- ["Learn the flight path from {npc:3841} where you land. {npc:4200}'s fish stall is just north of her, by the docks."] = "Lerne den Flugpunkt bei {npc:3841}, wo du landest. Der Fischstand von {npc:4200} ist direkt nördlich von ihr, bei den Docks.",
@@ -688,6 +693,9 @@ return {
 	-- ["{area:186} quests"] = "Quests in {area:186}",
 	-- ["{npc:11401}, in the Temple of the Moon: {spell:10797}"] = "{npc:11401}, im Tempel des Mondes: {spell:10797}",
 	-- ["{npc:12429} kneels wounded on the rocks at the north edge of {area:259}, on the walk back to {area:186}, with no quest mark over her. Cast Lesser Heal (Rank 2) on her, then Power Word: Fortitude: Rank 1 of Lesser Heal does not count. She runs off once both land and is back in about 5 minutes."] = "{npc:12429} kniet verwundet auf den Felsen am Nordrand von {area:259}, auf dem Rückweg nach {area:186}, ohne Questzeichen über ihr. Wirke Geringes Heilen (Rang 2) auf sie, dann Machtwort: Seelenstärke: Rang 1 von Geringes Heilen zählt nicht. Sie rennt davon, sobald beide wirken, und ist nach etwa 5 Minuten zurück.",
+	-- ["{npc:1996}: tame it with the {item:15908}"] = "{npc:1996}: Zähme ihn mit der {item:15908}",
+	-- ["{npc:1998}: tame it with the {item:15908}"] = "{npc:1998}: Zähme ihn mit der {item:15908}",
+	-- ["{npc:2043}: tame it with the {item:15908}"] = "{npc:2043}: Zähme ihn mit der {item:15908}",
 	-- ["{npc:2150} sits by the road just east of {area:186}, on the way to {area:260}."] = "{npc:2150} sitzt an der Straße gleich östlich von {area:186}, auf dem Weg nach {area:260}.",
 	-- ["{npc:2150}, on the way back"] = "{npc:2150}, auf dem Rückweg",
 	-- ["{npc:265811}, alchemists: for {npc:3603}"] = "{npc:265811}, Alchemisten: für {npc:3603}",
@@ -698,6 +706,7 @@ return {
 	-- ["{npc:272034} and {npc:272044} fly just west of the moonwell, {npc:272046} further north."] = "{npc:272034} und {npc:272044} fliegen gleich westlich des Mondbrunnens, {npc:272046} weiter nördlich.",
 	-- ["{npc:3567}, back in {area:186}"] = "{npc:3567}, zurück in {area:186}",
 	-- ["{npc:3593}, the warrior trainer"] = "{npc:3593}, die Kriegerlehrerin",
+	-- ["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "Die Quest von {npc:3595}, {quest:97979}, verlangt deine zwei Volkszauber der Nachtelfen: Öffne dein Zauberbuch (P), wirke {spell:1259799} und Schattenhaftigkeit je einmal und gib sie dann bei ihr ab.",
 	-- ["{npc:3595}, inside the tree"] = "{npc:3595}, im Baum",
 	-- ["{npc:3595}, the priest trainer, inside the tree"] = "{npc:3595}, die Priesterlehrerin, im Baum",
 	-- ["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "{npc:3595}, die Priesterlehrerin, auf der Rampe auf dem Weg nach unten: {npc:3600} in {area:186} nimmt sie an",
@@ -715,5 +724,6 @@ return {
 	-- ["{object:7510}, beside him"] = "{object:7510}, neben ihm",
 	-- ["{quest:488} and the Starbreeze moonwell"] = "{quest:488} und der Mondbrunnen von Starbreeze",
 	-- ["{quest:97979}: cast Elune's Light and Shadowmeld, then hand it back to {npc:3595}"] = "{quest:97979}: Wirke Elunes Licht (Elune's Light) und Schattenhaftigkeit, gib die Quest dann wieder bei {npc:3595} ab",
+	-- ["{quest:97979}: cast {spell:1259799} and Shadowmeld, then hand it back to {npc:3595}"] = "{quest:97979}: Wirke {spell:1259799} und Schattenmimik, dann gib sie bei {npc:3595} ab",
 	-- ["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979}: Wirke {spell:1259799} und {spell:20580}, dann gib sie bei {npc:3595} ab",
 }

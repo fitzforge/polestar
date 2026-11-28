@@ -62,7 +62,8 @@ return {
 
 	-- Step 13: Orgrimmar
 	-- {object:405149} Mural of Ta'zo (no name in this language: may be words) · {object:172961} Valley of Spirits
-	["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "{object:405149}는(은) 마법 교관에게 가는 길에 있는 {object:172961}의 벽에 기대어 있는 돌 석판입니다. 사용해서 책을 가져가세요.",
+	-- was: ["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "{object:405149}는(은) 마법 교관에게 가는 길에 있는 {object:172961}의 벽에 기대어 있는 돌 석판입니다. 사용해서 책을 가져가세요."
+	["The {object:405149}, the stone tablet leaning against the wall in the {object:172961} on the way to the mage trainers, holds the book."] = "",
 
 	-- Step 14: The library: first books
 	["The library: first books"] = "도서관: 첫번째 책",
@@ -188,4 +189,7 @@ return {
 	["The level 60 books: {npc:7825}"] = "60레벨 책: {npc:7825}",
 	-- {npc:7825} Oran Snakewrithe · {npc:211022} Owen Thadd · {object:36082} Magic Quarter
 	["{npc:7825}, beside {npc:211022} in the {object:36082}, takes the level 60 books: each book's quest is offered while the book is in your bags. Take and hand them in one at a time (Polestar cannot track these quests for the Horde yet)."] = "{npc:7825}, {object:36082}에서 {npc:211022} 옆에 있으며 60레벨 책을 받습니다. 책이 가방에 있는 동안 각 책의 퀘스트가 주어집니다. 하나씩 받아 제출하세요(Polestar가 아직 호드 이 퀘스트를 추적하지 못합니다).",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "{object:405149}는(은) 마법 교관에게 가는 길에 있는 {object:172961}의 벽에 기대어 있는 돌 석판입니다. 사용해서 책을 가져가세요.",
 }

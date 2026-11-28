@@ -165,7 +165,7 @@ return {
 	["Goaz Warders"] = "Celadores de Goaz",
 	-- {item:279996} Goaz Stone · {npc:270892} Goaz Warder
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "Los celadores de Goaz están justo al oeste del campamento de Whelgar: usa {item:279996} que te dio junto a uno.\n{npc:270892} es élite: se recomienda agruparse.",
+	["The Goaz Warders stand just west of Whelgar's camp, and his {item:279996} works beside one.\n{npc:270892} is elite: grouping up is advised."] = "",
 
 	-- Step 31: Prospector Whelgar
 	["Below ground"] = "Bajo tierra",
@@ -520,7 +520,7 @@ return {
 
 	-- Step 97: Krolg
 	-- {npc:3897} Krolg · {area:421} Mystral Lake · {item:5462} Dartol's Rod of Transformation
-	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}. Use {item:5462} near him first: he only speaks to you in furbolg form."] = "{npc:3897}, un fúrbolg libre de la corrupción, está sentado al sur del camino, debajo de {area:421}. Primero usa {item:5462} cerca de él: solo te habla si estás en forma de fúrbolg.",
+	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}. He only speaks to a furbolg, and {item:5462} makes you one."] = "",
 
 	-- Step 98: Ran Bloodtooth
 	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg
@@ -704,6 +704,7 @@ return {
 	-- ["South-east along the road to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "Al sureste por el camino hasta {area:415}: {npc:3691} en la posada, el maestro de vuelo en el extremo oeste.",
 	-- ["Take the tunnel into the {area:419}; the tome lies in the ruins at its west end. Careful: Terrowulf Fleshrippers and Shadow Weavers (28-30) stand in tight packs around the tome, and the {npc:3792}, a level 32 rare, walks the vale. Pull the wolves one at a time from the tunnel and let the Packlord pass first."] = "Toma el túnel hacia {area:419}; el tomo está en las ruinas de su extremo oeste. Cuidado: los desgarradores y tejesombras Luporror (28-30) están en manadas cerradas alrededor del tomo, y el {npc:3792}, una criatura rara de nivel 32, recorre el valle. Atrae a los lobos de uno en uno desde el túnel y deja pasar primero al Señor de la manada.",
 	-- ["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "El campamento de los Renegados está en el bosque al sur de {area:2358}.\nHay cofres oxidados alrededor de los campamentos de fúrbolgs Sombramatorral al oeste de los Renegados; ábrelos hasta que uno tenga el pomo.\nCuidado: Renegados no élite de nivel 28-30 más o menos vigilan el campamento. Algunos están en sigilo, y los que rodean la mesa suelen atacar juntos.",
+	-- ["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "Los celadores de Goaz están justo al oeste del campamento de Whelgar: usa {item:279996} que te dio junto a uno.\n{npc:270892} es élite: se recomienda agruparse.",
 	-- ["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "El capitán recorre la cubierta del barco naufragado; su caja fuerte está en la bodega.",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "Las reliquias están en la propia excavación. {npc:1353}, un gran Tajobuche, merodea por el valle de raptores justo al oeste.",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it.\nGoaz Warders (elite, 32) stand among the relics and the {object:331}: pull them away one at a time, or work around them."] = "Las reliquias están en la propia excavación. {npc:1353}, un gran Tajobuche, merodea por el valle de los raptores justo al oeste.\nLos celadores de Goaz (élite, 32) están entre las reliquias y {object:331}: apártalos de a uno, o rodéalos.",
@@ -720,6 +721,7 @@ return {
 	-- ["{npc:3845} stands by {area:415}'s flight master."] = "{npc:3845} está junto al maestro de vuelo de {area:415}.",
 	-- ["{npc:3885} stands at the {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake; {npc:12759}, a level 27 water elemental, walks among them and drops the bracers too."] = "{npc:3885} está en {area:420}, en la orilla este de {area:421}, justo al norte del camino hacia {npc:3897}. Los elementales de agua podrida vadean el lago; {npc:12759}, un elemental de agua de nivel 27, anda entre ellos y también suelta los brazales.",
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}, un fúrbolg libre de la corrupción, está sentado al sur del camino, debajo de {area:421}.",
+	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}. Use {item:5462} near him first: he only speaks to you in furbolg form."] = "{npc:3897}, un fúrbolg libre de la corrupción, está sentado al sur del camino, debajo de {area:421}. Primero usa {item:5462} cerca de él: solo te habla si estás en forma de fúrbolg.",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619} dirige a los sátiros de {area:429}; él lleva la rama.",
 	-- ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}: los huevos Tajobuche, en el mismo circuito",
 	-- ["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "{quest:98283}, un raptor élite, en el circuito de {zone:1437} de 30-40/01-hillsbrad-foothills",

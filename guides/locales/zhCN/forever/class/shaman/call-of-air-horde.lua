@@ -73,7 +73,8 @@ return {
 	-- Step 17: The steam pools
 	["The steam pools"] = "蒸汽池",
 	-- {npc:5905} Prate Cloudseer · {item:268582} Corrupted Totems · {area:484} Freewind Post · {npc:216474} Ravaging Tempest · {item:212792} Eye of the Tempest
-	["{npc:5905} hands you the {item:268582}. Place the {item:268582} at the steam pools north-west of {area:484} to call the corrupted elementals and then the {npc:216474}; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The {item:212792} drops about every other kill, and every group member can loot it."] = "{npc:5905} 会给你 {item:268582}。把 {item:268582} 放在 {area:484} 西北的蒸汽池，召出腐化元素，之后是 {npc:216474}；仪式进行期间，钢鬃野猪人也会加入战斗。这是小队任务：至少带一两位朋友。{item:212792} 大约每两次击杀掉落一次，每名队员都能拾取。",
+	-- was: ["{npc:5905} hands you the {item:268582}. Place the {item:268582} at the steam pools north-west of {area:484} to call the corrupted elementals and then the {npc:216474}; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The {item:212792} drops about every other kill, and every group member can loot it."] = "{npc:5905} 会给你 {item:268582}。把 {item:268582} 放在 {area:484} 西北的蒸汽池，召出腐化元素，之后是 {npc:216474}；仪式进行期间，钢鬃野猪人也会加入战斗。这是小队任务：至少带一两位朋友。{item:212792} 大约每两次击杀掉落一次，每名队员都能拾取。"
+	["{npc:5905} hands over the {item:268582}. The totems at the steam pools north-west of {area:484} call the corrupted elementals and then the {npc:216474}; Razormane quilboar join the fight while the ritual runs. A group quest: one or two friends at least. The {item:212792} drops about every other kill, and every group member can loot it."] = "",
 	-- {item:212792} Eye of the Tempest · {npc:216474} Ravaging Tempest
 	["{item:212792}, from the {npc:216474}"] = "{item:212792}，来自{npc:216474}",
 
@@ -93,6 +94,7 @@ return {
 	-- ["The Mirefin murlocs of northern {zone:1445} carry the Twisted Water Totems."] = "{zone:1445}北部的黑鳍鱼人携带扭曲的水之图腾。",
 	-- ["The Stonevault troggs in the south of the {zone:1418} carry the Twisted Fire Totems."] = "{zone:1418}南部的石窟穴居人携带扭曲的火焰图腾。",
 	-- ["{area:1717} is a dungeon at the southern edge of the {zone:1413} (the arrow points at its entrance); {npc:4421} is its last boss. Bring a group."] = "{area:1717}是{zone:1413}南缘的地下城（箭头指向入口）；{npc:4421}是最后一个首领。请带上小队。",
+	-- ["{npc:5905} hands you the {item:268582}. Place the {item:268582} at the steam pools north-west of {area:484} to call the corrupted elementals and then the {npc:216474}; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The {item:212792} drops about every other kill, and every group member can loot it."] = "{npc:5905} 会给你 {item:268582}。把 {item:268582} 放在 {area:484} 西北的蒸汽池，召出腐化元素，之后是 {npc:216474}；仪式进行期间，钢鬃野猪人也会加入战斗。这是小队任务：至少带一两位朋友。{item:212792} 大约每两次击杀掉落一次，每名队员都能拾取。",
 	-- ["{npc:5905} hands you the {item:268582}: place them at the steam pools west of {area:484} and defeat the {npc:216474} they call. {quest:79366} is an elite quest: grouping up is advised."] = "{npc:5905}会给你{item:268582}：把它们放在{area:484}以西的蒸汽池，然后击败它们召来的{npc:216474}。{quest:79366}是精英任务：建议组队。",
 	-- ["{npc:6176} camps in the east of {zone:1416}, north-east of {area:272}."] = "{npc:6176}在{zone:1416}东部扎营，位于{area:272}东北。",
 	-- ["{npc:6176}: the {item:213086} and your weapon"] = "{npc:6176}：{item:213086}和你的武器",

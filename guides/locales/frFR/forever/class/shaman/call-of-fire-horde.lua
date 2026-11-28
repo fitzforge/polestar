@@ -82,7 +82,7 @@ return {
 	-- {object:61934} Brazier of the Dormant Flame
 	["The {object:61934}"] = "Le {object:61934}",
 	-- {object:61934} Brazier of the Dormant Flame · {item:277329} Torch of Eternal Flame
-	["Click the {object:61934} on the plateau with the torch in your bags to place the ember, then click it a second time: the next quest does not open by itself. It gives you the lit {item:277329}."] = "Cliquez sur le {object:61934} du plateau avec la torche dans vos sacs pour y déposer la braise, puis cliquez une deuxième fois : la quête suivante ne s'ouvre pas d'elle-même. Elle vous donne la {item:277329} allumée.",
+	["The {object:61934} on the plateau takes the ember with the torch in the bags. The next quest, the lit {item:277329}, does not open by itself: it takes a second click."] = "",
 
 	-- Step 16: Kranal Fiss
 	-- {npc:5907} Kranal Fiss · {item:5176} Fire Totem
@@ -129,4 +129,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:268592}. Accept the last quest, then wait by the {npc:268762} while he performs the ritual; when the fire spirits light the {object:148418}, hold the torch to it. From then you have six minutes: carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638}, with no detours or fights. Timer out? Abandon the quest and take it again from {npc:268592}."] = "Retournez voir {npc:268592}. Acceptez la dernière quête, puis attendez près du {npc:268762} pendant qu'il accomplit le rituel ; quand les esprits du feu allument la {object:148418}, tendez-y la torche. Vous avez alors six minutes : portez la flamme tout droit jusqu'au {npc:268679}, à côté de {npc:252382} à {area:16638}, sans détour ni combat. Temps écoulé ? Abandonnez la quête et reprenez-la auprès de {npc:268592}.",
+	-- ["Click the {object:61934} on the plateau with the torch in your bags to place the ember, then click it a second time: the next quest does not open by itself. It gives you the lit {item:277329}."] = "Cliquez sur le {object:61934} du plateau avec la torche dans vos sacs pour y déposer la braise, puis cliquez une deuxième fois : la quête suivante ne s'ouvre pas d'elle-même. Elle vous donne la {item:277329} allumée.",
 }

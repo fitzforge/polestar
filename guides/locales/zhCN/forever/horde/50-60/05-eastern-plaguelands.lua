@@ -20,7 +20,7 @@ return {
 
 	-- Step 2: Dalson's Tears
 	-- {area:199} Felstone Field · {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears
-	["East along the road past {area:199}, {npc:11077} guards the cauldron at {area:200}: kill him for the key, then use the cauldron."] = "沿路向东经过{area:199}。{npc:11077}守着{area:200}的大锅，杀掉他拿钥匙，再使用大锅。",
+	["East along the road past {area:199}, {npc:11077} carries the key to the cauldron at {area:200}."] = "",
 
 	-- Step 4: Andorhal watchtowers and silos
 	["Andorhal watchtowers and silos"] = "安多哈尔的哨塔和粮仓",
@@ -264,8 +264,8 @@ return {
 
 	-- Step 58: Scarlet Crusade
 	["Scarlet Crusade"] = "血色十字军",
-	-- {area:192} Northridge Lumber Camp · {npc:11615} Mickey Levine · {item:15044} Barrel of Plagueland Termites · {object:177491} Termite Barrel · {quest:5902} A Plague Upon Thee · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
-	["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. In the middle of the lumber mill, stand by the crate and use {npc:11615}'s {item:15044} from your bags to set it on top; then click the {object:177491} that appears: it finishes {quest:5902} and gives the next part for {npc:11615}. Careful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "向东北返回{area:192}。骑士和法师在营地活动，医师和猎人在南边扎营。到伐木场中央站在箱子旁，使用背包里{npc:11615}给的{item:15044}，把桶放到箱子上。然后点击出现的{object:177491}，完成{quest:5902}并接后续，再回去找{npc:11615}。小心，58-59级精英{npc:10996}可能出现在伐木营地，{zone:1422}的许多地方也会遇到它，注意保持距离。",
+	-- {area:192} Northridge Lumber Camp · {npc:11615} Mickey Levine · {object:177491} Termite Barrel · {quest:5902} A Plague Upon Thee · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
+	["Back north-east at the {area:192}, knights and magi work the camp, and the medics and hunters camp south of it. {npc:11615}'s barrel of termites goes on the crate in the middle of the lumber mill, and the {object:177491} that appears finishes {quest:5902} and gives the next part for {npc:11615}. Careful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}."] = "",
 
 	-- Step 60: Radley and Durgen
 	["Radley and Durgen"] = "猎人莱德雷和骑士杜尔根",
@@ -278,7 +278,7 @@ return {
 
 	-- Step 62: Target: Gahrron's Withering
 	-- {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
-	["Ride south-east to {area:201}, the farm under the eastern hills: {npc:11078} (58) guards its cauldron. Kill him for the key, then use the cauldron.\nCareful: Soulwrath is about two levels over you here: clear the ghouls around the cauldron first, start at full health and use your cooldowns on him."] = "向东南前往东边山脚下的农场{area:201}。{npc:11078}（58级）守着大锅。击杀他拿到钥匙，再使用大锅。\n小心，索瓦斯大约比你高两级。先清掉大锅周围的食尸鬼，满血再开打，把冷却技能用在他身上。",
+	["{area:201} is the farm under the eastern hills to the south-east, and {npc:11078} (58) carries the key to its cauldron.\nCareful: Soulwrath is about two levels over you here, and ghouls stand around the cauldron."] = "",
 
 	-- Step 63: Skeletal Fragments
 	-- {area:200} Dalson's Tears · {area:199} Felstone Field
@@ -426,10 +426,12 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "一张破损的卷轴在{area:2260}南边的墓穴{area:2261}的入口处。",
+	-- ["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. In the middle of the lumber mill, stand by the crate and use {npc:11615}'s {item:15044} from your bags to set it on top; then click the {object:177491} that appears: it finishes {quest:5902} and gives the next part for {npc:11615}. Careful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "向东北返回{area:192}。骑士和法师在营地活动，医师和猎人在南边扎营。到伐木场中央站在箱子旁，使用背包里{npc:11615}给的{item:15044}，把桶放到箱子上。然后点击出现的{object:177491}，完成{quest:5902}并接后续，再回去找{npc:11615}。小心，58-59级精英{npc:10996}可能出现在伐木营地，{zone:1422}的许多地方也会遇到它，注意保持距离。",
 	-- ["Back through the tunnel and take the {area:618} exit, then ride south to {area:2246}."] = "穿过隧道回去，走{area:618}出口，然后向南骑往{area:2246}。",
 	-- ["Back through the tunnel and take the {zone:1452} exit: {npc:11556} stands right where it comes out."] = "穿过隧道回去，走{zone:1452}出口：{npc:11556}就站在出口处。",
 	-- ["Back to {area:1638}"] = "返回{area:1638}",
 	-- ["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "在{area:976}东边不远处的墓地喝下{item:11243}：它会杀死你，只有以鬼魂形态才能看到{npc:9299}，他在墓地正北方山丘中的一道岩缝里。在那里和他交谈，然后跑回尸体处复活：他让你去找的显眼的墓碑就在那片墓地里。",
+	-- ["East along the road past {area:199}, {npc:11077} guards the cauldron at {area:200}: kill him for the key, then use the cauldron."] = "沿路向东经过{area:199}。{npc:11077}守着{area:200}的大锅，杀掉他拿钥匙，再使用大锅。",
 	-- ["Fly to the {zone:1458}, take the zeppelin to {zone:1454} and fly on to {area:1638}."] = "飞往{zone:1458}，乘飞艇前往{zone:1454}，再继续飞往{area:1638}。",
 	-- ["Fly to {area:1099}"] = "飞往{area:1099}",
 	-- ["Fly to {area:1099}. The hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "飞往{area:1099}。角鹰兽的巢在{zone:1444}南部；每个巢里都有一个蛋，用于{object:142071}。",
@@ -469,6 +471,7 @@ return {
 	-- ["Ride south from the lodge to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "从小屋沿道路向南骑往{area:2264}。{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。\n小心：隐形仆从血量降到40%时会呼叫25码内的同伴求援。脱离战斗时它们还会用{spell:10228}隐形。如果在镇子里触发求援，大量怪物可能加入战斗。在镇子外围战斗可以降低这种风险。\n如果你的任务日志里有{quest:5211}（来自本指南开头的{npc:11063}），镇子周围的天灾军团死后会留下达隆郡之魂：与每一个交谈以解放它。先解放它们，再开始收集{item:15447}。",
 	-- ["Ride south from {area:1099}: the hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "从{area:1099}向南骑行：角鹰兽的巢在{zone:1444}南部；每个巢里都有一个蛋，用于{object:142071}。",
 	-- ["Ride south to {area:2264}, on the road. {item:15447} spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the {item:15454} at once.\nCareful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with {spell:10228}. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.\nWith {quest:5211} in your log (from {npc:11063} at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the {item:15447}."] = "沿道路向南骑往{area:2264}。{item:15447}十分钟内就会变质：快速杀死镇上的天灾军团，然后立刻用{item:15454}把七块研磨好。\n小心：无影仆从血量降到40%时会呼叫25码内的同伴求援。脱离战斗时它们还会用{spell:10228}隐形。如果在镇子里触发求援，大量怪物可能加入战斗。在镇子外围战斗可以降低这种风险。\n如果你的任务日志里有{quest:5211}（来自本指南开头的{npc:11063}），镇子周围的天灾军团死后会留下达隆郡居民的灵魂：与每一个交谈以解放它。先解放它们，再开始收集{item:15447}。",
+	-- ["Ride south-east to {area:201}, the farm under the eastern hills: {npc:11078} (58) guards its cauldron. Kill him for the key, then use the cauldron.\nCareful: Soulwrath is about two levels over you here: clear the ghouls around the cauldron first, start at full health and use your cooldowns on him."] = "向东南前往东边山脚下的农场{area:201}。{npc:11078}（58级）守着大锅。击杀他拿到钥匙，再使用大锅。\n小心，索瓦斯大约比你高两级。先清掉大锅周围的食尸鬼，满血再开打，把冷却技能用在他身上。",
 	-- ["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "向西南骑到{area:2738}的废墟，{quest:1123}所需的{object:179565}就在一栋破屋内。",
 	-- ["Ride west to the {area:2260}."] = "向西骑往{area:2260}。",
 	-- ["Scare {npc:7583} with {item:12928}"] = "用{item:12928}吓唬{npc:7583}",

@@ -28,7 +28,7 @@ return {
 
 	-- Step 4: Gaeriyan
 	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir · {area:976} Gadgetzan
-	["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "{npc:9299} уже встречался с вами: выпейте {item:11243} на кладбище чуть к востоку от места {area:976} и найдите его в облике духа в скалистой расщелине прямо к северу от него.",
+	["{npc:9299} has already met you. He is seen only as a ghost, after the {item:11243}, in the rocky crevice due north of the graveyard just east of {area:976}."] = "",
 
 	-- Step 5: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
@@ -151,7 +151,7 @@ return {
 
 	-- Step 30: Sandy Cookbook
 	-- {object:180503} Sandy Cookbook · {npc:15174} Calandrath
-	["The {object:180503} lies in the outpost: read it and take its torn page back to {npc:15174}."] = "",
+	["The {object:180503} lies in the outpost, and its torn page goes back to {npc:15174}."] = "",
 
 	-- Step 31: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
@@ -371,6 +371,7 @@ return {
 	-- ["{npc:1852} (61, elite) stands in the middle of Andorhal among Skeletal Warlords (56-57, elite): kill him with your group, then take the shard from {object:177241} there."] = "{npc:1852} (61, элитный) стоит в центре Андорала среди скелетов-полководцев (56-57, элитные): убейте его с группой, затем заберите осколок из объекта {object:177241} там же.",
 	-- ["{npc:1855}'s next task, Of Lost Honor, is not on this route. Skip it."] = "Следующее задание {npc:1855}, о потерянной чести, не входит в маршрут. Пропустите.",
 	-- ["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565} ходит по месту {area:2276}: ищите внутри круга на карте",
+	-- ["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "{npc:9299} уже встречался с вами: выпейте {item:11243} на кладбище чуть к востоку от места {area:976} и найдите его в облике духа в скалистой расщелине прямо к северу от него.",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "Теперь {npc:9619} просит шкуру ({npc:9622}) из северо-восточной пещеры: пропустите.",
 	-- ["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "Логово ({npc:9684}) – чуть к югу от пилона. Используйте там приманку {npc:9619}; {npc:9684} – 56-го уровня и бьет сильно, начинайте с полным здоровьем.",
 	-- ["{quest:105}'s shard lies at {npc:1852}'s feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group."] = "Осколок для задания {quest:105} лежит у ног NPC {npc:1852} в центре Андорала: это элитный противник 61-го уровня, вокруг него элитные скелеты-полководцы – бой для группы.",

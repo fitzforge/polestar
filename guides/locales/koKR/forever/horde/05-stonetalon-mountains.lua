@@ -8,7 +8,8 @@
 return {
 	-- Step 1: Taskmaster Fizzule
 	-- {area:382} Sludge Fen · {item:8051} Flare Gun
-	["On the way north from Seereth's camp, keep east of the road to the Venture Co. tower north of the {area:382}. Before you go near Fizzule, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first."] = "",
+	["On the way north from Seereth's camp, the Venture Co. tower is north of the {area:382}, east of the road. Fizzule attacks anyone who comes near without the signal: two flares from {item:8051}, then a /salute."] = "",
+	["/salute at Fizzule"] = "",
 	-- {quest:2478} Mission: Possible But Not Probable
 	["{quest:2478} is for level 23 or more: the tower's drones are 25 and Gallywix a 23 elite. Do it when you can, with a group, from the Class guide Poisons (Horde)."] = "",
 

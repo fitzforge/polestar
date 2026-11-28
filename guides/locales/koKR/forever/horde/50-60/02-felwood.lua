@@ -120,7 +120,8 @@ return {
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "{npc:8578}의 야영지",
 	-- {object:151286} Kaldorei Tome of Summoning
-	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "림토리의 야영지는 주둔지 동쪽 끝에 있습니다. 그곳의 {object:151286}을(를) 읽으세요. Forever에서는 그 옆의 신도레이 고서가 야영지 장교 세 명의 인장을 요구합니다.",
+	-- was: ["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "림토리의 야영지는 주둔지 동쪽 끝에 있습니다. 그곳의 {object:151286}을(를) 읽으세요. Forever에서는 그 옆의 신도레이 고서가 야영지 장교 세 명의 인장을 요구합니다."
+	["Rimtori's camp is at the east end of the base camp. On Forever the Sin'dorei Tome beside the {object:151286} then asks for the seals of the camp's three officers."] = "",
 
 	-- Step 24: Seals of the Sin'dorei
 	-- {npc:247006} Lieutenant Suncrest · {npc:247013} Ranger Lydrea · {npc:246991} Magister Hawkhelm · {npc:250023} Blackmaw Thrall
@@ -134,7 +135,7 @@ return {
 
 	-- Step 25: Magus Rimtori
 	-- {quest:91500} An Explosive Gambit · {quest:91497} Seals of the Sin'dorei
-	["Back to the Sin'dorei Tome: hand in the seals and take {quest:91500}, which gives you the {quest:91497}. Rimtori does not come from the Tome: stand beside one of the camp's tall crystals and use the {quest:91497} from your bags; its crystal explodes and draws her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55: start at full health."] = "",
+	["{quest:91500} gives the {quest:91497}. Rimtori does not come from the Tome: the {quest:91497}, used beside one of the camp's tall crystals, blow it up and draw her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55."] = "",
 	-- {quest:91497} Seals of the Sin'dorei · {npc:8578} Magus Rimtori
 	["Use the {quest:91497} from your bags beside a crystal: {npc:8578} (55) comes to the explosion and drops her head"] = "",
 	-- {quest:91538} Sin'dorei Tome of Summoning · {npc:8587} Jediga · {area:1237} Valormok
@@ -333,6 +334,7 @@ return {
 	-- ["Ride the road south through {area:361} to the Sanctuary."] = "길을 따라 남쪽으로 {area:361}을(를) 지나 성소로 가세요.",
 	-- ["Ride the road south through {zone:1448} to the Sanctuary."] = "길을 따라 남쪽으로 {zone:1448}을(를) 지나 성소로 가세요.",
 	-- ["Ride west to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "서쪽의 {area:192}(으)로 가세요. {npc:11610}은(는) 그 북동쪽 언덕에 숨어 있습니다.",
+	-- ["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "림토리의 야영지는 주둔지 동쪽 끝에 있습니다. 그곳의 {object:151286}을(를) 읽으세요. Forever에서는 그 옆의 신도레이 고서가 야영지 장교 세 명의 인장을 요구합니다.",
 	-- ["Ror stands at the far south end of {area:1761}."] = "로르는 {area:1761} 남쪽 끝에 서 있습니다.",
 	-- ["Scarlet Crusade"] = "붉은십자군",
 	-- ["Scarlet forward camp"] = "붉은십자군 전진 야영지",

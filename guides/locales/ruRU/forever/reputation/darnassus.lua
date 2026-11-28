@@ -164,8 +164,8 @@ return {
 	["Dig {quest:3764} from the dirt mounds all over the crater; most of the crater's beasts and the Gorishi silithids drop it too, about one kill in three. Take far more than 20: every pouch use takes 2, about 18 for each 10 {item:11040}."] = "",
 
 	-- Step 29: Darnassus: Morrowgrain Research
-	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave · {npc:4217} Mathrengyl Bearwalker · {item:11020} Evergreen Pouch · {quest:3764} Un'Goro Soil · {item:11024} Evergreen Herb Casing · {item:11040} Morrowgrain
-	["{npc:9047}, beside Fandral in the {area:1658}, takes the soil. {npc:4217} sells the {item:11020} and Packets of Tharlendris Seeds. With a seed packet and 2 {quest:3764} in your bags, use the pouch to grow an {item:11024} and open it: about one casing in three holds {item:11040} (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things."] = "",
+	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave
+	["{npc:9047}, beside Fandral in the {area:1658}, takes the soil."] = "",
 
 	-- Step 33: Darnassus: Morrowgrain Research
 	-- {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain

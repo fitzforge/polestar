@@ -34,5 +34,9 @@ return {
 
 	-- Step 5: Portal: Thunder Bluff
 	-- {npc:5957} Birgitte Cranston · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {spell:11420} Portal: Thunder Bluff · {spell:3566} Teleport: Thunder Bluff
-	["At 50 {npc:5957}, down in the {area:2197} under {area:1640} in {zone:1456}, teaches the last one, {spell:11420}, for 3 gold 20 silver. Use your {spell:3566} to get there."] = "50級時，在{zone:1456}的{area:1640}下方{area:2197}裡的{npc:5957}會教最後一個{spell:11420}，3金20銀。用你的{spell:3566}過去。",
+	-- was: ["At 50 {npc:5957}, down in the {area:2197} under {area:1640} in {zone:1456}, teaches the last one, {spell:11420}, for 3 gold 20 silver. Use your {spell:3566} to get there."] = "50級時，在{zone:1456}的{area:1640}下方{area:2197}裡的{npc:5957}會教最後一個{spell:11420}，3金20銀。用你的{spell:3566}過去。"
+	["At 50 {npc:5957}, down in the {area:2197} under {area:1640} in {zone:1456}, teaches the last one, {spell:11420}, for 3 gold 20 silver. {spell:3566} gets there."] = "",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At 50 {npc:5957}, down in the {area:2197} under {area:1640} in {zone:1456}, teaches the last one, {spell:11420}, for 3 gold 20 silver. Use your {spell:3566} to get there."] = "50級時，在{zone:1456}的{area:1640}下方{area:2197}裡的{npc:5957}會教最後一個{spell:11420}，3金20銀。用你的{spell:3566}過去。",
 }

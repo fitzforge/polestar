@@ -14,7 +14,7 @@ return {
 
 	-- Step 1: Aramis Hammerhand
 	-- {npc:1569} Shadow Priest Sarvis · {item:282423} Consecrated Scroll · {quest:364} The Mindless Ones · {npc:244808} Aramis Hammerhand · {npc:259377} Injured Deathguard · {area:154} Deathknell · {spell:635} Holy Light
-	["{npc:1569} gives you a {item:282423} after {quest:364}: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "{npc:1569} даст вам предмет {item:282423} после задания {quest:364}: прочтите его, затем отнесите NPC {npc:244808} у церкви. Он попросит вас исцелить пятерых NPC {npc:259377}, лежащих вокруг места {area:154}. {spell:635} каждый раз немного ранит паладина-Отрекшегося: следите за здоровьем.",
+	["{npc:1569}'s {item:282423}, after {quest:364}, goes to {npc:244808} by the church, who wants five {npc:259377} around {area:154} healed. {spell:635} hurts a Forsaken paladin a little each time."] = "",
 	-- {npc:259377} Injured Deathguard · {spell:635} Holy Light
 	["Heal 5 {npc:259377} with {spell:635}"] = "",
 
@@ -124,7 +124,7 @@ return {
 	-- Step 21: Deathguard Falgan
 	-- {area:812} Venomweb Vale · {item:6866} Symbol of Life
 	-- plural, as words: Scarlet Crusaders = {npc:238286} Scarlet Crusader
-	["{area:812} is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there: target his body and use the {item:6866}, then talk to him at once, as he does not stay alive long. If he is already up (another player), just talk to him; if he died again, raise him again."] = "",
+	["{area:812} is at the far east end of the glades, a long walk. Falgan lies dead among the Scarlet Crusaders there. Raised with the {item:6866}, he does not stay alive long, and another player may have raised him already."] = "",
 
 	-- Step 22: The Scarlet attack plans
 	["The Scarlet attack plans"] = "Планы атаки Алого ордена",
@@ -143,6 +143,7 @@ return {
 	-- ["Tyr's Watch and {spell:7328}"] = "Дозор Тира и {spell:7328}",
 	-- ["{area:16602} stands on the bluffs north-west of the {area:156}. {npc:246349} waits at the gate."] = "{area:16602} стоит на утесах к северо-западу (ориентир: {area:156}). {npc:246349} ждет у ворот.",
 	-- ["{area:812} is at the far east end of the glades. Use the {item:6866} on {npc:257663}, then speak to him. If you lose the symbol, {npc:246378} gives you another."] = "{area:812} – в дальнем восточном конце лесов. Используйте {item:6866} на цели {npc:257663}, затем поговорите с ним. Если потеряете символ, {npc:246378} даст новый.",
+	-- ["{npc:1569} gives you a {item:282423} after {quest:364}: read it, then bring it to {npc:244808} by the church. He asks you to heal five {npc:259377} lying around {area:154}. {spell:635} hurts a Forsaken paladin a little each time: watch your health."] = "{npc:1569} даст вам предмет {item:282423} после задания {quest:364}: прочтите его, затем отнесите NPC {npc:244808} у церкви. Он попросит вас исцелить пятерых NPC {npc:259377}, лежащих вокруг места {area:154}. {spell:635} каждый раз немного ранит паладина-Отрекшегося: следите за здоровьем.",
 	-- ["{npc:246152}, who trains Paladins in {area:159}, sends you to the order's keep on the west coast."] = "{npc:246152}, учитель паладинов ({area:159}), отправит вас в крепость ордена на западном побережье.",
 	-- ["{object:181686}, in the root cellar"] = "{object:181686}, в погребе",
 	-- ["{object:554626}, in the root cellar"] = "{object:554626}, в погребе",

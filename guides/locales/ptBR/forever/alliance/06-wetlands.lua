@@ -165,7 +165,7 @@ return {
 	["Goaz Warders"] = "Goaz Warders",
 	-- {item:279996} Goaz Stone · {npc:270892} Goaz Warder
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "Os Goaz Warders ficam logo a oeste do acampamento de Whelgar: use a {item:279996} que ele lhe deu ao lado de um deles.\n{npc:270892} é elite: recomenda-se ir em grupo.",
+	["The Goaz Warders stand just west of Whelgar's camp, and his {item:279996} works beside one.\n{npc:270892} is elite: grouping up is advised."] = "",
 
 	-- Step 31: Prospector Whelgar
 	["Below ground"] = "No subterrâneo",
@@ -523,7 +523,7 @@ return {
 
 	-- Step 97: Krolg
 	-- {npc:3897} Krolg · {area:421} Mystral Lake · {item:5462} Dartol's Rod of Transformation
-	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}. Use {item:5462} near him first: he only speaks to you in furbolg form."] = "{npc:3897}, um furbolg intocado pela corrupção, fica ao sul da estrada abaixo de {area:421}. Use {item:5462} perto dele primeiro: ele só fala com você na forma de furbolg.",
+	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}. He only speaks to a furbolg, and {item:5462} makes you one."] = "",
 
 	-- Step 98: Ran Bloodtooth
 	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg
@@ -711,6 +711,7 @@ return {
 	-- ["South from {npc:3987}'s camp to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "Ao sul do acampamento de {npc:3987} até {area:415}: {npc:3691} na estalagem, o mestre de voo no extremo oeste.",
 	-- ["South-east along the road to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "Ao sudeste pela estrada até {area:415}: {npc:3691} na estalagem, o mestre de voo no extremo oeste.",
 	-- ["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "O acampamento dos Renegados fica na mata ao sul de {area:2358}.\nBaús enferrujados ficam em volta dos acampamentos furbolg Umbrárvore a oeste dos Renegados; abra até achar o do pomo.\nCuidado: Renegados não elite de nível 28-30 guardam o acampamento. Alguns estão furtivos, e os que ficam em volta da mesa costumam vir juntos.",
+	-- ["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "Os Goaz Warders ficam logo a oeste do acampamento de Whelgar: use a {item:279996} que ele lhe deu ao lado de um deles.\n{npc:270892} é elite: recomenda-se ir em grupo.",
 	-- ["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "O capitão anda pelo convés do navio naufragado; a caixa-forte dele fica no porão.",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "As relíquias ficam na própria escavação. {npc:1353}, um Rasgaqueixo grande, ronda o vale dos raptores logo a oeste.",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it.\nGoaz Warders (elite, 32) stand among the relics and the {object:331}: pull them away one at a time, or work around them."] = "As relíquias estão na própria escavação. {npc:1353}, um grande Rasgaqueixo, ronda o vale dos raptores logo a oeste dela.\nGoaz Warders (elite, 32) ficam entre as relíquias e {object:331}: puxe-os um de cada vez, ou contorne-os.",
@@ -732,6 +733,7 @@ return {
 	-- ["{npc:3845} stands by {area:415}'s flight master."] = "{npc:3845} fica junto ao mestre de voo de {area:415}.",
 	-- ["{npc:3885} stands at the {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake; {npc:12759}, a level 27 water elemental, walks among them and drops the bracers too."] = "{npc:3885} fica em {area:420}, na margem leste de {area:421}, logo ao norte da estrada para {npc:3897}. Elementais da Água Contaminados andam pelo lago; {npc:12759}, um elemental da água de nível 27, anda entre eles e também deixa cair as braçadeiras.",
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}, um furbolg intocado pela corrupção, fica ao sul da estrada abaixo de {area:421}.",
+	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}. Use {item:5462} near him first: he only speaks to you in furbolg form."] = "{npc:3897}, um furbolg intocado pela corrupção, fica ao sul da estrada abaixo de {area:421}. Use {item:5462} perto dele primeiro: ele só fala com você na forma de furbolg.",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619} lidera os sátiros de {area:429}; ele carrega o galho.",
 	-- ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}: os ovos de Rasgaqueixo, no mesmo circuito",
 	-- ["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "{quest:98283}, um raptor elite, no circuito de {zone:1437} de 30-40/01-hillsbrad-foothills",

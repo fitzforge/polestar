@@ -11,8 +11,8 @@ return {
 	["The Alliance paladin's rare two-handed mace for the 20s, with a shield and {spell:5502} on the way."] = "Редкая двуручная булава паладина Альянса для уровней 20-29, а по пути еще и щит и {spell:5502}.",
 
 	-- Step 1: The Tome of Valor (Ironforge)
-	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries · {object:32362} Mystic Ward · {item:6776} Tome of Valor · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {area:2257} Deeprun Tram · {zone:1455} Ironforge
-	["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives you the {item:6776}. Right-click it: it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the {area:2257} from {zone:1455} to {zone:1453}."] = "На 20-м уровне {npc:6179}, наверху ({object:32386}, {object:32362}), дает вам {item:6776}. Щелкните по нему правой кнопкой: он отправляет вас к NPC {npc:6171} в Собор Света ({zone:1453}). Сядьте на {area:2257} из города {zone:1455} в город {zone:1453}.",
+	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries · {object:32362} Mystic Ward · {item:6776} Tome of Valor · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {area:2257} Deeprun Tram
+	["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives the {item:6776}, which sends you to {npc:6171} in {zone:1453}'s Cathedral of Light, by the {area:2257}."] = "",
 
 	-- Step 2: The Tome of Valor
 	-- {npc:6171} Duthorian Rall · {item:6776} Tome of Valor
@@ -93,6 +93,7 @@ return {
 	["Bring the four parts to {npc:6181} outside {zone:1455}. Accept his last quest and wait by him while he forges the mace at his anvil."] = "Отнесите четыре части NPC {npc:6181} у ворот города {zone:1455}. Примите его последнее задание и подождите рядом, пока он выкует булаву на своей наковальне.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives you the {item:6776}. Right-click it: it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the {area:2257} from {zone:1455} to {zone:1453}."] = "На 20-м уровне {npc:6179}, наверху ({object:32386}, {object:32362}), дает вам {item:6776}. Щелкните по нему правой кнопкой: он отправляет вас к NPC {npc:6171} в Собор Света ({zone:1453}). Сядьте на {area:2257} из города {zone:1455} в город {zone:1453}.",
 	-- ["Protect {npc:6182}"] = "Защитите: {npc:6182}",
 	-- ["The Alliance paladin's rare two-handed mace for the 20s, with a shield on the way."] = "Редкая двуручная булава паладина Альянса для уровней 20-29, а по пути еще и щит.",
 	-- ["The Blackfathom naga by the entrance of {area:2797} on {zone:1440}'s north-west coast drop the {item:6995}. They are elite: grouping up is advised."] = "Наги Непроглядной Пучины у входа в {area:2797} на северо-западном побережье зоны {zone:1440} оставляют {item:6995}. Они элитные: лучше собрать группу.",

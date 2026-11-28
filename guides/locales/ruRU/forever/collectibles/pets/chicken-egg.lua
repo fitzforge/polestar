@@ -11,8 +11,11 @@ return {
 	["Buy one {item:11109} (25 copper) from {npc:233} at his farm first: it is not a quest item, and the chicken stays friendly only for a short while."] = "",
 
 	-- Step 2: CLUCK!
-	-- {quest:3861} CLUCK! · {item:11110} Chicken Egg
-	["Target one of the chickens around Saldean's farm and type /chicken at it, again and again, until it offers {quest:3861}; this can take several minutes. Then /cheer at a chicken until it turns friendly (green) and hand in the feed; right-clicking a chicken before it is friendly attacks it. The chicken lays an egg on the ground: loot it for your {item:11110}."] = "",
+	-- {quest:3861} CLUCK!
+	["A chicken around Saldean's farm offers {quest:3861} only after many /chicken emotes at it, which can take several minutes, and takes the feed only once a /cheer has turned it friendly (green); right-clicking one before that attacks it. The chicken then lays the egg on the ground."] = "",
+	-- {quest:3861} CLUCK!
+	["/chicken at a chicken until it offers {quest:3861}"] = "",
+	["/cheer at the chicken until it turns friendly (green)"] = "",
 	-- {object:161513} Farm Chicken Egg
 	["Loot the {object:161513} the chicken lays"] = "Заберите {object:161513}, которое снесет курица",
 

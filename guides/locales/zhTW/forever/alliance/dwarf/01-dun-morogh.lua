@@ -383,7 +383,7 @@ return {
 	-- Step 66: Taming the Beast
 	-- {item:15908} Taming Rod · {area:131} Kharanos
 	-- plural, as words: Large Crag Boars = {npc:1126} Large Crag Boar · Snow Leopards = {npc:1201} Snow Leopard · Ice Claw Bears = {npc:1196} Ice Claw Bear
-	["Each of Grif Wildheart's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "格瑞夫的每個任務都會給你一根{item:15908}：對他指定的野獸使用，然後把馴獸棒帶回{area:131}鐵匠舖交給他。大峭壁野豬、雪豹和冰爪熊都在{area:131}南邊和東邊的原野上遊蕩。",
+	["Each of Grif Wildheart's quests comes with a {item:15908} for the beast he names, and the rod goes back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "",
 	-- {npc:1231} Grif Wildheart
 	["{npc:1231}, at the smithy"] = "{npc:1231}，在鐵匠舖",
 	-- {npc:1126} Large Crag Boar · {item:15908} Taming Rod
@@ -720,6 +720,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back through the tunnel to {npc:257597}' cave above the farm."] = "穿過隧道回到農場上方{npc:257597}的洞穴。",
+	-- ["Each of Grif Wildheart's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "格瑞夫的每個任務都會給你一根{item:15908}：對他指定的野獸使用，然後把馴獸棒帶回{area:131}鐵匠舖交給他。大峭壁野豬、雪豹和冰爪熊都在{area:131}南邊和東邊的原野上遊蕩。",
 	-- ["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "向東穿過南門隧道，進入 {zone:1432}。{npc:1089} 和 {npc:1092} 站在隧道出口附近的矮人哨站。",
 	-- ["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "沿路一直向東，前往{zone:1432}隧道口的{area:806}。",
 	-- ["Follow the road north-east from {area:131} to the depot: the whole east of {zone:1426} is one sweep from here."] = "從{area:131}沿路向東北前往補給站，從這裡開始一輪走完{zone:1426}整個東部。",

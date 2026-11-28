@@ -125,7 +125,7 @@ return {
 	-- Step 26: Unfinished Wild Shore errands
 	-- {area:43} Wild Shore
 	["Unfinished {area:43} errands"] = "补做{area:43}的任务",
-	["If the town rewards just brought you to 42 and you still owe pirate work, use the shore tents, not the ships."] = "如果刚在镇里交任务升到42级，而且海盗任务还没做完，就去岸边的帐篷，别上大船。",
+	["At 42 with pirate work still owed, the shore tents are the place, not the ships."] = "",
 
 	-- Step 30: Fly to Grom'gol
 	-- {area:35} Booty Bay
@@ -462,6 +462,7 @@ return {
 	-- ["Fly to {zone:1454}. The Droffers brothers run their shop in the Drag.\n{object:172958}, then the {object:172960} and the {object:172961}."] = "飞往 {zone:1454}。德罗弗斯兄弟在暗巷区经营商店。\n先去 {object:172958}，再去 {object:172960} 和 {object:172961}。",
 	-- ["Galestriders: {npc:265756}, in {area:16638} on Zephras Isle."] = "疾风陆行鸟：{npc:265756}，在泽风岛的{area:16638}。",
 	-- ["Hearth to {area:1099}"] = "用炉石回到{area:1099}",
+	-- ["If the town rewards just brought you to 42 and you still owe pirate work, use the shore tents, not the ships."] = "如果刚在镇里交任务升到42级，而且海盗任务还没做完，就去岸边的帐篷，别上大船。",
 	-- ["In {area:35}: {npc:2494} on the docks, {npc:2486} by the inn, {npc:2498} inside it, MacKinley, {npc:737} and {npc:773} upstairs."] = "在{area:35}：码头上的{npc:2494}，旅店旁的{npc:2486}，旅店里的{npc:2498}，楼上的麦金利、{npc:737}和{npc:773}。",
 	-- ["Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest."] = "继续向西骑到海岸。海滩上的海滩龙虾人先知和海滩利爪龙虾人大约每杀四十只掉落一个OOX-22/FE定位器：如果掉了，就使用它开始任务。",
 	-- ["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "在豺狼人北边，食人魔占据着一座山顶前哨站；把食人魔法师引到你身边来打。戈杜尼钴矿石在前哨站周围的土堆里，戈杜尼卷轴就在前哨站里的地上。\n小心：{npc:222233}（43级，精英）站在前哨站里：把食人魔引出来，远离他。",

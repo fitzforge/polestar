@@ -11,12 +11,16 @@ return {
 	["Buy one {item:11109} (25 copper) from {npc:233} at his farm first: it is not a quest item, and the chicken stays friendly only for a short while."] = "먼저 {npc:233}의 농장에서 {item:11109}을(를) 하나 사세요(25코퍼). 퀘스트 아이템이 아니며 닭이 우호적으로 남는 시간은 짧습니다.",
 
 	-- Step 2: CLUCK!
-	-- {quest:3861} CLUCK! · {item:11110} Chicken Egg
-	["Target one of the chickens around Saldean's farm and type /chicken at it, again and again, until it offers {quest:3861}; this can take several minutes. Then /cheer at a chicken until it turns friendly (green) and hand in the feed; right-clicking a chicken before it is friendly attacks it. The chicken lays an egg on the ground: loot it for your {item:11110}."] = "샐딘 농장 주변 닭 하나를 대상으로 /chicken을 계속 입력해 {quest:3861}을(를) 받으세요. 몇 분 걸릴 수 있습니다. 다음 닭에게 /cheer를 입력해 우호적(초록색)이 되면 사료를 제출하세요. 우호적이 되기 전에 닭을 우클릭하면 공격합니다. 닭이 바닥에 알을 낳으니 줍으면 {item:11110}을(를) 얻습니다.",
+	-- {quest:3861} CLUCK!
+	["A chicken around Saldean's farm offers {quest:3861} only after many /chicken emotes at it, which can take several minutes, and takes the feed only once a /cheer has turned it friendly (green); right-clicking one before that attacks it. The chicken then lays the egg on the ground."] = "",
+	-- {quest:3861} CLUCK!
+	["/chicken at a chicken until it offers {quest:3861}"] = "",
+	["/cheer at the chicken until it turns friendly (green)"] = "",
 	-- {object:161513} Farm Chicken Egg
 	["Loot the {object:161513} the chicken lays"] = "닭이 낳은 {object:161513} 획득",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Find a chicken at {npc:233}'s farm and type /chicken at it until it offers {quest:3861}. Buy {item:11109} from {npc:233}, go back, /cheer at the same chicken, then hand in the feed. The chicken lays an egg: loot it for your {item:11110} pet."] = "{npc:233}의 농장에서 닭을 찾아 {quest:3861} 퀘스트를 줄 때까지 /chicken을 입력하십시오. {npc:233}에게서 {item:11109}을(를) 구매하고 돌아가 같은 닭에게 /cheer를 한 뒤 모이를 건네십시오. 닭이 알을 낳으면 획득해 {item:11110} 애완동물을 얻으십시오.",
+	-- ["Target one of the chickens around Saldean's farm and type /chicken at it, again and again, until it offers {quest:3861}; this can take several minutes. Then /cheer at a chicken until it turns friendly (green) and hand in the feed; right-clicking a chicken before it is friendly attacks it. The chicken lays an egg on the ground: loot it for your {item:11110}."] = "샐딘 농장 주변 닭 하나를 대상으로 /chicken을 계속 입력해 {quest:3861}을(를) 받으세요. 몇 분 걸릴 수 있습니다. 다음 닭에게 /cheer를 입력해 우호적(초록색)이 되면 사료를 제출하세요. 우호적이 되기 전에 닭을 우클릭하면 공격합니다. 닭이 바닥에 알을 낳으니 줍으면 {item:11110}을(를) 얻습니다.",
 	-- ["{item:11109}, from {npc:233}"] = "{item:11109}, {npc:233}에게서",
 }

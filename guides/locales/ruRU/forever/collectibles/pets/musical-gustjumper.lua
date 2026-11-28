@@ -23,7 +23,8 @@ return {
 	-- Step 3: Sing to the frogs
 	["Sing to the frogs"] = "Спойте лягушкам",
 	-- {area:16635} Thendal Village · {item:268109} Musical Gustjumper
-	["From {area:16635} follow the road south, then cut across the field to the top of the waterfall: five frogs sit together on a rock there, by a log. Mobs patrol nearby, so a level 1 character should watch its back. Stand by the rock, target a frog and type /sing. The frogs sing back, the group disappears and one frog hops onto the log beside you: click it to take the {item:268109}, then use it to learn the pet. The item is not bound until you use it, so a friend on the island can sing again and trade you one."] = "",
+	["From {area:16635} follow the road south, then cut across the field to the top of the waterfall: five frogs sit together on a rock there, by a log. Mobs patrol nearby, so a level 1 character should watch its back. A /sing at a frog by the rock makes them sing back, then the group disappears and one frog hops onto the log beside you: the {item:268109}, which teaches the pet. The item is not bound until used, so a friend on the island can sing again and trade you one."] = "",
+	["/sing at a frog by the rock"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Target one of the frogs here and type /sing; a {item:268109} appears. Interact with it to get the pet."] = "Выберите целью одну из лягушек здесь и введите /sing; появится {item:268109}. Взаимодействуйте с ней, чтобы получить питомца.",

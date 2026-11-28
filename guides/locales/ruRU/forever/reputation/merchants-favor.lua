@@ -40,7 +40,8 @@ return {
 	-- {zone:1431} Duskwood
 	["{zone:1431} writ customers"] = "{zone:1431}: заказчики ордеров",
 	-- {npc:3134} Kzixx · {area:42} Darkshire
-	["{npc:3134} stands about 450 yards north of {area:42}. Customers show no quest mark: right-click them anyway."] = "{npc:3134} стоит примерно в 450 ярдах к северу от {area:42}. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
+	-- was: ["{npc:3134} stands about 450 yards north of {area:42}. Customers show no quest mark: right-click them anyway."] = "{npc:3134} стоит примерно в 450 ярдах к северу от {area:42}. У заказчиков нет отметки задания: всё равно щёлкните по ним."
+	["{npc:3134} stands about 450 yards north of {area:42}. Customers show no quest mark."] = "",
 	-- {item:6048} Shadow Protection Potion
 	["{item:6048}, 75 reputation"] = "{item:6048}, 75 репутации",
 	-- {item:4381} Minor Recombobulator
@@ -54,7 +55,8 @@ return {
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434} writ customers"] = "{zone:1434}: заказчики ордеров",
 	-- {area:35} Booty Bay · {npc:7853} Scooty · {npc:2663} Narkk · {npc:14508} Short John Mithril · {area:1741} Gurubashi Arena · {object:3202} Grom'gol · {npc:261961} Hekshi
-	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "В {area:35} три покупателя: \"Морской Волк\" Маккинли (на верхнем этаже таверны), {npc:7853} – инженер гоблинского транспортера – и {npc:2663}. {npc:14508} стоит у {area:1741}, примерно в 800 метрах к югу от {object:3202}; {npc:261961} находится на севере Тернистой долины. У покупателей нет значка задания: все равно щелкните по ним правой кнопкой мыши.",
+	-- was: ["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "В {area:35} три покупателя: \"Морской Волк\" Маккинли (на верхнем этаже таверны), {npc:7853} – инженер гоблинского транспортера – и {npc:2663}. {npc:14508} стоит у {area:1741}, примерно в 800 метрах к югу от {object:3202}; {npc:261961} находится на севере Тернистой долины. У покупателей нет значка задания: все равно щелкните по ним правой кнопкой мыши."
+	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark."] = "",
 	-- {item:3485} Green Iron Gauntlets
 	["{item:3485}, 75 reputation"] = "{item:3485}, 75 репутации",
 	-- {item:7506} Gnomish Universal Remote
@@ -70,7 +72,8 @@ return {
 	-- {zone:1437} Wetlands
 	["{zone:1437} writ customers"] = "{zone:1437}: заказчики ордеров",
 	-- {npc:8305} Kixxle · {area:205} Dun Modr
-	["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway."] = "{npc:8305} стоит примерно в 600 ярдах к югу от {area:205}. Пять ордеров подмастерья идут к нему: больше всех у одного заказчика. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
+	-- was: ["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway."] = "{npc:8305} стоит примерно в 600 ярдах к югу от {area:205}. Пять ордеров подмастерья идут к нему: больше всех у одного заказчика. У заказчиков нет отметки задания: всё равно щёлкните по ним."
+	["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark."] = "",
 	-- {item:5996} Draught of Water Breathing
 	["{item:5996}, 75 reputation"] = "{item:5996}, 75 репутации",
 	-- {item:3484} Green Iron Boots
@@ -86,7 +89,8 @@ return {
 	-- {zone:1417} Arathi Highlands
 	["{zone:1417} writ customers"] = "{zone:1417}: заказчики ордеров",
 	-- {npc:257296} Muggol Breezebeard · {area:320} Refuge Pointe · {npc:257304} Alyce
-	["{npc:257296} is about 250 yards south of {area:320}, {npc:257304} about 700 yards north-west of it. Customers show no quest mark: right-click them anyway."] = "{npc:257296} находится примерно в 250 ярдах к югу от {area:320}, {npc:257304} — примерно в 700 ярдах к северо-западу от него. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
+	-- was: ["{npc:257296} is about 250 yards south of {area:320}, {npc:257304} about 700 yards north-west of it. Customers show no quest mark: right-click them anyway."] = "{npc:257296} находится примерно в 250 ярдах к югу от {area:320}, {npc:257304} — примерно в 700 ярдах к северо-западу от него. У заказчиков нет отметки задания: всё равно щёлкните по ним."
+	["{npc:257296} is about 250 yards south of {area:320}, {npc:257304} about 700 yards north-west of it. Customers show no quest mark."] = "",
 	-- {item:3383} Elixir of Wisdom
 	["{item:3383}, 75 reputation"] = "{item:3383}, 75 репутации",
 	-- {item:11128} Golden Rod
@@ -104,7 +108,8 @@ return {
 	-- {zone:1424} Hillsbrad Foothills
 	["{zone:1424} writ customers"] = "{zone:1424}: заказчики ордеров",
 	-- {npc:261932} Gorgrash · {npc:3536} Kris Legace · {npc:261928} Webbed Mudsnout Gnoll · {area:271} Southshore
-	["{npc:261932} and {npc:3536} are in the east of the foothills; the {npc:261928} hangs in a spider cocoon about 500 yards south-east of {area:271}. Customers show no quest mark: right-click them anyway."] = "{npc:261932} и {npc:3536} находятся на востоке предгорий; {npc:261928} висит в паутинном коконе примерно в 500 ярдах к юго-востоку от {area:271}. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
+	-- was: ["{npc:261932} and {npc:3536} are in the east of the foothills; the {npc:261928} hangs in a spider cocoon about 500 yards south-east of {area:271}. Customers show no quest mark: right-click them anyway."] = "{npc:261932} и {npc:3536} находятся на востоке предгорий; {npc:261928} висит в паутинном коконе примерно в 500 ярдах к юго-востоку от {area:271}. У заказчиков нет отметки задания: всё равно щёлкните по ним."
+	["{npc:261932} and {npc:3536} are in the east of the foothills; the {npc:261928} hangs in a spider cocoon about 500 yards south-east of {area:271}. Customers show no quest mark."] = "",
 	-- {item:3491} Heavy Bronze Mace
 	["{item:3491}, 75 reputation"] = "{item:3491}, 75 репутации",
 	["bring it: craft it or buy it at the Auction House"] = "принесите: создайте его или купите на аукционе",
@@ -119,7 +124,8 @@ return {
 	-- {zone:1416} Alterac Mountains
 	["{zone:1416} writ customers"] = "{zone:1416}: заказчики ордеров",
 	-- {npc:257281} Sos'mol · {npc:257282} Alan Sneeks · {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill
-	["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281} и {npc:257282} стоят рядом на юго-западе гор; вокруг {npc:257282} бродят головорезы Отродья. {npc:6176} стоит на восточном краю, над {area:272}. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
+	-- was: ["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281} и {npc:257282} стоят рядом на юго-западе гор; вокруг {npc:257282} бродят головорезы Отродья. {npc:6176} стоит на восточном краю, над {area:272}. У заказчиков нет отметки задания: всё равно щёлкните по ним."
+	["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark."] = "",
 	-- {item:3391} Elixir of Ogre Strength
 	["{item:3391}, 75 reputation"] = "{item:3391}, 75 репутации",
 	["bring it: leatherworkers make it, or buy it at the Auction House"] = "принесите: кожевники делают его, либо купите на аукционе",
@@ -138,7 +144,8 @@ return {
 	-- {zone:1440} Ashenvale
 	["{zone:1440} writ customers"] = "{zone:1440}: заказчики ордеров",
 	-- {area:431} Splintertree Post · {npc:257315} Ash'alari · {npc:257322} Murache · {npc:257316} Cowardly Peon · {npc:257317} Grembly
-	["All four stand around {area:431}: {npc:257315} about 850 yards south-west of it, {npc:257322} to the south, the {npc:257316} about 350 yards south-east and {npc:257317} about 650 yards north-east. Customers show no quest mark: right-click them anyway."] = "Все четверо стоят вокруг {area:431}: {npc:257315} примерно в 850 ярдах к юго-западу от него, {npc:257322} к югу, {npc:257316} примерно в 350 ярдах к юго-востоку и {npc:257317} примерно в 650 ярдах к северо-востоку. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
+	-- was: ["All four stand around {area:431}: {npc:257315} about 850 yards south-west of it, {npc:257322} to the south, the {npc:257316} about 350 yards south-east and {npc:257317} about 650 yards north-east. Customers show no quest mark: right-click them anyway."] = "Все четверо стоят вокруг {area:431}: {npc:257315} примерно в 850 ярдах к юго-западу от него, {npc:257322} к югу, {npc:257316} примерно в 350 ярдах к юго-востоку и {npc:257317} примерно в 650 ярдах к северо-востоку. У заказчиков нет отметки задания: всё равно щёлкните по ним."
+	["All four stand around {area:431}: {npc:257315} about 850 yards south-west of it, {npc:257322} to the south, the {npc:257316} about 350 yards south-east and {npc:257317} about 650 yards north-east. Customers show no quest mark."] = "",
 	-- {item:3385} Lesser Mana Potion
 	["{item:3385}, 75 reputation"] = "{item:3385}, 75 репутации",
 	-- {item:7349} Herbalist's Gloves
@@ -160,7 +167,8 @@ return {
 	-- {zone:1442} Stonetalon Mountains
 	["{zone:1442} writ customers"] = "{zone:1442}: заказчики ордеров",
 	-- {npc:4201} Ziz Fizziks · {area:460} Sun Rock Retreat
-	["{npc:4201} has a small hut about 550 yards east of {area:460}. Four Journeyman writs go to him. Customers show no quest mark: right-click them anyway."] = "У {npc:4201} есть небольшая хижина примерно в 550 ярдах к востоку от {area:460}. Четыре ордера подмастерья идут к нему. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
+	-- was: ["{npc:4201} has a small hut about 550 yards east of {area:460}. Four Journeyman writs go to him. Customers show no quest mark: right-click them anyway."] = "У {npc:4201} есть небольшая хижина примерно в 550 ярдах к востоку от {area:460}. Четыре ордера подмастерья идут к нему. У заказчиков нет отметки задания: всё равно щёлкните по ним."
+	["{npc:4201} has a small hut about 550 yards east of {area:460}. Four Journeyman writs go to him. Customers show no quest mark."] = "",
 	-- {item:3390} Elixir of Lesser Agility
 	["{item:3390}, 75 reputation"] = "{item:3390}, 75 репутации",
 	-- {item:2865} Rough Bronze Leggings
@@ -174,7 +182,8 @@ return {
 	-- {zone:1441} Thousand Needles
 	["{zone:1441} writ customers"] = "{zone:1441}: заказчики ордеров",
 	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {area:484} Freewind Post · {npc:4720} Rizzle Brassbolts · {npc:4706} Razzeric · {npc:4496} Goblin Pit Boss · {npc:6548} Magus Tirth
-	["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark: right-click them anyway."] = "Все пятеро стоят на {area:2240} в {area:439}, юго-восточнее {area:484}: {npc:4720}, курица \"Плаки\" Джонсон, {npc:4706}, {npc:4496} и {npc:6548}. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
+	-- was: ["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark: right-click them anyway."] = "Все пятеро стоят на {area:2240} в {area:439}, юго-восточнее {area:484}: {npc:4720}, курица \"Плаки\" Джонсон, {npc:4706}, {npc:4496} и {npc:6548}. У заказчиков нет отметки задания: всё равно щёлкните по ним."
+	["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark."] = "",
 	-- {item:8951} Elixir of Defense
 	["{item:8951}, 75 reputation"] = "{item:8951}, 75 репутации",
 	-- {item:3848} Big Bronze Knife
@@ -198,13 +207,15 @@ return {
 	-- {zone:1431} Duskwood
 	["{zone:1431} writ customers again"] = "{zone:1431}: заказчики ордеров снова",
 	-- {npc:3134} Kzixx · {area:42} Darkshire
-	["{npc:3134} stands about 450 yards north of {area:42}, by the road. Customers show no quest mark: right-click them anyway."] = "{npc:3134} стоит примерно в 450 ярдах к северу от {area:42}, у дороги. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
+	-- was: ["{npc:3134} stands about 450 yards north of {area:42}, by the road. Customers show no quest mark: right-click them anyway."] = "{npc:3134} стоит примерно в 450 ярдах к северу от {area:42}, у дороги. У заказчиков нет отметки задания: всё равно щёлкните по ним."
+	["{npc:3134} stands about 450 yards north of {area:42}, by the road. Customers show no quest mark."] = "",
 
 	-- Step 18: Stranglethorn Vale writ customers again
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434} writ customers again"] = "{zone:1434}: заказчики ордеров снова",
 	-- {area:35} Booty Bay · {npc:7853} Scooty · {npc:2663} Narkk · {npc:14508} Short John Mithril · {object:3202} Grom'gol · {area:1741} Gurubashi Arena · {npc:261961} Hekshi
-	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "В {area:35} три покупателя: \"Морской Волк\" Маккинли (на верхнем этаже таверны), {npc:7853} у площадки транспортера и {npc:2663}. {npc:14508} стоит примерно в 800 метрах к югу от {object:3202}, у {area:1741}; {npc:261961} находится на севере Тернистой долины. У покупателей нет значка задания: все равно щелкните по ним правой кнопкой мыши.",
+	-- was: ["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "В {area:35} три покупателя: \"Морской Волк\" Маккинли (на верхнем этаже таверны), {npc:7853} у площадки транспортера и {npc:2663}. {npc:14508} стоит примерно в 800 метрах к югу от {object:3202}, у {area:1741}; {npc:261961} находится на севере Тернистой долины. У покупателей нет значка задания: все равно щелкните по ним правой кнопкой мыши."
+	["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark."] = "",
 
 	-- Step 19: Wetlands writ customers again
 	-- {zone:1437} Wetlands
@@ -279,6 +290,8 @@ return {
 	["{item:262764}, 200 Merchant's Favor"] = "{item:262764}, 200 Торгового расположения",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["All five stand at the {area:2240} on the {area:439}, south-east of {area:484}: {npc:4720}, the chicken \"Plucky\" Johnson, {npc:4706}, the {npc:4496} and {npc:6548}. Customers show no quest mark: right-click them anyway."] = "Все пятеро стоят на {area:2240} в {area:439}, юго-восточнее {area:484}: {npc:4720}, курица \"Плаки\" Джонсон, {npc:4706}, {npc:4496} и {npc:6548}. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
+	-- ["All four stand around {area:431}: {npc:257315} about 850 yards south-west of it, {npc:257322} to the south, the {npc:257316} about 350 yards south-east and {npc:257317} about 650 yards north-east. Customers show no quest mark: right-click them anyway."] = "Все четверо стоят вокруг {area:431}: {npc:257315} примерно в 850 ярдах к юго-западу от него, {npc:257322} к югу, {npc:257316} примерно в 350 ярдах к юго-востоку и {npc:257317} примерно в 650 ярдах к северо-востоку. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
 	-- ["Dokimi"] = "Докими",
 	-- ["Keep filling Waylaid Crates for Dokimi until Exalted."] = "Заполняйте ящики ({item:248549}) для Докими до превознесения.",
 	-- ["Keep filling Waylaid Crates for Dokimi."] = "Продолжайте заполнять ящики ({item:248549}) для Докими.",
@@ -286,6 +299,8 @@ return {
 	-- ["Keep filling Waylaid Crates for {npc:214101}."] = "Продолжайте заполнять ящики ({item:248549}) для NPC {npc:214101}.",
 	-- ["Merchant's Favor Reputation"] = "Репутация: Торговое обязательство",
 	-- ["The {faction:2586} is the Alliance's tradeskill faction in Forever. Its camp is at {area:1002} in western {zone:1433}. From level 10 mobs drop Waylaid Crates: fill each with the goods its label asks for and hand the {object:1561} to {npc:214101} at the camp for reputation and Merchant's Favor. Forever's Legacy Diplomat perk increases reputation gains."] = "{faction:2586} – ремесленная фракция Альянса в Forever. Ее лагерь – {area:1002} на западе зоны {zone:1433}. С 10-го уровня с существ падает {item:248549}: заполните ящик товарами по этикетке и отдайте {object:1561} NPC {npc:214101} в лагере за репутацию и Merchant's Favor. Бонус наследия Forever «Дипломат» ускоряет рост репутации.",
+	-- ["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853} at the zeppelin-style transporter pad and {npc:2663}. {npc:14508} stands about 800 yards south of {object:3202}, by the {area:1741}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "В {area:35} три покупателя: \"Морской Волк\" Маккинли (на верхнем этаже таверны), {npc:7853} у площадки транспортера и {npc:2663}. {npc:14508} стоит примерно в 800 метрах к югу от {object:3202}, у {area:1741}; {npc:261961} находится на севере Тернистой долины. У покупателей нет значка задания: все равно щелкните по ним правой кнопкой мыши.",
+	-- ["{area:35} holds three customers: \"Sea Wolf\" MacKinley (on the inn's top floor), {npc:7853}, the goblin transporter's engineer, and {npc:2663}. {npc:14508} stands at the {area:1741}, about 800 yards south of {object:3202}; {npc:261961} is in northern Stranglethorn. Customers show no quest mark: right-click them anyway."] = "В {area:35} три покупателя: \"Морской Волк\" Маккинли (на верхнем этаже таверны), {npc:7853} – инженер гоблинского транспортера – и {npc:2663}. {npc:14508} стоит у {area:1741}, примерно в 800 метрах к югу от {object:3202}; {npc:261961} находится на севере Тернистой долины. У покупателей нет значка задания: все равно щелкните по ним правой кнопкой мыши.",
 	-- ["{faction:2586} to Exalted"] = "{faction:2586} до уровня «Превознесение»",
 	-- ["{faction:2586} to Friendly"] = "{faction:2586} до уровня «Дружелюбие»",
 	-- ["{faction:2586} to Honored"] = "{faction:2586} до уровня «Уважение»",
@@ -295,4 +310,11 @@ return {
 	-- ["{faction:2587} to Friendly"] = "{faction:2587} до уровня «Дружелюбие»",
 	-- ["{faction:2587} to Honored"] = "{faction:2587} до уровня «Уважение»",
 	-- ["{faction:2587} to Revered"] = "{faction:2587} до уровня «Почтение»",
+	-- ["{npc:257281} and {npc:257282} are close together in the south-west of the mountains; Syndicate thugs roam around {npc:257282}. {npc:6176} stands on the eastern edge, above {area:272}. Customers show no quest mark: right-click them anyway."] = "{npc:257281} и {npc:257282} стоят рядом на юго-западе гор; вокруг {npc:257282} бродят головорезы Отродья. {npc:6176} стоит на восточном краю, над {area:272}. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
+	-- ["{npc:257296} is about 250 yards south of {area:320}, {npc:257304} about 700 yards north-west of it. Customers show no quest mark: right-click them anyway."] = "{npc:257296} находится примерно в 250 ярдах к югу от {area:320}, {npc:257304} — примерно в 700 ярдах к северо-западу от него. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
+	-- ["{npc:261932} and {npc:3536} are in the east of the foothills; the {npc:261928} hangs in a spider cocoon about 500 yards south-east of {area:271}. Customers show no quest mark: right-click them anyway."] = "{npc:261932} и {npc:3536} находятся на востоке предгорий; {npc:261928} висит в паутинном коконе примерно в 500 ярдах к юго-востоку от {area:271}. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
+	-- ["{npc:3134} stands about 450 yards north of {area:42}, by the road. Customers show no quest mark: right-click them anyway."] = "{npc:3134} стоит примерно в 450 ярдах к северу от {area:42}, у дороги. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
+	-- ["{npc:3134} stands about 450 yards north of {area:42}. Customers show no quest mark: right-click them anyway."] = "{npc:3134} стоит примерно в 450 ярдах к северу от {area:42}. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
+	-- ["{npc:4201} has a small hut about 550 yards east of {area:460}. Four Journeyman writs go to him. Customers show no quest mark: right-click them anyway."] = "У {npc:4201} есть небольшая хижина примерно в 550 ярдах к востоку от {area:460}. Четыре ордера подмастерья идут к нему. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
+	-- ["{npc:8305} stands about 600 yards south of {area:205}. Five Journeyman writs go to him: the most of any customer. Customers show no quest mark: right-click them anyway."] = "{npc:8305} стоит примерно в 600 ярдах к югу от {area:205}. Пять ордеров подмастерья идут к нему: больше всех у одного заказчика. У заказчиков нет отметки задания: всё равно щёлкните по ним.",
 }

@@ -35,7 +35,7 @@ return {
 
 	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
-	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "Dório fica junto à estrada, ao lado de {area:247}. Escolte-o para nordeste até {area:1959} e mantenha-o vivo; quando acabar, leia {object:175704}, que ele deixa na estrada.",
+	["Dorius stands by the road beside the {area:247}. The escort runs north-east to {area:1959}, and the {object:175704} he leaves on the road takes the hand-in."] = "",
 	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
 	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "Para {npc:8256} em {zone:1455}, no fim deste guia",
 
@@ -183,6 +183,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "Leve {object:149047} para o sul pela borda de O Caldeirão e acenda os quatro Braseiros Sentinela, do sudoeste até o sudeste.",
 	-- ["Dark Iron dwarves: kill these as you meet them"] = "Anões Ferro Negro: vá matando estes pelo caminho",
+	-- ["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "Dório fica junto à estrada, ao lado de {area:247}. Escolte-o para nordeste até {area:1959} e mantenha-o vivo; quando acabar, leia {object:175704}, que ele deixa na estrada.",
 	-- ["For {npc:8256} in {area:1537}, later"] = "Para {npc:8256} em {area:1537}, depois",
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}. {area:1446} is the scaffolded camp on the north-west rim."] = "De {area:144}, cavalgue para o sul até {zone:1418}, depois para o oeste passando pela cidade da Horda, {area:340} (mantenha distância), e suba a trilha até {zone:1427}. {area:1446} é o acampamento com andaimes na borda noroeste.",
 	-- ["Greater Lava Spiders"] = "Aranhas de Lava Abrasadoras",

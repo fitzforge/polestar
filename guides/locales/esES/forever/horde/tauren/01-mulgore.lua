@@ -87,8 +87,9 @@ return {
 	["{npc:5888}: {npc:5873} and your {item:5175}"] = "{npc:5888}: {npc:5873} y tu {item:5175}",
 
 	-- Step 15: Kaga Wildhoof
-	-- {area:220} Red Cloud Mesa · {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {spell:1229451} Boosted Rest · {zone:1456} Thunder Bluff · {zone:1413} Barrens
-	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "Sigue el camino al norte saliendo de {area:220}. {npc:265810} espera en el camino justo al sur de {area:222}; /sit junto a su hoguera hasta obtener {spell:1229451}. Con una profesión aprendida, Kaga también ofrece su Campamento 101, que recoge su instructor: en Pezuña de Sangre, en la parada de {zone:1456}, o en el oeste de {zone:1413} para ingeniería.",
+	-- {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {area:220} Red Cloud Mesa · {spell:1229451} Boosted Rest · {zone:1456} Thunder Bluff · {zone:1413} Barrens
+	-- was: ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "Sigue el camino al norte saliendo de {area:220}. {npc:265810} espera en el camino justo al sur de {area:222}; /sit junto a su hoguera hasta obtener {spell:1229451}. Con una profesión aprendida, Kaga también ofrece su Campamento 101, que recoge su instructor: en Pezuña de Sangre, en la parada de {zone:1456}, o en el oeste de {zone:1413} para ingeniería."
+	["{npc:265810} waits on the road just south of {area:222}, north out of {area:220}, and sitting by her campfire gives {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "",
 	-- {spell:1229451} Boosted Rest
 	["/sit by Kaga's campfire until you get {spell:1229451}"] = "/sentarse junto a la hoguera de Kaga hasta obtener {spell:1229451}",
 
@@ -293,8 +294,8 @@ return {
 	["Ride a lift up to the mesas. {npc:2995} keeps the wind riders on the central rise; {npc:3057} stands in the great tent there."] = "Sube en un elevador a las mesetas. {npc:2995} cuida de los jinetes del viento en el alto central; {npc:3057} está en la gran tienda de allí.",
 
 	-- Step 57: Traditions of the Bluff
-	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner · {item:278078} Prepared Incense
-	["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068} quiere incienso tauren: compra sus cuatro partes a {npc:3014}, la herbolaria; a {npc:3012}, proveedora de encantamiento; a {npc:3005}, proveedora de peletería, y a {npc:3027}, proveedor de cocina; luego combínalas en {item:278078}.",
+	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner
+	["{npc:269068} wants tauren incense, made from four parts that {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier sell."] = "",
 	-- {npc:2987} Eyahn Eagletalon · {npc:269068} Eylah Sunhorn
 	["{npc:2987}, beside {npc:269068}"] = "{npc:2987}, junto a {npc:269068}",
 	-- {item:278079} Bundle of Herbs · {npc:3014} Nida Winterhoof
@@ -456,6 +457,7 @@ return {
 	-- ["Follow the path south out of camp to the Seer's tent at the foot of the hills."] = "Sigue el sendero hacia el sur fuera del campamento hasta la tienda del profeta, al pie de las colinas.",
 	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "Sigue el camino hacia el norte fuera de {area:220}. {npc:265810} espera en el camino justo al sur de {area:222}; /sentarse junto a su hoguera hasta obtener {spell:1229451}.",
 	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof or on the {zone:1456} stop."] = "Sigue el camino hacia el norte fuera de {area:220}. {npc:265810} espera en el camino justo al sur de {area:222}; /sentarse junto a su hoguera hasta obtener {spell:1229451}. Con una profesión aprendida, Kaga también ofrece su misión Acampada 101, que se entrega a su instructor: en el Poblado Pezuña de Sangre o en la parada de {zone:1456}.",
+	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "Sigue el camino al norte saliendo de {area:220}. {npc:265810} espera en el camino justo al sur de {area:222}; /sit junto a su hoguera hasta obtener {spell:1229451}. Con una profesión aprendida, Kaga también ofrece su Campamento 101, que recoge su instructor: en Pezuña de Sangre, en la parada de {zone:1456}, o en el oeste de {zone:1413} para ingeniería.",
 	-- ["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "Desde el Cruce sigue el camino al noreste hasta {area:379}, cruza {area:814} hacia {zone:1411} y sigue al norte hasta la puerta principal de {zone:1454}. La siguiente guía empieza en {zone:1454} y toma el zepelín a {zone:1420} y {zone:1421}.",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "Centauros Galak y Lobos alfa de pradera",
 	-- ["Galak centaurs and {npc:2958} Alphas"] = "Centauros Galak y alfas de {npc:2958}",
@@ -496,6 +498,7 @@ return {
 	-- ["grind on {npc:2978}"] = "farmea a {npc:2978}",
 	-- ["{area:1898} cultists"] = "Cultores de {area:1898}",
 	-- ["{area:474}: kill these as you meet them"] = "{area:474}: mátalos según te los encuentres",
+	-- ["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068} quiere incienso tauren: compra sus cuatro partes a {npc:3014}, la herbolaria; a {npc:3012}, proveedora de encantamiento; a {npc:3005}, proveedora de peletería, y a {npc:3027}, proveedor de cocina; luego combínalas en {item:278078}.",
 	-- ["{npc:275789} stands on the {area:821} a little east of the well."] = "{npc:275789} está en {area:821}, un poco al este del pozo.",
 	-- ["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182} está en el borde norte del poblado. Kyle quiere {item:287505} de zancudos de llanura.",
 	-- ["{npc:2988} camps by the {area:396} south-east of Bloodhoof."] = "{npc:2988} acampa junto a {area:396}, al sureste del Poblado Pezuña de Sangre.",

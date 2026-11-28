@@ -76,7 +76,7 @@ return {
 
 	-- Step 15: Telf Joolam
 	-- {npc:5900} Telf Joolam · {item:6636} Fire Sapta · {npc:5893} Minor Manifestation of Fire · {item:6655} Glowing Ember
-	["Back east over the bridge and up the trail to {npc:5900}'s shrine again. {npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "Zurück nach Osten über die Brücke und den Pfad hinauf wieder zum Schrein von {npc:5900}. {npc:5900} stellt aus dem Teer und dem Beutel {item:6636} her. Benutze es am Kohlebecken neben ihm, um die {npc:5893} sichtbar zu machen, töte sie für die {item:6655} und lege die Glut dann ins Kohlebecken.",
+	["{npc:5900}'s shrine is back east over the bridge and up the trail, and he makes {item:6636} from the tar and pouch. The Sapta shows the {npc:5893} by the brazier next to him, and its {item:6655} goes into the brazier."] = "",
 
 	-- Step 17: Kranal Fiss
 	-- {npc:5907} Kranal Fiss · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
@@ -735,6 +735,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end."] = "Zurück den Strand hinunter, am Piratenlager vorbei: Die Kiste mit Stiefeln und die zerbrechliche Kiste mit der Linse stehen an seinem Südende.",
+	-- ["Back east over the bridge and up the trail to {npc:5900}'s shrine again. {npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "Zurück nach Osten über die Brücke und den Pfad hinauf wieder zum Schrein von {npc:5900}. {npc:5900} stellt aus dem Teer und dem Beutel {item:6636} her. Benutze es am Kohlebecken neben ihm, um die {npc:5893} sichtbar zu machen, töte sie für die {item:6655} und lege die Glut dann ins Kohlebecken.",
 	-- ["Back north into {area:378} on the way to the Crossroads: {npc:3387} takes the thunderhawk wings."] = "Zurück nach Norden nach {area:378}, auf dem Weg zu den Crossroads: {npc:3387} nimmt die Donnerfalkenflügel.",
 	-- ["Back to the Razormane camp. Geomancers and Defenders hold its eastern half; {npc:3438} walks among them."] = "Zurück zum Lager der Grimmhauer. Geomanten und Verteidiger halten die östliche Hälfte; {npc:3438} läuft zwischen ihnen herum.",
 	-- ["Back west along the road."] = "Die Straße zurück nach Westen.",

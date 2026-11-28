@@ -59,7 +59,8 @@ return {
 
 	-- Step 10: PvP: battleground reputations (Alliance)
 	["PvP: battleground reputations (Alliance)"] = "PvP：戰場聲望（聯盟）",
-	["Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains."] = "與四個戰場陣營的聲望都達到崇拜，各算一分。請參照 Polestar 聲望指南《戰歌峽谷聲望》《阿拉希盆地聲望》《奧特蘭克山谷聲望》和《暗矛群島聲望》（Forever 新增戰場，30級開放）。傳承特長“外交家”會提高聲望獲取。",
+	-- was: ["Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains."] = "與四個戰場陣營的聲望都達到崇拜，各算一分。請參照 Polestar 聲望指南《戰歌峽谷聲望》《阿拉希盆地聲望》《奧特蘭克山谷聲望》和《暗矛群島聲望》（Forever 新增戰場，30級開放）。傳承特長“外交家”會提高聲望獲取。"
+	["Exalted with each of the four battleground factions is worth a point. Polestar's Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, from level 30) cover them, and the Diplomat Legacy perk increases reputation gains."] = "",
 
 	-- Step 11: PvP: battleground reputations (Horde)
 	["PvP: battleground reputations (Horde)"] = "PvP：戰場聲望（部落）",
@@ -190,6 +191,7 @@ return {
 	-- ["Adventure: {quest:9007} (Horde)"] = "冒險：{quest:9007}（部落）",
 	-- ["Blizzard counts four battleground reputations, but our faction data has three per side ({zone:1460}, {zone:1461}, {zone:1459}). The fourth is likely tied to Forever's new PvP content; check the in-game Legacy panel."] = "暴雪計算四個戰場聲望，但我們的陣營資料每方只有三個（{zone:1460}、{zone:1461}、{zone:1459}）。第四個可能與Forever新的PvP內容有關；請查看遊戲內的傳承面板。",
 	-- ["Exalted with each battleground faction is worth a point (4 in all; this page shows three, see the note). Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation and Alterac Valley Reputation. The Diplomat Legacy perk increases reputation gains."] = "每個戰場陣營達到崇拜各值1點（共4點；此頁顯示三個，請見備註）。請參照Polestar聲望指南「戰歌峽谷聲望」、「阿拉希盆地聲望」和「奧特蘭克山谷聲望」。傳承外交官天賦可提高聲望獲得量。",
+	-- ["Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains."] = "與四個戰場陣營的聲望都達到崇拜，各算一分。請參照 Polestar 聲望指南《戰歌峽谷聲望》《阿拉希盆地聲望》《奧特蘭克山谷聲望》和《暗矛群島聲望》（Forever 新增戰場，30級開放）。傳承特長“外交家”會提高聲望獲取。",
 	-- ["Forever adds the dungeons {area:16919} and {area:153}; their bosses and brackets are not in our data yet."] = "Forever新增了地城{area:16919}和{area:153}；它們的首領和等級分組尚未收錄在我們的資料中。",
 	-- ["Forever's new dungeons"] = "Forever的新地城",
 	-- ["Killing {npc:10184} is a point. In Classic her lair needs an attunement: {item:16309} for the Alliance, {item:16663} for the Horde."] = "擊殺{npc:10184}值1點。在經典版中，進入她的巢穴需要完成前置任務：聯盟需要{item:16309}，部落需要{item:16663}。",

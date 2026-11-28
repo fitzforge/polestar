@@ -38,7 +38,7 @@ return {
 	-- {npc:248755} Lumina Windsinger
 	["Free {npc:248755}"] = "救出{npc:248755}",
 	-- {npc:248755} Lumina Windsinger · {area:228} Sepulcher
-	["Hand in the key first: starting the escort before that gives the key quest no credit. Then open the cage: {npc:248755} walks out through the keep and its courtyard while the gnolls attack, then runs for the dock and makes her own way back to the {area:228}. Stay close and keep her alive; if she dies, take the quest again when she is back in her cage."] = "先交鑰匙：在此之前開始護送，鑰匙任務將不計進度。然後開啟籠子：{npc:248755}會在豺狼人襲擊中穿過城堡和庭院，隨後奔向碼頭，自行返回{area:228}。跟緊她，保證她存活；她若死亡，等她回到籠中再接一次任務。",
+	["The key goes in first: starting the escort before that gives the key quest no credit. Once she is out of her cage, {npc:248755} walks out through the keep and its courtyard while the gnolls attack, then runs for the dock and makes her own way back to the {area:228}. If she dies, the quest can be taken again when she is back in her cage."] = "",
 
 	-- Step 6: Back to the Sepulcher
 	-- {area:228} Sepulcher
@@ -116,8 +116,8 @@ return {
 	["The blade is a two-handed sword, and you need the skill to hit a level 25 elite with it. {npc:11870}, the weapon master in the {zone:1458}'s {object:36070}, teaches {spell:202} for a small fee; then swing it on easy mobs until the skill is near its cap (five points per level)."] = "這把劍是雙手劍，你需要足夠的武器技能才能用它命中25級精英。{zone:1458} 的 {object:36070} 內的武器大師 {npc:11870} 收取少量費用，教授 {spell:202}；學會後先攻擊容易對付的小怪，將技能練到接近上限（每級上限增加五點）。",
 
 	-- Step 18: Old Fire-Eye
-	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas
-	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 25 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "裝備{item:268484}。巨大的狼人{quest:95140}在{area:228}南側、往{area:17065}大門方向的林地遊蕩。他是精英（25級）：指南會先等到25級，並建議組隊；玩家從22級起就擊殺過他，有人需要再找一個幫手，也有人在25級時獨自擊敗他。在你用這把劍第一次擊中他之前，他會受到紫色護盾保護；護盾破裂時會出現提示訊息。",
+	-- {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas · {item:268484} Moonsilver Blade
+	["{quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until the first swing with the {item:268484} lands, and a message says when it breaks."] = "",
 	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
 	["{npc:259620}, the {area:228}"] = "{npc:259620}，{area:228}",
 	-- {quest:95140} Old Fire-Eye · {item:268484} Moonsilver Blade
@@ -129,7 +129,9 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 22 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "裝備{item:268484}。巨大的狼人{quest:95140}在{area:228}南側、往{area:17065}大門方向的林地遊蕩。他是精英（25級）：指南會先等到22級，並建議組隊；玩家從22級起就擊殺過他，有人需要再找一個幫手，也有人在25級時獨自擊敗他。在你用這把劍第一次擊中他之前，他會受到紫色護盾保護；護盾破裂時會出現提示訊息。",
+	-- ["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 25 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "裝備{item:268484}。巨大的狼人{quest:95140}在{area:228}南側、往{area:17065}大門方向的林地遊蕩。他是精英（25級）：指南會先等到25級，並建議組隊；玩家從22級起就擊殺過他，有人需要再找一個幫手，也有人在25級時獨自擊敗他。在你用這把劍第一次擊中他之前，他會受到紫色護盾保護；護盾破裂時會出現提示訊息。",
 	-- ["Free her with the key, then stay close while she fights her way out of the keep."] = "用鑰匙救出她，然後在她殺出要塞時待在她身邊。",
+	-- ["Hand in the key first: starting the escort before that gives the key quest no credit. Then open the cage: {npc:248755} walks out through the keep and its courtyard while the gnolls attack, then runs for the dock and makes her own way back to the {area:228}. Stay close and keep her alive; if she dies, take the quest again when she is back in her cage."] = "先交鑰匙：在此之前開始護送，鑰匙任務將不計進度。然後開啟籠子：{npc:248755}會在豺狼人襲擊中穿過城堡和庭院，隨後奔向碼頭，自行返回{area:228}。跟緊她，保證她存活；她若死亡，等她回到籠中再接一次任務。",
 	-- ["No item yet: a Forsaken paladin rescue story; its sequel, the {item:268484}, cannot be finished yet."] = "目前沒有物品：一段被遺忘者聖騎士的救援故事；它的續篇{item:268484}目前還無法完成。",
 	-- ["Once she is clear of {area:235}, Lumina waits for you in the {area:228}. Speak with her again to hear what really happened on the road."] = "一旦她離開了{area:235}，露蜜娜會在{area:228}等你。再次與她交談，聽聽路上到底發生了什麼事。",
 	-- ["Once she is clear of {area:235}, {npc:259620} waits for you in the {area:228}. Speak with her again to hear what really happened on the road."] = "一旦她離開了{area:235}，{npc:259620}會在{area:228}等你。再次與她交談，聽聽路上到底發生了什麼事。",

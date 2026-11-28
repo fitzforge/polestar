@@ -35,7 +35,7 @@ return {
 
 	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
-	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "Dorius Stonetender se tient au bord de la route, à côté de {area:247}. Escortez-le vers le nord-est jusqu'à la {area:1959} et gardez-le en vie ; une fois terminé, lisez la {object:175704} qu'il laisse sur la route.",
+	["Dorius stands by the road beside the {area:247}. The escort runs north-east to {area:1959}, and the {object:175704} he leaves on the road takes the hand-in."] = "",
 	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
 	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "Pour {npc:8256} à {zone:1455}, à la fin de ce guide",
 
@@ -183,6 +183,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "Portez la {object:149047} vers le sud le long du rebord du Chaudron et allumez les quatre Braseros de sentinelle, du sud-ouest jusqu'au sud-est.",
 	-- ["Dark Iron dwarves: kill these as you meet them"] = "Nains Sombrefer : tuez-les au passage",
+	-- ["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "Dorius Stonetender se tient au bord de la route, à côté de {area:247}. Escortez-le vers le nord-est jusqu'à la {area:1959} et gardez-le en vie ; une fois terminé, lisez la {object:175704} qu'il laisse sur la route.",
 	-- ["For {npc:8256} in {area:1537}, later"] = "Pour {npc:8256} à {area:1537}, plus tard",
 	-- ["For {npc:8256} in {zone:1455}, later"] = "Pour {npc:8256} à {zone:1455}, plus tard",
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}. {area:1446} is the scaffolded camp on the north-west rim."] = "Depuis {area:144}, chevauchez vers le sud jusqu'aux {zone:1418}, puis vers l'ouest au-delà de la ville horde de {area:340} (gardez vos distances) et montez la piste jusqu'à la {zone:1427}. Le {area:1446} est le camp échafaudé sur le rebord nord-ouest.",

@@ -34,5 +34,9 @@ return {
 
 	-- Step 5: Portal: Thunder Bluff
 	-- {npc:5957} Birgitte Cranston · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {spell:11420} Portal: Thunder Bluff · {spell:3566} Teleport: Thunder Bluff
-	["At 50 {npc:5957}, down in the {area:2197} under {area:1640} in {zone:1456}, teaches the last one, {spell:11420}, for 3 gold 20 silver. Use your {spell:3566} to get there."] = "На 50-м уровне {npc:5957} (внизу, в локации {area:2197} под {area:1640}, {zone:1456}) обучает последнему заклинанию — {spell:11420} — за 3 золота 20 серебра. Доберитесь туда с помощью {spell:3566}.",
+	-- was: ["At 50 {npc:5957}, down in the {area:2197} under {area:1640} in {zone:1456}, teaches the last one, {spell:11420}, for 3 gold 20 silver. Use your {spell:3566} to get there."] = "На 50-м уровне {npc:5957} (внизу, в локации {area:2197} под {area:1640}, {zone:1456}) обучает последнему заклинанию — {spell:11420} — за 3 золота 20 серебра. Доберитесь туда с помощью {spell:3566}."
+	["At 50 {npc:5957}, down in the {area:2197} under {area:1640} in {zone:1456}, teaches the last one, {spell:11420}, for 3 gold 20 silver. {spell:3566} gets there."] = "",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At 50 {npc:5957}, down in the {area:2197} under {area:1640} in {zone:1456}, teaches the last one, {spell:11420}, for 3 gold 20 silver. Use your {spell:3566} to get there."] = "На 50-м уровне {npc:5957} (внизу, в локации {area:2197} под {area:1640}, {zone:1456}) обучает последнему заклинанию — {spell:11420} — за 3 золота 20 серебра. Доберитесь туда с помощью {spell:3566}.",
 }

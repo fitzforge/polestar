@@ -477,19 +477,22 @@ return {
 	["Back to {zone:1429}"] = "返回{zone:1429}",
 
 	-- Step 95: Taming the Beast
-	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:15908} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
+	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:266158} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar · Young Forest Bears = {npc:822} Young Forest Bear
-	["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507}和{area:87}的训练师站在一起。她的每个任务都会给你一根{item:15908}：对她指定的野兽使用，然后把驯兽棒带回给她。{npc:524}和{npc:822}在{area:64}南边的山丘上游荡，森林灰狼在{area:18}东边的树林里。",
-	-- {npc:524} Rockhide Boar · {item:15908} Taming Rod
-	["{npc:524}: tame it with the {item:15908}"] = "{npc:524}：用{item:15908}驯服它",
+	["{npc:251507} stands with the {area:87} trainers. Each of her quests comes with a {item:266158} for the beast she names, and the rod goes back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "",
+	-- {npc:524} Rockhide Boar · {item:266158} Taming Rod
+	-- was: ["{npc:524}: tame it with the {item:15908}"] = "{npc:524}：用{item:15908}驯服它"
+	["{npc:524}: tame it with the {item:266158}"] = "",
 	-- {npc:524} Rockhide Boar
 	["Tame {npc:524}"] = "驯服{npc:524}",
-	-- {npc:1922} Gray Forest Wolf · {item:15908} Taming Rod
-	["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}：用{item:15908}驯服它",
+	-- {npc:1922} Gray Forest Wolf · {item:266158} Taming Rod
+	-- was: ["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}：用{item:15908}驯服它"
+	["{npc:1922}: tame it with the {item:266158}"] = "",
 	-- {npc:1922} Gray Forest Wolf
 	["Tame {npc:1922}"] = "驯服{npc:1922}",
-	-- {npc:822} Young Forest Bear · {item:15908} Taming Rod
-	["{npc:822}: tame it with the {item:15908}"] = "{npc:822}：用{item:15908}驯服它",
+	-- {npc:822} Young Forest Bear · {item:266158} Taming Rod
+	-- was: ["{npc:822}: tame it with the {item:15908}"] = "{npc:822}：用{item:15908}驯服它"
+	["{npc:822}: tame it with the {item:266158}"] = "",
 	-- {npc:822} Young Forest Bear
 	["Tame {npc:822}"] = "驯服{npc:822}",
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
@@ -593,10 +596,12 @@ return {
 	-- ["{npc:1430} cooks in the inn's kitchen."] = "{npc:1430}在旅店厨房里做饭。",
 	-- ["{npc:1632}: Camping 101, leatherworkers"] = "{npc:1632}：野营入门，制皮者",
 	-- ["{npc:1651}: Camping 101, fishers"] = "{npc:1651}：野营入门，钓鱼者",
+	-- ["{npc:1922}: tame it with the {item:15908}"] = "{npc:1922}：用{item:15908}驯服它",
 	-- ["{npc:2329}, in the inn: Camping 101, {skill:129}"] = "{npc:2329}，在旅店里：野营入门，{skill:129}",
 	-- ["{npc:247229}, in the library"] = "{npc:247229}，在图书馆里",
 	-- ["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277}在鱼人河岸东边的{area:798}站岗。之后向西北返回桥边。",
 	-- ["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415}站在修道院后面的马厩旁。",
+	-- ["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507}和{area:87}的训练师站在一起。她的每个任务都会给你一根{item:15908}：对她指定的野兽使用，然后把驯兽棒带回给她。{npc:524}和{npc:822}在{area:64}南边的山丘上游荡，森林灰狼在{area:18}东边的树林里。",
 	-- ["{npc:263399} camps north-east of the inn. With a profession learned, he also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing on the lake shore, {skill:129} and blacksmithing in {area:87}."] = "{npc:263399}在旅店东北方扎营。学会一项专业后，他还会提供该专业的野营入门，交给该专业的训练师：剥皮、制皮和钓鱼在湖岸，{skill:129}和锻造在{area:87}。",
 	-- ["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:1632}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town. With a profession learned, Sam also offers its Camping 101, which its trainer takes: skinning, leatherworking and fishing here on the shore, {skill:129} and blacksmithing in {area:87}."] = "{npc:263399}在旅店东北方扎营；{npc:6306}、{npc:1632}、{npc:383}和{npc:1651}站在镇子东边的{area:18}岸边。学会一项专业后，萨姆还会提供该专业的野营入门，交给该专业的训练师：剥皮、制皮和钓鱼就在这片湖岸，{skill:129}和锻造在{area:87}。",
 	-- ["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:263399}在旅店东北方扎营；{npc:6306}、{npc:383}和{npc:1651}站在镇子东边的{area:18}岸边。",
@@ -610,9 +615,11 @@ return {
 	-- ["{npc:514}, at the smithy across the road: Camping 101, blacksmiths"] = "{npc:514}，在路对面的铁匠铺：野营入门，锻造者",
 	-- ["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}，在杜汉旁边的铁匠铺：交给{zone:1453}的{npc:1416}（02-westfall）",
 	-- ["{npc:514}, at the smithy: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}，在铁匠铺：交给 {zone:1453} 的 {npc:1416}（02-westfall）",
+	-- ["{npc:524}: tame it with the {item:15908}"] = "{npc:524}：用{item:15908}驯服它",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}：救赎",
 	-- ["{npc:6306}: Camping 101, skinners; inside"] = "{npc:6306}：野营入门，剥皮者；在里面",
 	-- ["{npc:6306}: skinners only, the pelts are skinned"] = "{npc:6306}：仅限剥皮者，毛皮需要剥皮获得",
+	-- ["{npc:822}: tame it with the {item:15908}"] = "{npc:822}：用{item:15908}驯服它",
 	-- ["{npc:911}, the warrior trainer"] = "{npc:911}，战士训练师",
 	-- ["{npc:927}: {npc:6171} in {zone:1453} takes it"] = "{npc:927}：交给{zone:1453}的{npc:6171}",
 	-- ["{npc:955}: he wants your {item:247824}"] = "{npc:955}：他想要你的{item:247824}",

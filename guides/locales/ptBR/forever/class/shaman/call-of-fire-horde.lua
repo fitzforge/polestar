@@ -82,7 +82,7 @@ return {
 	-- {object:61934} Brazier of the Dormant Flame
 	["The {object:61934}"] = "{object:61934}",
 	-- {object:61934} Brazier of the Dormant Flame · {item:277329} Torch of Eternal Flame
-	["Click the {object:61934} on the plateau with the torch in your bags to place the ember, then click it a second time: the next quest does not open by itself. It gives you the lit {item:277329}."] = "Clique em {object:61934}, no platô, com a tocha nas suas bolsas, para colocar a brasa, e depois clique uma segunda vez: a próxima missão não abre sozinha. Ela entrega {item:277329} acesa a você.",
+	["The {object:61934} on the plateau takes the ember with the torch in the bags. The next quest, the lit {item:277329}, does not open by itself: it takes a second click."] = "",
 
 	-- Step 16: Kranal Fiss
 	-- {npc:5907} Kranal Fiss · {item:5176} Fire Totem
@@ -129,4 +129,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:268592}. Accept the last quest, then wait by the {npc:268762} while he performs the ritual; when the fire spirits light the {object:148418}, hold the torch to it. From then you have six minutes: carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638}, with no detours or fights. Timer out? Abandon the quest and take it again from {npc:268592}."] = "De volta a {npc:268592}. Aceite a última missão e espere ao lado de {npc:268762} enquanto ele faz o ritual; quando os espíritos do fogo acenderem {object:148418}, encoste a tocha nele. A partir daí, você tem seis minutos: leve a chama direto até {npc:268679}, ao lado de {npc:252382}, em {area:16638}, sem desvios nem lutas. O tempo acabou? Abandone a missão e pegue de novo com {npc:268592}.",
+	-- ["Click the {object:61934} on the plateau with the torch in your bags to place the ember, then click it a second time: the next quest does not open by itself. It gives you the lit {item:277329}."] = "Clique em {object:61934}, no platô, com a tocha nas suas bolsas, para colocar a brasa, e depois clique uma segunda vez: a próxima missão não abre sozinha. Ela entrega {item:277329} acesa a você.",
 }

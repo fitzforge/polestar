@@ -62,7 +62,8 @@ return {
 
 	-- Step 13: Orgrimmar
 	-- {object:405149} Mural of Ta'zo (no name in this language: may be words) · {object:172961} Valley of Spirits
-	["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "Le {object:405149} est la tablette de pierre appuyée contre le mur dans {object:172961}, sur le chemin des maîtres des mages. Utilisez-la pour prendre le livre.",
+	-- was: ["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "Le {object:405149} est la tablette de pierre appuyée contre le mur dans {object:172961}, sur le chemin des maîtres des mages. Utilisez-la pour prendre le livre."
+	["The {object:405149}, the stone tablet leaning against the wall in the {object:172961} on the way to the mage trainers, holds the book."] = "",
 
 	-- Step 14: The library: first books
 	["The library: first books"] = "La bibliothèque : premiers livres",
@@ -188,4 +189,7 @@ return {
 	["The level 60 books: {npc:7825}"] = "Les livres de niveau 60 : {npc:7825}",
 	-- {npc:7825} Oran Snakewrithe · {npc:211022} Owen Thadd · {object:36082} Magic Quarter
 	["{npc:7825}, beside {npc:211022} in the {object:36082}, takes the level 60 books: each book's quest is offered while the book is in your bags. Take and hand them in one at a time (Polestar cannot track these quests for the Horde yet)."] = "{npc:7825}, à côté de {npc:211022} dans {object:36082}, prend les livres de niveau 60 : la quête de chaque livre est proposée tant que le livre est dans vos sacs. Acceptez-les et rendez-les une à la fois (Polestar ne peut pas encore suivre ces quêtes pour la Horde).",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "Le {object:405149} est la tablette de pierre appuyée contre le mur dans {object:172961}, sur le chemin des maîtres des mages. Utilisez-la pour prendre le livre.",
 }

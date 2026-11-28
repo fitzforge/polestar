@@ -30,16 +30,16 @@ return {
 	-- Step 4: Back at Aldrassil
 	-- {area:256} Aldrassil
 	["Back at {area:256}"] = "回到{area:256}",
-	-- {npc:3595} Shanda · {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light
-	["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "{npc:3595}的任务{quest:97979}要求你使用两个暗夜精灵种族法术：打开法术书（P），各施放一次{spell:1259799}和影遁，然后把任务交还给她。",
+	-- {npc:3595} Shanda · {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {spell:20580} Shadowmeld
+	["{npc:3595}'s quest, {quest:97979}, asks for the two night elf racial spells, {spell:1259799} and {spell:20580}, once each; both are in the spellbook (P)."] = "",
 	-- {npc:2079} Conservator Ilthalaine · {npc:3596} Ayanna Everstride
 	["{npc:2079}: a sigil for {npc:3596}"] = "{npc:2079}：给{npc:3596}的印记",
 	-- {npc:2082} Gilshalan Windwalker
 	["{npc:2082}, on the tree's ramp"] = "{npc:2082}，在巨树的坡道上",
 	-- {npc:3595} Shanda
 	["{npc:3595}: in at the tree's front entrance and up the ramp; upstairs"] = "{npc:3595}在楼上：从大树正门进入，沿坡道向上",
-	-- {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {npc:3595} Shanda
-	["{quest:97979}: cast {spell:1259799} and Shadowmeld, then hand it back to {npc:3595}"] = "{quest:97979}：施放{spell:1259799}和影遁，然后交还给{npc:3595}",
+	-- {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light · {spell:20580} Shadowmeld · {npc:3595} Shanda
+	["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979}：施放{spell:1259799}和{spell:20580}，然后交还给{npc:3595}",
 	-- {npc:8583} Dirania Silvershine
 	["{npc:8583}, east of the tree"] = "{npc:8583}，在巨树东边",
 
@@ -461,15 +461,18 @@ return {
 	["North-east from Ursal's den, back to {area:186}. {npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "从乌萨尔的巢穴向东北返回{area:186}。除树叶和药瓶外，{npc:6094}还需要一个{item:159}：如果之前喝掉了，交任务前向本旅店的{npc:6736}再买一个。",
 
 	-- Step 74: Taming the Beast
-	-- {item:15908} Taming Rod · {area:186} Dolanaar
+	-- {item:15921} Taming Rod · {area:186} Dolanaar
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker · Nightsaber Stalkers = {npc:2043} Nightsaber Stalker · Strigid Screechers = {npc:1996} Strigid Screecher
-	["Each of Dazalar's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "达扎拉的每个任务都会给你一根{item:15908}：对他指定的野兽使用，然后把驯兽棒带回{area:186}交给他。{npc:1998}在村子周围爬行，{npc:2043}和{npc:1996}在村子南边的树林里游荡。",
-	-- {npc:1998} Webwood Lurker · {item:15908} Taming Rod
-	["{npc:1998}: tame it with the {item:15908}"] = "{npc:1998}：用{item:15908}驯服它",
-	-- {npc:2043} Nightsaber Stalker · {item:15908} Taming Rod
-	["{npc:2043}: tame it with the {item:15908}"] = "{npc:2043}：用{item:15908}驯服它",
-	-- {npc:1996} Strigid Screecher · {item:15908} Taming Rod
-	["{npc:1996}: tame it with the {item:15908}"] = "{npc:1996}：用{item:15908}驯服它",
+	["Each of Dazalar's quests comes with a {item:15921} for the beast he names, and the rod goes back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "",
+	-- {npc:1998} Webwood Lurker · {item:15921} Taming Rod
+	-- was: ["{npc:1998}: tame it with the {item:15908}"] = "{npc:1998}：用{item:15908}驯服它"
+	["{npc:1998}: tame it with the {item:15921}"] = "",
+	-- {npc:2043} Nightsaber Stalker · {item:15921} Taming Rod
+	-- was: ["{npc:2043}: tame it with the {item:15908}"] = "{npc:2043}：用{item:15908}驯服它"
+	["{npc:2043}: tame it with the {item:15921}"] = "",
+	-- {npc:1996} Strigid Screecher · {item:15921} Taming Rod
+	-- was: ["{npc:1996}: tame it with the {item:15908}"] = "{npc:1996}：用{item:15908}驯服它"
+	["{npc:1996}: tame it with the {item:15921}"] = "",
 	-- {npc:4146} Jocaste · {zone:1457} Darnassus
 	["{npc:4146} in {zone:1457} takes it"] = "交给{zone:1457}的{npc:4146}",
 
@@ -613,8 +616,8 @@ return {
 	-- Step 107: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "{object:177525}",
-	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
-	["Go back down to {area:702} and fly to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "回到{area:702}，飞往{area:442}。{object:177525}立在村子东边的山丘上：在那里使用{item:15208}，击败月爪枭兽，然后与{npc:12144}交谈。",
+	-- {object:177525} Moonkin Stone · {area:442} Auberdine · {item:15208} Cenarion Moondust
+	["The {object:177525} stands in the hills just east of {area:442}. The {item:15208} calls Lunaclaw there, and her spirit appears once she is defeated."] = "",
 
 	-- Step 108: Auberdine flight master
 	-- {area:442} Auberdine
@@ -635,6 +638,7 @@ return {
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path in {area:2361} and fly to {area:702} (by way of {area:442})."] = "施放{spell:18960}。{npc:11802}在{area:2361}；{quest:5929}所需的目标位于西北边的树林里。在{area:2361}学习{area:493}的飞行路线，然后经{area:442}飞到{area:702}。",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Then {npc:11800} in {area:2361} flies Druids straight to {area:702}, no flight path needed. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "施放{spell:18960}。{npc:11802}在{area:2361}；{quest:5929}在西北方的树林里。然后{area:2361}的{npc:11800}会直接送德鲁伊飞往{area:702}，无需飞行路线。{npc:11802}在他所在建筑的楼上：从里面上楼，箭头无法区分楼层。",
 	-- ["Defensive Stance"] = "防御姿态",
+	-- ["Each of Dazalar's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "达扎拉的每个任务都会给你一根{item:15908}：对他指定的野兽使用，然后把驯兽棒带回{area:186}交给他。{npc:1998}在村子周围爬行，{npc:2043}和{npc:1996}在村子南边的树林里游荡。",
 	-- ["Each of {npc:3601}'s quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "{npc:3601}的每个任务都会给你一根{item:15908}：对他指定的野兽使用，然后把棍子带回{area:186}交给他。树林潜伏者在村子周围爬行，夜刃捕食者和巨翼恶枭在村子南边的树林里游荡。",
 	-- ["East to {area:260}"] = "向东前往{area:260}",
 	-- ["Fel Cones lie under the trees all around {area:186} and {npc:2150}. Nightsabers and Webwood Lurkers keep roaming the road east. {object:126158} is in the house on the hill at the east end of the village."] = "魔锥果散落在{area:186}和{npc:2150}周围的树下。夜刃豹和树林潜伏者在向东的道路上游荡。{object:126158}在村子东端山丘上的房子里。",
@@ -646,6 +650,7 @@ return {
 	-- ["From the harbour walk into {object:2100}. {npc:5480} trains warriors there; {npc:6089} and {npc:6090} stand together by the {object:2152}. {npc:6090} fights you for his mug."] = "从港口步行进入{object:2100}。{npc:5480}在那里训练战士；{npc:6089}和{npc:6090}一起站在{object:2152}旁。{npc:6090}会为了他的杯子和你打一架。",
 	-- ["From {area:17203}, ride through the city gates into {zone:1429} and follow the road west to {zone:1436}."] = "从{area:17203}穿过城门进入{zone:1429}，沿道路向西前往{zone:1436}。",
 	-- ["Gnarlpine Mystics and Ferocitas camp north-east of {area:260}. Ferocitas drops the {item:8049}: open it for the jewel."] = "瘤背秘法师和菲罗斯塔在{area:260}东北方扎营。菲罗斯塔掉落{item:8049}：打开它获得珠宝。",
+	-- ["Go back down to {area:702} and fly to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "回到{area:702}，飞往{area:442}。{object:177525}立在村子东边的山丘上：在那里使用{item:15208}，击败月爪枭兽，然后与{npc:12144}交谈。",
 	-- ["Hearth to {area:186}"] = "用炉石返回{area:186}",
 	-- ["Into {zone:1457}"] = "进入{zone:1457}",
 	-- ["Learn the flight path from {npc:3841} where you land. {npc:4200}'s fish stall is just north of her, by the docks."] = "落地后向{npc:3841}学习飞行路线。{npc:4200}的鱼摊就在她北边不远处，靠近码头。",
@@ -685,6 +690,9 @@ return {
 	-- ["Young Nightsabers and Young Thistle Boars roam around {area:256}. Grells carry {item:3297} in the woods west of the tree, where the Gnarlpine Totems stand."] = "夜刃豹幼崽和草刺野猪幼崽在{area:256}周围游荡。小劣魔在巨树西边的树林里携带{item:3297}，瘤背图腾就立在那里。",
 	-- ["{area:186} quests"] = "{area:186}的任务",
 	-- ["{npc:11401}, in the Temple of the Moon: {spell:10797}"] = "{npc:11401}，在月神殿：{spell:10797}",
+	-- ["{npc:1996}: tame it with the {item:15908}"] = "{npc:1996}：用{item:15908}驯服它",
+	-- ["{npc:1998}: tame it with the {item:15908}"] = "{npc:1998}：用{item:15908}驯服它",
+	-- ["{npc:2043}: tame it with the {item:15908}"] = "{npc:2043}：用{item:15908}驯服它",
 	-- ["{npc:2150} sits by the road just east of {area:186}, on the way to {area:260}."] = "{npc:2150}坐在{area:186}东边不远的路旁，在去{area:260}的路上。",
 	-- ["{npc:2150}, on the way back"] = "{npc:2150}，在回程路上",
 	-- ["{npc:265811}, alchemists: for {npc:3603}"] = "{npc:265811}，炼金师：交给{npc:3603}",
@@ -695,6 +703,7 @@ return {
 	-- ["{npc:272034} and {npc:272044} fly just west of the moonwell, {npc:272046} further north."] = "{npc:272034}和{npc:272044}在月亮井西边不远处飞行，{npc:272046}在更北边。",
 	-- ["{npc:3567}, back in {area:186}"] = "{npc:3567}，回到{area:186}",
 	-- ["{npc:3593}, the warrior trainer"] = "{npc:3593}，战士训练师",
+	-- ["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "{npc:3595}的任务{quest:97979}要求你使用两个暗夜精灵种族法术：打开法术书（P），各施放一次{spell:1259799}和影遁，然后把任务交还给她。",
 	-- ["{npc:3595}, inside the tree"] = "{npc:3595}，在巨树内",
 	-- ["{npc:3595}, the priest trainer, inside the tree"] = "{npc:3595}，牧师训练师，在巨树内",
 	-- ["{npc:3595}, the priest trainer, on the ramp on the way down: {npc:3600} in {area:186} takes it"] = "牧师训练师{npc:3595}，在下楼途中的坡道上：交给{area:186}的{npc:3600}",
@@ -712,5 +721,6 @@ return {
 	-- ["{npc:8584} is a little further north-west. {quest:3522} lasts five minutes: fill the phial and go straight on to him."] = "{npc:8584}位于稍西北侧。{quest:3522}限时五分钟，装满药瓶后立即去找他。",
 	-- ["{object:7510}, beside him"] = "{object:7510}，在他旁边",
 	-- ["{quest:488} and the Starbreeze moonwell"] = "{quest:488}和星风村的月亮井",
+	-- ["{quest:97979}: cast {spell:1259799} and Shadowmeld, then hand it back to {npc:3595}"] = "{quest:97979}：施放{spell:1259799}和影遁，然后交还给{npc:3595}",
 	-- ["{quest:97979}: cast {spell:1259799} and {spell:20580}, then hand it back to {npc:3595}"] = "{quest:97979}：施放{spell:1259799}和{spell:20580}，然后交还给{npc:3595}",
 }

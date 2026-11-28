@@ -106,7 +106,7 @@ return {
 	-- {faction:76} Orgrimmar · {npc:4949} Thrall · {npc:3216} Neeru Fireblade
 	["{faction:76}: {npc:4949} and {npc:3216}"] = "{faction:76}：{npc:4949}和{npc:3216}",
 	-- {npc:3216} Neeru Fireblade · {object:172960} Cleft of Shadow
-	["{npc:3216} is in the {object:172960}. Tell him he may speak openly and click through his story."] = "{npc:3216}在{object:172960}裡。告訴他可以暢所欲言，並把他故事的每一行點完。",
+	["{npc:3216} is in the {object:172960}, and his whole story counts once he is told he may speak openly."] = "",
 	-- {npc:3216} Neeru Fireblade
 	["{npc:3216}: hear him out"] = "{npc:3216}：聽他說完",
 
@@ -205,7 +205,8 @@ return {
 	-- Step 34: Around the Crossroads
 	["Around the Crossroads"] = "十字路口周邊",
 	-- {npc:267307} Chol'aruk · {area:1699} Thorn Hill · {npc:10668} Beaten Corpse · {area:378} Camp Taurajo
-	["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "刺鬃營地和補給箱在鎮的東北；精英野豬{npc:267307}深居那裡的{area:1699}洞穴。巫翼鷹身人巢居在遙遠的西北。{npc:10668}在南部{area:378}的東北：右鍵點選它。迅猛龍和陸行鳥到處都有。",
+	-- was: ["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "刺鬃營地和補給箱在鎮的東北；精英野豬{npc:267307}深居那裡的{area:1699}洞穴。巫翼鷹身人巢居在遙遠的西北。{npc:10668}在南部{area:378}的東北：右鍵點選它。迅猛龍和陸行鳥到處都有。"
+	["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south. Raptors and plainstriders are everywhere."] = "",
 	-- {npc:10668} Beaten Corpse
 	["{npc:10668}: right-click it"] = "{npc:10668}：右鍵點選它",
 
@@ -333,8 +334,8 @@ return {
 	-- Step 55: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "{npc:8578}的營地",
-	-- {object:151286} Kaldorei Tome of Summoning (no name in this language: may be words) · {npc:8578} Magus Rimtori
-	["Kill the Reclaimers and Surveyors, then walk up to the book inside the ring of stone pillars. Read the {object:151286} there to start the next quest: break the crystals around the circle, kill the guard that comes, then {npc:8578}."] = "殺掉收復者和勘測員，然後走到石柱環內的書旁。閱讀那裡的{object:151286}以接下一個任務：打碎圓圈周圍的水晶，殺掉出現的守衛，然後找{npc:8578}。",
+	-- {object:151286} Kaldorei Tome of Summoning (no name in this language: may be words) · {quest:3505} Betrayed · {npc:8578} Magus Rimtori
+	["The {object:151286} is the book inside the ring of stone pillars. For {quest:3505}, breaking the crystals around the circle brings a guard, then {npc:8578}."] = "",
 	-- {npc:8578} Magus Rimtori
 	["Find {npc:8578}'s camp"] = "找到{npc:8578}的營地",
 	-- {object:151286} Kaldorei Tome of Summoning (no name in this language: may be words)
@@ -382,11 +383,14 @@ return {
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "砂槌巨魔（45-48級）在這裡會掉落。拍賣場也買得到。",
 	-- ["Keep handing in {quest:7832} until {faction:76} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "持續繳交{quest:7832}，直到{faction:76}崇拜。{item:14047}：{zone:1423}的黑暗教徒和暗影法師（58-60級），或拍賣場。",
 	-- ["Keep handing in {quest:7832}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "持續繳交{quest:7832}，每次20個{item:14047}。{item:14047}：{zone:1423}的黑暗教徒和暗影法師（58-60級），或拍賣場。",
+	-- ["Kill the Reclaimers and Surveyors, then walk up to the book inside the ring of stone pillars. Read the {object:151286} there to start the next quest: break the crystals around the circle, kill the guard that comes, then {npc:8578}."] = "殺掉收復者和勘測員，然後走到石柱環內的書旁。閱讀那裡的{object:151286}以接下一個任務：打碎圓圈周圍的水晶，殺掉出現的守衛，然後找{npc:8578}。",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "科卡爾半人馬（30-33級）在這裡會掉落。拍賣場也買得到。",
 	-- ["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "草原徘徊者在十字路口以西和以北。{quest:876}指向最西北的巫翼鷹身人。之後{npc:3338}給你{item:10327}：在鎮北{object:147524}的科多獸骸骨旁吹響，並殺死白獅。",
+	-- ["The Razormane camps and the supply crates are north-east of the town; {npc:267307}, an elite boar, sits deep in the {area:1699} cave there. The Witchwing harpies nest far to the north-west. The {npc:10668} lies north-east of {area:378}, in the south: right-click it. Raptors and plainstriders are everywhere."] = "刺鬃營地和補給箱在鎮的東北；精英野豬{npc:267307}深居那裡的{area:1699}洞穴。巫翼鷹身人巢居在遙遠的西北。{npc:10668}在南部{area:378}的東北：右鍵點選它。迅猛龍和陸行鳥到處都有。",
 	-- ["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "訓練用武器躺在大屋（獸穴）的地上以及北邊野豬群中。對付苦工：選中一個睡著的{npc:10556}並對它使用{item:16114}。",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "{area:381}的風險投資公司執行者（16-17級）在這裡會掉落。拍賣場也買得到。",
 	-- ["{npc:14726} takes cloth for {faction:76} in {faction:76}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7832} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14726}在{faction:76}收取布料以提升{faction:76}聲望。毛料、絲綢、魔紋布和{item:14047}的首次捐獻（各60塊布）只能做一次，每塊布給的聲望最多；之後{quest:7832}可重複到崇拜。與其他種族主城崇拜後，可購買該種族的坐騎。Forever的傳承外交官天賦可提高聲望獲取。",
 	-- ["{npc:14726}: {item:14047} delivered"] = "{npc:14726}：{item:14047}已交付",
+	-- ["{npc:3216} is in the {object:172960}. Tell him he may speak openly and click through his story."] = "{npc:3216}在{object:172960}裡。告訴他可以暢所欲言，並把他故事的每一行點完。",
 	-- ["{quest:7832} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7832}每次繳交需要20個{item:14047}，可無限次重複。以20的倍數攜帶{item:14047}，一次全部連續繳交。{item:14047}：{zone:1423}的黑暗教徒和暗影法師（58-60級），或拍賣場。",
 }

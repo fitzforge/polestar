@@ -165,8 +165,8 @@ return {
 	["Dig {quest:3764} from the dirt mounds all over the crater; most of the crater's beasts and the Gorishi silithids drop it too, about one kill in three. Take far more than 20: every pouch use takes 2, about 18 for each 10 {item:11040}."] = "在環形山各處的土堆裡挖{quest:3764}；環形山的大多數野獸和戈裡什異種蟲也會掉落，約三次擊殺掉一個。多挖遠超20個：每次使用袋子消耗2個，每10個{item:11040}約需18個。",
 
 	-- Step 29: Darnassus: Morrowgrain Research
-	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave · {npc:4217} Mathrengyl Bearwalker · {item:11020} Evergreen Pouch · {quest:3764} Un'Goro Soil · {item:11024} Evergreen Herb Casing · {item:11040} Morrowgrain
-	["{npc:9047}, beside Fandral in the {area:1658}, takes the soil. {npc:4217} sells the {item:11020} and Packets of Tharlendris Seeds. With a seed packet and 2 {quest:3764} in your bags, use the pouch to grow an {item:11024} and open it: about one casing in three holds {item:11040} (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things."] = "{npc:9047}在{area:1658}範達爾身旁收泥土。{npc:4217}出售{item:11020}和塔倫德里斯種子包。揹包裡有種子包和2個{quest:3764}時，用袋子種出一個{item:11024}並開啟它：約三分之一的莢殼含{item:11040}（1到5個），其餘是別的草藥。袋子每10分鐘只能用一次，所以做別的事時一好就用。",
+	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave
+	["{npc:9047}, beside Fandral in the {area:1658}, takes the soil."] = "",
 
 	-- Step 33: Darnassus: Morrowgrain Research
 	-- {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
@@ -208,5 +208,6 @@ return {
 	-- ["{npc:14725} takes cloth for {faction:69} in {faction:69}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7801} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14725}在{faction:69}收取布料以提升{faction:69}聲望。毛料、絲綢、魔紋布和{item:14047}的首次捐獻（各60塊布）只能做一次，每塊布給的聲望最多；之後{quest:7801}可重複到崇拜。與其他種族主城崇拜後，可購買該種族的坐騎。Forever的傳承外交官天賦可提高聲望獲取。",
 	-- ["{npc:14725}: {item:14047} delivered"] = "{npc:14725}：{item:14047}已交付",
 	-- ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}：對它使用{quest:2139}，然後帶回{npc:3701}那裡",
+	-- ["{npc:9047}, beside Fandral in the {area:1658}, takes the soil. {npc:4217} sells the {item:11020} and Packets of Tharlendris Seeds. With a seed packet and 2 {quest:3764} in your bags, use the pouch to grow an {item:11024} and open it: about one casing in three holds {item:11040} (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things."] = "{npc:9047}在{area:1658}範達爾身旁收泥土。{npc:4217}出售{item:11020}和塔倫德里斯種子包。揹包裡有種子包和2個{quest:3764}時，用袋子種出一個{item:11024}並開啟它：約三分之一的莢殼含{item:11040}（1到5個），其餘是別的草藥。袋子每10分鐘只能用一次，所以做別的事時一好就用。",
 	-- ["{quest:7801} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7801}每次繳交需要20個{item:14047}，可無限次重複。以20的倍數攜帶{item:14047}，一次全部連續繳交。{item:14047}：{zone:1423}的黑暗教徒和暗影法師（58-60級），或拍賣場。",
 }

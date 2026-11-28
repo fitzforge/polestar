@@ -165,8 +165,8 @@ return {
 	["Dig {quest:3764} from the dirt mounds all over the crater; most of the crater's beasts and the Gorishi silithids drop it too, about one kill in three. Take far more than 20: every pouch use takes 2, about 18 for each 10 {item:11040}."] = "분화구 곳곳의 흙 더미에서 {quest:3764}을(를) 파내고, 분화구의 야수 대부분과 고리시 실리시드도 떨어뜨리는데 처치 셋 중 하나 꼴입니다. 20개보다 훨씬 더 가져가세요. 주머니 사용마다 2개, {item:11040} 10개마다 약 18개를 씁니다.",
 
 	-- Step 29: Darnassus: Morrowgrain Research
-	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave · {npc:4217} Mathrengyl Bearwalker · {item:11020} Evergreen Pouch · {quest:3764} Un'Goro Soil · {item:11024} Evergreen Herb Casing · {item:11040} Morrowgrain
-	["{npc:9047}, beside Fandral in the {area:1658}, takes the soil. {npc:4217} sells the {item:11020} and Packets of Tharlendris Seeds. With a seed packet and 2 {quest:3764} in your bags, use the pouch to grow an {item:11024} and open it: about one casing in three holds {item:11040} (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things."] = "{area:1658}에서 판드랄 옆의 {npc:9047}이(가) 흙을 받습니다. {npc:4217}이(가) {item:11020}과(와) 탈렌드리스 씨앗 봉지를 팝니다. 씨앗 봉지 하나와 가방에 {quest:3764} 둘을 넣고 주머니를 사용해 {item:11024}를 키운 뒤 여세요. 셋 중 하나꼴로 {item:11040}(1~5개), 나머지는 다른 약초입니다. 주머니는 10분마다 작동하니 다른 일을 하는 동안 준비되는 대로 사용하세요.",
+	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave
+	["{npc:9047}, beside Fandral in the {area:1658}, takes the soil."] = "",
 
 	-- Step 33: Darnassus: Morrowgrain Research
 	-- {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
@@ -208,5 +208,6 @@ return {
 	-- ["{npc:14725} takes cloth for {faction:69} in {faction:69}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7801} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14725}은(는) {faction:69}을(를) 위해 {faction:69}에서 옷감을 받습니다. 양모, 비단, 마법 옷감, {item:14047}의 첫 기부(각 60장)는 한 번만 할 수 있으며 옷감당 평판이 가장 높습니다. 그 뒤에는 {quest:7801}을(를) 확고한 동맹까지 반복합니다. 다른 종족의 도시와 확고한 동맹이 되면 그 종족의 탈것을 살 수 있습니다. Forever의 외교관 유산 특전은 평판 획득량을 늘려 줍니다.",
 	-- ["{npc:14725}: {item:14047} delivered"] = "{npc:14725}: {item:14047} 기부 완료",
 	-- ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}: 그것에게 {quest:2139}를 사용하고 {npc:3701}에게 이끌고 돌아가세요",
+	-- ["{npc:9047}, beside Fandral in the {area:1658}, takes the soil. {npc:4217} sells the {item:11020} and Packets of Tharlendris Seeds. With a seed packet and 2 {quest:3764} in your bags, use the pouch to grow an {item:11024} and open it: about one casing in three holds {item:11040} (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things."] = "{area:1658}에서 판드랄 옆의 {npc:9047}이(가) 흙을 받습니다. {npc:4217}이(가) {item:11020}과(와) 탈렌드리스 씨앗 봉지를 팝니다. 씨앗 봉지 하나와 가방에 {quest:3764} 둘을 넣고 주머니를 사용해 {item:11024}를 키운 뒤 여세요. 셋 중 하나꼴로 {item:11040}(1~5개), 나머지는 다른 약초입니다. 주머니는 10분마다 작동하니 다른 일을 하는 동안 준비되는 대로 사용하세요.",
 	-- ["{quest:7801} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7801}은(는) 제출할 때마다 {item:14047} 20장을 받으며 원하는 만큼 반복할 수 있습니다. {item:14047}을(를) 20장 단위로 가져와 한 번에 연달아 모두 제출하세요. {item:14047}: {zone:1423}의 {npc:8546}와(과) 어둠마법사(58-60레벨), 또는 경매장.",
 }

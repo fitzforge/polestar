@@ -14,8 +14,12 @@ return {
 
 	-- Step 2: WRIGGLE.
 	-- {npc:269452} Excitable Slime · {npc:4612} Boyle · {quest:97583} WRIGGLE.
-	["Find an {npc:269452}, a little critter in the canal water beside {npc:4612}, target it and /dance at it, again and again, until it dances back and offers {quest:97583}; this takes many tries. Hand in the sludge right away. If the slime seems tired, /dance with it again before you hand in."] = "Busca un {npc:269452}, un bicho en el agua del canal junto a {npc:4612}, apunta a él y hazle /dance una y otra vez hasta que baile contigo y te ofrezca {quest:97583}; esto lleva muchos intentos. Entrega el lodo enseguida. Si el limo parece cansado, vuelve a bailar con él con /dance antes de entregar.",
+	["An {npc:269452}, a little critter in the canal water beside {npc:4612}, offers {quest:97583} only after many /dance emotes at it, and it takes the sludge only while it still dances."] = "",
+	-- {npc:269452} Excitable Slime · {quest:97583} WRIGGLE.
+	["/dance at an {npc:269452} until it dances back and offers {quest:97583}"] = "",
+	["/dance with the slime again if it seems tired"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Find an {npc:269452}, a little critter in the canal water beside {npc:4612}, target it and /dance at it, again and again, until it dances back and offers {quest:97583}; this takes many tries. Hand in the sludge right away. If the slime seems tired, /dance with it again before you hand in."] = "Busca un {npc:269452}, un bicho en el agua del canal junto a {npc:4612}, apunta a él y hazle /dance una y otra vez hasta que baile contigo y te ofrezca {quest:97583}; esto lleva muchos intentos. Entrega el lodo enseguida. Si el limo parece cansado, vuelve a bailar con él con /dance antes de entregar.",
 	-- ["Find the {npc:269452}, a critter in the {zone:1458} canals, and /dance with it until it offers WRIGGLE. Buy {item:278265} from a vendor in the canals and bring it back; if the slime seems tired, dance with it again."] = "Busca el {npc:269452}, una alimaña de los canales de {zone:1458}, y usa /bailar con él hasta que te ofrezca CONTONEOS. Compra {item:278265} a un vendedor de los canales y tráeselo; si el cieno parece cansado, vuelve a bailar con él.",
 }

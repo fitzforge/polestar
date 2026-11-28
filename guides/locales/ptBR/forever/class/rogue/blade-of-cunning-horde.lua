@@ -53,7 +53,7 @@ return {
 
 	-- Step 9: Astor Hadren
 	-- {npc:6497} Astor Hadren · {area:228} Sepulcher · {zone:1458} Undercity
-	["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark. Talk to him and pick both of his answers: he turns hostile. Kill him for the letter (it always drops). Fight him away from guards, who can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "{npc:6497} (nível 13) anda pela estrada entre a {area:228} e a {zone:1458}, ao norte da {area:228}. Ele parece um viajante amigável, sem marca de missão. Fale com ele e escolha as duas respostas dele: ele fica hostil. Mate-o para pegar a carta (ela sempre cai). Lute com ele longe dos guardas, que podem roubar a morte e deixar sem saque; só um ladino por morte recebe a carta. Ele volta 5 minutos depois de morrer.",
+	["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark, and both of his answers turn him hostile. His letter always drops, but guards nearby can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "",
 
 	-- Step 10: Back to Mennet Carkad
 	-- {npc:6467} Mennet Carkad
@@ -78,6 +78,7 @@ return {
 	-- ["{npc:6466} drinks in the inn in the {object:172982}. Pick his pocket for {item:7208}, then open {item:7209}."] = "{npc:6466} bebe na estalagem do {object:172982}. Bata a carteira dele para pegar a {item:7208} e abra a {item:7209}.",
 	-- ["{npc:6467} sends the ledger on to {npc:2425} in the Hall of the Dark Lady, the {object:36126}."] = "{npc:6467} envia o livro-caixa a {npc:2425} no Salão da Dama Sombria, o {object:36126}.",
 	-- ["{npc:6494} stands on the {zone:1413} coast south of {area:392}. Kill him for his satchel."] = "{npc:6494} fica no litoral dos {zone:1413}, ao sul de {area:392}. Mate-o para pegar a algibeira.",
+	-- ["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark. Talk to him and pick both of his answers: he turns hostile. Kill him for the letter (it always drops). Fight him away from guards, who can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "{npc:6497} (nível 13) anda pela estrada entre a {area:228} e a {zone:1458}, ao norte da {area:228}. Ele parece um viajante amigável, sem marca de missão. Fale com ele e escolha as duas respostas dele: ele fica hostil. Mate-o para pegar a carta (ela sempre cai). Lute com ele longe dos guardas, que podem roubar a morte e deixar sem saque; só um ladino por morte recebe a carta. Ele volta 5 minutos depois de morrer.",
 	-- ["{npc:6497} stands north-east of the {area:228}. Take his Letter of Introduction from him."] = "{npc:6497} fica a nordeste de {area:228}. Pegue com ele a Carta de Apresentação do Astolfo.",
 	-- ["{npc:6522}'s ledger sits on the bookshelf beside him."] = "O livro-caixa de {npc:6522} está na estante ao lado dele.",
 }

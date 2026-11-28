@@ -228,7 +228,7 @@ return {
 
 	-- Step 44: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
-	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "동쪽 {area:599}(으)로 가세요. 불타는칼날단 사교도를 빈사 상태로 만든 뒤 죽기 전에 {item:6436}을(를) 사용해 {item:6435}을(를) 하나씩 채우세요. {npc:13019}은(는) 요새 꼭대기 층에서 홀을 가지고 있습니다. 사교도는 가끔(1-5%) {item:20310}도 떨어뜨리니, 얻으면 읽어 보세요. 붉은 {object:176581}은(는) 지금은 두세요. {npc:11876}이(가) 37레벨이라 두 번째 {zone:1443} 방문 때 다시 옵니다.",
+	["{area:599} is to the east. The {item:6436} fills one {item:6435} from a Burning Blade cultist brought low before it dies. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%), which starts a quest. The red {object:176581} waits: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "",
 	["On the top floor"] = "최상층에",
 
 	-- Step 45: Sargeron
@@ -294,7 +294,7 @@ return {
 
 	-- Step 55: Rackmore's Log
 	-- {object:177787} Rackmore's Log · {npc:11863} Azore Aldamort
-	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787}은(는) {npc:11863}의 탑 바로 남서쪽, 해안으로 내려가는 길의 땅바닥에 놓여 있습니다. 읽어 보세요. 두 열쇠는 퀘스트를 받은 상태에서만 떨어집니다.",
+	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore, and its two keys drop only while its quest is in the log."] = "",
 
 	-- Step 56: Clam beds
 	["Clam beds"] = "조개 서식지",
@@ -336,6 +336,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to {npc:11863}'s tower."] = "남쪽으로 돌아가 {npc:11863}의 탑으로 가세요.",
+	-- ["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "동쪽 {area:599}(으)로 가세요. 불타는칼날단 사교도를 빈사 상태로 만든 뒤 죽기 전에 {item:6436}을(를) 사용해 {item:6435}을(를) 하나씩 채우세요. {npc:13019}은(는) 요새 꼭대기 층에서 홀을 가지고 있습니다. 사교도는 가끔(1-5%) {item:20310}도 떨어뜨리니, 얻으면 읽어 보세요. 붉은 {object:176581}은(는) 지금은 두세요. {npc:11876}이(가) 37레벨이라 두 번째 {zone:1443} 방문 때 다시 옵니다.",
 	-- ["Head north along the coast, then inland to the ruined tower of {area:2405}: {npc:11863} waits inside. The coast's clams and naga come after {area:599}, on one walk north to {area:2406}."] = "해안을 따라 북쪽으로 간 뒤 내륙으로 들어가 {area:2405}의 폐허가 된 탑으로 가세요. {npc:11863}이(가) 안에서 기다립니다. 해안의 조개와 나가는 {area:599} 이후, {area:2406}까지 북쪽으로 한 번에 이동하며 처리합니다.",
 	-- ["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at 38."] = "{item:15881}을(를) 얻으러 북쪽 {area:598}(으)로 계속 가세요. 칼날비늘 나가라면 누구든 떨어뜨릴 수 있습니다.\n주의: 해변 북쪽 절반은 미르미돈(34-35)과 바다 마녀, 예언자(34-36, 시전자)가 차지하고 있어 33레벨이면 최대 2레벨 높습니다. 열쇠가 나올 때까지 남쪽 절반의 나가와 마녀(32-33)를 잡고, 북쪽은 38레벨의 두 번째 {zone:1443} 방문 때 처리하세요.",
 	-- ["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time. Any Slitherblade can drop {item:15881}."] = "북쪽으로 계속 가서 {area:598}에 도착하세요. 해변은 칼날비늘 전사, 나가, 마녀가 지키고 있습니다. 한 번에 하나씩 끌어내세요. 칼날비늘 나가라면 누구나 {item:15881}을(를) 떨어뜨릴 수 있습니다.",
@@ -348,4 +349,5 @@ return {
 	-- ["{npc:4877}, the trade supplies vendor, stands inside {area:484}'s inn."] = "직업용품 상인 {npc:4877}은(는) {area:484} 여관 안에 서 있습니다.",
 	-- ["{npc:5395} now offers Centaur Bounty: the second {zone:1443} visit, at 38, takes it on its way to the {area:607}."] = "{npc:5395}이(가) 이제 '켄타우로스 현상금'을 줍니다. 38레벨의 두 번째 {zone:1443} 방문 때 {area:607}(으)로 가는 길에 받습니다.",
 	-- ["{npc:5641}'s next errand sends you after a demon lord with an elite guard: skip it."] = "{npc:5641}의 다음 심부름은 정예 호위병을 거느린 악마 군주를 쫓게 합니다. 건너뛰세요.",
+	-- ["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787}은(는) {npc:11863}의 탑 바로 남서쪽, 해안으로 내려가는 길의 땅바닥에 놓여 있습니다. 읽어 보세요. 두 열쇠는 퀘스트를 받은 상태에서만 떨어집니다.",
 }

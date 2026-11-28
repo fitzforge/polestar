@@ -151,9 +151,9 @@ return {
 	-- Step 32: Mosshoof Coursers
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser
 	["Mosshoof Coursers"] = "{npc:8761}",
-	-- {area:1225} Ursolan · {item:221199} Satyrweed Tincture
+	-- {area:1225} Ursolan · {item:235509} Satyrweed Tincture
 	-- plural, as words: Mosshoof Coursers = {npc:8761} Mosshoof Courser · Thunderhead Skystormers = {npc:6378} Thunderhead Skystormer
-	["The Mosshoof Coursers (52-53) and Thunderhead Skystormers (50-52) graze just east of {area:1225}: bring one low, then use the {item:221199} on it. Three times."] = "",
+	["The Mosshoof Coursers (52-53) and Thunderhead Skystormers (50-52) graze just east of {area:1225}, and the {item:235509} works on one brought low, three times."] = "",
 
 	-- Step 34: Furze
 	-- {npc:235909} Furze
@@ -223,11 +223,11 @@ return {
 
 	-- Step 47: The Root of All Evil
 	-- {npc:11555} Gorn One Eye · {npc:11557} Meilosh · {quest:8481} The Root of All Evil · {item:21144} Demon Summoning Torch · {npc:10738} High Chief Winterfall · {npc:15623} Xandivious · {item:21326} Defender of the Timbermaw
-	["At Exalted, {npc:11555}, in the tunnel by {npc:11557}, gives {quest:8481}: plant his {item:21144} in the mouth of {npc:10738}'s cave and defeat the demon {npc:15623} (level 62, elite: bring a group). The reward is {item:21326}, a trinket that calls a Timbermaw ally, and 200 reputation."] = "",
+	["At Exalted, {npc:11555}, in the tunnel by {npc:11557}, gives {quest:8481}: his {item:21144}, planted in the mouth of {npc:10738}'s cave, calls the demon {npc:15623} (level 62, elite, a group's fight). The reward is {item:21326}, a trinket that calls a Timbermaw ally, and 200 reputation."] = "",
 
 	-- Step 48: Xandivious
 	-- {area:2244} Winterfall Village · {npc:15623} Xandivious
-	["{area:2244}, the cave at the back. Clear the furbolgs around the mouth first, plant the torch, kill {npc:15623} and loot the Essence from his Demon Bag."] = "",
+	["{area:2244}, the cave at the back, with furbolgs around its mouth. The torch planted there calls {npc:15623}, and the Essence is in his Demon Bag."] = "",
 	-- {npc:15623} Xandivious
 	["{npc:15623}, 25 reputation"] = "",
 

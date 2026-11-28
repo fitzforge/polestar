@@ -62,7 +62,8 @@ return {
 
 	-- Step 13: Orgrimmar
 	-- {object:405149} Mural of Ta'zo · {object:172961} Valley of Spirits
-	["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "{object:405149}是{object:172961}中斜靠在墙边的石板，就在前往法师训练师的路上。使用它即可拿到书。",
+	-- was: ["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "{object:405149}是{object:172961}中斜靠在墙边的石板，就在前往法师训练师的路上。使用它即可拿到书。"
+	["The {object:405149}, the stone tablet leaning against the wall in the {object:172961} on the way to the mage trainers, holds the book."] = "",
 
 	-- Step 14: The library: first books
 	["The library: first books"] = "图书馆：第一批书籍",
@@ -191,4 +192,5 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Lost books and scrolls all over the world: each pays experience at the library, and enough of them earn a {quest:78150} reward."] = "世界各地散落着书籍和卷轴：交给图书馆可获得经验，交够数量后还可领取{quest:78150}奖励。",
+	-- ["The {object:405149} is the stone tablet leaning against the wall in the {object:172961}, on the way to the mage trainers. Use it to take the book."] = "{object:405149}是{object:172961}中斜靠在墙边的石板，就在前往法师训练师的路上。使用它即可拿到书。",
 }

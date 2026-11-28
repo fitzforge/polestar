@@ -161,8 +161,8 @@ return {
 	["{quest:1123} waits in {zone:1450}: keep it for later."] = "{quest:1123}在{zone:1450}等候：留到之后。",
 
 	-- Step 32: Bashana Runetotem
-	-- {npc:9087} Bashana Runetotem · {item:11103} Seed Voucher · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain
-	["Hand {npc:9087} the {item:11103} for her packets of Tharlendris Seeds. {quest:3782} gives you the {item:11020}: use it with a seed packet and two {quest:3761} in your bags to grow a random herb, sometimes {item:11040}, once every ten minutes. She wants ten, so the quest is optional: take it if you have spare {quest:3761} and want to keep growing it over the next guides."] = "找{npc:9087}交{item:11103}，换取萨伦迪斯种子。{quest:3782}会给你{item:11020}。背包里有一包种子和两份{quest:3761}时，使用它可以随机种出一种草药，有时会出{item:11040}。每10分钟可以用一次。她要10份，所以这项任务可选。有多余的{quest:3761}、也愿意在接下来的几份指南里继续种，再接这个任务。",
+	-- {npc:9087} Bashana Runetotem · {item:11103} Seed Voucher · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil
+	["{npc:9087} takes the {item:11103} for packets of Tharlendris Seeds. {quest:3782} gives the {item:11020}, which grows a random herb, sometimes {item:11040}, from a seed packet and two {quest:3761} once every ten minutes. She wants ten, so the quest is optional: worth it with spare {quest:3761}, growing it over the next guides."] = "",
 
 	-- Step 34: Magatha Grimtotem
 	-- {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise
@@ -185,6 +185,7 @@ return {
 	-- ["Frostfire Winterfall camps"] = "冰火温泉的冬泉熊怪营地",
 	-- ["Gregor's and Harlo's quests lead to other zones: keep them."] = "格雷戈和哈鲁的任务会把你带到其他地区：留着它们。",
 	-- ["Grind to 55"] = "刷到55级",
+	-- ["Hand {npc:9087} the {item:11103} for her packets of Tharlendris Seeds. {quest:3782} gives you the {item:11020}: use it with a seed packet and two {quest:3761} in your bags to grow a random herb, sometimes {item:11040}, once every ten minutes. She wants ten, so the quest is optional: take it if you have spare {quest:3761} and want to keep growing it over the next guides."] = "找{npc:9087}交{item:11103}，换取萨伦迪斯种子。{quest:3782}会给你{item:11020}。背包里有一包种子和两份{quest:3761}时，使用它可以随机种出一种草药，有时会出{item:11040}。每10分钟可以用一次。她要10份，所以这项任务可选。有多余的{quest:3761}、也愿意在接下来的几份指南里继续种，再接这个任务。",
 	-- ["He stands on {area:1641}. Each donation wants cloth from your bags; hand them in when you have it, later in the route."] = "他站在{area:1641}。每次捐献都需要你背包里的布料；有了布料再交，在路线后面。",
 	-- ["In the {object:172958}."] = "在{object:172958}。",
 	-- ["In the {object:172961}."] = "在{object:172961}。",

@@ -11,8 +11,8 @@ return {
 	["The Alliance paladin's rare two-handed mace for the 20s, with a shield and {spell:5502} on the way."] = "A maça de duas mãos rara do paladino da Aliança para os 20 e poucos, com um escudo e {spell:5502} no caminho.",
 
 	-- Step 1: The Tome of Valor (Ironforge)
-	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {item:6776} Tome of Valor · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {area:2257} Deeprun Tram · {zone:1455} Ironforge
-	["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives you the {item:6776}. Right-click it: it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the {area:2257} from {zone:1455} to {zone:1453}."] = "No nível 20, {npc:6179}, no andar de cima do {object:32386}, na {object:32362}, entrega o {item:6776}. Clique nele com o botão direito: ele manda você a {npc:6171}, na Catedral da Luz de {zone:1453}. Pegue o {area:2257} de {zone:1455} até {zone:1453}.",
+	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words) · {item:6776} Tome of Valor · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {area:2257} Deeprun Tram
+	["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives the {item:6776}, which sends you to {npc:6171} in {zone:1453}'s Cathedral of Light, by the {area:2257}."] = "",
 
 	-- Step 2: The Tome of Valor
 	-- {npc:6171} Duthorian Rall · {item:6776} Tome of Valor
@@ -94,6 +94,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 20 {npc:6179} in the {object:32362} gives you the {item:6776}; it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the tram from {zone:1455} to {zone:1453}."] = "No nível 20, {npc:6179} na {object:32362} lhe dá o {item:6776}; ele manda você a {npc:6171} na Catedral da Luz de {zone:1453}. Pegue o metrô de {zone:1455} até {zone:1453}.",
+	-- ["At 20 {npc:6179}, upstairs in the {object:32386} in the {object:32362}, gives you the {item:6776}. Right-click it: it sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. Take the {area:2257} from {zone:1455} to {zone:1453}."] = "No nível 20, {npc:6179}, no andar de cima do {object:32386}, na {object:32362}, entrega o {item:6776}. Clique nele com o botão direito: ele manda você a {npc:6171}, na Catedral da Luz de {zone:1453}. Pegue o {area:2257} de {zone:1455} até {zone:1453}.",
 	-- ["Bring the four parts to {npc:6181} outside {zone:1455}."] = "Leve as quatro partes a {npc:6181}, do lado de fora de {zone:1455}.",
 	-- ["Protect {npc:6182}"] = "Proteja {npc:6182}",
 	-- ["The Alliance paladin's rare two-handed mace for the 20s, with a shield on the way."] = "A maça de duas mãos rara do paladino da Aliança para os 20, com um escudo no caminho.",

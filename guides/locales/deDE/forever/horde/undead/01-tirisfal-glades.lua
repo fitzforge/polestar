@@ -407,7 +407,7 @@ return {
 
 	-- Step 70: Ulag the Cleaver
 	-- {npc:6390} Ulag the Cleaver
-	["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390} wartet im Mausoleum auf dem Hügel direkt nördlich der Stadt: Öffne das Tor und kämpfe gegen ihn.",
+	["{npc:6390} waits in the mausoleum on the hill just north of town, and the gate's trigger lets him out."] = "",
 
 	-- Step 71: Carendin Halgar
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
@@ -620,6 +620,7 @@ return {
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, der Windreitermeister",
 	-- ["{npc:5667}: Summon Imp"] = "{npc:5667}: Wichtel beschwören",
 	-- ["{npc:5675}: Summon Voidwalker"] = "{npc:5675}: Leerwandler beschwören",
+	-- ["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390} wartet im Mausoleum auf dem Hügel direkt nördlich der Stadt: Öffne das Tor und kämpfe gegen ihn.",
 	-- ["{quest:90902}: the {npc:259377} lie around the church. Heal five of them with Holy Light."] = "{quest:90902}: Die {npc:259377} liegen rund um die Kirche. Heile fünf von ihnen mit Heiliges Licht.",
 	-- ["{quest:91208}: the {npc:246143} fled into the hills just west of the church."] = "{quest:91208}: Der {npc:246143} ist in die Hügel direkt westlich der Kirche geflohen.",
 	-- ["{quest:96897} holds the farm just south-east of the camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too."] = "{quest:96897} hält den Hof direkt südöstlich des Lagers. Die Nekrotischen Kristallfragmente liegen zwischen den Kultisten am Boden, und die Kultisten tragen auch einige bei sich.",

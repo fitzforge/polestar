@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Kerlonian Evershade
-	-- {area:442} Auberdine · {area:448} Grove of the Ancients · {npc:11218} Kerlonian Evershade · {item:13536} Horn of Awakening · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
-	["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest: it gives you the {item:13536}. Use the horn to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow it again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "글레이브에서 다시 북쪽으로 (드루이드: {area:442}에서 길을 따라 남쪽으로) {area:448}까지 가세요. {npc:11218}이(가) 아발 옆에서 잠들어 있습니다. 그의 퀘스트를 받으면 {item:13536}을(를) 얻습니다. 뿔피리를 사용해 그를 깨우고, 길을 따라 남쪽으로 {zone:1439} 남쪽 끝에 있는 그의 가방까지 데려가세요. 그가 잠들 때마다 뿔피리를 다시 부세요. 그런 다음 {area:413}의 {npc:11219}에게 가세요.\n주의: 길을 따라 세 마리씩 이루어진 매복 무리가 정해진 대로 습격합니다.",
+	-- {npc:11218} Kerlonian Evershade · {area:448} Grove of the Ancients · {area:442} Auberdine · {item:13536} Horn of Awakening · {zone:1439} Darkshore
+	["{npc:11218} sleeps beside Arbal at the {area:448}, back north from the glaive (Druids: south along the road from {area:442}). His quest gives the {item:13536}, which wakes him, and he falls asleep again on the way south to his bag at the southern edge of {zone:1439}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "",
 	-- {npc:11218} Kerlonian Evershade · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
 	["Escort {npc:11218} south along the road to his bag at the southern edge of {zone:1439}, then go on to {npc:11219} at {area:413}."] = "",
 
@@ -373,6 +373,7 @@ return {
 	["Next: training in {zone:1453}, then the road east through Elwynn and south to {zone:1431}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest: it gives you the {item:13536}. Use the horn to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow it again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "글레이브에서 다시 북쪽으로 (드루이드: {area:442}에서 길을 따라 남쪽으로) {area:448}까지 가세요. {npc:11218}이(가) 아발 옆에서 잠들어 있습니다. 그의 퀘스트를 받으면 {item:13536}을(를) 얻습니다. 뿔피리를 사용해 그를 깨우고, 길을 따라 남쪽으로 {zone:1439} 남쪽 끝에 있는 그의 가방까지 데려가세요. 그가 잠들 때마다 뿔피리를 다시 부세요. 그런 다음 {area:413}의 {npc:11219}에게 가세요.\n주의: 길을 따라 세 마리씩 이루어진 매복 무리가 정해진 대로 습격합니다.",
 	-- ["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins."] = "{area:1276}을(를) 지나 다시 북쪽으로 가세요. {area:421} 서쪽, 폐허 사이에 별가루 덤불이 자랍니다.",
 	-- ["Back to the Cathedral of Light: {npc:928} stands inside."] = "빛의 대성당으로 돌아가세요. {npc:928}이(가) 안에 서 있습니다.",
 	-- ["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "{npc:3916}에게서 길을 따라 다시 서쪽으로 가면 {npc:3664}(으)로 가는 길에 {area:415}이(가) 있습니다. {npc:3894}은(는) 여관 너머 건물 안에 있습니다.",

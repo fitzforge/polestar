@@ -428,7 +428,7 @@ return {
 
 	-- Step 80: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}은(는) 부르면 떠오릅니다: 항구 남서쪽 얕은 물, 화살표가 가리키는 곳에 떠 있는 것을 오른쪽 클릭하면 그곳에 떠오릅니다. 정예 {npc:257001}이(가) 근처 해안을 걷습니다: 거리를 두십시오.",
+	["The {npc:260244} only surfaces when called with the bait, in the shallows south-west of the port. {npc:257001}, an elite, walks the shore close by."] = "",
 	-- {item:268633} Sea Monster's Head
 	["{item:268633}, where the Threshadon surfaces when you call him"] = "{item:268633}, 부르면 트레샤돈이 떠오르는 곳",
 
@@ -517,7 +517,7 @@ return {
 	-- {area:16724} Farholde Keep
 	["Back to {area:16724}"] = "{area:16724}(으)로 귀환",
 	-- {area:16724} Farholde Keep
-	["Your hearthstone is bound at {area:16724}'s inn: use it, or ride back south to the keep."] = "귀환석이 {area:16724} 여관에 지정되어 있습니다. 사용하거나 남쪽 성채로 말을 타고 돌아가십시오.",
+	["The hearthstone is bound at {area:16724}'s inn."] = "",
 
 	-- Step 103: Farholde Keep
 	-- {npc:260070} Bertrand Ironbrow · {npc:257558} Demar Brant · {npc:257591} Ashe Amberhall
@@ -583,7 +583,9 @@ return {
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "다시 해적 절벽으로 가십시오. 야영지 아래 정박한 배 세 척에 남쪽부터 북쪽 순서로 위즈버즈의 폭약을 설치하십시오. {quest:95124}(45레벨)은(는) 가운데 배 옆에 전리품 상자와 함께 있습니다. 가는 길에 {npc:259758}을(를) 주의하십시오.",
 	-- ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), then work west through the burnt houses to the edge of town. The charms, pages and finger bones drop from the cultists; keep the {item:266148} the Twilight Raiders drop: five, one for each grave west of Elbrim's farm.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "{area:16723}의 거리와 들판에 광신도들이 가득합니다. 가운데 의식 원에서 시작해(그곳에서 클레어의 촉매를 채우십시오) 불탄 집들을 지나 서쪽 마을 끝까지 가십시오. 부적, 쪽지, 손가락뼈는 광신도에게서 떨어집니다. 황혼의 습격자가 떨어뜨리는 {item:266148}은(는) 보관하십시오: 다섯 개, 엘브림의 농장 서쪽 무덤마다 하나씩.\n그들이 떨어뜨리는 {item:4338}도 보관하십시오: {area:16724}에 돌아가면 {npc:263613}이(가) 스무 개를 요구합니다. 가끔 광신도가 {quest:94885}을(를) 떨어뜨립니다: 오른쪽 클릭하여 퀘스트를 시작하십시오.\n주의: 정예 오우거 {npc:256899}(41레벨)이(가) {area:16723}의 서쪽 거리 44-47,47-52 부근을 돌아다닙니다. 광신도를 끌어내고 그는 지나가게 두십시오. 이 지역에서 플레이어가 가장 많이 죽은 곳입니다.\n강의 정예 {npc:263380}(42레벨)이(가) 남서쪽 들판에서 올라올 수 있습니다: 지나가게 두십시오.",
 	-- ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "교단원들이 {area:16723}의 거리와 들판을 메우고 있습니다. 한가운데 의식의 원에서 시작해(거기서 클레어의 촉매를 채우십시오), 불탄 집들을 지나 서쪽 마을 끝까지 간 뒤, 북동쪽 엘브림 농장 서쪽의 무른 흙으로 돌아오십시오: 황혼의 약탈자가 떨어뜨리는 {item:266148}을(를) 그곳에 묻으십시오. 부적, 책장, 손가락뼈는 교단원에게서 나옵니다.\n교단원이 떨어뜨리는 {item:4338}은(는) 보관하세요: {area:16724}의 {npc:263613}이(가) 돌아가면 20개를 요구합니다. 가끔 교단원이 {quest:94885}을(를) 떨어뜨립니다: 우클릭하여 퀘스트를 시작하십시오.\n주의: 정예 오우거 {npc:256899}(41레벨)이(가) {area:16723} 서쪽 거리 44-47,47-52 부근을 돌아다닙니다. 교단원을 끌어내고 그가 지나가게 두십시오. 이 지역에서 플레이어가 가장 많이 죽은 곳입니다.\n강의 정예 {npc:263380}(42레벨)이(가) 남서쪽 들판에서 올라올 수 있습니다: 지나가게 두십시오.",
+	-- ["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}은(는) 부르면 떠오릅니다: 항구 남서쪽 얕은 물, 화살표가 가리키는 곳에 떠 있는 것을 오른쪽 클릭하면 그곳에 떠오릅니다. 정예 {npc:257001}이(가) 근처 해안을 걷습니다: 거리를 두십시오.",
 	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}은(는) 항구 남서쪽, 멀록 해변 아래 얕은 물을 배회합니다. 정예인 {npc:257001}이(가) 근처 해안을 걸어 다니니 거리를 두십시오.",
+	-- ["Your hearthstone is bound at {area:16724}'s inn: use it, or ride back south to the keep."] = "귀환석이 {area:16724} 여관에 지정되어 있습니다. 사용하거나 남쪽 성채로 말을 타고 돌아가십시오.",
 	-- ["the middle ship"] = "가운데 배",
 	-- ["the northern ship"] = "북쪽 배",
 	-- ["the {object:707245} poster"] = "{object:707245} 전단",

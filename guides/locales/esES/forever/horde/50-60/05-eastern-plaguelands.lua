@@ -20,7 +20,7 @@ return {
 
 	-- Step 2: Dalson's Tears
 	-- {area:199} Felstone Field · {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears
-	["East along the road past {area:199}, {npc:11077} guards the cauldron at {area:200}: kill him for the key, then use the cauldron."] = "",
+	["East along the road past {area:199}, {npc:11077} carries the key to the cauldron at {area:200}."] = "",
 
 	-- Step 4: Andorhal watchtowers and silos
 	["Andorhal watchtowers and silos"] = "Atalayas y silos de Andorhal",
@@ -265,8 +265,8 @@ return {
 
 	-- Step 58: Scarlet Crusade
 	["Scarlet Crusade"] = "Cruzada Escarlata",
-	-- {area:192} Northridge Lumber Camp · {npc:11615} Mickey Levine · {item:15044} Barrel of Plagueland Termites · {object:177491} Termite Barrel · {quest:5902} A Plague Upon Thee · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
-	["Back north-east to the {area:192}: knights and magi work the camp, the medics and hunters camp south of it. In the middle of the lumber mill, stand by the crate and use {npc:11615}'s {item:15044} from your bags to set it on top; then click the {object:177491} that appears: it finishes {quest:5902} and gives the next part for {npc:11615}. Careful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "",
+	-- {area:192} Northridge Lumber Camp · {npc:11615} Mickey Levine · {object:177491} Termite Barrel · {quest:5902} A Plague Upon Thee · {npc:10996} Fallen Hero · {zone:1422} Western Plaguelands
+	["Back north-east at the {area:192}, knights and magi work the camp, and the medics and hunters camp south of it. {npc:11615}'s barrel of termites goes on the crate in the middle of the lumber mill, and the {object:177491} that appears finishes {quest:5902} and gives the next part for {npc:11615}. Careful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}."] = "",
 
 	-- Step 60: Radley and Durgen
 	["Radley and Durgen"] = "Radley y Durgen",
@@ -279,7 +279,7 @@ return {
 
 	-- Step 62: Target: Gahrron's Withering
 	-- {area:201} Gahrron's Withering · {npc:11078} Cauldron Lord Soulwrath
-	["Ride south-east to {area:201}, the farm under the eastern hills: {npc:11078} (58) guards its cauldron. Kill him for the key, then use the cauldron.\nCareful: Soulwrath is about two levels over you here: clear the ghouls around the cauldron first, start at full health and use your cooldowns on him."] = "",
+	["{area:201} is the farm under the eastern hills to the south-east, and {npc:11078} (58) carries the key to its cauldron.\nCareful: Soulwrath is about two levels over you here, and ghouls stand around the cauldron."] = "",
 
 	-- Step 63: Skeletal Fragments
 	-- {area:200} Dalson's Tears · {area:199} Felstone Field

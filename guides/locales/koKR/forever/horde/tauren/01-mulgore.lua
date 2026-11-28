@@ -87,8 +87,9 @@ return {
 	["{npc:5888}: {npc:5873} and your {item:5175}"] = "{npc:5888}: {npc:5873}, {item:5175}",
 
 	-- Step 15: Kaga Wildhoof
-	-- {area:220} Red Cloud Mesa · {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {spell:1229451} Boosted Rest · {zone:1456} Thunder Bluff · {zone:1413} Barrens
-	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "길을 따라 {area:220}에서 북쪽으로 나가십시오. {npc:265810}이(가) {area:222} 바로 남쪽 길에서 기다립니다. {spell:1229451}을(를) 얻을 때까지 그녀의 모닥불 옆에서 /sit 하십시오. 전문 기술을 배웠다면 카가도 해당 야영 101을 주며, 그 상급자가 받습니다: 블러드후프 마을, {zone:1456} 정거장, 또는 기계공학은 {zone:1413} 서부에서.",
+	-- {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {area:220} Red Cloud Mesa · {spell:1229451} Boosted Rest · {zone:1456} Thunder Bluff · {zone:1413} Barrens
+	-- was: ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "길을 따라 {area:220}에서 북쪽으로 나가십시오. {npc:265810}이(가) {area:222} 바로 남쪽 길에서 기다립니다. {spell:1229451}을(를) 얻을 때까지 그녀의 모닥불 옆에서 /sit 하십시오. 전문 기술을 배웠다면 카가도 해당 야영 101을 주며, 그 상급자가 받습니다: 블러드후프 마을, {zone:1456} 정거장, 또는 기계공학은 {zone:1413} 서부에서."
+	["{npc:265810} waits on the road just south of {area:222}, north out of {area:220}, and sitting by her campfire gives {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "",
 	-- {spell:1229451} Boosted Rest
 	["/sit by Kaga's campfire until you get {spell:1229451}"] = "{spell:1229451}을(를) 얻을 때까지 카가의 모닥불 옆에서 /앉기",
 
@@ -294,8 +295,8 @@ return {
 	["Ride a lift up to the mesas. {npc:2995} keeps the wind riders on the central rise; {npc:3057} stands in the great tent there."] = "승강기를 타고 고원으로 올라가세요. {npc:2995}은(는) 중앙 고지에서 윈드라이더를 돌보고, {npc:3057}은(는) 그곳 큰 천막에 서 있습니다.",
 
 	-- Step 57: Traditions of the Bluff
-	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner · {item:278078} Prepared Incense
-	["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068}은(는) 타우렌 향을 원합{npc:3014}. 약초 상인 니다, 마법부여 재료 상인 {npc:3012}, 가죽세공 재료 상인 {npc:3005}, 요리 재료 상인 {npc:3027}에게서 재료 네 가지를 사서 {item:278078}(으)로 합치세요.",
+	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner
+	["{npc:269068} wants tauren incense, made from four parts that {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier sell."] = "",
 	-- {npc:2987} Eyahn Eagletalon · {npc:269068} Eylah Sunhorn
 	["{npc:2987}, beside {npc:269068}"] = "{npc:2987} 옆의 {npc:269068}",
 	-- {item:278079} Bundle of Herbs · {npc:3014} Nida Winterhoof
@@ -457,6 +458,7 @@ return {
 	-- ["Follow the path south out of camp to the Seer's tent at the foot of the hills."] = "길을 따라 야영지에서 남쪽으로 나가 언덕 기슭의 예언자 천막으로 가세요.",
 	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "길을 따라 {area:220}에서 북쪽으로 나가세요. {npc:265810}은(는) {area:222} 바로 남쪽 길에서 기다립니다. {spell:1229451}을(를) 얻을 때까지 그녀의 모닥불 옆에서 /앉기 하세요.",
 	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof or on the {zone:1456} stop."] = "길을 따라 {area:220}에서 북쪽으로 나가세요. {npc:265810}은(는) {area:222} 바로 남쪽 길에서 기다립니다. {spell:1229451}을(를) 얻을 때까지 그녀의 모닥불 옆에서 /앉기 하세요. 전문 기술을 배웠다면 카가가 야영 기초 퀘스트도 주며, 해당 전문 기술 상급자에게 완료합니다. 상급자는 블러드후프 마을이나 {zone:1456}에 있습니다.",
+	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "길을 따라 {area:220}에서 북쪽으로 나가십시오. {npc:265810}이(가) {area:222} 바로 남쪽 길에서 기다립니다. {spell:1229451}을(를) 얻을 때까지 그녀의 모닥불 옆에서 /sit 하십시오. 전문 기술을 배웠다면 카가도 해당 야영 101을 주며, 그 상급자가 받습니다: 블러드후프 마을, {zone:1456} 정거장, 또는 기계공학은 {zone:1413} 서부에서.",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "갈라크일족 켄타우로스와 우두머리 초원늑대",
 	-- ["Hearth to {area:222} and ride north to {area:1639}."] = "귀환석으로 {area:222}에 간 뒤 북쪽의 {area:1639}(으)로 가세요.",
 	-- ["Leave {zone:1412} by the south-eastern pass and follow the road to the {area:380}. {quest:860} stands by the inn, {npc:3448} at the south gate. {zone:1413} guide starts here."] = "남동쪽 고갯길로 {zone:1412}을(를) 나가 길을 따라 {area:380}(으)로 가세요. {quest:860}은(는) 여관 옆에, {npc:3448}은(는) 남문에 서 있습니다. {zone:1413} 가이드는 여기서 시작합니다.",
@@ -493,6 +495,7 @@ return {
 	-- ["grind on {npc:2978}"] = "{npc:2978} 사냥",
 	-- ["{area:1898} cultists"] = "{area:1898} 이교도",
 	-- ["{area:474}: kill these as you meet them"] = "{area:474}: 만나는 대로 처치하세요",
+	-- ["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068}은(는) 타우렌 향을 원합{npc:3014}. 약초 상인 니다, 마법부여 재료 상인 {npc:3012}, 가죽세공 재료 상인 {npc:3005}, 요리 재료 상인 {npc:3027}에게서 재료 네 가지를 사서 {item:278078}(으)로 합치세요.",
 	-- ["{npc:275789} stands on the {area:821} a little east of the well."] = "{npc:275789}은(는) 우물 조금 동쪽의 {area:821}에 서 있습니다.",
 	-- ["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182}은(는) 마을 북쪽 가장자리에 서 있습니다. 카일은 초원타조에게서 얻는 {item:287505}을(를) 원합니다.",
 	-- ["{npc:2988} camps by the {area:396} south-east of Bloodhoof."] = "{npc:2988}은(는) 블러드후프 마을 남동쪽의 {area:396} 옆에 야영하고 있습니다.",

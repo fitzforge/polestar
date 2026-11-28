@@ -104,16 +104,16 @@ return {
 	["Unstable Mana Rifts: mana for the western pylon"] = "",
 	-- {item:255662} Mana Sieve
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Coalesced Mana Crystals = {item:255667} Coalesced Mana Crystal
-	["Use the {item:255662} on the Unstable Mana Rifts, the floating sparks along the road north: each pylon takes four Coalesced Mana Crystals, and the repair uses them up."] = "",
+	["The Unstable Mana Rifts are the floating sparks along the road north, and with the {item:255662} in the bags they give Coalesced Mana Crystals. Each pylon takes four, and the repair uses them up."] = "",
 	-- {item:255667} Coalesced Mana Crystal · {item:255662} Mana Sieve
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift
 	["{item:255667}, from the Unstable Mana Rifts with the {item:255662}"] = "",
 
 	-- Step 18: The road south of the western pylon
 	["The road south of the western pylon"] = "",
-	-- {npc:252711} Decrepit Pylon Protector · {spell:1289727} Repair and Recharge Pylon
-	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Coalesced Mana Crystals = {item:255667} Coalesced Mana Crystal · Magram Necrokhans = {npc:253274} Magram Necrokhan · Nascent Pylon Protectors = {npc:276401} Nascent Pylon Protector
-	["North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one {npc:252711} at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use the Pile of Pylon Parts Mordent gave you: its {spell:1289727} takes your four Coalesced Mana Crystals.\nCareful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.\nIf you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds."] = "",
+	-- {npc:252711} Decrepit Pylon Protector · {item:271882} Pile of Pylon Parts
+	-- plural, as words: Coalesced Mana Crystals = {item:255667} Coalesced Mana Crystal · Magram Necrokhans = {npc:253274} Magram Necrokhan · Nascent Pylon Protectors = {npc:276401} Nascent Pylon Protector
+	["The road just south of the pylon, on its west edge, is the quiet side, with no Protectors behind, and from there one {npc:252711} at a time comes away, the one nearest the pylon's south side first. The {item:271882}' Repair and Recharge Pylon takes the four Coalesced Mana Crystals.\nCareful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.\nIf you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds."] = "",
 	["the road just south of the western pylon"] = "",
 
 	-- Step 19: The western pylon: repair it
@@ -126,9 +126,9 @@ return {
 	-- Step 20: Unstable Mana Rifts: mana for the eastern pylon
 	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift
 	["Unstable Mana Rifts: mana for the eastern pylon"] = "",
-	-- {item:255662} Mana Sieve · {item:271882} Pile of Pylon Parts
-	-- plural, as words: Unstable Mana Rifts = {npc:264149} Unstable Mana Rift · Coalesced Mana Crystals = {item:255667} Coalesced Mana Crystal
-	["The western repair used up your crystals: on the way east, use the {item:255662} on the Unstable Mana Rifts again for four more Coalesced Mana Crystals. The {item:271882} needs all four for the next repair."] = "",
+	-- {item:271882} Pile of Pylon Parts
+	-- plural, as words: Coalesced Mana Crystals = {item:255667} Coalesced Mana Crystal
+	["The western repair used up the crystals, and the {item:271882} needs four more Coalesced Mana Crystals for the next repair."] = "",
 
 	-- Step 21: Bristleback Retreat: repair the eastern pylon
 	-- {area:16677} Bristleback Retreat
@@ -173,12 +173,11 @@ return {
 	["{npc:255486}, inside the temple, has a task for you now that you have met {npc:254656}: the heart of a {npc:252711} (42-43, not elite), a short ride back up the road north."] = "{npc:255486}, dans le temple, a une tâche pour vous maintenant que vous avez rencontré {npc:254656} : le cœur d'un {npc:252711} (42-43, non élite), à courte distance en remontant la route vers le nord.",
 
 	-- Step 29: A Heart of Crystal
-	-- {npc:252711} Decrepit Pylon Protector
-	["Use the west face of the western pylon, where you repaired it. Approach on the road from the south and pull one {npc:252711} back to you. Wait for the elite patrols to pass; do not follow a Protector around the east side."] = "",
+	["The west face of the western pylon, where it was repaired, is the quiet side. Elite patrols pass on the road, and the Protectors stand in groups around the east side."] = "",
 
 	-- Step 31: Mana Mania
-	-- {item:286647} Depleted Crystal Heart · {npc:264149} Unstable Mana Rift · {npc:276401} Nascent Pylon Protector
-	["Take the {item:286647} to an {npc:264149} on the road north of the temple and throw it into the rift. The {npc:276401} that comes out is an elite (level 43) but it comes alone: most players in our recordings killed it without a group, from level 41 up."] = "",
+	-- {item:286648} Depleted Crystal Heart · {npc:264149} Unstable Mana Rift · {npc:276401} Nascent Pylon Protector
+	["The {item:286648} goes into an {npc:264149} on the road north of the temple. The {npc:276401} that comes out is an elite (level 43) but comes alone: most players in our recordings killed it without a group, from level 41 up."] = "",
 
 	-- Step 32: Shadowprey Village
 	-- {zone:2652} Shen'dralas · {area:2657} Valley of Bones · {area:405} Desolace · {area:2408} Shadowprey Village · {area:1637} Orgrimmar · {zone:1444} Feralas · {area:1099} Camp Mojache

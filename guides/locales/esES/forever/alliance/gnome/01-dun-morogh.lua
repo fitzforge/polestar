@@ -541,8 +541,8 @@ return {
 	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, Tiza and Muiredon on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "Al oeste del {object:32383} hacia el {object:32362}: {npc:5149}, {npc:6179} y {npc:6178} están en el {object:32386}, Tiza y Muiredon en su planta superior: las escaleras empiezan justo al noreste de {npc:5149}. {npc:6175}, un mendigo, deambula por la ciudad. Pide diez {item:2589}: los trols y troggs de {zone:1426} lo sueltan, y la casa de subastas lo vende.",
 
 	-- Step 109: Narm Faulk
-	-- {zone:1455} Ironforge · {area:212} Helm's Bed Lake · {npc:6177} Narm Faulk · {item:6866} Symbol of Life
-	["Head back out of {zone:1455} and east along the road to {area:212}. {npc:6177} lies dead by its shore: use the {item:6866} on him. The Dark Iron Spies sneaking around the lake carry the script."] = "Sal otra vez de {zone:1455} y ve al este por el camino hasta {area:212}. {npc:6177} yace muerto junto a su orilla: usa {item:6866} sobre él. Los espías Hierro Negro que merodean por el lago llevan el escrito.",
+	-- {npc:6177} Narm Faulk · {area:212} Helm's Bed Lake · {zone:1455} Ironforge · {item:6866} Symbol of Life
+	["{npc:6177} lies dead by the shore of {area:212}, east along the road out of {zone:1455}, and the {item:6866} raises him. The Dark Iron Spies sneaking around the lake carry the script."] = "",
 
 	-- Step 111: Mystic Ward
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words)
@@ -661,6 +661,7 @@ return {
 	-- ["Defensive Stance"] = "Actitud defensiva",
 	-- ["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "Sigue el camino hasta el final hacia el este hasta {area:806}, en el túnel de {area:38}.",
 	-- ["Follow the road up to {zone:1455} and train with your class trainer. The {area:2257} leaves from {object:171524}, in the east of the city. Ride it to {zone:1453}."] = "Sigue el camino hasta {zone:1455} y entrena con tu instructor de clase. El {area:2257} sale de {object:171524}, en el este de la ciudad. Tómalo hasta {zone:1453}.",
+	-- ["Head back out of {zone:1455} and east along the road to {area:212}. {npc:6177} lies dead by its shore: use the {item:6866} on him. The Dark Iron Spies sneaking around the lake carry the script."] = "Sal otra vez de {zone:1455} y ve al este por el camino hasta {area:212}. {npc:6177} yace muerto junto a su orilla: usa {item:6866} sobre él. Los espías Hierro Negro que merodean por el lago llevan el escrito.",
 	-- ["Iceclaw Bear Pendants, from the Frostmane Troll Whelps on the slopes above the camp"] = "Colgantes de oso garrahielo ({item:264356}), de las crías de trol Peloescarcha ({npc:706}) de las laderas sobre el campamento",
 	-- ["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Sal de {zone:1453} por la puerta principal, ve al sur hasta {area:87} y al este por el camino hasta {area:62}. {npc:881} (nivel 9) está junto a su granja.",
 	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Sal de {zone:1453} por la puerta principal. La cascada de {quest:1861} está al suroeste de las puertas, de camino al oeste hacia {zone:1436}: llena {item:7207} al pie de ella.",

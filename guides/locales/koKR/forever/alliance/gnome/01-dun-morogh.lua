@@ -541,8 +541,8 @@ return {
 	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, Tiza and Muiredon on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "{object:32383}에서 서쪽으로 {object:32362}(으)로 들어가세요: {npc:5149}, {npc:6179}, {npc:6178}이(가) {object:32386} 안에 있고, 티자와 무리든은 그 위층에 있습니다: 위층으로 올라가는 계단은 {npc:5149}의 바로 북동쪽에서 시작됩니다. 거지 {npc:6175}이(가) 도시를 배회합니다. 그는 {item:2589} 열 개를 원합니다: {zone:1426}의 트로그와 트롤이 떨어뜨리고, 경매장에서도 팝니다.",
 
 	-- Step 109: Narm Faulk
-	-- {zone:1455} Ironforge · {area:212} Helm's Bed Lake · {npc:6177} Narm Faulk · {item:6866} Symbol of Life
-	["Head back out of {zone:1455} and east along the road to {area:212}. {npc:6177} lies dead by its shore: use the {item:6866} on him. The Dark Iron Spies sneaking around the lake carry the script."] = "{zone:1455}을(를) 나와 길을 따라 동쪽으로 {area:212}까지 가세요. {npc:6177}은(는) 그 기슭에서 죽어 있습니다: 그에게 {item:6866}을(를) 사용하세요. 호숫가를 맴도는 검은무쇠 첩자가 서류를 가지고 있습니다.",
+	-- {npc:6177} Narm Faulk · {area:212} Helm's Bed Lake · {zone:1455} Ironforge · {item:6866} Symbol of Life
+	["{npc:6177} lies dead by the shore of {area:212}, east along the road out of {zone:1455}, and the {item:6866} raises him. The Dark Iron Spies sneaking around the lake carry the script."] = "",
 
 	-- Step 111: Mystic Ward
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward (no name in this language: may be words)
@@ -660,6 +660,7 @@ return {
 	-- ["Back to {npc:257446} in {area:77}. He gives you the {item:6635}: take the rubble-marked path that climbs west from the south of the valley to the Spirit Stone on the ridge, drink the Sapta beside it and speak to the {npc:5891}, then bring its {item:6656} back to Teo."] = "{area:77}의 {npc:257446}에게 돌아가세요. 그가 {item:6635}을(를) 줍니다. 골짜기 남쪽에서 서쪽으로 올라가는 돌무더기 표시 길을 따라 능선의 정령석까지 가서, 그 옆에서 삽타를 마시고 {npc:5891}에게 말을 건 뒤, 그 {item:6656}을(를) 테오에게 가져가세요.",
 	-- ["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "도로를 따라 끝까지 동쪽으로 가 {area:38} 터널의 {area:806}까지 가세요.",
 	-- ["Follow the road up to {zone:1455} and train with your class trainer. The {area:2257} leaves from {object:171524}, in the east of the city. Ride it to {zone:1453}."] = "길을 따라 {zone:1455}(으)로 올라가 직업 상급자에게 훈련을 받으세요. {area:2257}은(는) 도시 동쪽의 {object:171524}에서 출발합니다. 그것을 타고 {zone:1453}(으)로 가세요.",
+	-- ["Head back out of {zone:1455} and east along the road to {area:212}. {npc:6177} lies dead by its shore: use the {item:6866} on him. The Dark Iron Spies sneaking around the lake carry the script."] = "{zone:1455}을(를) 나와 길을 따라 동쪽으로 {area:212}까지 가세요. {npc:6177}은(는) 그 기슭에서 죽어 있습니다: 그에게 {item:6866}을(를) 사용하세요. 호숫가를 맴도는 검은무쇠 첩자가 서류를 가지고 있습니다.",
 	-- ["Iceclaw Bear Pendants, from the Frostmane Troll Whelps on the slopes above the camp"] = "{item:264356}, 야영지 위 비탈의 {npc:706}에게서",
 	-- ["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "정문으로 {zone:1453}을(를) 나가 남쪽으로 {area:87}까지 간 뒤, 길을 따라 동쪽으로 {area:62}까지 가세요. {npc:881}(9레벨)은(는) 농가 옆에 서 있습니다.",
 	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "정문으로 {zone:1453}을(를) 나가십시오. {quest:1861} 폭포는 성문 남서쪽, 서쪽 {zone:1436}(으)로 가는 길에 있습니다. 폭포 아래에서 {item:7207}을(를) 채우십시오.",

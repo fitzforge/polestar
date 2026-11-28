@@ -428,7 +428,7 @@ return {
 
 	-- Step 80: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "你召唤时{npc:260244}会浮上来：右键点击箭头处漂在水里的东西，在港口西南的浅水区，它就会在那里浮出水面。精英{npc:257001}在附近的岸边走动：离他远点。",
+	["The {npc:260244} only surfaces when called with the bait, in the shallows south-west of the port. {npc:257001}, an elite, walks the shore close by."] = "",
 	-- {item:268633} Sea Monster's Head
 	["{item:268633}, where the Threshadon surfaces when you call him"] = "{item:268633}，在你召唤时脱颚龙浮出水面的地方",
 
@@ -517,7 +517,7 @@ return {
 	-- {area:16724} Farholde Keep
 	["Back to {area:16724}"] = "返回{area:16724}",
 	-- {area:16724} Farholde Keep
-	["Your hearthstone is bound at {area:16724}'s inn: use it, or ride back south to the keep."] = "你的炉石绑定在{area:16724}的旅店：使用炉石，或向南骑回要塞。",
+	["The hearthstone is bound at {area:16724}'s inn."] = "",
 
 	-- Step 103: Farholde Keep
 	-- {npc:260070} Bertrand Ironbrow · {npc:257558} Demar Brant · {npc:257591} Ashe Amberhall
@@ -583,7 +583,9 @@ return {
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "再次前往海盗悬崖。从南到北，在营地下方停泊的三艘船上安放威兹巴兹的炸药；{quest:95124}（45级）站在中间那艘船旁，她的战利品箱就在旁边。途中留意{npc:259758}。",
 	-- ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), then work west through the burnt houses to the edge of town. The charms, pages and finger bones drop from the cultists; keep the {item:266148} the Twilight Raiders drop: five, one for each grave west of Elbrim's farm.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "邪教徒遍布{area:16723}的街道和田野。从中间的仪式法阵开始（在那里装满克莱尔的催化剂），然后向西穿过烧毁的房屋到镇子边缘。护符、书页和指骨从邪教徒身上掉落；留着暮光袭击者掉落的{item:266148}：五个，埃尔布里姆农场以西每个坟墓一个。\n留着他们掉落的{item:4338}：回到{area:16724}时，{npc:263613}会要二十个。邪教徒偶尔会掉落{quest:94885}：右键点击它开始任务。\n小心：精英食人魔{npc:256899}（41级）在{area:16723}西边的街道上走动，大约在44-47,47-52。把邪教徒拉到你这边，让他过去；这里死亡的玩家比本地区其他任何地方都多。\n河里的精英{npc:263380}（42级）可能会从西南的田野游荡过来：让他过去。",
 	-- ["The cultists fill the streets and fields of {area:16723}. Start at the ritual circles in the middle (fill Claire's catalyst there), work west through the burnt houses to the edge of town, then back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} the Twilight Raiders drop there. The charms, pages and finger bones drop from the cultists.\nKeep the {item:4338} they drop: {npc:263613} in {area:16724} asks for twenty when you are back there. Now and then a cultist drops the {quest:94885}: right-click it to start the quest.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass; players died here more than anywhere else in the zone.\n{npc:263380}, the river's elite (level 42), can wander up from the south-western fields: let him pass."] = "{area:16723}的街道和田地里到处是邪教徒。先从中央的仪式法阵开始（在那里装满克莱尔的催化剂），向西穿过烧毁的房屋到镇子边缘，再折回东北到埃尔布林牧庄西边的松软泥土：把暮光袭击者掉落的{item:266148}埋在那里。护符、书页和指骨都从邪教徒身上掉落。\n留着他们掉落的{item:4338}：回到{area:16724}时，{npc:263613}要二十块。邪教徒偶尔会掉落{quest:94885}：右键点击它接受任务。\n小心：精英食人魔{npc:256899}（41级）在{area:16723}西侧街道巡逻，大约在44-47,47-52。把邪教徒拉到你这边，等他走过去；这里是本地区玩家死得最多的地方。\n河边的精英{npc:263380}（42级）可能从西南的田地游荡过来：让他过去。",
+	-- ["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "你召唤时{npc:260244}会浮上来：右键点击箭头处漂在水里的东西，在港口西南的浅水区，它就会在那里浮出水面。精英{npc:257001}在附近的岸边走动：离他远点。",
 	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}在港口西南、鱼人海滩下方的浅水中游荡。精英{npc:257001}在附近岸边走动：离他远一点。",
+	-- ["Your hearthstone is bound at {area:16724}'s inn: use it, or ride back south to the keep."] = "你的炉石绑定在{area:16724}的旅店：使用炉石，或向南骑回要塞。",
 	-- ["the middle ship"] = "中间的船",
 	-- ["the northern ship"] = "北边的船",
 	-- ["the {object:707245} poster"] = "通缉令",

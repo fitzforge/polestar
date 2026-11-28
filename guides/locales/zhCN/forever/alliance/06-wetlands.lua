@@ -165,7 +165,7 @@ return {
 	["Goaz Warders"] = "戈阿兹守卫者",
 	-- {item:279996} Goaz Stone · {npc:270892} Goaz Warder
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "戈阿兹守卫者就在维尔加营地的西边：在其中一只旁边使用他给你的{item:279996}。\n{npc:270892}是精英，建议组队。",
+	["The Goaz Warders stand just west of Whelgar's camp, and his {item:279996} works beside one.\n{npc:270892} is elite: grouping up is advised."] = "",
 
 	-- Step 31: Prospector Whelgar
 	["Below ground"] = "在地下",
@@ -520,7 +520,7 @@ return {
 
 	-- Step 97: Krolg
 	-- {npc:3897} Krolg · {area:421} Mystral Lake · {item:5462} Dartol's Rod of Transformation
-	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}. Use {item:5462} near him first: he only speaks to you in furbolg form."] = "{npc:3897}是一个未受腐蚀的熊怪，坐在{area:421}下方道路的南边。先在他附近使用{item:5462}：他只会和熊怪形态的你交谈。",
+	["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}. He only speaks to a furbolg, and {item:5462} makes you one."] = "",
 
 	-- Step 98: Ran Bloodtooth
 	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg
@@ -709,6 +709,7 @@ return {
 	-- ["South-east along the road to {area:415}: {npc:3691} in the inn, {npc:3961} and {npc:3894} inside, the flight master at the west end."] = "沿路向东南前往{area:415}：{npc:3691}在旅店内，{npc:3961}和{npc:3894}在里面，飞行管理员在西端。",
 	-- ["South-east from the dig to the Dragonmaw camp. The four sets of Attack Plans lie in the {area:1036}; {npc:2091}, an elite, stands in the camp too."] = "从挖掘场向东南前往龙喉营地。四份Attack Plans分布在{area:1036}；精英{npc:2091}也在营地中。",
 	-- ["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "被遗忘者的营地位于{area:2358}南侧树林中。\n被遗忘者营地西侧的林荫熊怪营地周围有生锈的箱子，不断打开，直到找到剑柄。\n注意：营地由约 28–30 级的非精英被遗忘者守卫，部分敌人处于潜行状态，桌子周围的敌人通常会一同参战。",
+	-- ["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "戈阿兹守卫者就在维尔加营地的西边：在其中一只旁边使用他给你的{item:279996}。\n{npc:270892}是精英，建议组队。",
 	-- ["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "船长在沉船甲板上走动；他的保险箱在货舱里。",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "圣物就在挖掘场里。{npc:1353}是一只大型刺喉龙，在挖掘场西边不远的迅猛龙山谷中徘徊。",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it.\nGoaz Warders (elite, 32) stand among the relics and the {object:331}: pull them away one at a time, or work around them."] = "圣物就在挖掘场里。{npc:1353}是一只大型刺喉龙，在挖掘场西边不远的迅猛龙山谷中徘徊。\n戈阿兹守卫者（32级精英）站在圣物和{object:331}之间：逐个引开，或绕开它们。",
@@ -730,6 +731,7 @@ return {
 	-- ["{npc:3845} stands by {area:415}'s flight master."] = "{npc:3845}站在{area:415}的飞行管理员旁。",
 	-- ["{npc:3885} stands at the {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake; {npc:12759}, a level 27 water elemental, walks among them and drops the bracers too."] = "{npc:3885}站在{area:421}东岸的{area:420}，就在通往{npc:3897}的道路北边。污浊的水元素在湖中游荡；27级水元素{npc:12759}也在其中走动，同样会掉落护腕。",
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}是一个未受腐蚀的熊怪，坐在{area:421}下方道路的南边。",
+	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}. Use {item:5462} near him first: he only speaks to you in furbolg form."] = "{npc:3897}是一个未受腐蚀的熊怪，坐在{area:421}下方道路的南边。先在他附近使用{item:5462}：他只会和熊怪形态的你交谈。",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619}率领{area:429}的萨特；树枝在他身上。",
 	-- ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}：同一趟路线上的刺喉龙蛋",
 	-- ["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "{quest:98283}，一只精英迅猛龙，在30-40/01-hillsbrad-foothills的{zone:1437}路线中处理",

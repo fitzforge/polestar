@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 1: Kerlonian Evershade
-	-- {area:442} Auberdine · {area:448} Grove of the Ancients · {npc:11218} Kerlonian Evershade · {item:13536} Horn of Awakening · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
-	["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest: it gives you the {item:13536}. Use the horn to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow it again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "从巨刃处向北返回（德鲁伊：从{area:442}沿路向南），前往{area:448}，{npc:11218}睡在阿尔巴尔旁边。接下他的任务，任务会给你{item:13536}。用号角唤醒他，带他沿路向南走到{zone:1439}南部边缘他的背包处；每当他睡着时，就再吹一次号角。然后继续前往{area:413}找{npc:11219}。\n小心：途中会触发伏击，每波三只怪物。",
+	-- {npc:11218} Kerlonian Evershade · {area:448} Grove of the Ancients · {area:442} Auberdine · {item:13536} Horn of Awakening · {zone:1439} Darkshore
+	["{npc:11218} sleeps beside Arbal at the {area:448}, back north from the glaive (Druids: south along the road from {area:442}). His quest gives the {item:13536}, which wakes him, and he falls asleep again on the way south to his bag at the southern edge of {zone:1439}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "",
 	-- {npc:11218} Kerlonian Evershade · {zone:1439} Darkshore · {npc:11219} Liladris Moonriver · {area:413} Maestra's Post
 	["Escort {npc:11218} south along the road to his bag at the southern edge of {zone:1439}, then go on to {npc:11219} at {area:413}."] = "沿路向南护送{npc:11218}到{zone:1439}南缘他的包裹处，然后继续前往{area:413}的{npc:11219}处。",
 
@@ -373,6 +373,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest, open his chest for the {item:13536}, use it to wake him and lead him south along the road into {area:331} to {npc:11219} at {area:413}; blow the horn again whenever he falls asleep.\nCareful: Scripted ambushes of three mobs each attack along the road: furbolgs on the {zone:1439} stretch and undead nearer {area:413}."] = "从巨刃处向北返回（德鲁伊：从{area:442}沿路向南），前往{area:448}，{npc:11218}睡在Arbal旁边。接下他的任务，打开他的箱子取得{item:13536}，用它唤醒他，沿路向南带他进入{area:331}，前往{area:413}的{npc:11219}处。每当他睡着时，就再吹一次号角。\n小心：途中会触发伏击，每波三只怪物；{zone:1439}路段是熊怪，靠近{area:413}时则是亡灵。",
+	-- ["Back north from the glaive (Druids: south along the road from {area:442}) to the {area:448}, where {npc:11218} sleeps beside Arbal. Take his quest: it gives you the {item:13536}. Use the horn to wake him and lead him south along the road to his bag at the southern edge of {zone:1439}; blow it again whenever he falls asleep. Then go on to {npc:11219} at {area:413}.\nCareful: Scripted ambushes of three mobs each attack along the road."] = "从巨刃处向北返回（德鲁伊：从{area:442}沿路向南），前往{area:448}，{npc:11218}睡在阿尔巴尔旁边。接下他的任务，任务会给你{item:13536}。用号角唤醒他，带他沿路向南走到{zone:1439}南部边缘他的背包处；每当他睡着时，就再吹一次号角。然后继续前往{area:413}找{npc:11219}。\n小心：途中会触发伏击，每波三只怪物。",
 	-- ["Back north through the {area:1276}: west of {area:421}, the stardust bushes grow among the ruins."] = "向北穿过{area:1276}返回：星尘灌木长在{area:421}西边的废墟里。",
 	-- ["Back to the Cathedral of Light: {npc:928} stands inside."] = "回到光明大教堂：{npc:928}站在里面。",
 	-- ["Back west along the road from {npc:3916}, {area:415} is on the way to {npc:3664}: {npc:3894} is inside the building beyond the inn."] = "从{npc:3916}处沿路向西返回，前往{npc:3664}的路上会经过{area:415}：{npc:3894}在旅店后方的建筑内。",

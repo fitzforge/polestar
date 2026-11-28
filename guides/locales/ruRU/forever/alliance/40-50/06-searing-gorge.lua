@@ -35,7 +35,7 @@ return {
 
 	-- Step 7: Dorius Stonetender
 	-- {area:247} Grimesilt Dig Site · {area:1959} Dustfire Valley · {object:175704} Singed Letter
-	["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "Дориус стоит у дороги рядом с местом {area:247}. Сопроводите его на северо-восток ({area:1959}) и сохраните ему жизнь; когда все закончится, прочтите {object:175704}, который он оставит на дороге.",
+	["Dorius stands by the road beside the {area:247}. The escort runs north-east to {area:1959}, and the {object:175704} he leaves on the road takes the hand-in."] = "",
 	-- {npc:8256} Curator Thorius · {zone:1455} Ironforge
 	["For {npc:8256} in {zone:1455}, at the end of this guide"] = "Для NPC {npc:8256} ({zone:1455}), в конце этого гайда",
 
@@ -182,6 +182,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "Несите предмет {object:149047} на юг вдоль края Котлована и зажгите четыре сторожевые жаровни, с юго-запада по кругу до юго-востока.",
+	-- ["Dorius stands by the road beside the {area:247}. Escort him north-east to {area:1959} and keep him alive; when it is over, read the {object:175704} he leaves on the road."] = "Дориус стоит у дороги рядом с местом {area:247}. Сопроводите его на северо-восток ({area:1959}) и сохраните ему жизнь; когда все закончится, прочтите {object:175704}, который он оставит на дороге.",
 	-- ["For {npc:8256} in {area:1537}, later"] = "Для NPC {npc:8256} ({area:1537}), позже",
 	-- ["Greater Lava Spiders"] = "Большие лавовые пауки",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Velarok; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "Тяжелые боевые големы патрулируют дно Котлована под Велароком; среди них плавают элементали магмы. Масло падает с големов и элементалей, сердца – с элементалей.",

@@ -34,5 +34,8 @@ return {
 
 	-- Step 5: Portal: Darnassus
 	-- {npc:4165} Elissa Dumas · {zone:1457} Darnassus · {spell:11419} Portal: Darnassus · {spell:3565} Teleport: Darnassus
-	["At 50 {npc:4165} in {zone:1457} teaches the last one, {spell:11419}, for 3 gold 20 silver. Use your {spell:3565} to get there."] = "A nivel 50, {npc:4165} en {zone:1457} enseña el último, {spell:11419}, por 3 de oro 20 de plata. Usa tu {spell:3565} para llegar.",
+	["At 50 {npc:4165} in {zone:1457} teaches the last one, {spell:11419}, for 3 gold 20 silver. {spell:3565} gets there."] = "",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At 50 {npc:4165} in {zone:1457} teaches the last one, {spell:11419}, for 3 gold 20 silver. Use your {spell:3565} to get there."] = "A nivel 50, {npc:4165} en {zone:1457} enseña el último, {spell:11419}, por 3 de oro 20 de plata. Usa tu {spell:3565} para llegar.",
 }

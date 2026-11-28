@@ -36,7 +36,8 @@ return {
 
 	-- Step 7: The Affray
 	-- {npc:6248} Twiggy Flathead · {npc:6238} Big Will · {spell:1160} Demoralizing Shout
-	["You have 10 minutes. Eat and drink to full, then step onto the grate in the middle of the crowd: {npc:6248} announces the challengers (level 26-27), who come one at a time, 15-20 seconds apart, and only while you stand near the grate. After each kill, step off the grate to eat or bandage; step back on when ready for the next. Six of them, then {npc:6238} (level 33, not elite) walks out; he stays neutral until you attack him, so bandage or eat first. Do not use {spell:1160}: it sends the challengers running and more of them pile in at once. If nothing starts, step off and on the grate again, or abandon the quest and take it again."] = "",
+	["There are 10 minutes, and the grate in the middle of the crowd starts it: {npc:6248} announces the challengers (level 26-27), who come one at a time, 15-20 seconds apart, and only while you stand near the grate. Off the grate between kills there is time to eat or bandage. Six of them, then {npc:6238} (level 33, not elite) walks out; he stays neutral until attacked. {spell:1160} sends the challengers running and more of them pile in at once. If nothing starts, stepping off and on the grate again, or taking the quest again, restarts it."] = "",
+	["the grate"] = "",
 
 	-- Step 8: Bath'rah the Windwatcher
 	-- {npc:6176} Bath'rah the Windwatcher · {area:272} Tarren Mill · {zone:1416} Alterac Mountains · {area:271} Southshore · {quest:1712} Cyclonian · {item:6929} Bath'rah's Parchment · {item:3357} Liferoot · {item:6851} Essence of the Exile

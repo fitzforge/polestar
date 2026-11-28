@@ -383,7 +383,7 @@ return {
 	-- Step 66: Taming the Beast
 	-- {item:15908} Taming Rod · {area:131} Kharanos
 	-- plural, as words: Large Crag Boars = {npc:1126} Large Crag Boar · Snow Leopards = {npc:1201} Snow Leopard · Ice Claw Bears = {npc:1196} Ice Claw Bear
-	["Each of Grif Wildheart's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "Каждое задание Грифа Дикое Сердце дает вам {item:15908}: используйте его на названном звере, затем верните жезл ему в кузницу ({area:131}). Большие скальные вепри, снежные леопарды и медведи-ледолапы бродят по полям чуть южнее и восточнее места {area:131}.",
+	["Each of Grif Wildheart's quests comes with a {item:15908} for the beast he names, and the rod goes back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "",
 	-- {npc:1231} Grif Wildheart
 	["{npc:1231}, at the smithy"] = "{npc:1231}, у кузницы",
 	-- {npc:1126} Large Crag Boar · {item:15908} Taming Rod
@@ -721,6 +721,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back through the tunnel to {npc:257597}' cave above the farm."] = "Обратно через туннель к пещере {npc:257597} над фермой.",
 	-- ["Crag Boars and Young Black Bears roam the fields around {area:131} and the depot."] = "Скальные вепри и молодые черные медведи бродят по полям вокруг места {area:131} и депо.",
+	-- ["Each of Grif Wildheart's quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him at the {area:131} smithy. Large Crag Boars, Snow Leopards and Ice Claw Bears all roam the fields just south and east of {area:131}."] = "Каждое задание Грифа Дикое Сердце дает вам {item:15908}: используйте его на названном звере, затем верните жезл ему в кузницу ({area:131}). Большие скальные вепри, снежные леопарды и медведи-ледолапы бродят по полям чуть южнее и восточнее места {area:131}.",
 	-- ["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "На восток через туннель Южных ворот в зону {zone:1432}. {npc:1089} и {npc:1092} стоят на гномьем посту сразу за ним.",
 	-- ["Flintfire's shipments lie on the cave floor, and {npc:278166} is missing somewhere inside.\nCareful: Wendigos stand close together inside the cave, so fights easily pull several at once; drawing them out one at a time with ranged attacks from outside avoids this."] = "Грузы Кремнеграна лежат на полу пещеры, а {npc:278166} пропал где-то внутри.\nОсторожно: вендиго стоят в пещере плотно, поэтому в бою легко притянуть сразу нескольких; выманивайте их по одному дальними атаками снаружи.",
 	-- ["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "Идите по дороге до самого востока, к месту {area:806} у туннеля в зону {zone:1432}.",

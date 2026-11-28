@@ -544,8 +544,8 @@ return {
 	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, Tiza and Muiredon on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "從{object:32383}向西進入{object:32362}：{npc:5149}、{npc:6179}和{npc:6178}在{object:32386}內，蒂薩和穆裡頓在樓上：樓梯起點就在{npc:5149}東北邊。乞丐{npc:6175}在城中游蕩。他要十塊{item:2589}：{zone:1426}的穴居人和食人妖會掉落，拍賣行也有出售。",
 
 	-- Step 109: Narm Faulk
-	-- {zone:1455} Ironforge · {area:212} Helm's Bed Lake · {npc:6177} Narm Faulk · {item:6866} Symbol of Life
-	["Head back out of {zone:1455} and east along the road to {area:212}. {npc:6177} lies dead by its shore: use the {item:6866} on him. The Dark Iron Spies sneaking around the lake carry the script."] = "離開{zone:1455}往回走，沿路向東到{area:212}。{npc:6177}死在岸邊：對他使用{item:6866}。在湖邊潛行的黑鐵間諜身上帶著那份名冊。",
+	-- {npc:6177} Narm Faulk · {area:212} Helm's Bed Lake · {zone:1455} Ironforge · {item:6866} Symbol of Life
+	["{npc:6177} lies dead by the shore of {area:212}, east along the road out of {zone:1455}, and the {item:6866} raises him. The Dark Iron Spies sneaking around the lake carry the script."] = "",
 
 	-- Step 111: Mystic Ward
 	-- {object:32386} Hall of Mysteries · {object:32362} Mystic Ward
@@ -665,6 +665,7 @@ return {
 	-- ["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "沿路一直向東，前往{zone:1432}隧道口的{area:806}。",
 	-- ["Follow the road up to {zone:1455} and train with your class trainer. The {area:2257} leaves from {object:171524}, in the east of the city. Ride it to {zone:1453}."] = "沿著道路上到{zone:1455}，向你的職業訓練師學習。{area:2257}從城市東邊的{object:171524}出發。搭乘它前往{zone:1453}。",
 	-- ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "穿過隧道進入 {zone:1432}。剛出隧道，路右側就有一條以石塊標記的小徑，沿它向北上山，前往 {npc:257808} 的營地。",
+	-- ["Head back out of {zone:1455} and east along the road to {area:212}. {npc:6177} lies dead by its shore: use the {item:6866} on him. The Dark Iron Spies sneaking around the lake carry the script."] = "離開{zone:1455}往回走，沿路向東到{area:212}。{npc:6177}死在岸邊：對他使用{item:6866}。在湖邊潛行的黑鐵間諜身上帶著那份名冊。",
 	-- ["Iceclaw Bear Pendants, from the Frostmane Troll Whelps on the slopes above the camp"] = "冰爪熊墜飾，來自營地上方山坡上的小霜鬃食人妖",
 	-- ["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "從正門離開{zone:1453}，向南前往{area:87}，再沿著道路向東前往{area:62}。{npc:881}（9級）站在農舍旁。",
 	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "從正門離開{zone:1453}。{quest:1861}瀑布在城門西南方，位於往西前往{zone:1436}的路上：在瀑布底部裝滿{item:7207}。",

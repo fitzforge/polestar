@@ -544,8 +544,8 @@ return {
 	["West from the {object:32383} into the {object:32362}: {npc:5149}, {npc:6179} and {npc:6178} are in the {object:32386}, Tiza and Muiredon on its upper floor: the stairs up start just north-east of {npc:5149}. {npc:6175}, a beggar, wanders the city. He asks for ten {item:2589}: the troggs and trolls of {zone:1426} drop it, and the Auction House sells it."] = "À l'ouest de {object:32383}, entrez dans la {object:32362} : {npc:5149}, {npc:6179} et {npc:6178} sont dans {object:32386}, Tiza et Muiredon à son étage : l'escalier commence juste au nord-est de {npc:5149}. {npc:6175}, un mendiant, erre dans la ville. Il demande dix {item:2589} : les troggs et les trolls de {zone:1426} en laissent tomber, et l'hôtel des ventes en vend.",
 
 	-- Step 109: Narm Faulk
-	-- {zone:1455} Ironforge · {area:212} Helm's Bed Lake · {npc:6177} Narm Faulk · {item:6866} Symbol of Life
-	["Head back out of {zone:1455} and east along the road to {area:212}. {npc:6177} lies dead by its shore: use the {item:6866} on him. The Dark Iron Spies sneaking around the lake carry the script."] = "Ressortez de {zone:1455} et suivez la route vers l'est jusqu'au {area:212}. {npc:6177} gît, mort, sur sa rive : utilisez le {item:6866} sur lui. Les Espions Sombrefer qui se faufilent autour du lac portent le texte.",
+	-- {npc:6177} Narm Faulk · {area:212} Helm's Bed Lake · {zone:1455} Ironforge · {item:6866} Symbol of Life
+	["{npc:6177} lies dead by the shore of {area:212}, east along the road out of {zone:1455}, and the {item:6866} raises him. The Dark Iron Spies sneaking around the lake carry the script."] = "",
 
 	-- Step 111: Mystic Ward
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward
@@ -672,6 +672,7 @@ return {
 	-- ["Follow the road up to {zone:1455} and train with your class trainer. The {area:2257} leaves from {object:171524}, in the east of the city. Ride it to {zone:1453}."] = "Suivez la route jusqu'à {zone:1455} et allez voir votre maître de classe. {area:2257} part de {object:171524}, à l'est de la ville. Prenez-le jusqu'à {zone:1453}.",
 	-- ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "Passez le tunnel pour entrer dans le {zone:1432}. Juste après, un chemin marqué de pierres grimpe dans les collines à droite de la route, vers le nord, jusqu'au camp de {npc:257808}.",
 	-- ["Gretchen camps just outside the {area:136}, the wendigo cave south-west of {area:131}."] = "Gretchen campe juste devant la {area:136}, la grotte des wendigos au sud-ouest de {area:131}.",
+	-- ["Head back out of {zone:1455} and east along the road to {area:212}. {npc:6177} lies dead by its shore: use the {item:6866} on him. The Dark Iron Spies sneaking around the lake carry the script."] = "Ressortez de {zone:1455} et suivez la route vers l'est jusqu'au {area:212}. {npc:6177} gît, mort, sur sa rive : utilisez le {item:6866} sur lui. Les Espions Sombrefer qui se faufilent autour du lac portent le texte.",
 	-- ["Hearth to {area:2102}"] = "Pierre de foyer vers la {area:2102}",
 	-- ["Iceclaw Bear Pendants, from the Frostmane Troll Whelps on the slopes above the camp"] = "Pendentifs d'ours griffeglace ({item:264356}), sur les Jeunes trolls Frostmane ({npc:706}) des pentes au-dessus du camp",
 	-- ["If you skipped {quest:314}, grind here to level 11.41 to stay on the route's plan."] = "Si vous avez passé {quest:314}, tuez des monstres ici jusqu'au niveau 11.41 pour suivre le plan de l'itinéraire.",

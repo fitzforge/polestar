@@ -87,8 +87,9 @@ return {
 	["{npc:5888}: {npc:5873} and your {item:5175}"] = "{npc:5888}：{npc:5873}和你的{item:5175}",
 
 	-- Step 15: Kaga Wildhoof
-	-- {area:220} Red Cloud Mesa · {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {spell:1229451} Boosted Rest · {zone:1456} Thunder Bluff · {zone:1413} Barrens
-	["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "沿路向北離開{area:220}。{npc:265810}在{area:222}南邊不遠處的路上等候；在她的營火旁/sit，直到獲得{spell:1229451}。學會一項專業後，卡加還會提供該專業的露營 101，由其訓練師接收：在血蹄村、在{zone:1456}那一站，或工程學在{zone:1413}西部。",
+	-- {npc:265810} Kaga Wildhoof · {area:222} Bloodhoof Village · {area:220} Red Cloud Mesa · {spell:1229451} Boosted Rest · {zone:1456} Thunder Bluff · {zone:1413} Barrens
+	-- was: ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "沿路向北離開{area:220}。{npc:265810}在{area:222}南邊不遠處的路上等候；在她的營火旁/sit，直到獲得{spell:1229451}。學會一項專業後，卡加還會提供該專業的露營 101，由其訓練師接收：在血蹄村、在{zone:1456}那一站，或工程學在{zone:1413}西部。"
+	["{npc:265810} waits on the road just south of {area:222}, north out of {area:220}, and sitting by her campfire gives {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "",
 	-- {spell:1229451} Boosted Rest
 	["/sit by Kaga's campfire until you get {spell:1229451}"] = "在Kaga的營火旁 /sit，直到獲得{spell:1229451}",
 
@@ -293,8 +294,8 @@ return {
 	["Ride a lift up to the mesas. {npc:2995} keeps the wind riders on the central rise; {npc:3057} stands in the great tent there."] = "搭升降梯上到平頂山。{npc:2995}在中央高台照料雙足飛龍；{npc:3057}站在那裡的大帳篷裡。",
 
 	-- Step 57: Traditions of the Bluff
-	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner · {item:278078} Prepared Incense
-	["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068}想要牛頭人的薰香：向草藥商{npc:3014}、附魔供應商{npc:3012}、製皮供應商{npc:3005}和烹飪供應商{npc:3027}購買四種材料，然後合成{item:278078}。",
+	-- {npc:269068} Eylah Sunhorn · {npc:3014} Nida Winterhoof · {npc:3012} Nata Dawnstrider · {npc:3005} Mahu · {npc:3027} Naal Mistrunner
+	["{npc:269068} wants tauren incense, made from four parts that {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier sell."] = "",
 	-- {npc:2987} Eyahn Eagletalon · {npc:269068} Eylah Sunhorn
 	["{npc:2987}, beside {npc:269068}"] = "{npc:2987}，在{npc:269068}旁邊",
 	-- {item:278079} Bundle of Herbs · {npc:3014} Nida Winterhoof
@@ -456,6 +457,7 @@ return {
 	-- ["Follow the path south out of camp to the Seer's tent at the foot of the hills."] = "沿小徑向南出營地，前往山腳下灰舌先知的帳篷。",
 	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}."] = "沿道路從{area:220}向北走。{npc:265810}在{area:222}南邊不遠的路上等著；在她的營火旁 /sit，直到獲得{spell:1229451}。",
 	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof or on the {zone:1456} stop."] = "沿道路從{area:220}向北走。{npc:265810}在{area:222}南邊不遠的路上等著；在她的營火旁 /sit，直到獲得{spell:1229451}。學會專業技能後，Kaga還會提供她的露營入門任務，交給該專業的訓練師：在血蹄村或{zone:1456}停留時繳交。",
+	-- ["Follow the road north out of {area:220}. {npc:265810} waits on the road just south of {area:222}; /sit by her campfire until you get {spell:1229451}. With a profession learned, Kaga also offers its Camping 101, which its trainer takes: in Bloodhoof, on the {zone:1456} stop, or in the western {zone:1413} for engineering."] = "沿路向北離開{area:220}。{npc:265810}在{area:222}南邊不遠處的路上等候；在她的營火旁/sit，直到獲得{spell:1229451}。學會一項專業後，卡加還會提供該專業的露營 101，由其訓練師接收：在血蹄村、在{zone:1456}那一站，或工程學在{zone:1413}西部。",
 	-- ["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "從十字路口沿道路向東北到{area:379}，跨過{area:814}進入{zone:1411}，繼續向北到{zone:1454}正門。下一份指南從{zone:1454}開始，乘飛艇前往{zone:1420}和{zone:1421}。",
 	-- ["Galak centaurs and Prairie Wolf Alphas"] = "加拉克半人馬與草原狼前鋒",
 	-- ["Hearth to {area:222} and ride north to {area:1639}."] = "用爐石回到{area:222}，向北騎到{area:1639}。",
@@ -493,6 +495,7 @@ return {
 	-- ["grind on {npc:2978}"] = "刷{npc:2978}",
 	-- ["{area:1898} cultists"] = "{area:1898}的教徒",
 	-- ["{area:474}: kill these as you meet them"] = "{area:474}：遇到就殺",
+	-- ["{npc:269068} wants tauren incense: buy its four parts from {npc:3014} the herbalist, {npc:3012} the enchanting supplier, {npc:3005} the leatherworking supplier and {npc:3027} the cooking supplier, then combine them into {item:278078}."] = "{npc:269068}想要牛頭人的薰香：向草藥商{npc:3014}、附魔供應商{npc:3012}、製皮供應商{npc:3005}和烹飪供應商{npc:3027}購買四種材料，然後合成{item:278078}。",
 	-- ["{npc:275789} stands on the {area:821} a little east of the well."] = "{npc:275789}站在水井東邊不遠的{area:821}。",
 	-- ["{npc:277182} stands at the north edge of the village. Kyle wants {item:287505} from plainstriders."] = "{npc:277182}站在村子北緣。Kyle想要從平原陸行鳥取得的{item:287505}。",
 	-- ["{npc:2988} camps by the {area:396} south-east of Bloodhoof."] = "{npc:2988}在血蹄村東南方的{area:396}旁紮營。",

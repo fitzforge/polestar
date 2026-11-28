@@ -120,7 +120,8 @@ return {
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "O acampamento da {npc:8578}",
 	-- {object:151286} Kaldorei Tome of Summoning
-	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "O acampamento de Rimtori fica no extremo leste do acampamento-base. Leia o {object:151286} lá: no Forever, o Tomo Sin'dorei ao lado pede então os selos dos três oficiais do acampamento.",
+	-- was: ["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "O acampamento de Rimtori fica no extremo leste do acampamento-base. Leia o {object:151286} lá: no Forever, o Tomo Sin'dorei ao lado pede então os selos dos três oficiais do acampamento."
+	["Rimtori's camp is at the east end of the base camp. On Forever the Sin'dorei Tome beside the {object:151286} then asks for the seals of the camp's three officers."] = "",
 
 	-- Step 24: Seals of the Sin'dorei
 	-- {npc:247006} Lieutenant Suncrest · {npc:247013} Ranger Lydrea · {npc:246991} Magister Hawkhelm · {npc:250023} Blackmaw Thrall
@@ -134,7 +135,7 @@ return {
 
 	-- Step 25: Magus Rimtori
 	-- {quest:91500} An Explosive Gambit · {quest:91497} Seals of the Sin'dorei
-	["Back to the Sin'dorei Tome: hand in the seals and take {quest:91500}, which gives you the {quest:91497}. Rimtori does not come from the Tome: stand beside one of the camp's tall crystals and use the {quest:91497} from your bags; its crystal explodes and draws her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55: start at full health."] = "",
+	["{quest:91500} gives the {quest:91497}. Rimtori does not come from the Tome: the {quest:91497}, used beside one of the camp's tall crystals, blow it up and draw her. Which crystal is linked to her is random: each of the other two summons a hostile infernal instead. She is level 55."] = "",
 	-- {quest:91497} Seals of the Sin'dorei · {npc:8578} Magus Rimtori
 	["Use the {quest:91497} from your bags beside a crystal: {npc:8578} (55) comes to the explosion and drops her head"] = "",
 	-- {quest:91538} Sin'dorei Tome of Summoning · {npc:8587} Jediga · {area:1237} Valormok
@@ -348,6 +349,7 @@ return {
 	-- ["Ride the road south through {area:361} to the Sanctuary."] = "Siga a estrada para o sul através de {area:361} até o Santuário.",
 	-- ["Ride the road south through {zone:1448} to the Sanctuary."] = "Siga a estrada para o sul através de {zone:1448} até o Santuário.",
 	-- ["Ride west to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "Cavalgue para o oeste até {area:192}; {npc:11610} se esconde na colina a nordeste dele.",
+	-- ["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "O acampamento de Rimtori fica no extremo leste do acampamento-base. Leia o {object:151286} lá: no Forever, o Tomo Sin'dorei ao lado pede então os selos dos três oficiais do acampamento.",
 	-- ["Ror stands at the far south end of {area:1761}."] = "Ror fica no extremo sul de {area:1761}.",
 	-- ["Scarlet Crusade"] = "Cruzada Escarlate",
 	-- ["Scarlet forward camp"] = "Acampamento avançado Escarlate",

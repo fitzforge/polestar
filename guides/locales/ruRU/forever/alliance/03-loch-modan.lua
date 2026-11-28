@@ -389,7 +389,8 @@ return {
 
 	-- Step 69: Fly to Stormwind
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {zone:1453} Stormwind
-	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "Назад к {area:442} за южными петлями {zone:1439}: грифон в {zone:1453}, затем корабль из гавани. Камень возврата готов (привязан в {area:442} с первого визита в {zone:1439})? Используйте его: эти шаги сбрасываются, как только вы окажетесь в {zone:1439}.",
+	-- was: ["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "Назад к {area:442} за южными петлями {zone:1439}: грифон в {zone:1453}, затем корабль из гавани. Камень возврата готов (привязан в {area:442} с первого визита в {zone:1439})? Используйте его: эти шаги сбрасываются, как только вы окажетесь в {zone:1439}."
+	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. The hearthstone is bound in {area:442} since the first {zone:1439} visit, and these steps drop once you are in {zone:1439}."] = "",
 	-- {area:69} Lakeshire
 	["{area:69} flight master"] = "Распорядитель полетов: {area:69}",
 
@@ -432,6 +433,7 @@ return {
 	["On the way to the harbour: {npc:4984}'s message goes to {npc:8997} in {area:442}, beside Terenthis, where the boat lands."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "Назад к {area:442} за южными петлями {zone:1439}: грифон в {zone:1453}, затем корабль из гавани. Камень возврата готов (привязан в {area:442} с первого визита в {zone:1439})? Используйте его: эти шаги сбрасываются, как только вы окажетесь в {zone:1439}.",
 	-- ["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "Никакого Братства Справедливости от Вайли (оно начинается с письма {npc:234} в {zone:1436}): пропустите {zone:1436}. На север по дороге от {area:87} к {zone:1453}: {npc:466} сидит на коне на дальнем конце моста снаружи главных ворот. Затем грифоны в {object:2096}, назад к {area:69}.",
 	-- ["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332} наверху в здании СИ:7 в {object:2100}: лестницу поначалу трудно заметить. {npc:466} сидит на коне на дальнем конце моста снаружи главных ворот, затем назад к грифонам в {object:2096}.",
 }

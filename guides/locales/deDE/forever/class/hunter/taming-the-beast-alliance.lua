@@ -9,8 +9,9 @@ return {
 	-- Guide
 	-- {quest:6063} Taming the Beast
 	["{quest:6063} (Alliance)"] = "{quest:6063} (Allianz)",
-	-- {item:15908} Taming Rod · {spell:1515} Tame Beast · {spell:5149} Beast Training
-	["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "Dein eigener Begleiter mit Stufe 10: Drei Übungszähmungen mit {item:15908} bringen dir {spell:1515} bei, dann {spell:5149}.",
+	-- {item:15911} Taming Rod · {spell:1515} Tame Beast · {spell:5149} Beast Training
+	-- was: ["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "Dein eigener Begleiter mit Stufe 10: Drei Übungszähmungen mit {item:15908} bringen dir {spell:1515} bei, dann {spell:5149}."
+	["Your own pet at 10: three practice tames with a {item:15911} teach {spell:1515}, then {spell:5149}."] = "",
 
 	-- Step 1: Elayaa Easewind
 	-- {npc:254084} Elayaa Easewind · {zone:2521} Zephras Isle · {area:16638} Valanaar · {quest:94007} Taming the Beast
@@ -21,15 +22,15 @@ return {
 	["{npc:252389} in {area:16638}"] = "{npc:252389} in {area:16638}",
 	-- {npc:252389} Quel'ana Quickgale · {area:16638} Valanaar · {npc:254411} Quel'dora Quickgale
 	["{npc:252389} stands with the trainers by {area:16638}'s west gate, {npc:254411} beside her."] = "{npc:252389} steht bei den Lehrern am Westtor von {area:16638}, {npc:254411} neben ihr.",
-	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod
-	["{npc:252389}: the first {item:15908}"] = "{npc:252389}: der erste {item:15908}",
+	-- {npc:252389} Quel'ana Quickgale · {item:15911} Taming Rod
+	["{npc:252389}: the first {item:15911}"] = "",
 
 	-- Step 3: Windsong Crawler
-	-- {area:16638} Valanaar · {item:15908} Taming Rod · {npc:252389} Quel'ana Quickgale
+	-- {area:16638} Valanaar · {npc:252389} Quel'ana Quickgale
 	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
-	["Windsong Crawlers live only by water: the nearest scuttle along the shore south-west of {area:16638}, among the crabs. How the rod works: target a living crawler, use the {item:15908} and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs one of the rod's few charges. Killing one does not count. Keep each rod: it goes back to {npc:252389}."] = "Windweisenkriecher leben nur am Wasser: Die nächsten huschen am Ufer südwestlich von {area:16638} entlang, zwischen den Krabben. So funktioniert der Stab: Wähle einen lebenden Windweisenkriecher als Ziel, benutze {item:15908} und steh während des gesamten Kanalisierens still, während er dich schlägt; Bewegen, Zurückschlagen oder fremde Hilfe unterbricht es und kostet eine der wenigen Ladungen des Stabs. Ihn zu töten zählt nicht. Behalte jeden Stab: Er geht zurück an {npc:252389}.",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living crawler"] = "Benutze {item:15908} an einem lebenden Crawler",
+	["Windsong Crawlers live only by water: the nearest scuttle along the shore south-west of {area:16638}, among the crabs. The rod's channel only works on a living crawler, standing still while it hits you; moving, fighting back or anyone else's help breaks it and costs one of the rod's few charges. Killing one does not count. Each rod goes back to {npc:252389}."] = "",
+	-- {item:267272} Taming Rod
+	["Use the {item:267272} on a living crawler"] = "",
 	-- {npc:254588} Windsong Crawler
 	["Tame {npc:254588}"] = "Zähme {npc:254588}",
 
@@ -37,8 +38,8 @@ return {
 	-- {spell:2641} Dismiss Pet · {area:16626} Gustberry Lowlands · {area:16638} Valanaar
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider
 	["Dismiss the crawler first (right-click the pet portrait, {spell:2641}). Ornery Galestriders graze in the {area:16626}, the fields a short walk west and south-west of {area:16638}."] = "Entlasse zuerst den Crawler (Rechtsklick auf das Begleiterportrait, {spell:2641}). Störrische Windschreiter grasen in {area:16626}, den Feldern ein Stück westlich und südwestlich von {area:16638}.",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living galestrider"] = "Benutze {item:15908} an einem lebenden Galestrider",
+	-- {item:15911} Taming Rod
+	["Use the {item:15911} on a living galestrider"] = "",
 	-- {npc:251707} Ornery Galestrider
 	["Tame {npc:251707}"] = "Zähme {npc:251707}",
 
@@ -46,8 +47,8 @@ return {
 	-- {area:16626} Gustberry Lowlands
 	-- plural, as words: Vuldren Alphas = {npc:250874} Vuldren Alpha
 	["Dismiss the galestrider. Vuldren Alphas hunt in the same {area:16626}, a little further south."] = "Entlasse den Windschreiter. Vuldrenalphas jagen im selben {area:16626}, ein Stück weiter südlich.",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living alpha"] = "Benutze {item:15908} an einem lebenden Alpha",
+	-- {item:15911} Taming Rod
+	["Use the {item:15911} on a living alpha"] = "",
 	-- {npc:250874} Vuldren Alpha
 	["Tame {npc:250874}"] = "Zähme {npc:250874}",
 	-- {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
@@ -58,29 +59,29 @@ return {
 	["{npc:1231} in {area:131}"] = "{npc:1231} in {area:131}",
 	-- {npc:1231} Grif Wildheart · {area:131} Kharanos · {quest:6074} The Hunter's Path · {npc:5116} Olmin Burningbeard · {zone:1455} Ironforge · {npc:11807} Tristane Shadowstone · {npc:5515} Einris Brightspear · {zone:1453} Stormwind · {npc:251507} Josephine Carson · {area:87} Goldshire
 	["At 10 go to {npc:1231}, the hunter trainer at the smithy in {area:131}. {quest:6074} from {npc:5116} in {zone:1455}, {npc:11807} north-west of {area:131} or {npc:5515} in {zone:1453} also leads here, for a little experience; it is only a pointer. In Elwynn at 10 instead? {npc:251507}'s chain in {area:87} teaches the same."] = "Geh mit Stufe 10 zu {npc:1231}, dem Jägerlehrer bei der Schmiede in {area:131}. Auch {quest:6074} von {npc:5116} in {zone:1455}, {npc:11807} nordwestlich von {area:131} oder {npc:5515} in {zone:1453} führt hierher, für ein wenig Erfahrung; es ist nur ein Hinweis. Mit Stufe 10 stattdessen in Elwynn? Die Questreihe von {npc:251507} in {area:87} bringt dasselbe bei.",
-	-- {npc:1231} Grif Wildheart · {item:15908} Taming Rod
-	["{npc:1231}: the first {item:15908}"] = "{npc:1231}: der erste {item:15908}",
+	-- {npc:1231} Grif Wildheart · {item:15911} Taming Rod
+	["{npc:1231}: the first {item:15911}"] = "",
 
 	-- Step 7: Large Crag Boar
-	-- {area:131} Kharanos · {item:15908} Taming Rod · {npc:1231} Grif Wildheart · {spell:6268} Rushing Charge · {spell:75} Auto Shot
+	-- {area:131} Kharanos · {npc:1231} Grif Wildheart · {spell:6268} Rushing Charge · {spell:75} Auto Shot
 	-- plural, as words: Large Crag Boars = {npc:1126} Large Crag Boar
-	["Large Crag Boars (level 6-7) root around the fields west, south and north-west of {area:131} and respawn every 3 minutes. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you. Moving, fighting back, being out of range or anyone else's help breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again from {npc:1231}. The boars use {spell:6268} from 25 yards, so start with the rod, not {spell:75}. Keep each rod: it goes back to {npc:1231}."] = "Große Klippeneber (Stufe 6-7) wühlen auf den Feldern westlich, südlich und nordwestlich von {area:131} und respawnen alle 3 Minuten. So funktioniert der Stab: Wähle ein lebendes Tier als Ziel, benutze {item:15908} und steh während des gesamten Kanalisierens still, während es dich schlägt. Bewegen, Zurückschlagen, außer Reichweite sein oder fremde Hilfe unterbricht es und kostet eine der wenigen Ladungen des Stabs; wenn sie aufgebraucht sind, zerstöre den Stab, brich die Quest ab und nimm sie bei {npc:1231} noch einmal an. Die Eber nutzen {spell:6268} aus 25 Metern, also fang mit dem Stab an, nicht mit {spell:75}. Behalte jeden Stab: Er geht zurück an {npc:1231}.",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living boar"] = "Benutze {item:15908} an einem lebenden Eber",
+	["Large Crag Boars (level 6-7) root around the fields west, south and north-west of {area:131} and respawn every 3 minutes. The rod's channel only works on a living beast, standing still while it hits you. Moving, fighting back, being out of range or anyone else's help breaks it and costs one of the rod's few charges; with none left, the quest has to be taken again from {npc:1231}. The boars use {spell:6268} from 25 yards, so the rod comes before {spell:75}. Each rod goes back to {npc:1231}."] = "",
+	-- {item:15911} Taming Rod
+	["Use the {item:15911} on a living boar"] = "",
 
 	-- Step 8: Snow Leopard
 	-- {spell:2641} Dismiss Pet · {area:131} Kharanos
 	-- plural, as words: Snow Leopards = {npc:1201} Snow Leopard · Juvenile Snow Leopards = {npc:1199} Juvenile Snow Leopard
 	["Dismiss the boar first (right-click the pet portrait, {spell:2641}): a released practice pet can turn on you. Snow Leopards (level 7-8) prowl the slopes south-east of {area:131}, more north-west and west of it; the smaller Juvenile Snow Leopards do not count."] = "Entlasse zuerst den Eber (Rechtsklick auf das Begleiterportrait, {spell:2641}): Ein freigelassener Übungsbegleiter kann sich gegen dich wenden. Schneeleoparden (Stufe 7-8) streifen über die Hänge südöstlich von {area:131}, mehr noch nordwestlich und westlich davon; die kleineren Halbwüchsige Schneeleoparden zählen nicht.",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living leopard"] = "Benutze {item:15908} an einem lebenden Leoparden",
+	-- {item:15911} Taming Rod
+	["Use the {item:15911} on a living leopard"] = "",
 
 	-- Step 9: Ice Claw Bear
 	-- {area:131} Kharanos · {area:77} Anvilmar · {spell:3130} Ice Claw
 	-- plural, as words: Ice Claw Bears = {npc:1196} Ice Claw Bear
 	["Dismiss the leopard. Ice Claw Bears (level 7-8) roam the hills around {area:131}, many south-east of it and more north-west toward {area:77}; their {spell:3130} hits hard, so start at full health."] = "Entlasse den Leoparden. Eisklauenbären (Stufe 7-8) streifen durch die Hügel rund um {area:131}, viele südöstlich davon und mehr nordwestlich Richtung {area:77}; ihr {spell:3130} trifft hart, also fang mit voller Gesundheit an.",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living bear"] = "Benutze {item:15908} an einem lebenden Bären",
+	-- {item:15911} Taming Rod
+	["Use the {item:15911} on a living bear"] = "",
 
 	-- Step 10: Belia Thundergranite in Ironforge
 	-- {npc:10090} Belia Thundergranite · {zone:1455} Ironforge
@@ -93,29 +94,29 @@ return {
 	["{npc:3601} in {area:186}"] = "{npc:3601} in {area:186}",
 	-- {npc:3601} Dazalar · {area:186} Dolanaar · {quest:6071} The Hunter's Path · {npc:3596} Ayanna Everstride · {area:256} Aldrassil · {npc:4146} Jocaste · {zone:1457} Darnassus · {npc:5515} Einris Brightspear · {zone:1453} Stormwind · {npc:5116} Olmin Burningbeard · {zone:1455} Ironforge · {npc:1231} Grif Wildheart · {area:131} Kharanos · {npc:251507} Josephine Carson · {area:87} Goldshire
 	["At 10 go to {npc:3601}, the hunter trainer in {area:186}. {quest:6071} from {npc:3596} at {area:256}, {npc:4146} in {zone:1457}, {npc:5515} in {zone:1453}, {npc:5116} in {zone:1455} or {npc:1231} in {area:131} also leads here, for a little experience; it is only a pointer. In Elwynn at 10 instead? {npc:251507}'s chain in {area:87} teaches the same."] = "Geh mit Stufe 10 zu {npc:3601}, dem Jägerlehrer in {area:186}. Auch {quest:6071} von {npc:3596} bei {area:256}, {npc:4146} in {zone:1457}, {npc:5515} in {zone:1453}, {npc:5116} in {zone:1455} oder {npc:1231} in {area:131} führt hierher, für ein wenig Erfahrung; es ist nur ein Hinweis. Mit Stufe 10 stattdessen in Elwynn? Die Questreihe von {npc:251507} in {area:87} bringt dasselbe bei.",
-	-- {npc:3601} Dazalar · {item:15908} Taming Rod
-	["{npc:3601}: the first {item:15908}"] = "{npc:3601}: der erste {item:15908}",
+	-- {npc:3601} Dazalar · {item:15911} Taming Rod
+	["{npc:3601}: the first {item:15911}"] = "",
 
 	-- Step 12: Webwood Lurker
-	-- {area:186} Dolanaar · {item:15908} Taming Rod · {spell:1265843} Web · {npc:3601} Dazalar
+	-- {area:186} Dolanaar · {spell:1265843} Web · {npc:3601} Dazalar
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker
-	["Webwood Lurkers (level 5-6) creep through the woods just north-east, south-west and east of {area:186}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you; moving, attacking it or anyone else's help breaks it and costs one of the rod's few charges (out of charges: destroy the rod, abandon the quest, take it again). Their {spell:1265843} roots you but does not break the channel if you keep still. Keep each rod: it goes back to {npc:3601}."] = "Waldweberlauerer (Stufe 5-6) schleichen durch die Wälder nordöstlich, südwestlich und östlich von {area:186}. So funktioniert der Stab: Wähle ein lebendes Tier als Ziel, benutze {item:15908} und steh während des gesamten Kanalisierens still, während es dich schlägt; Bewegen, Angreifen oder fremde Hilfe unterbricht es und kostet eine der wenigen Ladungen des Stabs (keine Ladungen mehr: zerstöre den Stab, brich die Quest ab, nimm sie noch einmal an). Ihr {spell:1265843} wurzelt dich fest, unterbricht das Kanalisieren aber nicht, wenn du stillstehst. Behalte jeden Stab: Er geht zurück an {npc:3601}.",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living spider"] = "Benutze {item:15908} an einer lebenden Spinne",
+	["Webwood Lurkers (level 5-6) creep through the woods just north-east, south-west and east of {area:186}. The rod's channel only works on a living beast, standing still while it hits you; moving, attacking it or anyone else's help breaks it and costs one of the rod's few charges, and with none left the quest has to be taken again. Their {spell:1265843} roots you but does not break the channel. Each rod goes back to {npc:3601}."] = "",
+	-- {item:15921} Taming Rod
+	["Use the {item:15921} on a living spider"] = "",
 
 	-- Step 13: Nightsaber Stalker
 	-- {spell:2641} Dismiss Pet · {area:259} Lake Al'Ameth · {area:186} Dolanaar
 	-- plural, as words: Nightsaber Stalkers = {npc:2043} Nightsaber Stalker
 	["Dismiss the spider first (right-click the pet portrait, {spell:2641}): a released practice pet can turn on you. Nightsaber Stalkers (level 7-8) lie on the hillside south of {area:259}, south of {area:186}; the plain Nightsabers by the village do not count."] = "Entlasse zuerst die Spinne (Rechtsklick auf das Begleiterportrait, {spell:2641}): Ein freigelassener Übungsbegleiter kann sich gegen dich wenden. Pirschende Nachtsäbler (Stufe 7-8) liegen am Hang südlich von {area:259}, südlich von {area:186}; die einfachen Nachtsäbler beim Dorf zählen nicht.",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living stalker"] = "Benutze {item:15908} an einem lebenden Stalker",
+	-- {item:15911} Taming Rod
+	["Use the {item:15911} on a living stalker"] = "",
 
 	-- Step 14: Strigid Screecher
 	-- {area:186} Dolanaar
 	-- plural, as words: Strigid Screechers = {npc:1996} Strigid Screecher
 	["Dismiss the cat. Strigid Screechers (level 7-8), owls, perch in the woods south, south-west and west of {area:186}."] = "Entlasse die Katze. Strigidkreischer (Stufe 7-8), Eulen, sitzen in den Wäldern südlich, südwestlich und westlich von {area:186}.",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living owl"] = "Benutze {item:15908} an einer lebenden Eule",
+	-- {item:15911} Taming Rod
+	["Use the {item:15911} on a living owl"] = "",
 
 	-- Step 15: Jocaste in Darnassus
 	-- {npc:4146} Jocaste · {zone:1457} Darnassus
@@ -128,21 +129,23 @@ return {
 	["{npc:251507} in {area:87}"] = "{npc:251507} in {area:87}",
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {npc:258930} Isaac Chan · {zone:2521} Zephras Isle
 	["At 10 go to {npc:251507}, the hunter trainer who stands with the other trainers by the Lion's Pride Inn in {area:87}; {npc:258930}, the pet trainer, is beside her. Skyborne: this is for one who left {zone:2521} without taming; it teaches the same."] = "Geh mit Stufe 10 zu {npc:251507}, der Jägerlehrerin, die mit den anderen Lehrern beim Lion's Pride Inn in {area:87} steht; {npc:258930}, der Begleiterlehrer, ist neben ihr. Himmelsgeborene: Das ist für alle, die {zone:2521} ohne Zähmung verlassen haben; es bringt dasselbe bei.",
-	-- {npc:251507} Josephine Carson · {item:15908} Taming Rod
-	["{npc:251507}: the first {item:15908}"] = "{npc:251507}: der erste {item:15908}",
+	-- {npc:251507} Josephine Carson · {item:15911} Taming Rod
+	["{npc:251507}: the first {item:15911}"] = "",
 
 	-- Step 17: Rockhide Boar
-	-- {area:87} Goldshire · {area:64} Maclure Vineyards · {item:15908} Taming Rod · {spell:6268} Rushing Charge · {spell:75} Auto Shot
+	-- {area:87} Goldshire · {area:64} Maclure Vineyards · {spell:6268} Rushing Charge · {spell:75} Auto Shot
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar
-	["Rockhide Boars (level 7-8) graze in three herds south and south-east of {area:87}, toward the {area:64}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again. The boars use {spell:6268}, so start with the rod, not {spell:75}. Killing a boar does not count. Keep each rod: it goes back to Josephine. A Dwarf or Night Elf who took Josephine's rod instead of their home trainer's is led through {area:87} from here."] = "Felsnischeneber (Stufe 7-8) grasen in drei Herden südlich und südöstlich von {area:87}, Richtung {area:64}. So funktioniert der Stab: Wähle ein lebendes Tier als Ziel, benutze {item:15908} und steh während des gesamten Kanalisierens still, während es dich schlägt. Bewegen, Zurückschlagen, eine Heilung von jemand anderem oder fremde Treffer auf das Tier unterbrechen es und kosten eine der wenigen Ladungen des Stabs; wenn sie aufgebraucht sind, zerstöre den Stab, brich die Quest ab und nimm sie noch einmal an. Die Eber nutzen {spell:6268}, also fang mit dem Stab an, nicht mit {spell:75}. Einen Eber zu töten zählt nicht. Behalte jeden Stab: Er geht zurück an Josephine. Ein Zwerg oder Nachtelf, der Josephines Stab statt den seines Heimatlehrers genommen hat, wird von hier aus durch {area:87} geführt.",
+	["Rockhide Boars (level 7-8) graze in three herds south and south-east of {area:87}, toward the {area:64}. The rod's channel only works on a living beast, standing still while it hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; with none left, the quest has to be taken again. The boars use {spell:6268}, so the rod comes before {spell:75}, and killing a boar does not count. Each rod goes back to Josephine. A Dwarf or Night Elf who took Josephine's rod instead of their home trainer's is led through {area:87} from here."] = "",
+	-- {item:266158} Taming Rod
+	["Use the {item:266158} on a living boar"] = "",
 	-- {npc:524} Rockhide Boar
 	["Tame {npc:524}"] = "Zähme {npc:524}",
 
 	-- Step 18: Gray Forest Wolf
 	-- {spell:2641} Dismiss Pet · {area:87} Goldshire · {area:18} Crystal Lake
 	["Dismiss the boar first (right-click the pet portrait, {spell:2641}): a released practice pet can turn on you. Gray Forest Wolves (level 7-8) run in the woods east of {area:87}, east of {area:18}."] = "Entlasse zuerst den Eber (Rechtsklick auf das Begleiterportrait, {spell:2641}): Ein freigelassener Übungsbegleiter kann sich gegen dich wenden. Gray Forest Wolves (Stufe 7-8) laufen in den Wäldern östlich von {area:87}, östlich von {area:18}.",
-	-- {item:15908} Taming Rod
-	["Use the {item:15908} on a living wolf"] = "Benutze {item:15908} an einem lebenden Wolf",
+	-- {item:15911} Taming Rod
+	["Use the {item:15911} on a living wolf"] = "",
 	-- {npc:1922} Gray Forest Wolf
 	["Tame {npc:1922}"] = "Zähme {npc:1922}",
 
@@ -193,14 +196,33 @@ return {
 	-- ["Dismiss the spider first (right-click the pet portrait, Dismiss Pet): a released practice pet can turn on you. Nightsaber Stalkers (level 7-8) lie on the hillside south of {area:259}, south of {area:186}; the plain Nightsabers by the village do not count."] = "Entlasse zuerst die Spinne (Rechtsklick auf das Tierporträt, Tier freigeben): Ein freigelassenes Übungstier kann sich gegen dich wenden. Nightsaber Stalkers (Stufe 7-8) liegen am Hang südlich von {area:259}, südlich von {area:186}; die einfachen Nightsabers beim Dorf zählen nicht.",
 	-- ["Feed Pet: open your spellbook, cast Feed Pet and click a food your pet's family eats (the pet's tooltip lists them: cats eat meat and fish, boars almost anything). Raw meat looted from beasts counts. To buy: Toddrick the butcher in {area:87}, Jaeana in {zone:1457} and the innkeepers on {zone:2521} sell meat; the innkeepers of {area:131} and {area:186} sell bread. Food near the pet's level makes it happiest; much lower food gives about half. You cannot feed in combat."] = "Tier füttern: Öffne dein Zauberbuch, wirke Tier füttern und klick auf ein Futter, das die Familie deines Begleiters frisst (der Tooltip des Tieres listet sie auf: Katzen fressen Fleisch und Fisch, Eber fast alles). Rohes Fleisch, das du von Tieren geplündert hast, zählt. Zum Kaufen: Toddrick der Metzger in {area:87}, Jaeana in {zone:1457} und die Gastwirte auf {zone:2521} verkaufen Fleisch; die Gastwirte von {area:131} und {area:186} verkaufen Brot. Futter nahe der Stufe des Begleiters macht ihn am glücklichsten; deutlich niedrigeres gibt etwa die Hälfte. Im Kampf kannst du nicht füttern.",
 	-- ["Large Crag Boars (level 6-7) root around the fields west, south and north-west of {area:131} and respawn every 3 minutes. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you. Moving, fighting back, being out of range or anyone else's help breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again from {npc:1231}. The boars use Rushing Charge from 25 yards, so start with the rod, not Auto Shot. Keep each rod: it goes back to {npc:1231}."] = "Large Crag Boars (Stufe 6-7) wühlen in den Feldern westlich, südlich und nordwestlich von {area:131} und respawnen alle 3 Minuten. So funktioniert der Stab: Wähl ein lebendes Tier an, benutze {item:15908} und steh während des gesamten Kanalisierens still, während es dich schlägt. Bewegen, zurückschlagen, außer Reichweite sein oder fremde Hilfe unterbricht es und kostet eine der wenigen Ladungen des Stabs; sind sie aufgebraucht, zerstöre den Stab, brich die Quest ab und nimm sie bei {npc:1231} erneut an. Die Eber nutzen Sturmattacke aus 25 Metern, also fang mit dem Stab an, nicht mit Automatischer Schuss. Behalte jeden Stab: Er geht zurück an {npc:1231}.",
+	-- ["Large Crag Boars (level 6-7) root around the fields west, south and north-west of {area:131} and respawn every 3 minutes. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you. Moving, fighting back, being out of range or anyone else's help breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again from {npc:1231}. The boars use {spell:6268} from 25 yards, so start with the rod, not {spell:75}. Keep each rod: it goes back to {npc:1231}."] = "Große Klippeneber (Stufe 6-7) wühlen auf den Feldern westlich, südlich und nordwestlich von {area:131} und respawnen alle 3 Minuten. So funktioniert der Stab: Wähle ein lebendes Tier als Ziel, benutze {item:15908} und steh während des gesamten Kanalisierens still, während es dich schlägt. Bewegen, Zurückschlagen, außer Reichweite sein oder fremde Hilfe unterbricht es und kostet eine der wenigen Ladungen des Stabs; wenn sie aufgebraucht sind, zerstöre den Stab, brich die Quest ab und nimm sie bei {npc:1231} noch einmal an. Die Eber nutzen {spell:6268} aus 25 Metern, also fang mit dem Stab an, nicht mit {spell:75}. Behalte jeden Stab: Er geht zurück an {npc:1231}.",
 	-- ["Pet trainers sell Growl ranks and resistances. Alliance: {npc:258930} in {area:87}, {npc:2879} by the hunter trainers in {zone:1453}'s {object:28027}, {npc:2878} in {area:131}, {npc:10090} in {zone:1455}'s {object:32390}, Keldas in {area:186}, Silvaria in {zone:1457}' Cenarion Enclave, {npc:254411} in {area:16638}."] = "Tierlehrer verkaufen Knurren-Ränge und Widerstände. Allianz: {npc:258930} in {area:87}, {npc:2879} bei den Jägerlehrern im {object:28027} von {zone:1453}, {npc:2878} in {area:131}, {npc:10090} in der {object:32390} von {zone:1455}, Keldas in {area:186}, Silvaria in der Cenarion-Enklave von {zone:1457}, {npc:254411} in {area:16638}.",
 	-- ["Rockhide Boars (level 7-8) graze in three herds south and south-east of {area:87}, toward the {area:64}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again. The boars use Rushing Charge, so start with the rod, not Auto Shot. Killing a boar does not count. Keep each rod: it goes back to Josephine. A Dwarf or Night Elf who took Josephine's rod instead of their home trainer's is led through {area:87} from here."] = "Rockhide Boars (Stufe 7-8) grasen in drei Herden südlich und südöstlich von {area:87}, Richtung {area:64}. So funktioniert der Stab: Wähl ein lebendes Tier an, benutze {item:15908} und steh während des gesamten Kanalisierens still, während es dich schlägt. Bewegen, zurückschlagen, eine Heilung von jemand anderem oder fremde Treffer auf das Tier unterbrechen es und kosten eine der wenigen Ladungen des Stabs; sind sie aufgebraucht, zerstöre den Stab, brich die Quest ab und nimm sie erneut an. Die Eber nutzen Sturmattacke, also fang mit dem Stab an, nicht mit Automatischer Schuss. Einen Eber zu töten zählt nicht. Behalte jeden Stab: Er geht zurück zu Josephine. Ein Zwerg oder Nachtelf, der Josephines Stab statt den seines Heimatlehrers genommen hat, wird von hier aus durch {area:87} geführt.",
+	-- ["Rockhide Boars (level 7-8) graze in three herds south and south-east of {area:87}, toward the {area:64}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again. The boars use {spell:6268}, so start with the rod, not {spell:75}. Killing a boar does not count. Keep each rod: it goes back to Josephine. A Dwarf or Night Elf who took Josephine's rod instead of their home trainer's is led through {area:87} from here."] = "Felsnischeneber (Stufe 7-8) grasen in drei Herden südlich und südöstlich von {area:87}, Richtung {area:64}. So funktioniert der Stab: Wähle ein lebendes Tier als Ziel, benutze {item:15908} und steh während des gesamten Kanalisierens still, während es dich schlägt. Bewegen, Zurückschlagen, eine Heilung von jemand anderem oder fremde Treffer auf das Tier unterbrechen es und kosten eine der wenigen Ladungen des Stabs; wenn sie aufgebraucht sind, zerstöre den Stab, brich die Quest ab und nimm sie noch einmal an. Die Eber nutzen {spell:6268}, also fang mit dem Stab an, nicht mit {spell:75}. Einen Eber zu töten zählt nicht. Behalte jeden Stab: Er geht zurück an Josephine. Ein Zwerg oder Nachtelf, der Josephines Stab statt den seines Heimatlehrers genommen hat, wird von hier aus durch {area:87} geführt.",
 	-- ["Tame {npc:1126}"] = "Zähme {npc:1126}",
 	-- ["Tame {npc:1196}"] = "Zähme {npc:1196}",
 	-- ["Tame {npc:1201}"] = "Zähme {npc:1201}",
 	-- ["Tame {npc:1996}"] = "Zähme {npc:1996}",
 	-- ["Tame {npc:1998}"] = "Zähme {npc:1998}",
 	-- ["Tame {npc:2043}"] = "Zähme {npc:2043}",
+	-- ["Use the {item:15908} on a living alpha"] = "Benutze {item:15908} an einem lebenden Alpha",
+	-- ["Use the {item:15908} on a living bear"] = "Benutze {item:15908} an einem lebenden Bären",
+	-- ["Use the {item:15908} on a living boar"] = "Benutze {item:15908} an einem lebenden Eber",
+	-- ["Use the {item:15908} on a living crawler"] = "Benutze {item:15908} an einem lebenden Crawler",
+	-- ["Use the {item:15908} on a living galestrider"] = "Benutze {item:15908} an einem lebenden Galestrider",
+	-- ["Use the {item:15908} on a living leopard"] = "Benutze {item:15908} an einem lebenden Leoparden",
+	-- ["Use the {item:15908} on a living owl"] = "Benutze {item:15908} an einer lebenden Eule",
+	-- ["Use the {item:15908} on a living spider"] = "Benutze {item:15908} an einer lebenden Spinne",
+	-- ["Use the {item:15908} on a living stalker"] = "Benutze {item:15908} an einem lebenden Stalker",
+	-- ["Use the {item:15908} on a living wolf"] = "Benutze {item:15908} an einem lebenden Wolf",
 	-- ["Webwood Lurkers (level 5-6) creep through the woods just north-east, south-west and east of {area:186}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you; moving, attacking it or anyone else's help breaks it and costs one of the rod's few charges (out of charges: destroy the rod, abandon the quest, take it again). Their Web roots you but does not break the channel if you keep still. Keep each rod: it goes back to {npc:3601}."] = "Webwood Lurkers (Stufe 5-6) schleichen durch die Wälder direkt nordöstlich, südwestlich und östlich von {area:186}. So funktioniert der Stab: Wähl ein lebendes Tier an, benutze {item:15908} und steh während des gesamten Kanalisierens still, während es dich schlägt; Bewegen, Angreifen oder fremde Hilfe unterbricht es und kostet eine der wenigen Ladungen des Stabs (keine Ladungen mehr: Stab zerstören, Quest abbrechen, erneut annehmen). Ihr Web schlägt dich fest, unterbricht das Kanalisieren aber nicht, wenn du stillstehst. Behalte jeden Stab: Er geht zurück an {npc:3601}.",
+	-- ["Webwood Lurkers (level 5-6) creep through the woods just north-east, south-west and east of {area:186}. How the rod works: target a living beast, use the {item:15908} and stand still for the whole channel while it hits you; moving, attacking it or anyone else's help breaks it and costs one of the rod's few charges (out of charges: destroy the rod, abandon the quest, take it again). Their {spell:1265843} roots you but does not break the channel if you keep still. Keep each rod: it goes back to {npc:3601}."] = "Waldweberlauerer (Stufe 5-6) schleichen durch die Wälder nordöstlich, südwestlich und östlich von {area:186}. So funktioniert der Stab: Wähle ein lebendes Tier als Ziel, benutze {item:15908} und steh während des gesamten Kanalisierens still, während es dich schlägt; Bewegen, Angreifen oder fremde Hilfe unterbricht es und kostet eine der wenigen Ladungen des Stabs (keine Ladungen mehr: zerstöre den Stab, brich die Quest ab, nimm sie noch einmal an). Ihr {spell:1265843} wurzelt dich fest, unterbricht das Kanalisieren aber nicht, wenn du stillstehst. Behalte jeden Stab: Er geht zurück an {npc:3601}.",
+	-- ["Windsong Crawlers live only by water: the nearest scuttle along the shore south-west of {area:16638}, among the crabs. How the rod works: target a living crawler, use the {item:15908} and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs one of the rod's few charges. Killing one does not count. Keep each rod: it goes back to {npc:252389}."] = "Windweisenkriecher leben nur am Wasser: Die nächsten huschen am Ufer südwestlich von {area:16638} entlang, zwischen den Krabben. So funktioniert der Stab: Wähle einen lebenden Windweisenkriecher als Ziel, benutze {item:15908} und steh während des gesamten Kanalisierens still, während er dich schlägt; Bewegen, Zurückschlagen oder fremde Hilfe unterbricht es und kostet eine der wenigen Ladungen des Stabs. Ihn zu töten zählt nicht. Behalte jeden Stab: Er geht zurück an {npc:252389}.",
+	-- ["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "Dein eigener Begleiter mit Stufe 10: Drei Übungszähmungen mit {item:15908} bringen dir {spell:1515} bei, dann {spell:5149}.",
+	-- ["{npc:1231}: the first {item:15908}"] = "{npc:1231}: der erste {item:15908}",
+	-- ["{npc:251507}: the first {item:15908}"] = "{npc:251507}: der erste {item:15908}",
+	-- ["{npc:252389}: the first {item:15908}"] = "{npc:252389}: der erste {item:15908}",
+	-- ["{npc:3601}: the first {item:15908}"] = "{npc:3601}: der erste {item:15908}",
 	-- ["{spell:1515} works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and Bite) and a boar takes more punishment."] = "{spell:1515} funktioniert wie der Stab: ein Tier deiner Stufe oder niedriger, ein Kanalisieren, bei dem du dich nicht bewegen darfst, und das Tier schlägt dich die ganze Zeit. Ein Begleiter behält die Stufe, auf der du ihn zähmst, und steigt mit dir auf; er kann nie über deiner Stufe liegen, also zähm einen nahe bei deiner. Jede Familie hat auf Forever ihre eigene Fähigkeit (zum Beispiel der Ansturm eines Ebers). Zum Leveln schlägt eine Katze am härtesten zu (Klaue und Biss), und ein Eber hält mehr aus.",
 }
