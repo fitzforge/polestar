@@ -348,10 +348,9 @@ return {
 	["Back south to the Sanctuary, a short ride."] = "Regresa al sur al Santuario, a poca distancia.",
 
 	-- Step 77: A Final Blow
-	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar · {npc:9529} Maybess Riverbreeze · {item:11511} Cenarion Beacon
+	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar · {item:11511} Cenarion Beacon · {npc:9529} Maybess Riverbreeze
 	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
-	-- was: ["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go.\nCareful: The three bosses fight as a group. Kill the nearby mobs first so you don't pull extra enemies."] = "{npc:9861}, {npc:9860} y {npc:9517} (57) esperan al fondo de {area:1770}, la cueva del norte de {area:1763}. Limpia el túnel a medida que avanzas.\nCuidado: los tres jefes pelean juntos. Mata primero a los enemigos cercanos para no atraer enemigos de más."
-	["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go. Careful: the three bosses fight as a group: kill the nearby mobs first so you don't pull extra enemies. The cultists' Corrupted Soul Shards show only while you carry {npc:9529}'s {item:11511} (from Cleansing Felwood): without it, skip them."] = "",
+	["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go. Careful: the three bosses fight as a group: kill the nearby mobs first so you don't pull extra enemies. The cultists drop Corrupted Soul Shards only while you carry a {item:11511}, which {npc:9529} hands out on request once Cleansing Felwood is done: without one, the shards are not there to get."] = "",
 	-- {npc:9529} Maybess Riverbreeze
 	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
 	["Corrupted Soul Shards from the cultists, for {npc:9529}' Salve via Hunting"] = "Fragmentos de alma corruptos de los sectarios, para Bálsamo por caza de {npc:9529}",

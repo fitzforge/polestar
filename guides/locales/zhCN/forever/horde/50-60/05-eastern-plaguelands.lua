@@ -347,9 +347,9 @@ return {
 	["Back south to the Sanctuary, a short ride."] = "向南回到翡翠圣地，路程很短。",
 
 	-- Step 77: A Final Blow
-	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar · {npc:9529} Maybess Riverbreeze · {item:11511} Cenarion Beacon
+	-- {npc:9861} Moora · {npc:9860} Salia · {npc:9517} Shadow Lord Fel'dan · {area:1770} Shadow Hold · {area:1763} Jaedenar · {item:11511} Cenarion Beacon · {npc:9529} Maybess Riverbreeze
 	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
-	["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go. Careful: the three bosses fight as a group: kill the nearby mobs first so you don't pull extra enemies. The cultists' Corrupted Soul Shards show only while you carry {npc:9529}'s {item:11511} (from Cleansing Felwood): without it, skip them."] = "{npc:9861}、{npc:9860}和{npc:9517}（57级）都在{area:1770}深处，洞口在{area:1763}北边。一路清理隧道里的怪。小心，三个首领会一起参战。先清掉周围的小怪，免得多引敌人。只有带着{npc:9529}在《净化费伍德》中给的{item:11511}，教徒才会掉落被污染的灵魂碎片。没带信标就跳过碎片。",
+	["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go. Careful: the three bosses fight as a group: kill the nearby mobs first so you don't pull extra enemies. The cultists drop Corrupted Soul Shards only while you carry a {item:11511}, which {npc:9529} hands out on request once Cleansing Felwood is done: without one, the shards are not there to get."] = "",
 	-- {npc:9529} Maybess Riverbreeze
 	-- plural, as words: Corrupted Soul Shards = {item:11515} Corrupted Soul Shard
 	["Corrupted Soul Shards from the cultists, for {npc:9529}' Salve via Hunting"] = "从教徒身上收集被污染的灵魂碎片，用于{npc:9529}的《狩猎换药膏》",
@@ -507,6 +507,7 @@ return {
 	-- ["{npc:7771} camps by the {area:1336} road, south of {area:976}."] = "{npc:7771}在{area:976}南边通往{area:1336}的路旁扎营。",
 	-- ["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565}在{area:2276}附近巡逻，请在地图标出的圆圈内寻找",
 	-- ["{npc:9299} is a ghost at the graveyard just north of {area:976}; the Conspicuous Gravestone is south of it, outside the town wall."] = "{npc:9299}是{area:976}正北墓地里的一个鬼魂；明显的墓碑在它南边、城墙外面。",
+	-- ["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go. Careful: the three bosses fight as a group: kill the nearby mobs first so you don't pull extra enemies. The cultists' Corrupted Soul Shards show only while you carry {npc:9529}'s {item:11511} (from Cleansing Felwood): without it, skip them."] = "{npc:9861}、{npc:9860}和{npc:9517}（57级）都在{area:1770}深处，洞口在{area:1763}北边。一路清理隧道里的怪。小心，三个首领会一起参战。先清掉周围的小怪，免得多引敌人。只有带着{npc:9529}在《净化费伍德》中给的{item:11511}，教徒才会掉落被污染的灵魂碎片。没带信标就跳过碎片。",
 	-- ["{object:1661}'s flight master is in the {object:36078}'s west tower, outside the walls."] = "{object:1661}的飞行管理员在{object:36078}城墙外的西塔上。",
 	-- ["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914}要交还给安戈洛的{npc:8737}：留着它。",
 	-- ["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "{quest:3941}要交给这里洞穴中的{npc:9117}，下一份指南返回{area:541}时再交，先保留任务。",

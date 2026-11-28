@@ -9781,7 +9781,6 @@ t.guides["forever/horde/50-60/05-eastern-plaguelands"] = (function() return {
 		["{npc:8530}: a {npc:11064} rises where one dies"] = "{npc:8530}：一个死去的地方会升起{npc:11064}",
 		["{npc:8531}: leaves a spirit too"] = "{npc:8531}：也会留下一个灵魂",
 		["{npc:8532}: leaves a spirit too"] = "{npc:8532}：也会留下一个灵魂",
-		["{npc:9861}, {npc:9860} and {npc:9517} (57) wait at the back of {area:1770}, the cave in {area:1763}'s north. Clear the tunnel as you go. Careful: the three bosses fight as a group: kill the nearby mobs first so you don't pull extra enemies. The cultists' Corrupted Soul Shards show only while you carry {npc:9529}'s {item:11511} (from Cleansing Felwood): without it, skip them."] = "{npc:9861}、{npc:9860}和{npc:9517}（57级）都在{area:1770}深处，洞口在{area:1763}北边。一路清理隧道里的怪。小心，三个首领会一起参战。先清掉周围的小怪，免得多引敌人。只有带着{npc:9529}在《净化费伍德》中给的{item:11511}，教徒才会掉落被污染的灵魂碎片。没带信标就跳过碎片。",
 		["{quest:1123} is in {zone:1450}, later in this guide."] = "{quest:1123}在{zone:1450}，本指南后面会到那里。",
 		["{quest:5086} are in {zone:1448}, on a later trip: keep it."] = "{quest:5086}在{zone:1448}，以后才会去，先保留任务。",
 		["{quest:5211}'s spirits come with the {area:2264} stop later in this guide: keep it."] = "{quest:5211}的灵魂会在本指南稍后前往{area:2264}时完成：留着它。",

@@ -1468,7 +1468,7 @@ do
 					note = "North-east to {npc:263394}. Drain him first: use {npc:263406}'s eye on him, and only then fight him. Undrained, he and {npc:252457} are level 60 elites. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room.",
 					when = { { k = "onquest", q = { 96003 } } },
 					goals = {
-						{ t = "kill", quest = 96003, title = "Drawing Down the Malevolent", target = "Bethra'zel the Feeble", npc = 263394, count = 1, oi = 1, map = 2482, x = 57.41, y = 36.26, spotsPacked = "57.9,35.7,,24,2;58.6,32.44,,21,5", lvl = 60, note = "{npc:263394}", group = { kind = "elite", lvl = 60, rank = 1 } },
+						{ t = "kill", quest = 96003, title = "Drawing Down the Malevolent", target = "Bethra'zel the Feeble", npc = 263394, count = 1, oi = 1, map = 2482, x = 58.6, y = 32.3, spotsPacked = "58.6,32.44,,21,5;57.9,35.7,,24,2,1", lvl = 60, note = "{npc:263394}", group = { kind = "elite", lvl = 60, rank = 1 } },
 					},
 				},
 				{
