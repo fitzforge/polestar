@@ -233,6 +233,19 @@ the upload API, and the public list of what is never collected.
   from launch, with the last intro's numbers), counting guide installs and,
   in a debug build only, folded away under Advanced, the recording server
   and community site addresses.
+- **Report a problem** (Settings > About). The player says what went wrong
+  and reads the report below it, as it will be sent: the client, system,
+  game and addon versions, the status, the problems on screen and the last
+  failures from Activity. What the client can find is replaced first, in
+  what the player wrote too: the account names and folders it knows, the
+  user name of a home folder, paths by their shape, e-mail addresses and
+  common token forms (`src/lib/report.ts`, a test per rule in
+  `tests/client-report.test.js`). It is a best effort, not a guarantee: a
+  character name, or a path the client doesn't know with a space in its last
+  folder, can still show, so the player reads the report before sending it.
+  Copy report fits one Discord message for #bugs; Open on GitHub opens a
+  new "Bug report" issue with the title, the versions and the report filled
+  in. The client sends nothing itself.
 - Closing the window keeps it running in the tray (Open, Pause/Resume, Quit).
 - **The intro.** The window opens on a starlit intro (`index.html` holds
   its first frame, `src/lib/intro.svelte.ts` plays it) that ends with the

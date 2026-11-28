@@ -343,17 +343,23 @@ pub async fn install_update(app: AppHandle, engine: Engine_<'_>) -> Result<(), S
 }
 
 /// What the frame-rate overlay shows: how the window is drawn (render.rs), and whether
-/// `POLESTAR_FRAME_METER=1` asked for the overlay from the start.
+/// `POLESTAR_FRAME_METER=1` asked for the overlay from the start. `os` is the system and
+/// processor the client was built for (`windows x86_64`), for Report a problem.
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Diagnostics {
 	pub renderer: String,
 	pub frame_meter: bool,
+	pub os: String,
 }
 
 #[tauri::command]
 pub fn diagnostics() -> Diagnostics {
-	Diagnostics { renderer: crate::render::describe(), frame_meter: std::env::var_os("POLESTAR_FRAME_METER").is_some_and(|v| v != "0") }
+	Diagnostics {
+		renderer: crate::render::describe(),
+		frame_meter: std::env::var_os("POLESTAR_FRAME_METER").is_some_and(|v| v != "0"),
+		os: format!("{} {}", std::env::consts::OS, std::env::consts::ARCH),
+	}
 }
 
 /// The page has its first frame (the intro): show the window now. False when this launch

@@ -11,6 +11,7 @@
 	import type { Channel, Snapshot } from '../lib/types';
 	import PageHeader from '../components/PageHeader.svelte';
 	import Glyph from '../components/Glyph.svelte';
+	import ReportSheet from '../components/ReportSheet.svelte';
 
 	let { snapshot }: { snapshot: Snapshot } = $props();
 
@@ -21,6 +22,7 @@
 	let armTimer: number | undefined;
 	let advanced = $state(false);
 	let checkedClient = $state(false);
+	let reporting = $state(false);
 
 	$effect(() => {
 		api.getAutostart().then((on) => (autostart = on));
@@ -232,6 +234,10 @@
 					<span class="label">Show the frame rate <span class="small muted">· Ctrl+Shift+F</span></span>
 					<button class="toggle" role="switch" aria-checked={diagnostics.frames} aria-label="Show the frame rate" onclick={() => showFrames(!diagnostics.frames)}></button>
 				</div>
+				<div class="row" title="Says what went wrong with Polestar Client, with its versions and recent failures, for the Polestar Discord or a GitHub issue. You read it first; nothing is sent by the client.">
+					<span class="label">Something not working?</span>
+					<button class="btn" onclick={() => (reporting = true)}>Report a problem…</button>
+				</div>
 				<div class="row links">
 					<button class="link" onclick={() => api.openLink(CONTRACT_URL)}>What is collected, and why</button>
 					<button class="link" onclick={() => api.openLink(CLIENT_URL)}>The client's source</button>
@@ -294,6 +300,10 @@
 		{/if}
 	</div>
 </div>
+
+{#if reporting}
+	<ReportSheet {snapshot} onclose={() => (reporting = false)} />
+{/if}
 
 <style>
 	.short {

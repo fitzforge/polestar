@@ -516,7 +516,7 @@ const commands: Record<string, (args: Record<string, unknown>) => unknown> = {
 		await sleep(1500);
 		throw 'Could not download the update: the connection was reset.';
 	},
-	diagnostics: () => ({ renderer: 'browser (vite dev, mock backend)', frameMeter: params.has('meter') }),
+	diagnostics: () => ({ renderer: 'browser (vite dev, mock backend)', frameMeter: params.has('meter'), os: 'linux x86_64' }),
 	window_ready: () => true,
 	client_log: (a) => void console.debug(a.line),
 	smoke_fault: () => undefined,
