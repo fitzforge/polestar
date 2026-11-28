@@ -117,7 +117,7 @@ return {
 	-- {object:148418} Eternal Flame
 	["The {object:148418}"] = "{object:148418}",
 	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {object:148418} Eternal Flame · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
-	["Back to {npc:268592}. Accept the last quest, then wait by the {npc:268762} while he performs the ritual; when the fire spirits light the {object:148418}, hold the torch to it. From then you have six minutes: carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638}, with no detours or fights. Timer out? Abandon the quest and take it again from {npc:268592}."] = "De volta a {npc:268592}. Aceite a última missão e espere ao lado de {npc:268762} enquanto ele faz o ritual; quando os espíritos do fogo acenderem {object:148418}, encoste a tocha nele. A partir daí, você tem seis minutos: leve a chama direto até {npc:268679}, ao lado de {npc:252382}, em {area:16638}, sem desvios nem lutas. O tempo acabou? Abandone a missão e pegue de novo com {npc:268592}.",
+	["{npc:268592} performs a ritual at the {npc:268762}, and fire spirits light the {object:148418}. The flame lasts six minutes once taken, and the {npc:268679} is beside {npc:252382} in {area:16638}. If the timer runs out, the quest can be abandoned and taken again from {npc:268592}."] = "",
 	-- {npc:268679} Brazier of Eternal Flame · {area:16638} Valanaar
 	["the ritual, then the {npc:268679} in {area:16638}"] = "o ritual, e depois {npc:268679}, em {area:16638}",
 
@@ -126,4 +126,7 @@ return {
 	["Keep the {item:5176} in your bags for good: every fire totem needs it."] = "Guarde {item:5176} nas suas bolsas para sempre: todo totem de fogo precisa dele.",
 	-- {npc:252382} Sessaria Skystride · {spell:3599} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
 	["{npc:252382}: {spell:3599}, your {item:5176} and the {item:263412}"] = "{npc:252382}: {spell:3599}, seu {item:5176} e {item:263412}",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to {npc:268592}. Accept the last quest, then wait by the {npc:268762} while he performs the ritual; when the fire spirits light the {object:148418}, hold the torch to it. From then you have six minutes: carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638}, with no detours or fights. Timer out? Abandon the quest and take it again from {npc:268592}."] = "De volta a {npc:268592}. Aceite a última missão e espere ao lado de {npc:268762} enquanto ele faz o ritual; quando os espíritos do fogo acenderem {object:148418}, encoste a tocha nele. A partir daí, você tem seis minutos: leve a chama direto até {npc:268679}, ao lado de {npc:252382}, em {area:16638}, sem desvios nem lutas. O tempo acabou? Abandone a missão e pegue de novo com {npc:268592}.",
 }

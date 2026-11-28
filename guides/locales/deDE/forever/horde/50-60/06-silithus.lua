@@ -220,8 +220,8 @@ return {
 	["You missed this on the Un'Goro guide's loop: {npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "Das hast du beim Loop des Un'Goro-Guides verpasst: {npc:10302}, der Goblin, sitzt bei {area:543}, gleich östlich des Pylons.",
 
 	-- Step 47: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "Reite nach Osten zum Ort {area:537}, steig hinauf und benutze {npc:10541} am Lavaschlot nahe dem Gipfel; reite dann zurück nach Westen zu {npc:10302}.",
+	-- {area:537} Fire Plume Ridge · {npc:10302} Krakle
+	["The lava vent is near the top of {area:537}, east of {npc:10302}."] = "",
 
 	-- Step 48: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
@@ -320,6 +320,7 @@ return {
 	-- ["Radley and Durgen"] = "Radley und Durgen",
 	-- ["Ride east across the plaguelands to the chapel."] = "Reite nach Osten durch die Pestländer zur Kapelle.",
 	-- ["Ride east along the road to the {area:152} on the border."] = "Reite die Straße entlang nach Osten zum {area:152} an der Grenze.",
+	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "Reite nach Osten zum Ort {area:537}, steig hinauf und benutze {npc:10541} am Lavaschlot nahe dem Gipfel; reite dann zurück nach Westen zu {npc:10302}.",
 	-- ["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "Reite nach Osten zu {npc:1855}s Hütte am Fluss {area:2619} und hör ihn an.",
 	-- ["Ride north-east to {area:2276} by {area:2275}: the high elf Rangers, Pathstriders and Woodsmen guard it and the Registry lies inside. Careful: the Pathstriders are 57-58 but the Rangers reach 60: pull one at a time and take the Rangers last."] = "Reite nach Nordosten zu {area:2276} bei {area:2275}: Die hochelfischen Waldläufer, Pfadschreiter und Holzfäller bewachen es, und das Register liegt drinnen. Vorsicht: Die Pfadschreiter sind 57-58, aber die Waldläufer bis 60: Zieh sie einzeln und nimm die Waldläufer zuletzt.",
 	-- ["Ride north-east to {area:3447}."] = "Reite nach Nordosten zu {area:3447}.",

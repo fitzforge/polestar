@@ -67,8 +67,8 @@ return {
 	-- Step 14: Ruins of Stardust fountain
 	-- {area:418} Ruins of Stardust
 	["{area:418} fountain"] = "Fontaine de {area:418}",
-	-- {area:418} Ruins of Stardust · {npc:12678} Ursangous · {item:7767} Empty Blue Waterskin
-	["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "La fontaine se trouve au milieu de {area:418}, où rôde {npc:12678} : utilisez-y {item:7767}.",
+	-- {area:418} Ruins of Stardust · {npc:12678} Ursangous
+	["The fountain is in the middle of the {area:418}, where {npc:12678} roams."] = "",
 
 	-- Step 15: Ursangous
 	-- {area:415} Astranaar · {npc:12678} Ursangous · {area:418} Ruins of Stardust · {area:421} Mystral Lake
@@ -464,6 +464,7 @@ return {
 	-- ["South of Darkcloud, the harpies of {area:487}. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top."] = "Au sud de Noir-nuage, les harpies de {area:487}. {npc:4490} (31) circule parmi elles : éclaircissez les harpies autour d'elle avant de l'attirer. Les Harpies hurlantes, Volplumes hurlantes et Imploratrices célestes hurlantes de ce lieu sont pour {npc:4877} ; ses {quest:98069} jonchent le sol au pied de la falaise et dans la grotte au sommet.",
 	-- ["Take a lift down from {zone:1456}. The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}."] = "Descendez de {zone:1456} par un ascenseur. Le camp du Cercle terrestre se trouve au nord des pitons : {npc:264074}, {npc:264072} et {npc:259118}.",
 	-- ["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks between the camps: kill him when you meet him, his note starts a quest for {area:2237}."] = "Les camps galak remplissent le canyon au nord du Poste de Librevent ; Eclaireurs, Querelleurs et Chasse-vent galak partagent chaque camp. Un {npc:10617} solitaire circule entre les camps : tuez-le dès que vous le croisez, sa note lance une quête pour {area:2237}.",
+	-- ["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "La fontaine se trouve au milieu de {area:418}, où rôde {npc:12678} : utilisez-y {item:7767}.",
 	-- ["The next guide flies on from here to the Crossroads and {zone:1454}."] = "Le guide suivant part d'ici en vol vers la Croisée et {zone:1454}.",
 	-- ["The next guide opens with Korran's The Swarm Grows at the Crossroads, offered from level 29. Short of 29? The Pesterhide Snarlers (28-29) prowl the canyon floor just north-west of {area:484}: kill them until level 29. Or, with a group, run the {area:2797} dungeon instead."] = "Le guide suivant commence avec « L'essaim s'agrandit » de Korran, à la Croisée, disponible dès le niveau 29. Pas encore 29 ? Les Grogneuses Pestepoil (28-29) rôdent au fond du canyon juste au nord-ouest de {area:484} : tuez-les jusqu'au niveau 29. Ou, en groupe, faites plutôt le donjon {area:2797}.",
 	-- ["The salt flats"] = "Les Salines",

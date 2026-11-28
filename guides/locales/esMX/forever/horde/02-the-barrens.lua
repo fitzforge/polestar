@@ -622,8 +622,8 @@ return {
 	["Thunderhawk Cloudscrapers circle over the plains south of the camp."] = "Los Desechanubes Halcón Trueno sobrevuelan las llanuras al sur del campamento.",
 
 	-- Step 143: Brine
-	-- {npc:5899} Brine · {area:378} Camp Taurajo · {item:7766} Empty Brown Waterskin
-	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "La choza de {npc:5899} está en la loma sobre el abrevadero de los jabaespines, al sur de {area:378}: llena {item:7766} en el abrevadero de abajo.",
+	-- {npc:5899} Brine · {area:378} Camp Taurajo
+	["{npc:5899}'s hut is on the ridge above the quilboar watering hole, south of {area:378}."] = "",
 	-- {item:7766} Empty Brown Waterskin
 	["Fill the {item:7766} at the quilboar watering hole"] = "Llena {item:7766} en el abrevadero de los jabaespines",
 	-- {object:107045} Spring Well · {area:272} Tarren Mill · {area:287} Hillsbrad
@@ -824,6 +824,7 @@ return {
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, el maestro de jinetes del viento",
 	-- ["{npc:5878} camps beside the road from the Crossroads to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878} acampa junto al camino del Cruce a {area:392}. {object:58369} está en el sur del campamento Crines de Acero, justo al norte de él.",
 	-- ["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878} acampa junto al camino de {area:380} a {area:392}. {object:58369} está en el sur del campamento Crines de Acero, justo al norte de él.",
+	-- ["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "La choza de {npc:5899} está en la loma sobre el abrevadero de los jabaespines, al sur de {area:378}: llena {item:7766} en el abrevadero de abajo.",
 	-- ["{npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "{npc:5900} hace {item:6636} con el alquitrán y la bolsa. Úsalo junto al brasero a su lado para revelar a {npc:5893}, mátala para obtener {item:6655} y luego coloca la brasa en el brasero.",
 	-- ["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900} espera en la orilla del río al sur de {area:379}, al otro lado del puente.",
 	-- ["{npc:5907} stands on the ridge north of the Razormane camp."] = "{npc:5907} está en la loma al norte del campamento Crines de Acero.",

@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Tarren Mill
 	-- {area:272} Tarren Mill
-	["{area:272} is your base for this guide: you come back here between each loop. Everyone stands around the town square."] = "{area:272} es tu base en esta guía: vuelves aquí entre cada vuelta. Todos están alrededor de la plaza del pueblo.",
+	["{area:272} is the base for this guide, with a return here between each loop. Everyone stands around the town square."] = "",
 	-- {item:7768} Empty Red Waterskin · {object:107045} Spring Well
 	["Fill the {item:7768} at the {object:107045} beside the inn"] = "Llena {item:7768} en {object:107045} junto a la posada",
 	-- {npc:2216} Apothecary Lydon
@@ -235,6 +235,7 @@ return {
 	-- ["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "Entrena con {npc:3033}. Antes de seguir volando, {npc:3024} y {npc:4721}, a poca distancia al este del maestro de jinetes del viento, te dan dos misiones que se completan por el camino en las siguientes guías; luego vuela a El Cruce, donde empieza la siguiente guía.",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Llegas vinculado a la posada de {area:272}. Todos están alrededor de la plaza del pueblo.",
 	-- ["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272} es tu base en esta guía: la piedra de hogar te trae de vuelta aquí dos veces. Todos están alrededor de la plaza del pueblo.",
+	-- ["{area:272} is your base for this guide: you come back here between each loop. Everyone stands around the town square."] = "{area:272} es tu base en esta guía: vuelves aquí entre cada vuelta. Todos están alrededor de la plaza del pueblo.",
 	-- ["{item:3692}: the Peasants in the fields"] = "{item:3692}: los Campesinos de los campos",
 	-- ["{npc:2055}, in the {object:36072}"] = "{npc:2055}, en {object:36072}",
 	-- ["{npc:2055}, in the {zone:1458}"] = "{npc:2055}, en {zone:1458}",

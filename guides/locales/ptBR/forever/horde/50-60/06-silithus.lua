@@ -224,8 +224,8 @@ return {
 	["You missed this on the Un'Goro guide's loop: {npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "",
 
 	-- Step 47: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "Siga para o leste até {area:537}, suba e use {npc:10541} na fenda de lava perto do topo; depois volte para o oeste até {npc:10302}.",
+	-- {area:537} Fire Plume Ridge · {npc:10302} Krakle
+	["The lava vent is near the top of {area:537}, east of {npc:10302}."] = "",
 
 	-- Step 48: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
@@ -324,6 +324,7 @@ return {
 	-- ["Radley and Durgen"] = "Eiras e Durgen",
 	-- ["Ride east across the plaguelands to the chapel."] = "Cavalgue para leste pelas terras pestilentas até a capela.",
 	-- ["Ride east along the road to the {area:152} on the border."] = "Cavalgue para leste pela estrada até o {area:152}, na divisa.",
+	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "Siga para o leste até {area:537}, suba e use {npc:10541} na fenda de lava perto do topo; depois volte para o oeste até {npc:10302}.",
 	-- ["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "Cavalgue para leste até a cabana de {npc:1855} junto ao {area:2619} e ouça o que ele tem a dizer.",
 	-- ["Ride north-east to {area:2276} by {area:2275}: the high elf Rangers, Pathstriders and Woodsmen guard it and the Registry lies inside. Careful: the Pathstriders are 57-58 but the Rangers reach 60: pull one at a time and take the Rangers last."] = "Cavalgue para nordeste até {area:2276}, perto de {area:2275}: os Patrulheiros, Trilheiros e Lenhadores altos elfos a guardam, e o Registro fica lá dentro. Cuidado: os Trilheiros são 57-58, mas os Patrulheiros chegam a 60: puxe um de cada vez e deixe os Patrulheiros por último.",
 	-- ["Ride north-east to {area:3447}."] = "Cavalgue para nordeste até o {area:3447}.",

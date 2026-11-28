@@ -133,7 +133,7 @@ return {
 	["{zone:1449}: Primal Oozes"] = "",
 	-- {area:537} Fire Plume Ridge
 	-- plural, as words: Primal Oozes = {npc:6557} Primal Ooze · Glutinous Oozes = {npc:6559} Glutinous Ooze
-	["The Primal Oozes live in the pools around {area:537} in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "",
+	["Primal Oozes live in the pools around {area:537} in the middle of the crater. Muculent and Glutinous Oozes also fill the jars."] = "",
 
 	-- Step 23: Tinker Town: hand in
 	-- {object:171524} Tinker Town

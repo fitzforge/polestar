@@ -105,8 +105,8 @@ return {
 
 	-- Step 20: The flying machine
 	["The flying machine"] = "La máquina voladora",
-	-- {item:5021} Explosive Stick of Gann · {npc:3341} Gann Stonespire
-	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "La máquina voladora de los enanos está en su plataforma dentro de la excavación. Usa en ella {item:5021} que te dio {npc:3341}.",
+	-- was: ["The dwarves' flying machine sits on its platform inside the dig site."] = "La máquina voladora de los enanos está en su plataforma dentro de la excavación."
+	["The dwarves' flying machine sits on its platform inside the dig site."] = "",
 
 	-- Step 22: To Camp Taurajo
 	-- {area:378} Camp Taurajo
@@ -326,6 +326,7 @@ return {
 	-- ["The Venture Co. Overseers and Enforcers at the mine in the north-east corner of the zone drop the {item:5097}."] = "Los Sobrestantes y los Déspotas de Ventura y Cía. de la mina en la esquina noreste de la zona sueltan {item:5097}.",
 	-- ["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away."] = "Las antenas desaparecen quince minutos después de soltarse, así que recógelas ahora, de regreso al norte: mata Enjambristas silítidos y Trepadores silítidos en los montículos de {area:390} hasta tener cinco y luego usa la piedra de hogar para ir a {area:378} de inmediato.",
 	-- ["The dwarves' flying machine sits on its platform inside the dig site."] = "La máquina voladora de los enanos está en su plataforma dentro de la excavación.",
+	-- ["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "La máquina voladora de los enanos está en su plataforma dentro de la excavación. Usa en ella {item:5021} que te dio {npc:3341}.",
 	-- ["The level-20 class quests in {zone:1454} ({npc:3354}, {npc:5892}, the Warlock and Rogue trainers) are only offered from level 20, so finish the level here before you fly. The Thunderhawk Hatchlings (18) on the plains south-west of the {area:380} and the Kolkar (14-15) at the {area:388} are the nearest mobs worth killing; you need well under a level."] = "Las misiones de clase de nivel 20 en {zone:1454} ({npc:3354}, {npc:5892}, los instructores de brujos y pícaros) solo se ofrecen desde el nivel 20, así que termina el nivel aquí antes de volar. Las Proles de Halcón Trueno (18) de las llanuras al suroeste de {area:380} y los Kolkar (14-15) de {area:388} son los enemigos más cercanos que vale la pena matar; necesitas bastante menos de un nivel.",
 	-- ["The pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "Los piratas acampan en la playa al sur de {area:392}; {npc:3467} está en su extremo sur.",
 	-- ["The top of the {area:1718}"] = "La parte de arriba de {area:1718}",

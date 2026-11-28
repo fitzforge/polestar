@@ -327,11 +327,6 @@
 			"text": "Throw the lit torch onto the archaeologist's cart outside the house:"
 		},
 		{
-			"file": "forever/class/warrior/brutal-armor.guide",
-			"verb": "use",
-			"text": "right-click it to test it, and about one in four comes out sturdy, the rest break, so expect 30 or more kills for 8."
-		},
-		{
 			"file": "forever/class/warrior/whirlwind-weapon.guide",
 			"verb": "use",
 			"text": "Eat and drink to full, then step onto the grate in the middle of the crowd:"
@@ -377,11 +372,6 @@
 			"text": "Use it by the brazier next to him to reveal the Minor Manifestation of Fire, kill it for the Glowing Ember, then place the ember in the brazier."
 		},
 		{
-			"file": "forever/horde/04-the-barrens.guide",
-			"verb": "use",
-			"text": "Use the Explosive Stick of Gann that Gann gave you on it."
-		},
-		{
 			"file": "forever/horde/05-stonetalon-mountains.guide",
 			"verb": "emote",
 			"text": "Before you go near Fizzule, use {item:8051} to fire two flares, then target him and /salute:"
@@ -405,11 +395,6 @@
 			"file": "forever/horde/07-ashenvale.guide",
 			"verb": "click",
 			"text": "open the Strange Water Globe he drops for a quest for Je'neu."
-		},
-		{
-			"file": "forever/horde/07-ashenvale.guide",
-			"verb": "use",
-			"text": "use the Empty Blue Waterskin there."
 		},
 		{
 			"file": "forever/horde/30-40/02-thousand-needles.guide",
@@ -475,11 +460,6 @@
 			"file": "forever/horde/50-60/05-eastern-plaguelands.guide",
 			"verb": "use",
 			"text": "kill him for the key, then use the cauldron."
-		},
-		{
-			"file": "forever/horde/50-60/06-silithus.guide",
-			"verb": "use",
-			"text": "Ride east to Fire Plume Ridge, climb it and use Krakle's Thermometer at the lava vent near the top, then ride back west to Krakle."
 		},
 		{
 			"file": "forever/horde/50-60/06-silithus.guide",
@@ -630,16 +610,6 @@
 			"file": "forever/reputation/darnassus.guide",
 			"verb": "use",
 			"text": "With a seed packet and 2 Un'Goro Soil in your bags, use the pouch to grow an Evergreen Herb Casing and open it:"
-		},
-		{
-			"file": "forever/reputation/gnomeregan-exiles.guide",
-			"verb": "use",
-			"text": "Kill one and use a jar on its remains."
-		},
-		{
-			"file": "forever/reputation/ironforge.guide",
-			"verb": "use",
-			"text": "Plant Gor'tesh's head on the soft dirt mound at the top of Dreadmaul Rock."
 		},
 		{
 			"file": "forever/reputation/merchants-favor.guide",

@@ -67,8 +67,8 @@ return {
 	-- Step 14: Ruins of Stardust fountain
 	-- {area:418} Ruins of Stardust
 	["{area:418} fountain"] = "{area:418}的喷泉",
-	-- {area:418} Ruins of Stardust · {npc:12678} Ursangous · {item:7767} Empty Blue Waterskin
-	["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "喷泉在{area:418}中央，{npc:12678}在那一带游荡：在那里使用{item:7767}。",
+	-- {area:418} Ruins of Stardust · {npc:12678} Ursangous
+	["The fountain is in the middle of the {area:418}, where {npc:12678} roams."] = "",
 
 	-- Step 15: Ursangous
 	-- {area:415} Astranaar · {npc:12678} Ursangous · {area:418} Ruins of Stardust · {area:421} Mystral Lake
@@ -461,6 +461,7 @@ return {
 	-- ["South of Darkcloud, the harpies of {area:487}. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top."] = "黑云峰南侧是 {area:487} 的鹰身人。{npc:4490}（31 级）在它们之间走动：引她之前，先清掉周围的鹰身人。那里的尖啸的鹰身人、尖啸的游荡者和尖啸的唤风者是 {npc:4877} 要你击杀的目标；她的 {quest:98069} 散落在崖脚沿线的地面和崖顶洞穴内。",
 	-- ["Take a lift down from {zone:1456}. The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}."] = "从{zone:1456}乘升降梯下去。大地之环的营地在高崖北边：{npc:264074}、{npc:264072}和{npc:259118}。",
 	-- ["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks between the camps: kill him when you meet him, his note starts a quest for {area:2237}."] = "加拉克半人马的营地遍布乱风岗北边的峡谷；每个营地都有加拉克斥候、加拉克争斗者和加拉克逐风者。一个落单的{npc:10617}在营地之间走动：遇到就杀死他，他的信件可以开始一个{area:2237}的任务。",
+	-- ["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "喷泉在{area:418}中央，{npc:12678}在那一带游荡：在那里使用{item:7767}。",
 	-- ["The fountain stands in the middle of the {area:418}: use the {item:7767} there."] = "喷泉在{area:418}中央：在那里使用{item:7767}。",
 	-- ["The next guide flies on from here to the Crossroads and {zone:1454}."] = "下一篇指南会从这里飞往十字路口和 {zone:1454}。",
 	-- ["The next guide flies on from here to {zone:1454}."] = "下一个指南从这里飞往{zone:1454}。",

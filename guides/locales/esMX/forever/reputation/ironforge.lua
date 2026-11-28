@@ -130,8 +130,8 @@ return {
 	-- Step 22: Morgan's Vigil: hand in
 	-- {area:2418} Morgan's Vigil
 	["{area:2418}: hand in"] = "{area:2418}: entregas",
-	-- {npc:9176} Gor'tesh · {area:249} Dreadmaul Rock
-	["Plant {npc:9176}'s head on the soft dirt mound at the top of {area:249}."] = "Clava la cabeza de {npc:9176} en el montículo de tierra blanda de lo alto de {area:249}.",
+	-- {area:249} Dreadmaul Rock
+	["The soft dirt mound is at the top of {area:249}."] = "",
 
 	-- Step 23: Ironforge: Archesonus again
 	-- {faction:47} Ironforge
@@ -167,6 +167,7 @@ return {
 	-- ["Dunemaul ogres (level 45-48) drop it here. The Auction House works too."] = "Los Ogros Machacaduna (nivel 45-48) lo sueltan aquí. También sirve la casa de subastas.",
 	-- ["Keep handing in {quest:7806} until {faction:47} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Sigue entregando {quest:7806} hasta ser Exaltado con {faction:47}. {item:14047}: Adeptos oscuros y Magos oscuros (nivel 58-60) en {zone:1423}, o la casa de subastas.",
 	-- ["Keep handing in {quest:7806}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Sigue entregando {quest:7806}, 20 {item:14047} cada vez. {item:14047}: Adeptos oscuros y Magos oscuros (nivel 58-60) en {zone:1423}, o la casa de subastas.",
+	-- ["Plant {npc:9176}'s head on the soft dirt mound at the top of {area:249}."] = "Clava la cabeza de {npc:9176} en el montículo de tierra blanda de lo alto de {area:249}.",
 	-- ["Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too."] = "Los Bandidos y Capataces Zarparrío (nivel 16-18) lo sueltan aquí. También sirve la casa de subastas.",
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "Los Mercenarios de la Hermandad del Castillo de Stromgarde (nivel 31-32) lo sueltan aquí. También sirve la casa de subastas.",
 	-- ["{npc:14723} takes cloth for {faction:47} in {faction:47}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7806} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14723} acepta paño para {faction:47} en {faction:47}. Las primeras donaciones de Paño de lana, Paño de seda, Paño de tejido mágico y {item:14047} (60 paños cada una) se hacen una sola vez y dan la mayor reputación por paño; después, {quest:7806} se repite hasta Exaltado. Ser Exaltado con la ciudad de otra raza te permite comprar las monturas de esa raza. La ventaja Diplomático del Legado de Forever aumenta la reputación obtenida.",

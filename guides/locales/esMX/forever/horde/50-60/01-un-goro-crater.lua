@@ -255,9 +255,8 @@ return {
 	-- Step 55: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Sentry Braziers"] = "Braseros centinela",
-	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "Lleva la {object:149047} al sur por el borde de la Caldera y enciende los cuatro blandones de avizor, del suroeste hacia el este.",
+	["The four Sentry Braziers sit along the southern rim of the Cauldron, from the south-west round to the east."] = "",
 
 	-- Step 56: Squire Maltrake
 	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade
@@ -378,6 +377,7 @@ return {
 	-- ["Bloodpetal Flayers"] = "Despellejadores Sangrepétalo",
 	-- ["Careful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "Cuidado: Los obreros Gorishi que bajan del 45 % de salud tienen un 50 % de probabilidad de pedir ayuda a los aliados en 25 m.",
 	-- ["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.\nBelow level 52, keep hunting the ravasaurs here after the eighth claw: {quest:4061} at {area:340} needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Cuidado: Hay muchos ravasaurios rondando la zona, así que es fácil atraer varios a la vez.\nPor debajo del nivel 52, sigue cazando ravasaurios aquí después de la octava garra: {quest:4061} en {area:340} necesita nivel 52, y las misiones de las Tierras de la Peste al final de esta guía son de nivel 55. O, en grupo, haz la mazmorra {area:1417} o la mazmorra {area:2100}.",
+	-- ["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "Lleva la {object:149047} al sur por el borde de la Caldera y enciende los cuatro blandones de avizor, del suroeste hacia el este.",
 	-- ["Darrowshire Spirits"] = "Espíritus de Villa Darrow ({npc:11064})",
 	-- ["Fly to {area:1637} and train before the {object:3202} zeppelin: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "Vuela a {area:1637} y entrena antes del zepelín a {object:3202}: la parada en {zone:1458} más adelante en esta guía no tiene instructor de cazador ni de chamán.",
 	-- ["Fly to {area:1637}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {zone:1418}' west edge."] = "Vuela a {area:1637}, toma el zepelín a {object:3202} y desde allí vuela a {area:340}, construido en los acantilados del borde oeste de {zone:1418}.",

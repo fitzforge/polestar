@@ -117,8 +117,9 @@ return {
 	-- Step 15: Gelkis: Test Your Theory
 	-- {quest:93045} Test Your Theory
 	["Gelkis: {quest:93045}"] = "Gelkis: {quest:93045}",
-	-- {npc:5397} Uthek the Wise · {item:6071} Draenethyst Crystal · {item:256061} Uthek's Draenethyst Staff · {item:255945} Accursed Skull · {npc:253177} Nerlokh
-	["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "Según los datos de las misiones: {npc:5397} te da su bastón y un {item:6071}. Únelos en {item:256061}, llévalo al lugar del ritual junto al estanque justo al este del poblado y disipa la maldición de {item:255945}. Después, otra vez al este con {npc:253177}.",
+	-- {npc:5397} Uthek the Wise · {item:6071} Draenethyst Crystal · {item:258661} Uthek's Draenethyst Staff · {item:255945} Accursed Skull · {npc:253177} Nerlokh
+	-- was: ["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "Según los datos de las misiones: {npc:5397} te da su bastón y un {item:6071}. Únelos en {item:256061}, llévalo al lugar del ritual junto al estanque justo al este del poblado y disipa la maldición de {item:255945}. Después, otra vez al este con {npc:253177}."
+	["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:258661}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "",
 	-- {item:255945} Accursed Skull
 	["dispel the {item:255945} by the pond"] = "disipa {item:255945} junto al estanque",
 
@@ -130,9 +131,9 @@ return {
 
 	-- Step 17: Gelkis: the heart of the valley
 	["Gelkis: the heart of the valley"] = "Gelkis: el corazón del valle",
-	-- {npc:253177} Nerlokh · {npc:253446} Haggard Bones · {item:256061} Uthek's Draenethyst Staff
+	-- {npc:253177} Nerlokh · {npc:253446} Haggard Bones
 	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: east of {npc:253177}, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie {npc:253446}, failed summons stuck in the ground: lay eight to rest with {item:256061}, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull."] = "Según los datos de las misiones: al este de {npc:253177}, en el corazón del valle, los Magram retienen a Cautivos Gelkis: libera a cinco. Entre ellos yacen {npc:253446}, invocaciones fallidas clavadas en el suelo: haz descansar a ocho con {item:256061}, que te da la misión. Los Comecadáveres y los Necrokhans Magram, élites de nivel 45, recorren el valle y atacan a un amigo de los Gelkis: déjalos pasar antes de atraer.",
+	["The Magram hold Gelkis Captives east of {npc:253177}, in the heart of the valley, and {npc:253446} are failed summons stuck in the ground there. Corpsefeeders and Magram Necrokhans, elite and level 45, patrol the valley and attack friends of the Gelkis."] = "",
 	-- {npc:253446} Haggard Bones
 	["Lay {npc:253446} to rest"] = "Haz descansar a {npc:253446}",
 	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive
@@ -259,8 +260,8 @@ return {
 	-- Step 35: Magram: the heart of the valley
 	["Magram: the heart of the valley"] = "Magram: el corazón del valle",
 	-- {npc:253136} Orgrul · {npc:253446} Haggard Bones
-	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: south-east of {npc:253136}, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The {npc:253446} there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone."] = "Según los datos de las misiones: al sureste de {npc:253136}, en el corazón del valle, los Magram retienen a Cautivos Gelkis: mata a cinco. Los {npc:253446} de allí son invocaciones fallidas clavadas en el suelo: levanta a diez con el Bastón de nigromancia mejorado que te dio Orgrul y mata a los que se defiendan. Los Comecadáveres, élites de nivel 45, recorren el valle y atacan a cualquiera; los Necrokhans Magram, también élites, dejan en paz a un amigo de los Magram.",
+	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
+	["The Magram camp is south-east of {npc:253136}, in the heart of the valley. The {npc:253446} are failed summons stuck in the ground, and some fight back once raised. Corpsefeeders (elite, level 45) roam the valley and attack anyone, while the elite Magram Necrokhans leave friends of the Magram alone."] = "",
 	-- {npc:253446} Haggard Bones
 	["Raise or slay {npc:253446}"] = "Levanta o mata a {npc:253446}",
 
@@ -319,5 +320,8 @@ return {
 	["Both quartermasters sell the same 12 recipes for {quest:93224}, no standing needed: {item:273613} and - Lesser Healing Power; Greater Spellblasting and {item:250941}; {item:250538} and {item:250606} plans; {item:252462}, {item:253973}, {item:10011} and {item:274490} patterns; the {item:269900} and {item:269902} schematics. Keep the totems you need for them before you hand the rest in."] = "Ambos intendentes venden las mismas 12 recetas por {quest:93224}, sin necesidad de reputación: {item:273613} y poder de sanación inferior; Explosión de hechizos superior y {item:250941}; diseños de {item:250538} y {item:250606}; patrones de {item:252462}, {item:253973}, {item:10011} y {item:274490}; los esquemas de {item:269900} y {item:269902}. Guarda los tótems que necesites para ellas antes de entregar el resto.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["From the quest data: east of {npc:253177}, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie {npc:253446}, failed summons stuck in the ground: lay eight to rest with {item:256061}, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull."] = "Según los datos de las misiones: al este de {npc:253177}, en el corazón del valle, los Magram retienen a Cautivos Gelkis: libera a cinco. Entre ellos yacen {npc:253446}, invocaciones fallidas clavadas en el suelo: haz descansar a ocho con {item:256061}, que te da la misión. Los Comecadáveres y los Necrokhans Magram, élites de nivel 45, recorren el valle y atacan a un amigo de los Gelkis: déjalos pasar antes de atraer.",
+	-- ["From the quest data: south-east of {npc:253136}, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The {npc:253446} there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone."] = "Según los datos de las misiones: al sureste de {npc:253136}, en el corazón del valle, los Magram retienen a Cautivos Gelkis: mata a cinco. Los {npc:253446} de allí son invocaciones fallidas clavadas en el suelo: levanta a diez con el Bastón de nigromancia mejorado que te dio Orgrul y mata a los que se defiendan. Los Comecadáveres, élites de nivel 45, recorren el valle y atacan a cualquiera; los Necrokhans Magram, también élites, dejan en paz a un amigo de los Magram.",
+	-- ["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "Según los datos de las misiones: {npc:5397} te da su bastón y un {item:6071}. Únelos en {item:256061}, llévalo al lugar del ritual junto al estanque justo al este del poblado y disipa la maldición de {item:255945}. Después, otra vez al este con {npc:253177}.",
 	-- ["three Tears of Theradras"] = "tres Lágrimas de Theradras",
 }

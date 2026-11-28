@@ -67,8 +67,8 @@ return {
 	-- Step 14: Ruins of Stardust fountain
 	-- {area:418} Ruins of Stardust
 	["{area:418} fountain"] = "Fonte das {area:418}",
-	-- {area:418} Ruins of Stardust · {npc:12678} Ursangous · {item:7767} Empty Blue Waterskin
-	["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "A fonte fica no meio das {area:418}, onde {npc:12678} anda: use o {item:7767} lá.",
+	-- {area:418} Ruins of Stardust · {npc:12678} Ursangous
+	["The fountain is in the middle of the {area:418}, where {npc:12678} roams."] = "",
 
 	-- Step 15: Ursangous
 	-- {area:415} Astranaar · {npc:12678} Ursangous · {area:418} Ruins of Stardust · {area:421} Mystral Lake
@@ -462,6 +462,7 @@ return {
 	-- ["Take a lift down from {zone:1456}. The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}."] = "Desça de {zone:1456} por um elevador. O acampamento da Harmonia Telúrica fica ao norte dos penhascos: {npc:264074}, {npc:264072} e {npc:259118}.",
 	-- ["The Earthen Ring camp and its three quests stand up on {area:17045}, north of {zone:1456}. Walk north past {zone:1456}; the arrow then leads round to the plateau's north end and up onto it."] = "O acampamento da Harmonia Telúrica e suas três missões ficam no alto de {area:17045}, ao norte de {zone:1456}. Siga para o norte, passando por {zone:1456}; depois a seta contorna até a ponta norte do planalto e sobe.",
 	-- ["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks between the camps: kill him when you meet him, his note starts a quest for {area:2237}."] = "Os acampamentos Galath enchem o cânion ao norte da Aldeia Vento Livre; Batedores, Cavalgantes e Ventilhãs dividem todos os acampamentos. Um {npc:10617} solitário anda entre os acampamentos: mate-o quando o encontrar, o bilhete dele inicia uma missão para o {area:2237}.",
+	-- ["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "A fonte fica no meio das {area:418}, onde {npc:12678} anda: use o {item:7767} lá.",
 	-- ["The fountain stands in the middle of the {area:418}: use the {item:7767} there."] = "A fonte fica no meio das {area:418}: use o {item:7767} lá.",
 	-- ["The next guide flies on from here to the Crossroads and {zone:1454}."] = "O próximo guia voa daqui para a Encruzilhada e para {zone:1454}.",
 	-- ["The next guide flies on from here to {zone:1454}."] = "O próximo guia voa daqui para {zone:1454}.",

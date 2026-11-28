@@ -105,8 +105,8 @@ return {
 
 	-- Step 20: The flying machine
 	["The flying machine"] = "Летательная машина",
-	-- {item:5021} Explosive Stick of Gann · {npc:3341} Gann Stonespire
-	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "Летательная машина дворфов стоит на площадке внутри раскопок. Используйте на ней {item:5021}, полученную от NPC {npc:3341}.",
+	-- was: ["The dwarves' flying machine sits on its platform inside the dig site."] = "Летательная машина дворфов стоит на площадке внутри раскопок."
+	["The dwarves' flying machine sits on its platform inside the dig site."] = "",
 
 	-- Step 22: To Camp Taurajo
 	-- {area:378} Camp Taurajo
@@ -325,6 +325,7 @@ return {
 	-- ["The Venture Co. Overseers and Enforcers at the mine in the north-east corner of the zone drop the {item:5097}."] = "{item:5097} падает с надзирателей и головорезов Торговой компании у рудника в северо-восточном углу зоны.",
 	-- ["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away."] = "Усики исчезают через пятнадцать минут после выпадения, поэтому соберите их сейчас, по пути на север: убивайте членистоногов Силитида и ползучих силитидов у курганов ({area:390}), пока не наберете пять, затем сразу возвращайтесь камнем. Цель: {area:378}.",
 	-- ["The dwarves' flying machine sits on its platform inside the dig site."] = "Летательная машина дворфов стоит на площадке внутри раскопок.",
+	-- ["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "Летательная машина дворфов стоит на площадке внутри раскопок. Используйте на ней {item:5021}, полученную от NPC {npc:3341}.",
 	-- ["The level-20 class quests in {zone:1454} ({npc:3354}, {npc:5892}, the Warlock and Rogue trainers) are only offered from level 20, so finish the level here before you fly. The Thunderhawk Hatchlings (18) on the plains south-west of the {area:380} and the Kolkar (14-15) at the {area:388} are the nearest mobs worth killing; you need well under a level."] = "Классовые задания 20-го уровня в городе {zone:1454} ({npc:3354}, {npc:5892}, учителя чернокнижников и разбойников) выдаются только с 20-го уровня, поэтому доберите уровень здесь, прежде чем лететь. Ближайшие подходящие противники – птенцы грозового змея (18) на равнинах к юго-западу (ориентир: {area:380}) и кентавры из племени Колкар (14-15), здесь: {area:388}; нужно гораздо меньше уровня.",
 	-- ["The pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "Пираты стоят лагерем на пляже к югу (ориентир: {area:392}); {npc:3467} – в его южном конце.",
 	-- ["The {area:2363}"] = "{area:2363}",

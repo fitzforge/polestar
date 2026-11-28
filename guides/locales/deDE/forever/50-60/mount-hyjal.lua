@@ -96,10 +96,11 @@ return {
 	-- Step 15: Ketharas's shrine
 	-- {npc:256222} Ketharas
 	["{npc:256222}'s shrine"] = "Der Schrein von {npc:256222}",
-	["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: bury the remains there."] = "Der Schrein ist ein Paar aufrechter Steine westlich der Einsiedlerhütte, auf dem Weg zurück zum Außenposten: Begrab die Überreste dort.",
+	-- was: ["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: bury the remains there."] = "Der Schrein ist ein Paar aufrechter Steine westlich der Einsiedlerhütte, auf dem Weg zurück zum Außenposten: Begrab die Überreste dort."
+	["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost."] = "",
 
 	-- Step 17: The ancients' outpost
-	["West to the outpost."] = "Nach Westen zum Außenposten.",
+	["The outpost is to the west."] = "",
 	-- {npc:248366} Fraxinus
 	["put the poultice on {npc:248366}"] = "lege den Umschlag auf {npc:248366}",
 
@@ -426,8 +427,8 @@ return {
 
 	-- Step 94: The falls and the first kitten
 	["The falls and the first kitten"] = "Die Fälle und das erste Kätzchen",
-	-- {npc:267109} Galvinquam Leafsyre · {npc:255685} Solstice · {npc:255683} Shalla'kal
-	["Fill {npc:267109}'s gourd at the falls beside the bridge. {npc:255685}, one of {npc:255683}'s kittens, plays just west of the falls: walk up to her."] = "Füll die Kürbisflasche von {npc:267109} an den Fällen neben der Brücke. {npc:255685}, eines der Kätzchen von {npc:255683}, spielt knapp westlich der Fälle: Geh zu ihr.",
+	-- {npc:255685} Solstice · {npc:255683} Shalla'kal
+	["The falls are beside the bridge. {npc:255685}, one of {npc:255683}'s kittens, plays just west of the falls."] = "",
 	["fill the gourd"] = "füll die Kürbisflasche",
 
 	-- Step 95: Johun "Punchy" Dillas's camp
@@ -699,6 +700,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A group choice: {npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them. Drain each one first, then fight it; players in our recordings killed both once drained. Grouping up is advised."] = "Eine Gruppenwahl: {npc:263394} und {npc:252457} sind Eliten der Stufe 60, bis {npc:263406} sie mit dem Auge entleert. Entleere jeweils einen zuerst, dann bekämpfe ihn; die Spieler in unseren Aufzeichnungen töteten beide, sobald sie entleert waren. Eine Gruppe ist ratsam.",
 	-- ["Back to {npc:264089}, then the ghostly {npc:255009} at {area:16868}'s western edge, where the recording met him, on your way west."] = "Zurück zu {npc:264089}, dann zu dem geisterhaften {npc:255009} am westlichen Rand von {area:16868}, wo die Aufzeichnung ihn traf, auf dem Weg nach Westen.",
+	-- ["Fill {npc:267109}'s gourd at the falls beside the bridge. {npc:255685}, one of {npc:255683}'s kittens, plays just west of the falls: walk up to her."] = "Füll die Kürbisflasche von {npc:267109} an den Fällen neben der Brücke. {npc:255685}, eines der Kätzchen von {npc:255683}, spielt knapp westlich der Fälle: Geh zu ihr.",
 	-- ["Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up."] = "Vier Werkstationen stehen im Aschcamp: Wirf einen Tannenzapfen auf jede, von Süden aus nach oben.",
 	-- ["North into the shrub field: the {npc:248395} drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: plant the last seed there. Keep clear of {quest:91923} and {npc:248709}, the field's elites."] = "Nach Norden in das Strauchfeld: Die {npc:248395} lassen die Blätter fallen, und die Scharlachroten Dartknollen wachsen auf der offenen Fläche, die meisten in der westlichen Hälfte des Felds. Die zerstörte Balliste steht am nordöstlichen Rand des Felds: Pflanze den letzten Samen dort. Halte dich von {quest:91923} und {npc:248709} fern, den Eliten des Felds.",
 	-- ["North-east to {npc:263394}. Drain him first: use {npc:263406}'s eye on him, and only then fight him. Undrained, he and {npc:252457} are level 60 elites. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room."] = "Nach Nordosten zu {npc:263394}. Entleere ihn zuerst: Benutze das Auge von {npc:263406} auf ihn, und erst dann bekämpfe ihn. Unentleert sind er und {npc:252457} Eliten der Stufe 60. {npc:267439}, ein Elite (Stufe 61), läuft durch diese Ecke von {area:16866}: Weiche ihm aus.\nVorsicht: Legionskolosse (60, seltene Elite) stampfen durch die Lager von {area:16866}: Lass ihnen Raum.",
@@ -711,8 +713,10 @@ return {
 	-- ["The Scourge hold the ruins of {area:16868}, east of {area:16848}: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them.\nCareful: Death Wailers (61, rare elites) drift over {area:16868}: keep out of their way.\nCareful: Grimmwurzel, the elite treant (level 60), walks the slopes on the way in: give him room."] = "Die Geißel hält die Ruinen von {area:16868}, östlich von {area:16848}: Fleischschinderräuber und Vergessene Soldaten überall, ewige Wächter unter ihnen.\nVorsicht: Todesheuler (61, seltene Elite) treiben über {area:16868}: Weiche ihnen aus.\nVorsicht: Grimmwurzel, der Treant (Elite, Stufe 60), läuft die Hänge auf dem Weg hinein entlang: Lass ihm Raum.",
 	-- ["The bear berries grow on the slopes around the burrow: a few on the hill north of {npc:256978}, most of them east of the burrow.\nCareful: Grimmwurzel, an elite treant (level 60), walks the slopes west of the burrow, around 16-20,58-66: give him room."] = "Die Bärenbeeren wachsen auf den Hängen um den Bau: einige am Hügel nördlich von {npc:256978}, die meisten östlich des Baus.\nVorsicht: Grimmwurzel, ein Treant (Elite, Stufe 60), läuft die Hänge westlich des Baus entlang, um 16-20,58-66: Lass ihm Raum.",
 	-- ["The ruined catapult and flying machine"] = "Die zerstörte Katapult- und Flugmaschine",
+	-- ["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: bury the remains there."] = "Der Schrein ist ein Paar aufrechter Steine westlich der Einsiedlerhütte, auf dem Weg zurück zum Außenposten: Begrab die Überreste dort.",
 	-- ["Two of the wrecks {npc:256222} named lie at the east end of the fields: plant one of his seeds beside each."] = "Zwei der Wracks, die {npc:256222} nannte, liegen am Ostende der Felder: Pflanze neben jedem einen seiner Samen.",
 	-- ["West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the {npc:264306}, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once."] = "Nach Westen zum Knochenhaufen bei den Schleimtümpeln: Wirf die Knochen der Hexenmeister darauf, dann gib den Quest am Haufen selbst ab. Beim Abgeben erwacht {npc:264306}, ein Elite (Stufe 58), der hart zuschlägt: Wenn du nicht in einer Gruppe dafür bist, gib ab und reite sofort davon.",
+	-- ["West to the outpost."] = "Nach Westen zum Außenposten.",
 	-- ["West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story."] = "Nach Westen zum Aussichtspunkt über dem Tal: Die alte Scheide des Veteranen liegt dort. Gib seinen Quest an der Scheide ab und nimm den nächsten von ihr, dann benutze die Scheide in deiner Tasche, um seinen Geist zu rufen und seine Geschichte zu hören.",
 	-- ["the {npc:262036}"] = "der {npc:262036}",
 }

@@ -96,10 +96,10 @@ return {
 	-- Step 15: Ketharas's shrine
 	-- {npc:256222} Ketharas
 	["{npc:256222}'s shrine"] = "",
-	["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: bury the remains there."] = "",
+	["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost."] = "",
 
 	-- Step 17: The ancients' outpost
-	["West to the outpost."] = "",
+	["The outpost is to the west."] = "",
 	-- {npc:248366} Fraxinus
 	["put the poultice on {npc:248366}"] = "",
 
@@ -426,8 +426,8 @@ return {
 
 	-- Step 94: The falls and the first kitten
 	["The falls and the first kitten"] = "",
-	-- {npc:267109} Galvinquam Leafsyre · {npc:255685} Solstice · {npc:255683} Shalla'kal
-	["Fill {npc:267109}'s gourd at the falls beside the bridge. {npc:255685}, one of {npc:255683}'s kittens, plays just west of the falls: walk up to her."] = "",
+	-- {npc:255685} Solstice · {npc:255683} Shalla'kal
+	["The falls are beside the bridge. {npc:255685}, one of {npc:255683}'s kittens, plays just west of the falls."] = "",
 	["fill the gourd"] = "",
 
 	-- Step 95: Johun "Punchy" Dillas's camp

@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Tarren Mill
 	-- {area:272} Tarren Mill
-	["{area:272} is your base for this guide: you come back here between each loop. Everyone stands around the town square."] = "{area:272} est votre base pour ce guide : vous y revenez entre chaque boucle. Tout le monde se tient autour de la place du village.",
+	["{area:272} is the base for this guide, with a return here between each loop. Everyone stands around the town square."] = "",
 	-- {item:7768} Empty Red Waterskin · {object:107045} Spring Well
 	["Fill the {item:7768} at the {object:107045} beside the inn"] = "Remplissez l'{item:7768} au {object:107045} à côté de l'auberge",
 	-- {npc:2216} Apothecary Lydon
@@ -261,6 +261,7 @@ return {
 	-- ["Walk back up to {area:272} and fly to the {area:228}: {npc:2121} stands by the crypt entrance."] = "Remontez à pied jusqu'à {area:272} et prenez un vol pour le {area:228} : {npc:2121} se tient près de l'entrée de la crypte.",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Vous arrivez lié à l'auberge de {area:272}. Tout le monde se tient autour de la place du village.",
 	-- ["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272} est votre base pour ce guide : la pierre de foyer vous y ramène deux fois. Tout le monde se tient autour de la place du village.",
+	-- ["{area:272} is your base for this guide: you come back here between each loop. Everyone stands around the town square."] = "{area:272} est votre base pour ce guide : vous y revenez entre chaque boucle. Tout le monde se tient autour de la place du village.",
 	-- ["{area:378} flight master"] = "Maître de vol du {area:378}",
 	-- ["{item:3692}: the Peasants in the fields"] = "{item:3692} : les Paysans d'Hillsbrad dans les champs",
 	-- ["{npc:10079}, at the top of the lift"] = "{npc:10079}, en haut de l'élévateur",

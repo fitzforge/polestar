@@ -647,8 +647,8 @@ return {
 	["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "{npc:5497} steht im Wizard's Sanctum, dem Turm in {object:2101}; sie gibt dir eine Flasche für den Wasserfall von {quest:1861}.",
 
 	-- Step 132: Mirror Lake
-	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
-	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Verlass {zone:1453} durch das Haupttor. Der Wasserfall am {quest:1861} liegt südwestlich der Tore, auf dem Weg nach Westen nach {zone:1436}: Füll {item:7207} an seinem Fuß.",
+	-- {quest:1861} Mirror Lake · {zone:1453} Stormwind · {zone:1436} Westfall
+	["The {quest:1861} waterfall is south-west of {zone:1453}'s main gate, on the way west to {zone:1436}."] = "",
 
 	-- Step 133: Goldshire
 	-- {zone:1453} Stormwind · {area:87} Goldshire · {zone:1436} Westfall
@@ -670,6 +670,7 @@ return {
 	-- ["Gretchen camps just outside the {area:136}, the wendigo cave south-west of {area:131}."] = "Gretchen lagert direkt vor dem {area:136}, der Wendigohöhle südwestlich von {area:131}.",
 	-- ["Iceclaw Bear Pendants, from the Frostmane Troll Whelps on the slopes above the camp"] = "Eiskrallenbärenanhänger, von den Trollwelpen der Frostmane an den Hängen über dem Lager",
 	-- ["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Verlass {zone:1453} durchs Haupttor, geh nach Süden nach {area:87} und auf der Straße nach Osten zu {area:62}. {npc:881} (Stufe 9) steht bei dessen Bauernhaus.",
+	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Verlass {zone:1453} durch das Haupttor. Der Wasserfall am {quest:1861} liegt südwestlich der Tore, auf dem Weg nach Westen nach {zone:1436}: Füll {item:7207} an seinem Fuß.",
 	-- ["Leper Gnomes around Brewnall and the {area:133} road carry the cogs and gears. Ice Claw Bears, Elder Crag Boars and Snow Leopards roam the hills around the lake."] = "Lepragnome um Brewnall und an der Straße nach {area:133} tragen die Zahnräder und Getriebe. Eisklauenbären, Alte Klippeneber und Schneeleoparden streifen durch die Hügel um den See.",
 	-- ["Level 4 spells, before Gozwin's camp"] = "Zauber der Stufe 4, vor Gozwins Lager",
 	-- ["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: Headsplitter, a level 15 trogg, walks {area:923} among the 11-12 troggs: work the camps at its north edge, near the post, and keep clear of him."] = "Nördlich des Postens, westlich der Straße: Die Stonesplinter-Troggs und -Späher lagern in den Hügeln. Beide lassen die Trogg Stone Teeth fallen.\nVorsicht: Headsplitter, ein Trogg der Stufe 15, läuft durch {area:923} zwischen den Troggs der Stufe 11-12: Arbeite an den Lagern am Nordrand, nahe dem Posten, und halte dich von ihm fern.",

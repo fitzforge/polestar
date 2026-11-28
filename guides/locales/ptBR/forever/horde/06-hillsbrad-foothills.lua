@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Tarren Mill
 	-- {area:272} Tarren Mill
-	["{area:272} is your base for this guide: you come back here between each loop. Everyone stands around the town square."] = "{area:272} é sua base neste guia: você volta aqui entre cada volta. Todos ficam em volta da praça da cidade.",
+	["{area:272} is the base for this guide, with a return here between each loop. Everyone stands around the town square."] = "",
 	-- {item:7768} Empty Red Waterskin · {object:107045} Spring Well (no name in this language: may be words)
 	["Fill the {item:7768} at the {object:107045} beside the inn"] = "Encha o {item:7768} no {object:107045} ao lado da estalagem",
 	-- {npc:2216} Apothecary Lydon
@@ -249,6 +249,7 @@ return {
 	-- ["Walk back up to {area:272} and fly to the {area:228}: {npc:2121} stands by the crypt entrance."] = "Volte a pé até {area:272} e voe para {area:228}: {npc:2121} fica na entrada da cripta.",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Você chega vinculado à estalagem de {area:272}. Todos ficam em volta da praça da cidade.",
 	-- ["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272} é sua base neste guia: a pedra de regresso traz você de volta aqui duas vezes. Todos ficam em volta da praça da cidade.",
+	-- ["{area:272} is your base for this guide: you come back here between each loop. Everyone stands around the town square."] = "{area:272} é sua base neste guia: você volta aqui entre cada volta. Todos ficam em volta da praça da cidade.",
 	-- ["{item:3692}: the Peasants in the fields"] = "{item:3692}: os Camponeses de Eira dos Montes nos campos",
 	-- ["{npc:2055}, in the {zone:1458}"] = "{npc:2055}, em {zone:1458}",
 	-- ["{npc:2215}: orders for {npc:270438}, on the way to Durnholde"] = "{npc:2215}: ordens para {npc:270438}, a caminho do Forte do Desterro",

@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Tarren Mill
 	-- {area:272} Tarren Mill
-	["{area:272} is your base for this guide: you come back here between each loop. Everyone stands around the town square."] = "{area:272} es tu base en esta guía: vuelves aquí entre cada vuelta. Todos están alrededor de la plaza del pueblo.",
+	["{area:272} is the base for this guide, with a return here between each loop. Everyone stands around the town square."] = "",
 	-- {item:7768} Empty Red Waterskin · {object:107045} Spring Well
 	["Fill the {item:7768} at the {object:107045} beside the inn"] = "Llena el {item:7768} en el {object:107045} junto a la posada",
 	-- {npc:2216} Apothecary Lydon
@@ -246,6 +246,7 @@ return {
 	-- ["Walk back up to {area:272} and fly to the {area:228}: {npc:2121} stands by the crypt entrance."] = "Vuelve a subir a {area:272} y vuela a {area:228}: {npc:2121} está junto a la entrada de la cripta.",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Llegas vinculado a la posada de {area:272}. Todos están alrededor de la plaza del pueblo.",
 	-- ["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272} es tu base en esta guía: la piedra de hogar te trae de vuelta aquí dos veces. Todos están alrededor de la plaza del pueblo.",
+	-- ["{area:272} is your base for this guide: you come back here between each loop. Everyone stands around the town square."] = "{area:272} es tu base en esta guía: vuelves aquí entre cada vuelta. Todos están alrededor de la plaza del pueblo.",
 	-- ["{item:3692}: the Peasants in the fields"] = "{item:3692}: los campesinos de los campos",
 	-- ["{npc:2055}, in the {zone:1458}"] = "{npc:2055}, en {zone:1458}",
 	-- ["{npc:2215}: orders for {npc:270438}, on the way to Durnholde"] = "{npc:2215}: órdenes para {npc:270438}, camino al Castillo de Durnholde",

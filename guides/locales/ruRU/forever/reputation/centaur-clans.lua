@@ -117,8 +117,9 @@ return {
 	-- Step 15: Gelkis: Test Your Theory
 	-- {quest:93045} Test Your Theory
 	["Gelkis: {quest:93045}"] = "Гелкис: {quest:93045}",
-	-- {npc:5397} Uthek the Wise · {item:6071} Draenethyst Crystal · {item:256061} Uthek's Draenethyst Staff · {item:255945} Accursed Skull · {npc:253177} Nerlokh
-	["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "По данным заданий: {npc:5397} дает вам свой посох и {item:6071}. Соедините их в {item:256061}, отнесите его к месту ритуала у пруда чуть восточнее деревни и снимите проклятие с предмета {item:255945}. Затем снова на восток к NPC {npc:253177}.",
+	-- {npc:5397} Uthek the Wise · {item:6071} Draenethyst Crystal · {item:258661} Uthek's Draenethyst Staff · {item:255945} Accursed Skull · {npc:253177} Nerlokh
+	-- was: ["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "По данным заданий: {npc:5397} дает вам свой посох и {item:6071}. Соедините их в {item:256061}, отнесите его к месту ритуала у пруда чуть восточнее деревни и снимите проклятие с предмета {item:255945}. Затем снова на восток к NPC {npc:253177}."
+	["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:258661}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "",
 	-- {item:255945} Accursed Skull
 	["dispel the {item:255945} by the pond"] = "снимите проклятие с предмета {item:255945} у пруда",
 
@@ -130,9 +131,9 @@ return {
 
 	-- Step 17: Gelkis: the heart of the valley
 	["Gelkis: the heart of the valley"] = "Гелкис: сердце долины",
-	-- {npc:253177} Nerlokh · {npc:253446} Haggard Bones · {item:256061} Uthek's Draenethyst Staff
+	-- {npc:253177} Nerlokh · {npc:253446} Haggard Bones
 	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: east of {npc:253177}, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie {npc:253446}, failed summons stuck in the ground: lay eight to rest with {item:256061}, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull."] = "По данным заданий: к востоку от NPC {npc:253177}, в сердце долины, Маграм держат пленников Гелкис: освободите пятерых. Среди них лежат {npc:253446} – неудавшиеся призывы, застрявшие в земле: упокойте восемь с помощью предмета {item:256061}, который дает задание. Трупоеды и некроханы Маграм, элитные, 45-го уровня, ходят по долине и нападают на друзей Гелкис: пропустите их, прежде чем нападать.",
+	["The Magram hold Gelkis Captives east of {npc:253177}, in the heart of the valley, and {npc:253446} are failed summons stuck in the ground there. Corpsefeeders and Magram Necrokhans, elite and level 45, patrol the valley and attack friends of the Gelkis."] = "",
 	-- {npc:253446} Haggard Bones
 	["Lay {npc:253446} to rest"] = "Упокойте: {npc:253446}",
 	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive
@@ -259,8 +260,8 @@ return {
 	-- Step 35: Magram: the heart of the valley
 	["Magram: the heart of the valley"] = "Маграм: сердце долины",
 	-- {npc:253136} Orgrul · {npc:253446} Haggard Bones
-	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: south-east of {npc:253136}, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The {npc:253446} there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone."] = "По данным заданий: к юго-востоку от NPC {npc:253136}, в сердце долины, Маграм держат пленников Гелкис: убейте пятерых. {npc:253446} там – неудавшиеся призывы, застрявшие в земле: поднимите десять улучшенным некромантским посохом, который дал вам Оргрул, и убейте тех, что сопротивляются. Трупоеды, элитные, 45-го уровня, ходят по долине и нападают на всех; некроханы Маграм, тоже элитные, не трогают друзей Маграм.",
+	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
+	["The Magram camp is south-east of {npc:253136}, in the heart of the valley. The {npc:253446} are failed summons stuck in the ground, and some fight back once raised. Corpsefeeders (elite, level 45) roam the valley and attack anyone, while the elite Magram Necrokhans leave friends of the Magram alone."] = "",
 	-- {npc:253446} Haggard Bones
 	["Raise or slay {npc:253446}"] = "Поднимите или убейте: {npc:253446}",
 
@@ -320,5 +321,8 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["12 recipes for Carved Centaur Totems at the clan quartermasters, no standing needed"] = "12 рецептов резных тотемов кентавров ({item:254432}) у интендантов кланов, репутация не требуется",
+	-- ["From the quest data: east of {npc:253177}, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie {npc:253446}, failed summons stuck in the ground: lay eight to rest with {item:256061}, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull."] = "По данным заданий: к востоку от NPC {npc:253177}, в сердце долины, Маграм держат пленников Гелкис: освободите пятерых. Среди них лежат {npc:253446} – неудавшиеся призывы, застрявшие в земле: упокойте восемь с помощью предмета {item:256061}, который дает задание. Трупоеды и некроханы Маграм, элитные, 45-го уровня, ходят по долине и нападают на друзей Гелкис: пропустите их, прежде чем нападать.",
+	-- ["From the quest data: south-east of {npc:253136}, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The {npc:253446} there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone."] = "По данным заданий: к юго-востоку от NPC {npc:253136}, в сердце долины, Маграм держат пленников Гелкис: убейте пятерых. {npc:253446} там – неудавшиеся призывы, застрявшие в земле: поднимите десять улучшенным некромантским посохом, который дал вам Оргрул, и убейте тех, что сопротивляются. Трупоеды, элитные, 45-го уровня, ходят по долине и нападают на всех; некроханы Маграм, тоже элитные, не трогают друзей Маграм.",
+	-- ["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "По данным заданий: {npc:5397} дает вам свой посох и {item:6071}. Соедините их в {item:256061}, отнесите его к месту ритуала у пруда чуть восточнее деревни и снимите проклятие с предмета {item:255945}. Затем снова на восток к NPC {npc:253177}.",
 	-- ["three Tears of Theradras"] = "три Слезы Терадраса",
 }

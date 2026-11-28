@@ -626,8 +626,8 @@ return {
 	["Thunderhawk Cloudscrapers circle over the plains south of the camp."] = "비단천둥매가 야영지 남쪽 평원 위를 맴돕니다.",
 
 	-- Step 143: Brine
-	-- {npc:5899} Brine · {area:378} Camp Taurajo · {item:7766} Empty Brown Waterskin
-	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "{npc:5899}의 오두막은 {area:378} 남쪽, 멧돼지인 물웅덩이 위 능선에 있습니다: 그 아래 물웅덩이에서 {item:7766}을(를) 채우세요.",
+	-- {npc:5899} Brine · {area:378} Camp Taurajo
+	["{npc:5899}'s hut is on the ridge above the quilboar watering hole, south of {area:378}."] = "",
 	-- {item:7766} Empty Brown Waterskin
 	["Fill the {item:7766} at the quilboar watering hole"] = "가시멧돼지 물웅덩이에서 {item:7766} 채우기",
 	-- {object:107045} Spring Well · {area:272} Tarren Mill · {area:287} Hillsbrad
@@ -796,6 +796,7 @@ return {
 	-- ["{npc:3448}: the Oasis Snapjaws at the {area:388}, with {npc:3395}"] = "{npc:3448}: {area:388}의 오아시스 무쇠턱거북, {npc:3395}와(과) 함께",
 	-- ["{npc:3615}, the wind rider master"] = "윈드라이더 조련사 {npc:3615}",
 	-- ["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878}은(는) {area:380}에서 {area:392}(으)로 가는 길가에 야영하고 있습니다. {object:58369}은(는) 그 바로 북쪽, 서슬갈기일족 야영지 남쪽에 있습니다.",
+	-- ["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "{npc:5899}의 오두막은 {area:378} 남쪽, 멧돼지인 물웅덩이 위 능선에 있습니다: 그 아래 물웅덩이에서 {item:7766}을(를) 채우세요.",
 	-- ["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900}은(는) 다리 건너 {area:379} 남쪽 강기슭에서 기다립니다.",
 	-- ["{npc:5907} stands on the ridge north of the Razormane camp."] = "{npc:5907}은(는) 서슬갈기일족 야영지 북쪽 능선에 서 있습니다.",
 	-- ["{object:3972} poster"] = "{object:3972} 게시판",

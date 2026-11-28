@@ -105,8 +105,8 @@ return {
 
 	-- Step 20: The flying machine
 	["The flying machine"] = "飛行器",
-	-- {item:5021} Explosive Stick of Gann · {npc:3341} Gann Stonespire
-	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "矮人的飛行器停在挖掘場內的平台上。對它使用{npc:3341}給你的{item:5021}。",
+	-- was: ["The dwarves' flying machine sits on its platform inside the dig site."] = "矮人的飛行器停在挖掘場內的平台上。"
+	["The dwarves' flying machine sits on its platform inside the dig site."] = "",
 
 	-- Step 22: To Camp Taurajo
 	-- {area:378} Camp Taurajo
@@ -323,6 +323,7 @@ return {
 	-- ["The Venture Co. Overseers and Enforcers at the mine in the north-east corner of the zone drop the {item:5097}."] = "地區東北角礦坑的風險投資公司監工和風險投資公司執行者會掉落{item:5097}。",
 	-- ["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away."] = "觸鬚掉落十五分鐘後就會消失，所以現在在往北的回程路上收集：在{area:390}的土丘擊殺異種群居蠍和異種爬行者直到收集五個，然後立刻用爐石回到{area:378}。",
 	-- ["The dwarves' flying machine sits on its platform inside the dig site."] = "矮人的飛行器停在挖掘場內的平台上。",
+	-- ["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "矮人的飛行器停在挖掘場內的平台上。對它使用{npc:3341}給你的{item:5021}。",
 	-- ["The level-20 class quests in {zone:1454} ({npc:3354}, {npc:5892}, the Warlock and Rogue trainers) are only offered from level 20, so finish the level here before you fly. The Thunderhawk Hatchlings (18) on the plains south-west of the {area:380} and the Kolkar (14-15) at the {area:388} are the nearest mobs worth killing; you need well under a level."] = "{zone:1454}的20級職業任務（{npc:3354}、{npc:5892}、術士和盜賊訓練師）只在20級後才提供，所以飛之前先在這裡升到20級。{area:380}西南方平原上的雷鷹雛鳥（18級）和{area:388}的科卡爾半人馬（14-15級）是最近值得打的怪；你需要的經驗遠不到一級。",
 	-- ["The pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "海盜在{area:392}南邊的海灘上紮營；{npc:3467}站在營地南端。",
 	-- ["The {area:2363}"] = "{area:2363}",

@@ -130,8 +130,8 @@ return {
 	-- Step 22: Morgan's Vigil: hand in
 	-- {area:2418} Morgan's Vigil
 	["{area:2418}: hand in"] = "{area:2418}：交任务",
-	-- {npc:9176} Gor'tesh · {area:249} Dreadmaul Rock
-	["Plant {npc:9176}'s head on the soft dirt mound at the top of {area:249}."] = "把 {npc:9176} 的头颅插在 {area:249} 顶部的松软土堆上。",
+	-- {area:249} Dreadmaul Rock
+	["The soft dirt mound is at the top of {area:249}."] = "",
 
 	-- Step 23: Ironforge: Archesonus again
 	-- {faction:47} Ironforge
@@ -171,6 +171,7 @@ return {
 	-- ["Optional: eastern {zone:1426}, from {npc:264936}'s camp to the {area:134} and {area:803}, about 500 reputation (100 at a fifth) in 30 minutes at 60. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "可选：{zone:1426} 东部，从 {npc:264936} 的营地到 {area:134} 和 {area:803}，60级时约30分钟获得500点声望（若只有五分之一则为100点）。经典版中，低于你6级或更多的任务奖励会减少（60级时为五分之一）；一份无限服测试报告称会给全额声望。首次交还即可判断：如果只有五分之一，就跳过这些任务点。跳过此步骤即可跳过该任务点。",
 	-- ["Optional: the Dwarf and Gnome start valley south-west of {area:131}, about 1,100 reputation (220 at a fifth) in 30 minutes at 60. {npc:658} and {npc:713} stand at {area:77}. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "可选：{area:131} 西南面的矮人和侏儒起始山谷，60级时约30分钟可得1,100声望（若按五分之一则为220）。{npc:658} 和 {npc:713} 站在 {area:77}。在经典旧世中，低于你6级及以上的任务奖励会减少（60级时为五分之一）；一份无限服测试版反馈称仍获得全额。第一次交还就能看出实际情况：如果只有五分之一，跳过这些任务据点。跳过此步骤即可跳过这个据点。",
 	-- ["Optional: {area:131} and the Brewnall and {area:133} roads around it, about 1,300 reputation (260 at a fifth) in 50 minutes at 60. Most givers stand in and around the {area:2102} and at {area:189} east of it. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "可选：{area:131} 及周围通往涌冰湖和 {area:133} 的道路，60 级时花约 50 分钟可获得约 1,300 点声望（按五分之一计算为 260 点）。大多数任务给予者在 {area:2102} 内外及其东侧的 {area:189}。在经典旧世中，比你低至少 6 级的任务声望奖励会减少（60 级时降至五分之一）；一份无限测试版报告称，任务仍提供全额声望。第一次交还任务时就能看出：如果只给五分之一，就跳过这些任务点。跳过本步骤即可跳过这个任务点。",
+	-- ["Plant {npc:9176}'s head on the soft dirt mound at the top of {area:249}."] = "把 {npc:9176} 的头颅插在 {area:249} 顶部的松软土堆上。",
 	-- ["Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too."] = "这里的河爪强盗和河爪监工（16-18级）会掉落。也可以去拍卖行购买。",
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "激流堡的辛迪加雇佣兵（31-32级）会掉落。也可以去拍卖行购买。",
 	-- ["These quests are level 52 to 59, so they pay in full at 60, or nearly: about 600 {faction:47} reputation (in Classic about 450 at 60, as the {zone:1428} ones are level 52 to 54). {npc:8879} stands beside King Magni in the {object:171709}; he sends you to the ruins of Thaurissan in the {zone:1428}."] = "这些任务为52到59级，因此60级时仍可获得全额或接近全额的奖励：约600点{faction:47}声望（经典版中60级时约450，因为{zone:1428}的任务为52到54级）。{npc:8879}站在{object:171709}的麦格尼国王旁；他会派你去{zone:1428}的索瑞森废墟。",

@@ -255,9 +255,8 @@ return {
 	-- Step 55: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Sentry Braziers"] = "Wachkohlenbecken",
-	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "Trage das {object:149047} nach Süden entlang des Randes des Kessels und entzünde die vier Wachposten-Kohlenpfannen, vom Südwesten her nach Osten.",
+	["The four Sentry Braziers sit along the southern rim of the Cauldron, from the south-west round to the east."] = "",
 
 	-- Step 56: Squire Maltrake
 	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade
@@ -378,6 +377,7 @@ return {
 	-- ["Bloodpetal Flayers"] = "Blutblütenschinder",
 	-- ["Careful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "Vorsicht: Gorishi Workers, die unter 45% Gesundheit fallen, rufen mit 50% Wahrscheinlichkeit Verbündete im Umkreis von 25 yd zu Hilfe.",
 	-- ["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.\nBelow level 52, keep hunting the ravasaurs here after the eighth claw: {quest:4061} at {area:340} needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Vorsicht: In der Gegend streifen viele Ravasaurs umher, sodass du leicht mehrere gleichzeitig ziehst.\nSolange du unter Stufe 52 bist, jage hier nach der achten Klaue weiter Ravasaurs: {quest:4061} in {area:340} braucht Stufe 52, und die Quests im Pestland am Ende dieses Guides sind Stufe 55. Oder lauf stattdessen mit einer Gruppe den Dungeon {area:1417} oder den Dungeon {area:2100}.",
+	-- ["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "Trage das {object:149047} nach Süden entlang des Randes des Kessels und entzünde die vier Wachposten-Kohlenpfannen, vom Südwesten her nach Osten.",
 	-- ["Darrowshire Spirits"] = "Geister von Darrowshire",
 	-- ["Fly to {area:1637} and train before the {object:3202} zeppelin: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "Flieg nach {area:1637} und trainiere vor dem Zeppelin nach {object:3202}: Der Halt in {zone:1458} später in diesem Guide hat keinen Jäger- oder Schamanenlehrer.",
 	-- ["Fly to {area:1637}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {zone:1418}' west edge."] = "Flieg nach {area:1637}, nimm den Zeppelin nach {object:3202} und flieg von dort nach {area:340}, das in die Klippen am Westrand des Gebiets {zone:1418} gebaut ist.",

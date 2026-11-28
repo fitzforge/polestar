@@ -560,8 +560,8 @@ return {
 	["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "{npc:5497}站在{object:2101}的塔楼巫师圣殿里；她会给你一个瓶子，用于{quest:1861}的瀑布。",
 
 	-- Step 120: Mirror Lake
-	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
-	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "从正门离开{zone:1453}。{quest:1861}瀑布在城门西南边，就在西去{zone:1436}的路上：在瀑布底部装满{item:7207}。",
+	-- {quest:1861} Mirror Lake · {zone:1453} Stormwind · {zone:1436} Westfall
+	["The {quest:1861} waterfall is south-west of {zone:1453}'s main gate, on the way west to {zone:1436}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Shen'dar"] = "回到申达尔",
@@ -575,6 +575,7 @@ return {
 	-- ["Head north-west to the hippogryph nests on the western cliffs. {item:263493} lies around the nests; the Matriarch patrols among them."] = "向西北前往西部悬崖上的角鹰兽巢穴。{item:263493}散落在巢穴周围；角鹰兽雌兽在其间巡逻。",
 	-- ["Heal 7 druids in the Nightfang Den, then find {npc:258130}"] = "治疗Nightfang Den中的7名德鲁伊，然后找到{npc:258130}",
 	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {area:40}: fill {item:7207} at its base."] = "从正门离开{zone:1453}。{quest:1861}瀑布在城门西南方，就在向西前往{area:40}的路上：在瀑布底部装满{item:7207}。",
+	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "从正门离开{zone:1453}。{quest:1861}瀑布在城门西南边，就在西去{zone:1436}的路上：在瀑布底部装满{item:7207}。",
 	-- ["Level 6 spells"] = "6级法术",
 	-- ["Lorthuna waits on the eastern shore of the isle, east of the {area:16629}."] = "洛苏娜在岛屿东岸等候，位于{area:16629}东边。",
 	-- ["Meet Valennia at the gate"] = "在大门与瓦伦妮亚会合",

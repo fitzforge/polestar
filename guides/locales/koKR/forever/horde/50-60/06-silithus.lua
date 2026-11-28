@@ -223,8 +223,8 @@ return {
 	["You missed this on the Un'Goro guide's loop: {npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "",
 
 	-- Step 47: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "동쪽 {area:537}(으)로 가서 올라가 정상 근처 용암 분출구에서 {npc:10541}을(를) 사용한 뒤, 서쪽 {npc:10302}에게 돌아가세요.",
+	-- {area:537} Fire Plume Ridge · {npc:10302} Krakle
+	["The lava vent is near the top of {area:537}, east of {npc:10302}."] = "",
 
 	-- Step 48: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
@@ -313,6 +313,7 @@ return {
 	-- ["Radley and Durgen"] = "래들리와 드루겐",
 	-- ["Ride east across the plaguelands to the chapel."] = "동쪽으로 역병지대를 가로질러 예배당으로 가세요.",
 	-- ["Ride east along the road to the {area:152} on the border."] = "길을 따라 동쪽으로 경계의 {area:152}로 가세요.",
+	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "동쪽 {area:537}(으)로 가서 올라가 정상 근처 용암 분출구에서 {npc:10541}을(를) 사용한 뒤, 서쪽 {npc:10302}에게 돌아가세요.",
 	-- ["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "동쪽으로 {area:2619} 옆 {npc:1855}의 오두막으로 가서 그의 이야기를 들으세요.",
 	-- ["Ride north-east to {area:2276} by {area:2275}: the high elf Rangers, Pathstriders and Woodsmen guard it and the Registry lies inside. Careful: the Pathstriders are 57-58 but the Rangers reach 60: pull one at a time and take the Rangers last."] = "북동쪽 {area:2275} 옆의 {area:2276}(으)로 가세요. 하이 엘프 순찰자, 길잡이, 나무꾼이 지키고 있고 명부는 안에 있습니다. 주의: 길잡이는 57-58이지만 순찰자는 60까지 됩니다. 하나씩 끌고 순찰자는 마지막에 처치하세요.",
 	-- ["Ride north-east to {area:3447}."] = "북동쪽의 {area:3447}(으)로 가세요.",

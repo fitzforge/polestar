@@ -67,8 +67,8 @@ return {
 	-- Step 14: Ruins of Stardust fountain
 	-- {area:418} Ruins of Stardust
 	["{area:418} fountain"] = "{area:418} 분수",
-	-- {area:418} Ruins of Stardust · {npc:12678} Ursangous · {item:7767} Empty Blue Waterskin
-	["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "분수는 {area:418} 한가운데에 있으며, {npc:12678}이(가) 그곳을 돌아다닙니다. 그곳에서 {item:7767}을(를) 사용하세요.",
+	-- {area:418} Ruins of Stardust · {npc:12678} Ursangous
+	["The fountain is in the middle of the {area:418}, where {npc:12678} roams."] = "",
 
 	-- Step 15: Ursangous
 	-- {area:415} Astranaar · {npc:12678} Ursangous · {area:418} Ruins of Stardust · {area:421} Mystral Lake
@@ -447,6 +447,7 @@ return {
 	-- ["South of Darkcloud, the harpies of {area:487}. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top."] = "먹구름 봉우리 남쪽에 {area:487}의 하피들이 있습니다. {npc:4490}(31)은(는) 그들 사이를 돌아다닙니다. 끌어오기 전에 주변 하피를 줄이세요. 그곳의 회오리 하피, 약탈자, 바람마녀는 {npc:4877}의 퀘스트 대상이며, 그녀의 {quest:98069}은(는) 절벽 아래쪽 땅과 위쪽 동굴 안에 있습니다.",
 	-- ["Take a lift down from {zone:1456}. The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}."] = "{zone:1456}에서 승강기를 타고 내려가세요. 대지 고리회 야영지는 절벽 북쪽에 있습니다: {npc:264074}, {npc:264072}, {npc:259118}.",
 	-- ["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks between the camps: kill him when you meet him, his note starts a quest for {area:2237}."] = "갈라크일족 야영지가 높새바람 봉우리 북쪽 협곡을 가득 메우고 있으며, 모든 야영지에 척후병, 사냥꾼, 바람전사가 함께 있습니다. 홀로 다니는 {npc:10617}이(가) 야영지 사이를 오갑니다. 만나면 처치하세요. 그의 쪽지가 {area:2237} 퀘스트를 시작합니다.",
+	-- ["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "분수는 {area:418} 한가운데에 있으며, {npc:12678}이(가) 그곳을 돌아다닙니다. 그곳에서 {item:7767}을(를) 사용하세요.",
 	-- ["The next guide flies on from here to the Crossroads and {zone:1454}."] = "다음 가이드는 여기서 크로스로드와 {zone:1454}(으)로 날아갑니다.",
 	-- ["The next guide opens with Korran's The Swarm Grows at the Crossroads, offered from level 29. Short of 29? The Pesterhide Snarlers (28-29) prowl the canyon floor just north-west of {area:484}: kill them until level 29. Or, with a group, run the {area:2797} dungeon instead."] = "다음 가이드는 29레벨부터 받을 수 있는 코란의 '곤충 떼의 위협'(십자로)으로 시작합니다. 29레벨이 안 되나요? {area:484} 바로 북서쪽 협곡 바닥을 사나운 점박이하이에나(28-29)가 돌아다닙니다. 29레벨이 될 때까지 처치하세요. 또는 파티가 있다면 대신 {area:2797} 던전을 도세요.",
 	-- ["The salt flats"] = "소금 평원",

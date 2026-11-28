@@ -224,8 +224,8 @@ return {
 	["You missed this on the Un'Goro guide's loop: {npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "",
 
 	-- Step 47: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "向東騎往{area:537}，爬上去，在山頂附近的熔岩噴口使用{npc:10541}，然後騎回西邊找{npc:10302}。",
+	-- {area:537} Fire Plume Ridge · {npc:10302} Krakle
+	["The lava vent is near the top of {area:537}, east of {npc:10302}."] = "",
 
 	-- Step 48: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
@@ -318,6 +318,7 @@ return {
 	-- ["Radley and Durgen"] = "萊德雷與杜爾根",
 	-- ["Ride east across the plaguelands to the chapel."] = "往東穿過瘟疫之地到禮拜堂。",
 	-- ["Ride east along the road to the {area:152} on the border."] = "沿著道路往東騎到邊界上的{area:152}。",
+	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "向東騎往{area:537}，爬上去，在山頂附近的熔岩噴口使用{npc:10541}，然後騎回西邊找{npc:10302}。",
 	-- ["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "往東騎到{area:2619}旁{npc:1855}的小屋，聽他把話說完。",
 	-- ["Ride north-east to {area:2276} by {area:2275}: the high elf Rangers, Pathstriders and Woodsmen guard it and the Registry lies inside. Careful: the Pathstriders are 57-58 but the Rangers reach 60: pull one at a time and take the Rangers last."] = "往東北騎到{area:2275}旁的{area:2276}：高等精靈遊俠、巡路者和樵夫守著那裡，登記簿就在裡面。小心：巡路者是57-58級，但遊俠可達60級：一次拉一隻，最後再打遊俠。",
 	-- ["Ride north-east to {area:3447}."] = "往東北騎到{area:3447}。",

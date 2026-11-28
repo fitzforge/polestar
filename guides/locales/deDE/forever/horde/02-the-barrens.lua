@@ -622,8 +622,8 @@ return {
 	["Thunderhawk Cloudscrapers circle over the plains south of the camp."] = "Donnerfalkenwolkenkitzler kreisen über den Ebenen südlich des Lagers.",
 
 	-- Step 143: Brine
-	-- {npc:5899} Brine · {area:378} Camp Taurajo · {item:7766} Empty Brown Waterskin
-	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "Die Hütte von {npc:5899} steht auf dem Kamm über der Tränke der Stacheleber, südlich von {area:378}: Fülle den {item:7766} an der Tränke darunter.",
+	-- {npc:5899} Brine · {area:378} Camp Taurajo
+	["{npc:5899}'s hut is on the ridge above the quilboar watering hole, south of {area:378}."] = "",
 	-- {item:7766} Empty Brown Waterskin
 	["Fill the {item:7766} at the quilboar watering hole"] = "Füll {item:7766} am Wasserloch der Stacheleber",
 	-- {object:107045} Spring Well · {area:272} Tarren Mill · {area:287} Hillsbrad
@@ -825,6 +825,7 @@ return {
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, der Windreitermeister",
 	-- ["{npc:5878} camps beside the road from the Crossroads to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878} lagert neben der Straße vom Wegekreuz nach {area:392}. Die {object:58369} steht im Süden des Lagers der Klingenmähnen, direkt nördlich von ihm.",
 	-- ["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878} lagert an der Straße von {area:380} nach {area:392}. {object:58369} steht im Süden des Lagers der Grimmhauer gleich nördlich von ihm.",
+	-- ["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "Die Hütte von {npc:5899} steht auf dem Kamm über der Tränke der Stacheleber, südlich von {area:378}: Fülle den {item:7766} an der Tränke darunter.",
 	-- ["{npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "{npc:5900} macht aus dem Teer und dem Beutel {item:6636}. Benutze es am Kohlenbecken neben ihm, um {npc:5893} sichtbar zu machen, töte sie für {item:6655} und leg die Glut dann ins Kohlenbecken.",
 	-- ["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900} wartet am Flussufer südlich von {area:379}, jenseits der Brücke.",
 	-- ["{npc:5907} stands on the ridge north of the Razormane camp."] = "{npc:5907} steht auf dem Kamm nördlich des Lagers der Grimmhauer.",

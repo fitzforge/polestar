@@ -224,8 +224,8 @@ return {
 	["You missed this on the Un'Goro guide's loop: {npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "",
 
 	-- Step 47: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "Chevauchez vers l'est jusqu'à {area:537}, grimpez-y et utilisez {npc:10541} sur la cheminée de lave près du sommet, puis revenez vers l'ouest jusqu'à {npc:10302}.",
+	-- {area:537} Fire Plume Ridge · {npc:10302} Krakle
+	["The lava vent is near the top of {area:537}, east of {npc:10302}."] = "",
 
 	-- Step 48: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
@@ -328,6 +328,7 @@ return {
 	-- ["Radley and Durgen"] = "Radley et Durgen",
 	-- ["Ride east across the plaguelands to the chapel."] = "Traversez les maleterres vers l'est jusqu'à la chapelle.",
 	-- ["Ride east along the road to the {area:152} on the border."] = "Suivez la route vers l'est jusqu'à la {area:152}, à la frontière.",
+	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "Chevauchez vers l'est jusqu'à {area:537}, grimpez-y et utilisez {npc:10541} sur la cheminée de lave près du sommet, puis revenez vers l'ouest jusqu'à {npc:10302}.",
 	-- ["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "Allez vers l'est jusqu'à la cabane de {npc:1855}, au bord de {area:2619}, et écoutez-le.",
 	-- ["Ride north-east to {area:2276} by {area:2275}: the high elf Rangers, Pathstriders and Woodsmen guard it and the Registry lies inside. Careful: the Pathstriders are 57-58 but the Rangers reach 60: pull one at a time and take the Rangers last."] = "Allez au nord-est jusqu'à {area:2276}, près de {area:2275} : les Forestiers, Éclaireurs et Forestiers bûcherons hauts-elfes la gardent et le Registre se trouve à l'intérieur. Attention : les Éclaireurs sont 57-58 mais les Forestiers montent jusqu'à 60 : attirez-les un par un et gardez les Forestiers pour la fin.",
 	-- ["Ride north-east to {area:3447}."] = "Allez vers le nord-est jusqu'à {area:3447}.",

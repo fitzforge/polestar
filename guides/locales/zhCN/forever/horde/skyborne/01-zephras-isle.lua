@@ -357,7 +357,7 @@ return {
 
 	-- Step 79: The Eternal Flame
 	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
-	["Back to {npc:268592}. Wait for him to light the {npc:268762}, then carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638} before the timer runs out."] = "回到{npc:268592}处。等他点燃{npc:268762}，然后在计时结束前把火焰直接带到{area:16638}{npc:252382}旁边的{npc:268679}。",
+	["{npc:268592} lights the {npc:268762}. The flame is on a timer, and the {npc:268679} is beside {npc:252382} in {area:16638}."] = "",
 	-- {npc:252382} Sessaria Skystride · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
 	["{npc:252382}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:252382}：{npc:2523}、你的{item:5176}和{item:263412}",
 
@@ -543,6 +543,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:16624} with what you found."] = "带着你找到的东西返回{area:16624}。",
 	-- ["Back to {npc:268592}, then west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "回到{npc:268592} Swiftburn处，然后向西进入{area:16623}：{npc:268605}的家在{npc:254588}所在湖泊南边的山丘里。",
+	-- ["Back to {npc:268592}. Wait for him to light the {npc:268762}, then carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638} before the timer runs out."] = "回到{npc:268592}处。等他点燃{npc:268762}，然后在计时结束前把火焰直接带到{area:16638}{npc:252382}旁边的{npc:268679}。",
 	-- ["Bandit Highwaymen"] = "强盗路霸",
 	-- ["Climb the watchtower in the village, jump off the top and use {spell:1259416} to float down."] = "爬上村里的瞭望塔，从塔顶跳下，使用{spell:1259416}缓缓飘落。",
 	-- ["Faladiel stands on the hill west of the falls, north of {area:16638}."] = "Skypriest Faladiel站在{area:16638}北边、瀑布西边的山丘上。",

@@ -96,10 +96,11 @@ return {
 	-- Step 15: Ketharas's shrine
 	-- {npc:256222} Ketharas
 	["{npc:256222}'s shrine"] = "{npc:256222}的神龛",
-	["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: bury the remains there."] = "神龛由两块立石组成，在隐士的洞穴西边，正好位于返回哨站的路上。把遗骸埋在那里。",
+	-- was: ["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: bury the remains there."] = "神龛由两块立石组成，在隐士的洞穴西边，正好位于返回哨站的路上。把遗骸埋在那里。"
+	["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost."] = "",
 
 	-- Step 17: The ancients' outpost
-	["West to the outpost."] = "向西前往哨站。",
+	["The outpost is to the west."] = "",
 	-- {npc:248366} Fraxinus
 	["put the poultice on {npc:248366}"] = "给{npc:248366}敷药",
 
@@ -426,8 +427,8 @@ return {
 
 	-- Step 94: The falls and the first kitten
 	["The falls and the first kitten"] = "瀑布和第一只小猫",
-	-- {npc:267109} Galvinquam Leafsyre · {npc:255685} Solstice · {npc:255683} Shalla'kal
-	["Fill {npc:267109}'s gourd at the falls beside the bridge. {npc:255685}, one of {npc:255683}'s kittens, plays just west of the falls: walk up to her."] = "在桥边的瀑布灌满{npc:267109}的葫芦。{npc:255685}是{npc:255683}的小猫之一，正在瀑布西边不远处玩耍，走到它身边。",
+	-- {npc:255685} Solstice · {npc:255683} Shalla'kal
+	["The falls are beside the bridge. {npc:255685}, one of {npc:255683}'s kittens, plays just west of the falls."] = "",
 	["fill the gourd"] = "灌满葫芦",
 
 	-- Step 95: Johun "Punchy" Dillas's camp
@@ -698,8 +699,11 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:264089}, then the ghostly {npc:255009} at {area:16868}'s western edge, where the recording met him, on your way west."] = "先回去找{npc:264089}，再顺路向西找幽灵{npc:255009}。路线记录中在{area:16868}西缘遇到他的。",
+	-- ["Fill {npc:267109}'s gourd at the falls beside the bridge. {npc:255685}, one of {npc:255683}'s kittens, plays just west of the falls: walk up to her."] = "在桥边的瀑布灌满{npc:267109}的葫芦。{npc:255685}是{npc:255683}的小猫之一，正在瀑布西边不远处玩耍，走到它身边。",
 	-- ["Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up."] = "灰烬营地有四座工作台，从南往北依次朝每座工作台扔一颗松果。",
 	-- ["North-east to {npc:263394}. Drain him first: use {npc:263406}'s eye on him, and only then fight him. Undrained, he and {npc:252457} are level 60 elites. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room."] = "往东北找{npc:263394}。先用{npc:263406}给的无尽影响之眼吸取他的力量，再开打。他和{npc:252457}被削弱前都是60级精英。{npc:267439}（61级精英）会在{area:16866}这一带巡逻，绕开他。\n小心，军团巨兽（60级稀有精英）会在{area:16866}各营地巡逻，绕开它们。",
+	-- ["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: bury the remains there."] = "神龛由两块立石组成，在隐士的洞穴西边，正好位于返回哨站的路上。把遗骸埋在那里。",
 	-- ["West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the {npc:264306}, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once."] = "向西前往软泥池旁的骨堆，把术士的骨头扔到骨堆上，然后就在骨堆处交任务。交任务会唤醒{npc:264306}，它是58级精英，打人很疼。没组队打它的话，交完任务立刻离开。",
+	-- ["West to the outpost."] = "向西前往哨站。",
 	-- ["West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story."] = "往西前往山谷上方的观景处，老兵的旧剑鞘就在那里。先在剑鞘处交任务，再从剑鞘接取后续任务。然后使用背包里的剑鞘召出老兵的灵魂，听他讲述往事。",
 }

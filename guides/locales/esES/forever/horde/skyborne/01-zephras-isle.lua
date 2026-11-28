@@ -357,7 +357,7 @@ return {
 
 	-- Step 79: The Eternal Flame
 	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
-	["Back to {npc:268592}. Wait for him to light the {npc:268762}, then carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638} before the timer runs out."] = "Vuelve con {npc:268592}. Espera a que encienda el {npc:268762} y lleva la llama directamente al {npc:268679}, junto a {npc:252382} en {area:16638}, antes de que se acabe el tiempo.",
+	["{npc:268592} lights the {npc:268762}. The flame is on a timer, and the {npc:268679} is beside {npc:252382} in {area:16638}."] = "",
 	-- {npc:252382} Sessaria Skystride · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
 	["{npc:252382}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:252382}: {npc:2523}, tu {item:5176} y el {item:263412}",
 
@@ -543,6 +543,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:268592}, then west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "Vuelve con {npc:268592} y luego ve al oeste hacia {area:16623}: el hogar de {npc:268605} está en las colinas al sur de los lagos de los Reptadores Canzalvaje.",
+	-- ["Back to {npc:268592}. Wait for him to light the {npc:268762}, then carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638} before the timer runs out."] = "Vuelve con {npc:268592}. Espera a que encienda el {npc:268762} y lleva la llama directamente al {npc:268679}, junto a {npc:252382} en {area:16638}, antes de que se acabe el tiempo.",
 	-- ["Bandit Highwaymen"] = "Bandidos salteadores",
 	-- ["Climb the watchtower in the village, jump off the top and use {spell:1259416} to float down."] = "Sube a la atalaya del pueblo, salta desde arriba y usa {spell:1259416} para bajar flotando.",
 	-- ["Follow the road south to {area:16624}, in the middle of the isle."] = "Sigue el camino al sur hasta {area:16624}, en el centro de la isla.",

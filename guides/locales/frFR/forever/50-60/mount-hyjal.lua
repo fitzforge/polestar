@@ -97,10 +97,11 @@ return {
 	-- Step 15: Ketharas's shrine
 	-- {npc:256222} Ketharas
 	["{npc:256222}'s shrine"] = "Le sanctuaire de {npc:256222}",
-	["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: bury the remains there."] = "Le sanctuaire est un couple de menhirs à l'ouest de la Demeure de l'Ermite, sur le chemin du retour vers l'avant-poste : enterrez les restes là-bas.",
+	-- was: ["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: bury the remains there."] = "Le sanctuaire est un couple de menhirs à l'ouest de la Demeure de l'Ermite, sur le chemin du retour vers l'avant-poste : enterrez les restes là-bas."
+	["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost."] = "",
 
 	-- Step 17: The ancients' outpost
-	["West to the outpost."] = "À l'ouest, vers l'avant-poste.",
+	["The outpost is to the west."] = "",
 	-- {npc:248366} Fraxinus
 	["put the poultice on {npc:248366}"] = "appliquez le cataplasme sur {npc:248366}",
 
@@ -429,8 +430,8 @@ return {
 
 	-- Step 94: The falls and the first kitten
 	["The falls and the first kitten"] = "Les chutes et le premier chaton",
-	-- {npc:267109} Galvinquam Leafsyre · {npc:255685} Solstice · {npc:255683} Shalla'kal
-	["Fill {npc:267109}'s gourd at the falls beside the bridge. {npc:255685}, one of {npc:255683}'s kittens, plays just west of the falls: walk up to her."] = "Remplissez la gourde de {npc:267109} aux chutes près du pont. {npc:255685}, l'un des chatons de {npc:255683}, joue juste à l'ouest des chutes : approchez-vous d'elle.",
+	-- {npc:255685} Solstice · {npc:255683} Shalla'kal
+	["The falls are beside the bridge. {npc:255685}, one of {npc:255683}'s kittens, plays just west of the falls."] = "",
 	["fill the gourd"] = "remplissez la gourde",
 
 	-- Step 95: Johun "Punchy" Dillas's camp
@@ -702,6 +703,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A group choice: {npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them. Drain each one first, then fight it; players in our recordings killed both once drained. Grouping up is advised."] = "Un choix de groupe : {npc:263394} et {npc:252457} sont des élites de niveau 60 jusqu'à ce que l'œil de {npc:263406} les draine. Drainiez chacun d'abord, puis combattez-le ; les joueurs de nos enregistrements ont tué les deux une fois drainés. Il est conseillé de se grouper.",
 	-- ["Back to {npc:264089}, then the ghostly {npc:255009} at {area:16868}'s western edge, where the recording met him, on your way west."] = "Retour vers {npc:264089}, puis vers le spectral {npc:255009} à la lisière ouest de {area:16868}, là où l'enregistrement l'a rencontré, sur votre chemin vers l'ouest.",
+	-- ["Fill {npc:267109}'s gourd at the falls beside the bridge. {npc:255685}, one of {npc:255683}'s kittens, plays just west of the falls: walk up to her."] = "Remplissez la gourde de {npc:267109} aux chutes près du pont. {npc:255685}, l'un des chatons de {npc:255683}, joue juste à l'ouest des chutes : approchez-vous d'elle.",
 	-- ["Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up."] = "Quatre postes de travail se tiennent dans le camp des Cendrés : lancez une pomme de pin sur chacun, de bas en haut.",
 	-- ["North into the shrub field: the {npc:248395} drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: plant the last seed there. Keep clear of {quest:91923} and {npc:248709}, the field's elites."] = "Au nord, vers le champ d'arbustes : les {npc:248395} laissent tomber les feuilles, et les Tubercules-flèches écarlates poussent sur le sol dégagé, la plupart dans la moitié ouest du champ. La baliste en ruines se tient à la lisière nord-est du champ : plantez la dernière graine là. Restez à l'écart de {quest:91923} et de {npc:248709}, les élites du champ.",
 	-- ["North-east to {npc:263394}. Drain him first: use {npc:263406}'s eye on him, and only then fight him. Undrained, he and {npc:252457} are level 60 elites. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room."] = "Au nord-est, vers {npc:263394}. Drainez-le d'abord : utilisez l'œil de {npc:263406} sur lui, et alors seulement combattez-le. Sans drainage, lui et {npc:252457} sont des élites de niveau 60. {npc:267439}, un élite (niveau 61), parcourt ce coin de {area:16866} : tenez-vous hors de son chemin.\nAttention : les Mastodontes de la Légion (60, élites rares) foulent le sol des camps de {area:16866} : laissez-leur de la place.",
@@ -713,8 +715,10 @@ return {
 	-- ["The Rustleaf Foxes are thick in the woods around {npc:249234}'s camp.\nCareful: {npc:255183} (61, rare) walks the woods north of the camp: leave her be."] = "Les Renards à rousselle abondent dans le bois autour du camp de {npc:249234}.\nAttention : {npc:255183} (61, rare) parcourt le bois au nord du camp : laissez-la tranquille.",
 	-- ["The Scourge hold the ruins of {area:16868}, east of {area:16848}: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them.\nCareful: Death Wailers (61, rare elites) drift over {area:16868}: keep out of their way.\nCareful: Grimroot, the elite treant (level 60), walks the slopes on the way in: give him room."] = "Le Fléau tient les ruines de {area:16868}, à l'est de {area:16848} : des Horreurs charognardes et des Soldats oubliés partout, avec des Sentinelles éternelles parmi eux.\nAttention : les Pleureuses de la mort (61, élites rares) dérivent sur {area:16868} : tenez-vous à l'écart d'eux.\nAttention : Grimroot, le tréant élite (niveau 60), parcourt les pentes en chemin : laissez-lui de la place.",
 	-- ["The ruined catapult and flying machine"] = "La catapulte et l'engin volant en ruines",
+	-- ["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: bury the remains there."] = "Le sanctuaire est un couple de menhirs à l'ouest de la Demeure de l'Ermite, sur le chemin du retour vers l'avant-poste : enterrez les restes là-bas.",
 	-- ["Two of the wrecks {npc:256222} named lie at the east end of the fields: plant one of his seeds beside each."] = "Deux des épaves dont {npc:256222} a parlé se trouvent à l'extrémité est des champs : plantez une de ses graines à côté de chacune.",
 	-- ["West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the {npc:264306}, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once."] = "À l'ouest, vers le tas d'os près des mares de limon : jetez les os des démonistes dessus, puis rendez la quête au tas lui-même. La rendre réveille {npc:264306}, un élite (niveau 58) qui frappe fort : à moins d'être groupé pour lui, rendez-la et éloignez-vous au galop aussitôt.",
+	-- ["West to the outpost."] = "À l'ouest, vers l'avant-poste.",
 	-- ["West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story."] = "À l'ouest, vers le belvédère au-dessus de la vallée : la vieille fourreau du vétéran s'y trouve. Rendez sa quête à la fourreau et prenez la suivante dedans, puis utilisez la fourreau de votre sac pour appeler son esprit et écouter son histoire.",
 	-- ["the {npc:262036}"] = "les {npc:262036}",
 }

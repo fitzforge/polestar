@@ -133,7 +133,7 @@ return {
 	["{zone:1449}: Primal Oozes"] = "{zone:1449}: Gosmas Primevas",
 	-- {area:537} Fire Plume Ridge
 	-- plural, as words: Primal Oozes = {npc:6557} Primal Ooze · Glutinous Oozes = {npc:6559} Glutinous Ooze
-	["The Primal Oozes live in the pools around {area:537} in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "As Gosmas Primevas vivem nas poças perto de {area:537}, no meio da cratera; as Gosmas Muculentas e Pegajosas também enchem as jarras. Mate uma e use uma jarra nos restos dela.",
+	["Primal Oozes live in the pools around {area:537} in the middle of the crater. Muculent and Glutinous Oozes also fill the jars."] = "",
 
 	-- Step 23: Tinker Town: hand in
 	-- {object:171524} Tinker Town
@@ -181,6 +181,7 @@ return {
 	-- ["Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too."] = "Bandidos e Capatazes Pata Molhada (nível 16-18) o deixam cair aqui. A Casa de Leilões também serve.",
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "Mercenários da Camarilha em Stromgarde (nível 31-32) o deixam cair aqui. A Casa de Leilões também serve.",
 	-- ["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill one and use an empty jar on its remains."] = "As Gosmas Amaldiçoadas e Maculadas deslizam pelos riachos e pelas poças vis perto de {area:1763} e {area:1765}: mate uma e use uma jarra vazia nos restos dela.",
+	-- ["The Primal Oozes live in the pools around {area:537} in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "As Gosmas Primevas vivem nas poças perto de {area:537}, no meio da cratera; as Gosmas Muculentas e Pegajosas também enchem as jarras. Mate uma e use uma jarra nos restos dela.",
 	-- ["{npc:14724} takes cloth for {faction:54} in {object:171524}, {zone:1455}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7812} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14724} aceita tecido para {faction:54} em {object:171524}, {zone:1455}. Os primeiros donativos de Lã, Seda, Magitrama e {item:14047} (60 tecidos cada) são feitos uma vez só e dão mais reputação por tecido; depois deles, {quest:7812} se repete até Exaltado. Ficar Exaltado com a cidade de outra raça permite comprar as montarias dessa raça. A vantagem de Legado Diplomata do Forever aumenta os ganhos de reputação.",
 	-- ["{npc:14724}: {item:14047} delivered"] = "{npc:14724}: {item:14047} entregue",
 	-- ["{quest:7812} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7812} pede 20 {item:14047} por entrega e se repete quantas vezes você quiser. Traga {item:14047} em múltiplos de 20 e entregue tudo de uma vez, uma entrega após a outra. {item:14047}: Adeptos das Trevas e Umbramantes (nível 58-60) em {zone:1423}, ou a Casa de Leilões.",

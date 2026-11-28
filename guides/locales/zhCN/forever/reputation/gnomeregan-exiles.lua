@@ -133,7 +133,7 @@ return {
 	["{zone:1449}: Primal Oozes"] = "{zone:1449}：原生软泥怪",
 	-- {area:537} Fire Plume Ridge
 	-- plural, as words: Primal Oozes = {npc:6557} Primal Ooze · Glutinous Oozes = {npc:6559} Glutinous Ooze
-	["The Primal Oozes live in the pools around {area:537} in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "原生软泥怪生活在环形山中央 {area:537} 周围的水池中；胶质软泥怪和粘稠的软泥怪也能装进罐子。击杀一只，再对其遗骸使用罐子。",
+	["Primal Oozes live in the pools around {area:537} in the middle of the crater. Muculent and Glutinous Oozes also fill the jars."] = "",
 
 	-- Step 23: Tinker Town: hand in
 	-- {object:171524} Tinker Town
@@ -181,6 +181,7 @@ return {
 	-- ["Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too."] = "这里的河爪强盗和河爪监工（16-18级）会掉落。也可以去拍卖行购买。",
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "激流堡的辛迪加雇佣兵（31-32级）会掉落。也可以去拍卖行购买。",
 	-- ["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill one and use an empty jar on its remains."] = "被诅咒的软泥怪和被污染的软泥怪在{area:1763}与{area:1765}周围的溪流、邪能水池间蠕动：击杀一只，再对残骸使用空瓶。",
+	-- ["The Primal Oozes live in the pools around {area:537} in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "原生软泥怪生活在环形山中央 {area:537} 周围的水池中；胶质软泥怪和粘稠的软泥怪也能装进罐子。击杀一只，再对其遗骸使用罐子。",
 	-- ["{npc:14724} takes cloth for {faction:54} in {object:171524}, {zone:1455}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7812} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14724}在{zone:1455}的{object:171524}收取布料以提升{faction:54}声望。首次捐献毛料、丝绸、魔纹布和{item:14047}（各60块）只能做一次，每块布给的声望最多；之后{quest:7812}可重复做到崇拜。与其他种族的主城达到崇拜后，可购买该种族的坐骑。Forever的传承外交官特权可提高声望获取。",
 	-- ["{npc:14724}: {item:14047} delivered"] = "{npc:14724}：已交付{item:14047}",
 	-- ["{quest:7812} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7812}每次交还需要20块{item:14047}，可无限重复。按20的倍数带上{item:14047}，一次接一次全部交还。{item:14047}：{zone:1423}的黑暗教徒和暗影法师（58-60级），或拍卖行。",

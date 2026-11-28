@@ -255,9 +255,8 @@ return {
 	-- Step 55: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Sentry Braziers"] = "哨兵火盆",
-	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "带着{object:149047}沿大熔炉边缘向南走，从西南绕到东边，点燃四个哨岗火盆。",
+	["The four Sentry Braziers sit along the southern rim of the Cauldron, from the south-west round to the east."] = "",
 
 	-- Step 56: Squire Maltrake
 	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade
@@ -380,6 +379,7 @@ return {
 	-- ["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time."] = "小心：这一带有许多暴掠龙游荡，很容易同时引到多只。",
 	-- ["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.\nBelow level 52, keep hunting the ravasaurs here after the eighth claw: {quest:4061} at {area:340} needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "注意：这里有很多暴掠龙游荡，很容易同时引到多只。\n拿到第八只爪子后，如果还没到52级，就继续在这里猎杀暴掠龙：{area:340}的{quest:4061}需要52级，本指南结尾的瘟疫之地任务为55级。也可组队挑战{area:1417}副本或{area:2100}副本。",
 	-- ["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "注意：{npc:10411}在非战斗状态下会隐形，开战后会召唤石翼石像鬼。总共只有三个刷新点，刷新间隔为 15 分钟。",
+	-- ["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "带着{object:149047}沿大熔炉边缘向南走，从西南绕到东边，点燃四个哨岗火盆。",
 	-- ["Darrowshire Spirits"] = "达隆郡居民的灵魂",
 	-- ["Fly to {area:1637} and train before the {object:3202} zeppelin: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "在乘坐前往{object:3202}的飞艇前，先飞往{area:1637}训练：本指南稍后经过的{zone:1458}没有猎人和萨满祭司训练师。",
 	-- ["Fly to {area:1637}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {zone:1418}' west edge."] = "飞往{area:1637}，乘飞艇前往{object:3202}，再从那里飞往{zone:1418}西缘依悬崖而建的{area:340}。",

@@ -622,8 +622,8 @@ return {
 	["Thunderhawk Cloudscrapers circle over the plains south of the camp."] = "雷鹰破云者在营地南边的平原上空盘旋。",
 
 	-- Step 143: Brine
-	-- {npc:5899} Brine · {area:378} Camp Taurajo · {item:7766} Empty Brown Waterskin
-	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "{npc:5899}的小屋在{area:378}南边、野猪人水池上方的山脊上：到屋下的水池装满{item:7766}。",
+	-- {npc:5899} Brine · {area:378} Camp Taurajo
+	["{npc:5899}'s hut is on the ridge above the quilboar watering hole, south of {area:378}."] = "",
 	-- {item:7766} Empty Brown Waterskin
 	["Fill the {item:7766} at the quilboar watering hole"] = "在野猪人水坑装满{item:7766}",
 	-- {object:107045} Spring Well · {area:272} Tarren Mill · {area:287} Hillsbrad
@@ -846,6 +846,7 @@ return {
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}，双足飞龙管理员",
 	-- ["{npc:5878} camps beside the road from the Crossroads to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878}在十字路口通往{area:392}的路旁扎营。{object:58369}在他北边不远处钢鬃营地的南部。",
 	-- ["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878}在从{area:380}到{area:392}的路旁扎营。{object:58369}在他北边不远的钢鬃营地南部。",
+	-- ["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "{npc:5899}的小屋在{area:378}南边、野猪人水池上方的山脊上：到屋下的水池装满{item:7766}。",
 	-- ["{npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "{npc:5900}用焦油和材料袋制作{item:6636}。在他旁边的火盆处使用它，显现出{npc:5893}，杀死它获得{item:6655}，然后把余烬放进火盆。",
 	-- ["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900}在{area:379}南边、桥对面的河岸上等候。",
 	-- ["{npc:5907} stands on the ridge north of the Razormane camp."] = "{npc:5907}站在钢鬃营地北边的山脊上。",
