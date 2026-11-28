@@ -30,6 +30,7 @@ function fishingSteps() {
 		if (only) s.only = only[1];
 		const c = /^ {2}collect \d+ x(\d+) /.exec(l);
 		if (c && s.count === null) s.count = Number(c[1]);
+		if (/^ {2}collect \d+ x\d+ gather Fishing 1$/.test(l)) s.onTheWay = true;
 		const loop = /^ {2}loop (.+?) lvl (\d+) lap (\d+) (?:gain|yield) ([\d.]+) only (\S+)( live)? r \d+ at (.+)$/.exec(l);
 		if (loop) s.loops.push({ zone: loop[1], lvl: Number(loop[2]), lap: Number(loop[3]), per: Number(loop[4]), only: loop[5], live: !!loop[6], pts: loop[7].split(' ').map((p) => p.split(',').map(Number)) });
 	}
@@ -71,7 +72,7 @@ test('every stand of every fishing loop is safe for the side it is offered to', 
 			for (const faction of ['Alliance', 'Horde'].filter((f) => loop.only.split(',').includes(f))) {
 				pointLevels(w.ctx, w.maps.get(loop.zone), stopsOf(w, loop), faction, { strict: true }).forEach((lv, i) => {
 					if (lv === null) bad.push(`${s.title}: ${loop.zone} ${loop.pts[i]} is within reach of the ${faction === 'Alliance' ? 'Horde' : 'Alliance'}'s town or guards`);
-					else if (lv > loop.lvl - 1) bad.push(`${s.title}: ${loop.zone} ${loop.pts[i]} asks level ${lv}, the loop says ${loop.lvl - 1}`);
+					else if (lv > loop.lvl) bad.push(`${s.title}: ${loop.zone} ${loop.pts[i]} asks level ${lv}, the loop says ${loop.lvl}`);
 				});
 			}
 		}
@@ -105,11 +106,13 @@ test('from where each side levels in a band, the arrow picks the nearby water of
 	for (const [prefix, faction, race, level, zone, x, y, want] of FROM) {
 		const s = w.steps.find((st) => st.title.startsWith(prefix) && takes(st.only, race, faction));
 		assert.ok(s, `${prefix} for ${race} ${faction}`);
+		// A get step whose fish all come from the fishing on the way (`gather Fishing 1`, no loop) has no water of its own.
+		if (s.onTheWay) continue;
 		const at = w.ctx.project.point(w.maps.get(zone), x, y, 'e');
 		const open = s.loops.filter((l) => takes(l.only, race, faction));
 		assert.ok(open.length, `${s.title}: no water for ${race} ${faction}`);
-		// Never a loop two or more levels above the player while another is not (the engine's rule).
-		const fit = open.filter((l) => l.lvl < level + 2);
+		// Never a loop above the player (the engine's rule: `lvl` is the least level safe on it).
+		const fit = open.filter((l) => l.lvl <= level);
 		const pool = fit.length ? fit : open;
 		const seconds = (l) => {
 			const first = stopsOf(w, l)[0].pt;
@@ -117,12 +120,12 @@ test('from where each side levels in a band, the arrow picks the nearby water of
 			return travel + (s.count / l.per) * l.lap;
 		};
 		const pick = pool.slice().sort((a, b) => seconds(a) - seconds(b))[0];
-		assert.ok(pick.lvl < level + 2, `${s.title} from ${zone}: ${pick.zone} asks level ${pick.lvl - 1}`);
+		assert.ok(pick.lvl <= level, `${s.title} from ${zone}: ${pick.zone} asks level ${pick.lvl}`);
 		// A water of the player's level on their own continent wins over any across the sea.
 		const first = stopsOf(w, pick)[0].pt;
 		if (fit.some((l) => stopsOf(w, l)[0].pt.c === at.c)) assert.equal(first.c, at.c, `${s.title} from ${zone}: ${pick.zone} is on another continent`);
 		got.push([prefix, race, zone, pick.zone]);
 		if (want) assert.equal(pick.zone, want, `${s.title} from ${zone} (${race})`);
 	}
-	assert.equal(got.length, FROM.length);
+	assert.equal(got.length, FROM.filter(([prefix, faction, race]) => !w.steps.find((st) => st.title.startsWith(prefix) && takes(st.only, race, faction)).onTheWay).length);
 });

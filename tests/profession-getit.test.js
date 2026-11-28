@@ -215,12 +215,14 @@ function getIts(text, material) {
 
 // Leather comes from the Skinning guide's loops (0.4.4), as herbs and ore come from theirs: each loop says the
 // level its creatures ask, so the engine never sends a character to beasts 10-20 levels above them (a fixed
-// point did: Medium Leather at Hillsbrad's yetis of level 30-31, Heavy at Alterac's lions of 32-35).
+// point did: Medium Leather at Hillsbrad's yetis of level 30-31, Heavy at Alterac's lions of 32-35). `lvl` is the
+// least level safe on a loop (no creature that can reach it more than a level above the player): Hillsbrad's
+// densest Light Leather round asks 25.
 test('Light and Medium Leather: one Get it step whose Skinning loops each say their level, both sides served at the leather\'s own levels, the Auction House last', { skip }, () => {
 	const text = draft('Leatherworking');
 	const loopsOf = (g) => g.lines.filter((l) => /^ {2}loop /.test(l)).map((l) => ({ line: l, lvl: Number(/ lvl (\d+) /.exec(l)[1]), only: (/ only (Alliance|Horde) /.exec(l) || [])[1] || null }));
 	for (const [name, item, most] of [
-		['Light Leather', 2318, 24],
+		['Light Leather', 2318, 25],
 		['Medium Leather', 2319, 36],
 	]) {
 		const [g] = getIts(text, name);

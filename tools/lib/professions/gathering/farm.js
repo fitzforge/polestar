@@ -13,7 +13,9 @@
 //      town of the other faction is never taken.
 //   2. For each level a point asks (lowest first), the points safe at that level are clustered
 //      (`prof.radius` yards) and turned into loops of up to MAX_STOPS stops within each of SPANS
-//      yards of the heaviest cluster (loop.js buildLoop).
+//      yards of each of the HEADS heaviest clusters (loop.js buildLoop `head`): the densest ground of a
+//      zone need not lie round its single heaviest cluster (a band's veins in two valleys, the heaviest
+//      a lone pocket off both).
 //   3. A loop's worth: the nodes up at once within CORRIDOR yards of its round (`gain`: weighted by the
 //      band's skill-up chances) per yard of a lap, where a lap costs its walk plus `prof.stopYards` per
 //      node gathered (or beast killed and skinned), and never less than the walk of the kind's
@@ -41,6 +43,8 @@ const RUN = 7;
 const LEVEL_DECAY = 0.75;
 // A loop of fewer stops is only taken when no level gives one this long.
 const MIN_STOPS = 3;
+// Clusters a loop is tried round, heaviest first.
+const HEADS = 8;
 
 function skillLevel(skill) {
 	return Math.max(5, Math.round(skill / 5));
@@ -98,8 +102,13 @@ function farm(ctx, prof, map, points, { faction = null, respawn = 300, level: pl
 		const open = points.filter((p, i) => levels[i] !== null && levels[i] <= level);
 		if (open.length < 2) continue;
 		const clusters = weightedClusters(open, radius, ctx.project);
-		for (const span of SPANS) {
-			const loop = buildLoop(open, ctx.project, { radius, span, cover: 1, maxStops: MAX_STOPS, clusters });
+		// The same stops from another head or span: the round already tried.
+		const tried = new Set();
+		for (let head = 0; head < Math.min(HEADS, clusters.length); head++) for (const span of SPANS) {
+			const loop = buildLoop(open, ctx.project, { radius, span, cover: 1, maxStops: MAX_STOPS, clusters, head });
+			const same = loop.stops.map((s) => clusters.indexOf(s)).sort((a, b) => a - b).join(' ');
+			if (tried.has(same)) continue;
+			tried.add(same);
 			// `prof.maxLap` (yards): past it the round never comes back to what respawned (Skinning).
 			if (loop.stops.length < 2 || loop.lap > (prof.maxLap || Infinity)) continue;
 			const walk = roundLevel(ctx, map, loop.stops, faction);

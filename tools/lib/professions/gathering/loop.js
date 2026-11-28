@@ -7,9 +7,9 @@
 //   points: [{ pt, w, name? }]: world points (route.js projector) with a weight (what a visit is worth).
 //   1. Points inside `avoid` ([{ pt, yards }]: hazards below) are dropped.
 //   2. The rest become weighted clusters of `radius` yards (route.js weightedClusters).
-//   3. Stops: the heaviest cluster, then the next heaviest within `span` yards of it (one water or one
-//      stretch of hills, never a tour of the zone), until they hold `cover` of that ground's weight or
-//      there are `maxStops`.
+//   3. Stops: the head (the heaviest cluster, or with `head` the head-th heaviest, from 0), then the next
+//      heaviest within `span` yards of it (one water or one stretch of hills, never a tour of the zone), until
+//      they hold `cover` of that ground's weight or there are `maxStops`.
 //   4. Order: a closed tour from the stop nearest `entry` (else the heaviest): nearest neighbour, then
 //      2-opt (route/tour.js planTour).
 //   `lap` is the closed tour's length in yards. `clusters`: step 2's clusters of these points, when the
@@ -51,12 +51,12 @@ const GUARD_SPAWNS = 3;
 // A creature this many levels or more below the player is grey: it leaves the player alone.
 const GREY = 6;
 
-function buildLoop(points, project, { radius = 30, span = 250, cover = 0.9, maxStops = 6, entry = null, avoid = [], clusters = null } = {}) {
+function buildLoop(points, project, { radius = 30, span = 250, cover = 0.9, maxStops = 6, entry = null, avoid = [], clusters = null, head: headAt = 0 } = {}) {
 	const open = clusters ? points : points.filter((p) => !avoid.some((a) => dist(a.pt, p.pt) < a.yards));
 	if (!open.length) return { stops: [], lap: 0 };
 	const cl = clusters || weightedClusters(open, radius, project);
-	const head = cl[0];
-	const ground = cl.filter((c) => dist(head.pt, c.pt) <= span);
+	const head = cl[headAt] || cl[0];
+	const ground = [head, ...cl.filter((c) => c !== head && dist(head.pt, c.pt) <= span)];
 	const total = ground.reduce((s, c) => s + c.w, 0);
 	const keep = [];
 	let acc = 0;
@@ -192,20 +192,38 @@ function pointLevels(ctx, map, points, faction = null, { strict = false } = {}) 
 
 // The level a closed round through `stops` asks along its whole walk, sampled every `step` yards
 // (pointLevels' rule), or null when it passes an elite or within ENEMY_YARDS of the other faction's town.
+// Each leg's level is kept per data object, map and side (the planner tries many rounds over the same legs).
+const legCache = new WeakMap();
 function roundLevel(ctx, map, stops, faction = null, { step = 15, strict = false } = {}) {
 	const other = faction ? (SIDE[faction] === 'A' ? 'H' : 'A') : null;
 	const grid = spawnGrid(ctx, map, strict);
+	let byData = legCache.get(ctx.data);
+	if (!byData) legCache.set(ctx.data, (byData = new Map()));
+	const ck = `${map}|${strict ? 1 : 0}|${other}|${step}`;
+	let legs = byData.get(ck);
+	if (!legs) byData.set(ck, (legs = new Map()));
 	let top = 1;
 	for (let i = 0; i < stops.length; i++) {
 		const a = stops[i].pt;
 		const b = stops[(i + 1) % stops.length].pt;
-		const n = Math.max(1, Math.ceil(dist(a, b) / step));
-		for (let k = 0; k < n; k++) {
-			const t = k / n;
-			const l = levelAt(grid, { c: a.c, wx: a.wx + (b.wx - a.wx) * t, wy: a.wy + (b.wy - a.wy) * t }, other);
-			if (l === null) return null;
-			if (l > top) top = l;
+		const key = `${a.c}|${a.wx}|${a.wy}|${b.wx}|${b.wy}`;
+		let leg = legs.get(key);
+		if (leg === undefined) {
+			leg = 1;
+			const n = Math.max(1, Math.ceil(dist(a, b) / step));
+			for (let k = 0; k < n; k++) {
+				const t = k / n;
+				const l = levelAt(grid, { c: a.c, wx: a.wx + (b.wx - a.wx) * t, wy: a.wy + (b.wy - a.wy) * t }, other);
+				if (l === null) {
+					leg = null;
+					break;
+				}
+				if (l > leg) leg = l;
+			}
+			legs.set(key, leg);
 		}
+		if (leg === null) return null;
+		if (leg > top) top = leg;
 	}
 	return top;
 }

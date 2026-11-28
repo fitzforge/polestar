@@ -249,12 +249,14 @@ test('no Herbalism loop holds a herb its range\'s starting skill cannot pick (#2
 	assert.deepEqual([...new Set(bad)], []);
 });
 
-test('a band also offers its densest zones for a character past every zone\'s level: Winterspring\'s Small Thorium in Mining 245-275', { skip: hasData ? false : 'data/forever not built' }, () => {
+// Winterspring's Small Thorium was the pick here until 0.4.4's no-elite rule: its densest veins lie by the Frostmaul
+// giants, Hailspite and the Hederine elites, so its safe loop now ranks below other zones'.
+test('a band also offers its densest zones for a character past every zone\'s level: Mining 245-275 has a loop for level 50 and up', { skip: hasData ? false : 'data/forever not built' }, () => {
 	const { plan } = require('../tools/lib/professions/gathering/build');
 	const { context } = require('../tools/lib/professions/gathering/common');
 	const { SPECS } = require('../tools/lib/professions/gathering/specs');
 	const band = plan(context(DATA), SPECS.find((s) => s.file === 'mining')).find((e) => e.kind === 'band' && e.from === 245);
-	assert.ok(band.loops.some((l) => l.zone === 1452), String(band.loops.map((l) => l.zone)));
+	assert.ok(band.loops.some((l) => l.farm.level >= 50), String(band.loops.map((l) => `${l.zone}:${l.farm.level}`)));
 });
 
 test('live-frame spawns come out in the Era frame, so loops on redrawn maps match `coords era`', () => {

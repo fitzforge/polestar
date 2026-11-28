@@ -82,7 +82,7 @@ test('hazards and levels: hostile creatures above the level, the other side\'s t
 	assert.equal(hazards(ctx, 1, { level: 29, faction: 'Alliance' }).filter((a) => a.yards === 30).length, 0);
 });
 
-test('hazards (strict, the fishing rounds): an elite counts three levels higher; a guard of the other side is a hazard on its own, a lone keeper is none', () => {
+test('hazards (strict, the fishing rounds): an elite by a stand makes it unsafe at any level; a guard of the other side is a hazard on its own, a lone keeper is none', () => {
 	const ctx = ctxWith(
 		[
 			npc(40, 20, null, 52, 50, { rank: 1 }), // a level-20 elite 20 yd from the stand at 50,50
@@ -93,11 +93,11 @@ test('hazards (strict, the fishing rounds): an elite counts three levels higher;
 		[40, 41],
 	);
 	const [elite, plain, post, keeper] = [at(50, 50), at(78, 50), at(22, 82), at(80, 82)];
-	assert.deepEqual(pointLevels(ctx, 1, [elite, plain, post, keeper], 'Alliance', { strict: true }), [22, 19, null, 1], 'the elite asks 22, the creature 19; the guards are never safe, the keeper is no town');
-	assert.deepEqual(pointLevels(ctx, 1, [elite, post], 'Alliance'), [19, 1], 'not strict (the herb, ore and skinning loops): the plain rule');
+	assert.deepEqual(pointLevels(ctx, 1, [elite, plain, post, keeper], 'Alliance', { strict: true }), [null, 19, null, 1], 'the elite within 30 yards: never safe; the creature asks 19; the guards are never safe, the keeper is no town');
+	assert.deepEqual(pointLevels(ctx, 1, [elite, post], 'Alliance'), [null, 1], 'not strict (the herb, ore and skinning loops): the elite the same, the post no town');
 	assert.deepEqual(pointLevels(ctx, 1, [post], 'Horde', { strict: true }), [1], 'their own guards are no hazard');
 	const h = hazards(ctx, 1, { level: 21, faction: 'Alliance', strict: true });
-	assert.equal(h.filter((a) => a.yards === 30).length, 1, 'the elite, not the plain creature, at level 21');
+	assert.equal(h.filter((a) => a.yards === 30).length, 1, 'the elite (at any level), not the plain creature, at level 21');
 	assert.equal(h.filter((a) => a.yards === 150).length, 3, 'the three guards');
 	// Threats: creatures at a stop not grey to the player (six levels or more below).
 	assert.equal(threats(ctx, 1, [elite, plain], 20), 2);
