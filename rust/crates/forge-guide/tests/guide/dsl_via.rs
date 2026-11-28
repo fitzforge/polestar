@@ -59,6 +59,20 @@ fn a_leveling_step_of_places_only_compiles_as_a_via_one_with_work_or_kept_stays_
 }
 
 #[test]
+fn a_trailing_run_of_steps_of_places_only_stays_as_written_the_guide_ends_there() {
+	let vias = |r: &Compiled| -> Vec<Value> { r.steps().iter().map(|s| s.get("via").cloned().unwrap_or(Value::Null)).collect() };
+	let r = compile(&text(
+		&["step Into Goldshire", "  goto 42.1,65.9 \"Goldshire\"", "step Smith Argus", "  goto 41.7,65.5", "  accept 7", "step The road west", "  goto 30.0,60.0", "step Westfall", "  goto 10.0,60.0"],
+		None,
+	));
+	assert!(r.errors.is_empty(), "{}", r.text);
+	assert_eq!(vias(&r), vec![json!(true), Value::Null, Value::Null, Value::Null]);
+	// A pack made only of places (the `polestar new` template's kind) keeps every step.
+	let places = compile(&text(&["step A", "  goto 42.1,65.9", "step B", "  goto 41.7,65.5"], None));
+	assert_eq!(vias(&places), vec![Value::Null, Value::Null]);
+}
+
+#[test]
 fn other_categories_keep_every_step_as_written_and_say_so_of_a_keep() {
 	let r = compile(&text(&ROUTE, Some("Class")));
 	assert!(r.errors.is_empty(), "{}", r.text);

@@ -3170,8 +3170,9 @@ with Polestar's arrow on or off (#4192): the hand-off then plans its own way to 
 
 In a leveling guide the compiler writes a step whose goals, notes aside, are only gotos, a flight or `enter` with
 `via = true` (#4467; `markVias` in tools/lib/dsl/resolve.js, `mark_vias` in forge-guide's resolve.rs), unless a
-`keep <kind> <reason>` line keeps it (`keep = "<kind>"`; docs/GUIDE_FORMAT.md, "Steps of places only"). The step
-keeps its index. The Engine:
+`keep <kind> <reason>` line keeps it (`keep = "<kind>"`; docs/GUIDE_FORMAT.md, "Steps of places only"), or it is in
+the guide's trailing run of such steps (no step of work or kept step after it: the guide's end, which stays as
+written). The step keeps its index. The Engine:
 
 - treats a via step as no step of its own (`Own.hiddenStep`: no number, no progress share, paging never lands on
   it), done as the route reaches it (`stepDoneLive`, like an along step), so the live step is the next one and a

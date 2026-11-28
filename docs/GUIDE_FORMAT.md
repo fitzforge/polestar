@@ -927,7 +927,9 @@ notes aside, are only `goto`s, a `fly` or `enter` is no step of its own: the
 compiler writes it with `via = true` (#4467). The player never sees it in the
 step list, never has to complete it and it never holds the route; it stays in
 the guide as a hint of the way to the step after it. Its index stays, so saves,
-baked legs and labels point where they did.
+baked legs and labels point where they did. The guide's last steps of places
+only, with no step of work after them, are where it ends, not a way to a step:
+they stay steps (a guide made only of places, too).
 
 The via steps right before a step are that step's vias. While it is the live
 step, the arrow goes by the first via still ahead (its last `goto`, or the

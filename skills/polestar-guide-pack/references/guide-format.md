@@ -58,6 +58,7 @@ every goal in it that is not `optional` is; its goals are open together.
 | `label <name>` | Names the step for an `along until` or `skipto` before it, or a `when done` (letters, digits, `-`, `_`; once per guide) |
 | `skipto <label> when <predicate>` | If the predicate (as for `when`) holds when the route reaches the step, this step and the ones up to the labelled later step are skipped for good; several lines, the first that holds decides |
 | `loop` | Search the step's `goto` points in order for kill, collect, interact, skill and `use <item> quest Q.O` goals without `@x,y`. With none of those, search for the NPC of its accept, turnin and talk goals. Use at least two points on one map. |
+| `keep <kind> <reason>` | In a leveling guide a step of only places (gotos, a flight, `enter`) before a step with work is no step of its own: the arrow goes by it while it is on the way. `keep` keeps one a step, for `door`, `instance`, `boarding`, `phasing` or `safety`, with a reason. The guide's last steps of only places stay steps anyway |
 
 ## Goals
 

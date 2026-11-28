@@ -18,16 +18,20 @@ zone Elwynn Forest
 next forever/alliance/02-westfall
 
 # A step: the guide window shows one at a time, until all its goals are done.
+# A step of only places (gotos) before a step with work is no step of its own:
+# the arrow goes by it while it is on the player's way, and the next step leads.
 step Goldshire
   # A tip is shown under the step's title.
   tip Start at the Lion's Pride Inn in Goldshire, at the crossroads in the middle of Elwynn Forest.
   # Walk to these map coordinates; "r 30" counts anywhere within 30 yards.
   goto 42.9,65.6 "Goldshire" r 30
 
-step The Westbrook Garrison
-  tip Follow the road west out of Goldshire. The garrison's watchtower stands where the road crosses the stream.
-  goto 24.2,74.5 "Westbrook Garrison" r 30
+step Deputy Rainer
+  tip Follow the road west out of Goldshire. Deputy Rainer keeps watch at the Westbrook Garrison, where the road crosses the stream.
+  # Speak to an NPC: the arrow leads to him (`polestar find Rainer` prints his id).
+  talk 963
 
+# The guide's last steps of only places are where it ends: they stay steps.
 step Into Westfall
   tip Keep west over the bridge. The road climbs into the dry fields of Westfall, where the next guide picks you up.
   goto 20.6,80.5 "The Westfall border" r 30

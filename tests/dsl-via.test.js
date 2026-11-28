@@ -38,6 +38,14 @@ test('a leveling step of places only compiles as a via; one with work, or kept, 
 	assert.match(lua, /keep = "door",/);
 });
 
+test('a trailing run of steps of places only stays as written: the guide ends there (a pack of places only too)', () => {
+	const r = compile(text(['step Into Goldshire', '  goto 42.1,65.9 "Goldshire"', 'step Smith Argus', '  goto 41.7,65.5', '  accept 7', 'step The road west', '  goto 30.0,60.0', 'step Westfall', '  goto 10.0,60.0']));
+	assert.deepEqual(r.errors, [], r.text);
+	assert.deepEqual(plain(r.guides[0]).steps.map((s) => s.via), [true, undefined, undefined, undefined]);
+	const places = compile(text(['step A', '  goto 42.1,65.9', 'step B', '  goto 41.7,65.5']));
+	assert.deepEqual(plain(places.guides[0]).steps.map((s) => s.via), [undefined, undefined]);
+});
+
 test('other categories keep every step as written, and say so of a `keep`', () => {
 	const r = compile(text(ROUTE, 'Class'));
 	assert.deepEqual(r.errors, [], r.text);
