@@ -50,7 +50,7 @@ use std::path::{Path, PathBuf};
 
 use forge_guide::cluster::cluster_points;
 use forge_guide::js::{num_str, parse_json, V};
-use forge_guide::prereqs::blocking_prereqs;
+use forge_guide::prereqs::codex_prereqs;
 
 pub const ADDON: &str = "Polestar_QuestDB";
 pub const SCHEMA: u32 = 2;
@@ -358,7 +358,8 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 			};
 		}
 
-		let pre = blocking_prereqs(&q, &quest_of);
+		// The pack keeps a prerequisite no NPC gives, as the Codex does (Somber News, #4492), so FollowUps lead back to it.
+		let pre = codex_prereqs(&q, &quest_of);
 		let pre_all: Vec<f64> = list(&pre.get("all")).into_iter().filter(|p| has_quest(*p)).collect();
 		let pre_any: Vec<f64> = list(&pre.get("any")).into_iter().filter(|p| has_quest(*p)).collect();
 		// Only QuestieDB's Forever store carries the Skyborne bits; a pfQuest mask is an Era mask.
