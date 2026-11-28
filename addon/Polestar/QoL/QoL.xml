@@ -2,6 +2,7 @@
 	<Script file="QoL.lua"/>
 	<Script file="Data.lua"/>
 	<Script file="Keep.lua"/>
+	<Script file="Disenchant.lua"/>
 	<Script file="Marks.lua"/>
 	<Script file="Space.lua"/>
 	<Script file="QuickBind.lua"/>

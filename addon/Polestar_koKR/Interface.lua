@@ -5811,6 +5811,10 @@ L["Click to show quest guide actions."] = "클릭하면 퀘스트 가이드 동�
 -- L["Optional objectives during this step"] = ""
 -- L["Class quest"] = ""
 
+-- QoL/Disenchant.lua
+L["%s (or %s)"] = "%s (또는 %s)"
+L["Disenchants into: %s"] = "마력 추출 결과: %s"
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다. 선택은 바로 적용됩니다."
 -- L["New"] = "새 기능"

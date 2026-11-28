@@ -486,7 +486,7 @@ function C_Item.GetItemInfo(item)
 	local id = itemID(item)
 	local it = id and world.itemInfo[id]
 	if not it or it.uncached then return nil end
-	return it.name, ("|cffffffff|Hitem:%d::::::::|h[%s]|h|r"):format(id, it.name), it.quality or 1, 1, 0, "", "", 20, "",
+	return it.name, ("|cffffffff|Hitem:%d::::::::|h[%s]|h|r"):format(id, it.name), it.quality or 1, it.ilvl or 1, 0, "", "", 20, "",
 		it.icon or 134400, 0, it.classID or 7, it.subclassID or 0, it.bind or 0
 end
 function C_Item.GetItemInfoInstant(item)

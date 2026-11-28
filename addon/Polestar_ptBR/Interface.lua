@@ -5729,6 +5729,10 @@ L["Click to show quest guide actions."] = "Clique para mostrar as ações do gui
 -- L["Optional objectives during this step"] = ""
 -- L["Class quest"] = ""
 
+-- QoL/Disenchant.lua
+L["%s (or %s)"] = "%s (ou %s)"
+L["Disenchants into: %s"] = "Desencanta em: %s"
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Configurar o Polestar de novo, uma página por vez. Cada escolha vale na hora."
 -- L["New"] = "Novo"

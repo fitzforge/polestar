@@ -5668,6 +5668,10 @@ L["New spells at your class trainer"] = "职业训练师处有新法术可学"
 L["Optional objectives during this step"] = "本步可选目标"
 L["Class quest"] = "职业任务"
 
+-- QoL/Disenchant.lua
+L["%s (or %s)"] = "%s（或%s）"
+L["Disenchants into: %s"] = "分解为：%s"
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"
 -- L["New"] = "新"
