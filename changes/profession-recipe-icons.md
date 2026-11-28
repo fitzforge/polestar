@@ -8,3 +8,5 @@ section: players
   The materials rows (Get 32 Mote of Magic) show their item's icon too.
   In a narrow or compact window the Open button shows the profession's own
   icon and says what it opens when you hover it.
+  A learn step (Learn Bolt of Silk Cloth) shows the item its recipe makes, as
+  the game's profession window does, not the recipe spell's own icon.

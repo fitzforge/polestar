@@ -14,7 +14,7 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
-const { SOURCES, ROOT } = require('../tools/lib/paths');
+const { SOURCES, ROOT, DATA } = require('../tools/lib/paths');
 
 const GUIDES = ['Polestar_Guides', 'Polestar_Guides_Alliance', 'Polestar_Guides_Horde'].map((a) => path.join(ROOT, 'addon', a, 'Guides.lua'))
 	.concat(path.join(ROOT, 'addon', 'Polestar', 'Experimental', 'Guides.lua'));
@@ -48,9 +48,9 @@ function recipes() {
 		assert.equal(crafts.length, (source.match(/t = "craft"/g) || []).length, `${guide}: every craft goal carries its spell and name`);
 		for (const m of crafts) goals.push({ guide, t: 'craft', spell: Number(m[1]), name: m[2], item: m[3] ? Number(m[3]) : null });
 		if (!profession) continue;
-		const learns = [...source.matchAll(/t = "learn", spell = (\d+), spellName = "([^"]*)"/g)];
+		const learns = [...source.matchAll(/t = "learn", spell = (\d+), spellName = "([^"]*)"(?:, npc = \d+, npcName = "[^"]*")?(?:, item = \d+, itemName = "[^"]*")?(?:, makes = (\d+))?/g)];
 		assert.equal(learns.length, (source.match(/t = "learn"/g) || []).length, `${guide}: every learn goal carries its spell and name`);
-		for (const m of learns) goals.push({ guide, t: 'learn', spell: Number(m[1]), name: m[2], item: null });
+		for (const m of learns) goals.push({ guide, t: 'learn', spell: Number(m[1]), name: m[2], item: null, makes: m[3] ? Number(m[3]) : null });
 		for (const m of source.matchAll(/\bitem = (\d+)/g)) items.add(Number(m[1]));
 	}
 	return { goals, items };
@@ -114,4 +114,33 @@ test('the recipes with no item of their own (enchants and the like) all have a s
 	const spellOnly = goals.filter((g) => g.t === 'craft' && !g.item);
 	assert.ok(spellOnly.length > 0);
 	for (const g of spellOnly) assert.ok(spellIcons.get(g.spell), `${g.guide}: ${g.name} (${g.spell}) has no spell icon`);
+});
+
+// A learn step shows what the client's profession window draws for the recipe, which is what its craft row shows: the
+// item the recipe makes. The recipe spell's own icon is often a generic crest (every smelt, the bolts), so a learn
+// goal that lacks `makes` would wear a wrong icon. The compiler writes `makes` from the recipe in professions.json.
+const professions = (() => {
+	try {
+		return JSON.parse(fs.readFileSync(path.join(DATA, 'professions.json'), 'utf8'));
+	} catch {
+		return null;
+	}
+})();
+test('every learn step of a recipe that makes an item carries it (`makes`), the same item its craft goals name; the others carry none', { skip: professions ? false : 'reference data not built: data/forever has no professions.json (forge data build)' }, () => {
+	const made = new Map();
+	for (const line of Object.keys(professions)) {
+		for (const r of professions[line].recipes || []) if (!made.has(r.spell)) made.set(r.spell, r.item > 0 ? r.item : null);
+	}
+	const { goals } = recipes();
+	const wrong = [];
+	for (const g of goals) {
+		if (!made.has(g.spell)) {
+			wrong.push(`${g.guide}: ${g.t} ${g.spell} ${g.name}: not a recipe in professions.json`);
+			continue;
+		}
+		const want = made.get(g.spell);
+		if (g.t === 'learn' && (g.makes || null) !== want) wrong.push(`${g.guide}: learn ${g.spell} ${g.name}: makes ${g.makes} but the recipe makes ${want}`);
+		if (g.t === 'craft' && (g.item || null) !== want) wrong.push(`${g.guide}: craft ${g.spell} ${g.name}: item ${g.item} but the recipe makes ${want}`);
+	}
+	assert.deepEqual(wrong, []);
 });

@@ -2165,16 +2165,28 @@ local function stepHeader(person, width)
 	local top = full and Core.gap("stepSpace", AIR_TOP) or TITLE_PAD
 	local under = full and Core.gap("titleSpace", AIR_UNDER) + AIR_LINE or 8
 	own.titleTop, own.lift = top, full and AIR_LINE or 0
-	local whereW = 0
+	-- The area sits on the title's row, at the right edge, when both keep whole there (the area up to 45% of the
+	-- row); else it is a line under the title (a profession step's "Disenchant: Professions tab (K by default)").
+	local whereW, below = 0, false
 	if person.Where:IsShown() then
-		whereW = math.min(person.Where:GetUnboundedStringWidth() + 1, math.floor(width * 0.45))
-		person.Where:SetWidth(whereW)
-		person.Where:SetJustifyH("RIGHT")
+		local whereFull = math.ceil(person.Where:GetUnboundedStringWidth() + 1)
+		local nameFull = math.ceil(person.Name:GetUnboundedStringWidth() + 1)
+		if whereFull <= math.floor(width * 0.45) and nameFull + 10 + whereFull <= width then
+			whereW = whereFull
+			person.Where:SetWidth(whereW)
+			person.Where:SetJustifyH("RIGHT")
+		else
+			-- Under the title, in the window's own small type for a line under a title (Polestar's where line).
+			below = true
+			Theme.Font(person.Where, "small")
+			person.Where:SetTextColor(Theme.Color("textMuted"))
+			person.Where:SetWidth(width)
+			person.Where:SetJustifyH("LEFT")
+		end
 	end
 	person.Name:ClearAllPoints()
 	person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", pad, -top)
 	person.Name:SetWidth(width - (whereW > 0 and whereW + 10 or 0))
-	-- The area sits on the title's row, at the right edge.
 	if whereW > 0 then
 		person.Where:ClearAllPoints()
 		person.Where:SetPoint("TOP", person.Name, "TOP", 0, 0)
@@ -2182,10 +2194,17 @@ local function stepHeader(person, width)
 		person.Where:SetPoint("BOTTOM", person.Name, "BOTTOM", 0, 0)
 	end
 	local h = top + person.Name:GetStringHeight()
+	local above = person.Name
+	if below then
+		person.Where:ClearAllPoints()
+		person.Where:SetPoint("TOPLEFT", person.Name, "BOTTOMLEFT", 0, -3)
+		h = h + 3 + person.Where:GetStringHeight()
+		above = person.Where
+	end
 	if person.Why:IsShown() then
 		person.Why:SetWidth(width)
 		person.Why:ClearAllPoints()
-		person.Why:SetPoint("TOPLEFT", person.Name, "BOTTOMLEFT", 0, -3)
+		person.Why:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -3)
 		h = h + 3 + person.Why:GetStringHeight()
 	end
 	if own.under then own.under:SetPoint("BOTTOMLEFT", person, "BOTTOMLEFT", 12, own.lift) end
