@@ -23,7 +23,7 @@ return {
 	-- Step 5: Commander Althea Ebonlocke
 	-- {quest:58} The Night Watch · {zone:1431} Duskwood
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader
-	["{quest:58}'s Plague Spreaders, from your last {zone:1431} visit: Commander Althea is in the town hall."] = "",
+	["{quest:58}'s Plague Spreaders, from your last {zone:1431} visit: Commander Althea is in the town hall."] = "{quest:58}的瘟疫食尸鬼是上次去{zone:1431}时打的。到镇公所找指挥官阿尔泰娅·埃伯洛克交任务。",
 
 	-- Step 6: Councilman Millstipe
 	-- {quest:377} Crime and Punishment · {area:717} Stockade · {npc:270} Councilman Millstipe

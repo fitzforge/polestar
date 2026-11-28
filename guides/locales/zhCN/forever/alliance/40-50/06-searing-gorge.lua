@@ -56,9 +56,9 @@ return {
 
 	-- Step 14: Prayer to Elune: the page
 	-- {quest:3378} Prayer to Elune
-	["{quest:3378}: the page"] = "",
+	["{quest:3378}: the page"] = "《{quest:3378}》的书页",
 	-- {npc:8436} Zamael Lunthistle · {quest:3378} Prayer to Elune
-	["The Twilight elites of {npc:8436}'s camp drop the {quest:3378} page, about one in five: keep the group together here until one drops."] = "",
+	["The Twilight elites of {npc:8436}'s camp drop the {quest:3378} page, about one in five: keep the group together here until one drops."] = "{npc:8436}营地里的暮光精英约有五分之一的概率掉落{quest:3378}需要的书页。小队在这里一起打，直到刷出书页。",
 
 	-- Step 15: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
@@ -116,7 +116,7 @@ return {
 	["Level 48.66"] = "等级 48.66",
 	-- {area:1443} Slag Pit · {quest:7701} WANTED: Overseer Maltorius · {npc:14621} Overseer Maltorius
 	-- plural, as words: Incendosaurs = {npc:9318} Incendosaur
-	["Still under level 48.66 after the {area:1443} (a solo player usually is; a group's Culling the Competition or {quest:7701} covers it)? Top up on the Incendosaurs (47) in the {area:1443}'s lava pools, pulled to the edge.\nCareful: {npc:14621} (50, elite) and his elite guards hold the {area:1443}'s depths: keep to the pools near the entrance and don't follow the tunnels in."] = "",
+	["Still under level 48.66 after the {area:1443} (a solo player usually is; a group's Culling the Competition or {quest:7701} covers it)? Top up on the Incendosaurs (47) in the {area:1443}'s lava pools, pulled to the edge.\nCareful: {npc:14621} (50, elite) and his elite guards hold the {area:1443}'s depths: keep to the pools near the entrance and don't follow the tunnels in."] = "走完{area:1443}还没到48.66级？单人通常还差一点，组队完成「工作机会：肃清竞争对手」或{quest:7701}就能补足。在{area:1443}的熔岩池边把47级的熏火龙拉到岸上打，补足经验。\n小心{npc:14621}（50级精英）和他的精英守卫，他们守在{area:1443}深处。留在入口附近的熔岩池，别沿隧道往里走。",
 	-- {npc:9318} Incendosaur
 	["grind on {npc:9318}"] = "反复击杀{npc:9318}补足经验",
 
@@ -145,9 +145,9 @@ return {
 	["Level 48.98"] = "等级 48.98",
 	-- {quest:3452} The Flame's Casing · {object:147516} Dark Iron · {area:1442} Firewatch Ridge
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider · Magma Elementals = {npc:5855} Magma Elemental
-	["Still under level 48.98 (a solo player usually is; a group's {quest:3452} covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the {object:147516} camps.\nCareful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at {area:1442}, whose cultists are elites."] = "",
+	["Still under level 48.98 (a solo player usually is; a group's {quest:3452} covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the {object:147516} camps.\nCareful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at {area:1442}, whose cultists are elites."] = "还没到48.98级？单人通常还差一点，组队完成{quest:3452}就能补足。去西部高地打巨型熔岩蜘蛛（47-48级）补经验，避开{object:147516}营地。\n小心46-48级的熔岩元素，它们在蜘蛛之间游荡，一次只拉一只。待在{area:1442}的暮光营地以南，营地里的教徒都是精英。",
 	-- {npc:5858} Searing Lava Spider
-	["grind on {npc:5858}"] = "",
+	["grind on {npc:5858}"] = "击杀{npc:5858}补经验",
 
 	-- Step 39: Margol's Horn
 	-- {quest:3181} The Horn of the Beast

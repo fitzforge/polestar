@@ -15,7 +15,7 @@ return {
 	-- Step 2: Booty Bay
 	-- {npc:4631} Wharfmaster Lozgil · {zone:1443} Desolace
 	-- was: ["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "{npc:4631}站在船靠岸的码头上。在旅店绑定炉石：这条路线最后从丛林北边返回时，就靠它回到这里。"
-	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of this loop, and again at the end of the second loop, after {zone:1443}."] = "",
+	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of this loop, and again at the end of the second loop, after {zone:1443}."] = "{npc:4631}就在下船的码头上。在旅店绑定炉石。这轮路线结束时，用炉石从丛林北部回到这里。第二轮走完{zone:1443}后，也用炉石返回。",
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the dock"] = "{npc:4631}，在码头上",
 	-- {npc:4631} Wharfmaster Lozgil · {npc:2496} Baron Revilgaz

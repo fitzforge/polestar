@@ -27,7 +27,7 @@ return {
 	-- {area:503} Sentry Point · {quest:1265} The Missing Diplomat · {npc:4967} Archmage Tervosh
 	-- plural, as words: Mudrock Burrowers = {npc:4398} Mudrock Burrower
 	-- was: ["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it.\n{npc:4967} waits at the foot of the tower: once you have looked around, hand the quest in to him there, not in Theramore."] = "沿道路向西北离开塞拉摩，前往{area:503}的瞭望塔。泥石穴居龟在周围的沼泽中游荡。\n{npc:4967}在塔脚下等候：四处查看后，直接在那里向他交任务，不用回塞拉摩。"
-	["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it.\nIf {quest:1265} isn't done yet: {npc:4967} waits at the foot of the tower once you have looked around. Hand the quest in to him there, not in Theramore, and take his next errand on the spot."] = "",
+	["Follow the road north-west out of Theramore to the watchtower at {area:503}. Mudrock Burrowers roam the marsh around it.\nIf {quest:1265} isn't done yet: {npc:4967} waits at the foot of the tower once you have looked around. Hand the quest in to him there, not in Theramore, and take his next errand on the spot."] = "沿道路向西北离开塞拉摩，前往{area:503}的瞭望塔。泥石穴居龟在周围的沼泽里游荡。\n如果还没完成{quest:1265}，四处查看后，{npc:4967}会在塔脚下等你。就在塔下向他交任务并当场接下一个任务，别回塞拉摩交。",
 	-- {npc:4967} Archmage Tervosh
 	["{npc:4967}, at the tower"] = "{npc:4967}，在塔旁",
 
@@ -90,7 +90,7 @@ return {
 
 	-- Step 15: Foothold Citadel
 	-- {npc:4944} Captain Garran Vimes · {area:514} Foothold Citadel
-	["Back east along the road to Theramore: {npc:4944} takes the deserters' news on the top floor of {area:514}, and the flight master stands by its gate."] = "",
+	["Back east along the road to Theramore: {npc:4944} takes the deserters' news on the top floor of {area:514}, and the flight master stands by its gate."] = "沿路向东返回塞拉摩。{npc:4944}在{area:514}顶层，去那里向他报告逃兵的消息。飞行管理员就在要塞门边。",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "{npc:4944}，位于最顶层",
 
@@ -101,12 +101,12 @@ return {
 
 	-- Step 18: Fly to Ratchet
 	-- {npc:6236} Klannoc Macleod · {area:720} Fray Island · {area:392} Ratchet · {area:150} Menethil Harbor
-	["{npc:6236}'s Affray first: {area:720} lies just south of {area:392}. The boat to {area:150} leaves from Theramore afterwards."] = "",
+	["{npc:6236}'s Affray first: {area:720} lies just south of {area:392}. The boat to {area:150} leaves from Theramore afterwards."] = "先完成{npc:6236}的「格斗考验」。{area:720}就在{area:392}南边。做完回塞拉摩坐船去{area:150}。",
 
 	-- Step 20: The Affray
 	-- {area:720} Fray Island · {area:391} Merchant Coast · {area:392} Ratchet · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
 	-- was: ["On the ride north to {area:392}, {area:720} lies off the {area:391} south of the town: wade over the sand bar shallows. {npc:6236} sends four challengers and then {npc:6238} (level 33) at you, one at a time."] = "向北骑往{area:392}的路上，{area:720}位于镇子南边的{area:391}近海：涉水穿过沙洲浅滩。{npc:6236}会让四名挑战者和{npc:6238}（33级）依次与你交战。"
-	["{area:720} lies off the {area:391} just south of {area:392}: wade over the sand bar shallows. {npc:6236} sends four challengers and then {npc:6238} (level 33) at you, one at a time."] = "",
+	["{area:720} lies off the {area:391} just south of {area:392}: wade over the sand bar shallows. {npc:6236} sends four challengers and then {npc:6238} (level 33) at you, one at a time."] = "{area:720}在{area:391}近海，紧邻{area:392}南边。涉水穿过沙洲浅滩即可到达。{npc:6236}会让四名挑战者逐个上场，最后是{npc:6238}（33级）。",
 	-- {npc:6238} Big Will
 	["Defeat the challengers and {npc:6238}"] = "击败挑战者和{npc:6238}",
 	-- {npc:6236} Klannoc Macleod
@@ -115,7 +115,7 @@ return {
 	-- Step 21: Fly to Theramore
 	["Fly to Theramore"] = "飞往塞拉摩岛",
 	-- {area:150} Menethil Harbor
-	["Back to Theramore for the boat to {area:150}."] = "",
+	["Back to Theramore for the boat to {area:150}."] = "回塞拉摩坐船前往{area:150}。",
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "{area:392}的飞行管理员",
 
@@ -148,7 +148,7 @@ return {
 	-- {area:35} Booty Bay
 	["Boat to {area:35}"] = "乘船前往{area:35}",
 	-- {area:35} Booty Bay · {area:392} Ratchet · {zone:1413} Barrens
-	["The boat to {area:35} leaves from {area:392}'s dock, below the flight master. Without the {area:392} flight path: follow the road west out of the marsh into the {zone:1413} and north up the coast to {area:392}, and learn it there."] = "",
+	["The boat to {area:35} leaves from {area:392}'s dock, below the flight master. Without the {area:392} flight path: follow the road west out of the marsh into the {zone:1413} and north up the coast to {area:392}, and learn it there."] = "前往{area:35}的船从{area:392}的码头出发，码头就在飞行管理员下方。如果还没开{area:392}的飞行点，就沿路向西离开沼泽，进入{zone:1413}，再沿海岸北上到{area:392}，在那里开飞行点。",
 
 	-- Step 28: Boat to Booty Bay
 	-- {npc:4732} Randal Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest
@@ -202,23 +202,23 @@ return {
 	["{npc:2624} swims off the north-west coast, on the northern loop"] = "{npc:2624}在西北海岸外游动，在北部环线上",
 
 	-- Step 36: Booty Bay
-	["You missed this on the route's earlier visit here: take it now, before the Bloodsail camp. Its gorillas live on the hills just above the camp."] = "",
+	["You missed this on the route's earlier visit here: take it now, before the Bloodsail camp. Its gorillas live on the hills just above the camp."] = "上次经过这里时漏接了这个任务。去血帆海盗营地前先接下来，任务要打的猩猩就在营地上方的山丘上。",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”马克基雷，位于最顶层",
 
 	-- Step 37: Bloodsail pirates: kill these as you meet them
 	["Bloodsail pirates: kill these as you meet them"] = "血帆海盗：沿途击杀以下目标",
 	-- {npc:2493} Dizzy One-Eye · {area:43} Wild Shore
 	-- was: ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "每个血帆海盗都会掉落鼻烟，其中一个带着{npc:2493}的眼睛：去镇子北边不远的沙滩血帆营地（就是找到信的地方），从血帆袭击者和血帆法师（39-41级）身上获取。镇子南边的{area:43}营地（术士和暴徒，41-43级）留到48级再去。"
-	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit.\nCareful: Rippa (44, a rare crocolisk) swims the shore beside the camp: stay out of the water."] = "",
+	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit.\nCareful: Rippa (44, a rare crocolisk) swims the shore beside the camp: stay out of the water."] = "血帆海盗都会掉落鼻烟，其中一个还带着{npc:2493}的眼睛。去镇子北边不远的海滩，在找到信件的那个血帆营地击杀血帆袭击者和血帆法师（39-41级），收集这两样东西。镇南{area:43}的营地有41-43级的血帆术士和血帆流氓，留到48级再去。\n小心44级稀有鳄鱼瑞帕。它就在营地旁的近岸水域游动，别下水。",
 
 	-- Step 38: Gorilla hills
 	["Gorilla hills"] = "猩猩山丘",
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
-	["From the Bloodsail camp, climb into the Mistvale hills just east of it: the Elder Mistvale Gorillas (40) there drop the giblets."] = "",
+	["From the Bloodsail camp, climb into the Mistvale hills just east of it: the Elder Mistvale Gorillas (40) there drop the giblets."] = "从血帆海盗营地往东，爬上旁边迷雾谷的山丘。击杀那里的老迈的迷雾谷猩猩（40级）收集内脏。",
 
 	-- Step 39: Booty Bay
 	-- {npc:2488} Deeg
-	["Back down to town: Shaky stands at the tunnel mouth; {npc:2488} and MacKinley are on the top floor."] = "",
+	["Back down to town: Shaky stands at the tunnel mouth; {npc:2488} and MacKinley are on the top floor."] = "下山回镇上。“病鬼”菲利普在隧道口，{npc:2488}和马克基雷在顶层。",
 	-- {npc:2486} Fin Fizracket · {npc:1514} Mokk the Savage · {area:35} Booty Bay
 	["{npc:2486}'s Stranglethorn Fever ({npc:1514}) waits for the level-48 {area:35} stop: leave it for now."] = "{npc:2486}的荆棘谷热病（{npc:1514}）留到48级回{area:35}时再做：暂时先放着。",
 	-- {area:35} Booty Bay
@@ -226,9 +226,9 @@ return {
 
 	-- Step 40: Stoley's Debt
 	-- {quest:2872} Stoley's Debt · {area:35} Booty Bay
-	["\"Sea Wolf\" MacKinley, on the top floor, offers {quest:2872} from level 40 (under 40, this guide's last {area:35} stop offers it again)."] = "",
+	["\"Sea Wolf\" MacKinley, on the top floor, offers {quest:2872} from level 40 (under 40, this guide's last {area:35} stop offers it again)."] = "顶层的“海狼”马克基雷从40级起提供{quest:2872}。如果还没到40级，可以等本指南最后一次到{area:35}时再接。",
 	-- {zone:1446} Tanaris
-	["\"Sea Wolf\" MacKinley: for Stoley in {zone:1446}, keep it"] = "",
+	["\"Sea Wolf\" MacKinley: for Stoley in {zone:1446}, keep it"] = "从“海狼”马克基雷处接取，先留着，之后交给{zone:1446}的斯杜雷",
 
 	-- Step 41: Jungle Stalkers
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
@@ -336,7 +336,7 @@ return {
 
 	-- Step 65: Stoley's Debt
 	-- {quest:2872} Stoley's Debt
-	["If you didn't take {quest:2872} on the earlier stop: \"Sea Wolf\" MacKinley, on the top floor."] = "",
+	["If you didn't take {quest:2872} on the earlier stop: \"Sea Wolf\" MacKinley, on the top floor."] = "上次来时如果没接{quest:2872}，去顶层找“海狼”马克基雷。",
 
 	-- Step 66: Fly to Stormwind
 	-- {area:35} Booty Bay
@@ -425,22 +425,22 @@ return {
 
 	-- Step 89: Watcher Biggs
 	-- {area:1438} Nethergarde Keep
-	["for {area:1438}, just south of the swamp"] = "",
+	["for {area:1438}, just south of the swamp"] = "交到{area:1438}，就在沼泽以南不远处",
 
 	-- Step 90: Into the Blasted Lands
 	-- {zone:1419} Blasted Lands
-	["Into the {zone:1419}"] = "",
+	["Into the {zone:1419}"] = "进入{zone:1419}",
 	-- {zone:1419} Blasted Lands · {area:75} Stonard · {area:1438} Nethergarde Keep · {npc:5982} Black Slayer
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang
-	["Follow the road south-east from Biggs to the pass into the {zone:1419}, keeping clear of {area:75}, the Horde town to the north-east.\nDown the pass, the road bends east to {area:1438}. Careful: {npc:5982} vultures (46) and Starving Snickerfangs (45) hunt in the dry hills south of the road: stay on it and keep moving."] = "",
+	["Follow the road south-east from Biggs to the pass into the {zone:1419}, keeping clear of {area:75}, the Horde town to the north-east.\nDown the pass, the road bends east to {area:1438}. Careful: {npc:5982} vultures (46) and Starving Snickerfangs (45) hunt in the dry hills south of the road: stay on it and keep moving."] = "从比格斯处沿路向东南走，前往通向{zone:1419}的山口，避开东北边的部落城镇{area:75}。\n从山口下去，道路向东拐到{area:1438}。小心在路南干燥山丘上觅食的秃鹫{npc:5982}（46级）和饥饿的弯牙土狼（45级）。沿路一直走，别停留。",
 	-- {zone:1419} Blasted Lands
-	["The pass to the {zone:1419}"] = "",
+	["The pass to the {zone:1419}"] = "通往{zone:1419}的山口",
 	-- {area:1438} Nethergarde Keep
-	["The road to {area:1438}"] = "",
+	["The road to {area:1438}"] = "前往{area:1438}的道路",
 
 	-- Step 91: Nethergarde Keep
 	-- {npc:5385} Watcher Mahar Ba · {npc:5393} Quartermaster Lungertz
-	["{npc:5385} is upstairs in the keep and {npc:5393} inside it; the gryphon master stands south of the keep."] = "",
+	["{npc:5385} is upstairs in the keep and {npc:5393} inside it; the gryphon master stands south of the keep."] = "{npc:5385}在要塞楼上，{npc:5393}在要塞里面。狮鹫管理员在要塞南边。",
 	-- {npc:5385} Watcher Mahar Ba
 	["{npc:5385}, upstairs"] = "{npc:5385}：在楼上",
 

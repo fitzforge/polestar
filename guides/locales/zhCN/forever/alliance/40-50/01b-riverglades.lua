@@ -188,7 +188,7 @@ return {
 	-- Step 38: WANTED: Blademaster Kaijo
 	-- {npc:263071} Blademaster Kaijo · {area:16743} Rog'mar
 	["{npc:263071} is an elite (level 42) at the Horde's training grounds north of {area:16743}, where this guide goes later: grouping up is advised."] = "{npc:263071}是精英（42级），位于{area:16743}以北的部落训练场，本指南稍后会去那里：建议组队。",
-	["the Wanted poster"] = "",
+	["the Wanted poster"] = "悬赏告示",
 
 	-- Step 39: Ghostmaw
 	-- {npc:263380} Ghostmaw · {area:16725} Wheeler's Grange · {area:16729} Terral's Watch
@@ -196,9 +196,9 @@ return {
 
 	-- Step 40: Sunnyglade
 	-- {area:16724} Farholde Keep · {area:16729} Terral's Watch · {area:16723} Sunnyglade · {area:16743} Rog'mar · {npc:259158} Fuzzle · {npc:256831} Apprentice Claire · {npc:258697} Farmer Elbrim
-	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
+	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "从{area:16724}向北，经过{area:16729}后过河，前往被暮光教派占据的农庄小镇{area:16723}。避开镇东的部落要塞{area:16743}。狗头人{npc:259158}在箭头指向的笼子里。{npc:256831}在镇子东侧边缘的地下洞穴里（入口坐标为50.0,46.0）。{npc:258697}在镇子东北边缘自己的农场里等你。",
 	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
-	["{npc:259158}: {quest:94961}, in his cage"] = "",
+	["{npc:259158}: {quest:94961}, in his cage"] = "在笼子里找{npc:259158}接{quest:94961}",
 	["the way in: she is below the town"] = "入口：她在镇子下方",
 	["Claire's cave"] = "克莱尔的洞穴",
 
@@ -224,7 +224,7 @@ return {
 
 	-- Step 43: Apprentice Claire
 	-- {area:16723} Sunnyglade
-	["Claire is in the cave under the eastern edge of {area:16723}: its entrance is at 50.0,46.0."] = "",
+	["Claire is in the cave under the eastern edge of {area:16723}: its entrance is at 50.0,46.0."] = "克莱尔在{area:16723}东侧边缘的地下洞穴里，入口坐标为50.0,46.0。",
 
 	-- Step 44: Cut Off the Heads
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade · {npc:257591} Ashe Amberhall · {area:16724} Farholde Keep
@@ -236,7 +236,7 @@ return {
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["{npc:259158} wants out of {area:16723}: lead him west to his treasure at the edge of town and keep the cultists off him."] = "{npc:259158}想离开{area:16723}：带他向西走到镇子边缘找他的宝藏，别让教徒靠近他。",
 	-- {npc:259158} Fuzzle
-	["{npc:259158} in his cage"] = "",
+	["{npc:259158} in his cage"] = "{npc:259158}在笼子里",
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["lead {npc:259158} out of {area:16723} to his treasure, west of the town"] = "带{npc:259158}离开{area:16723}，去镇子西边找他的宝藏",
 
@@ -366,10 +366,10 @@ return {
 	["Most beasts in the {zone:2548} drop {item:268632} for {npc:260231}: the shore crawlers on this coast and the boars on the ridge west of the pirates.\nCareful: {npc:257001} (elite, 42), Komuk (a Horde elite, 45) and {npc:263380} (elite, 42) range over the zone's wilds: take your beasts away from them."] = "{zone:2548}的大多数野兽都会掉落{item:268632}，交给{npc:260231}：这片海岸的海滨爬行者和海盗西边山脊上的野猪都行。\n注意：{npc:257001}（精英，42级）、科穆克（部落精英，45级）和{npc:263380}（精英，42级）在该地区野外游荡：把野兽拉离它们再打。",
 
 	-- Step 69: Level 44 on the Eastsea pirates
-	["Level 44 on the Eastsea pirates"] = "",
+	["Level 44 on the Eastsea pirates"] = "打东海海盗升到44级",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash · {area:1517} Uldaman
 	-- was: ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "在打第二波之前：低于44.4级时，第二波的袭击者和投弹手（43-45级）以及之后的海盗船都比你高一级。在第一个营地西南端、远离港口的地方刷海盗和火枪手（41-43级）补经验。{npc:259758}是49级的稀有精英，在这片悬崖游荡：如果看到他，尽量远离。或者，有小队的话改刷{area:1517}地下城。"
-	["Before the second wave: its raiders (44-45), bombardiers (43-44) and {quest:95124}'s ships after them (45) are more than a level over you below 44. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["Before the second wave: its raiders (44-45), bombardiers (43-44) and {quest:95124}'s ships after them (45) are more than a level over you below 44. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "先补经验，再打第二波。未满44级时，第二波的袭击者（44-45级）、投弹手（43-44级）和之后{quest:95124}的船只（45级）中，有目标会比你高出一级以上。去第一个营地远离港口的西南端，击杀东海冒险家和火枪手（41-43级）补经验。{npc:259758}是49级稀有精英，在这片悬崖上游荡，看到他就绕远些。组队的话，也可以改打{area:1517}地下城。",
 	-- {npc:257901} Eastsea Buccaneer
 	["grind on {npc:257901}"] = "刷{npc:257901}",
 
@@ -388,7 +388,7 @@ return {
 	-- Step 73: The pirates' ships
 	["The pirates' ships"] = "海盗船",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
-	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
+	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "再次前往海盗营地所在的悬崖。按从南到北的顺序，把维兹巴兹的炸药安放在营地下方停泊的三艘船上。{quest:95124}（45级）在中间那艘船的顶层甲板上走动，她的战利品箱在甲板下方。路上留意{npc:259758}。",
 	["on board, at the arrow"] = "在船上，箭头处",
 	-- {item:268505} Remote Explosive Charge
 	["Plant a {item:268505} on the southern ship"] = "在南边的船上安放{item:268505}",

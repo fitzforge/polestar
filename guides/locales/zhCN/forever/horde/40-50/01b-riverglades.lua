@@ -185,7 +185,7 @@ return {
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["{npc:259158} wants out of {area:16723}: lead him west to his treasure at the edge of town and keep the cultists off him."] = "{npc:259158}想离开{area:16723}：带他向西走到镇子边缘找他的宝藏，别让教徒靠近他。",
 	-- {npc:259158} Fuzzle
-	["{npc:259158} in his cage"] = "",
+	["{npc:259158} in his cage"] = "{npc:259158}在笼子里",
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["lead {npc:259158} out of {area:16723} to his treasure, west of the town"] = "带{npc:259158}离开{area:16723}，去镇子西边找他的宝藏",
 
@@ -230,7 +230,7 @@ return {
 	-- Step 51: WANTED: Scoutmaster Vargas
 	-- {npc:260211} Scoutmaster Vargas · {npc:256728} Na'zok · {npc:258031} Neza Bloodsnout
 	["{npc:260211} is an elite (level 42) at the Alliance scouts' camp in the hills south-east of {npc:256728}, where you go next: grouping up is advised. The poster hangs in the middle of the fort; {npc:258031} takes the eye, later in this guide."] = "{npc:260211}是精英（42级），位于{npc:256728}东南方山中的联盟斥候营地，也就是你接下来要去的地方：建议组队。通缉令挂在要塞中央；眼睛交给{npc:258031}，在本指南后面。",
-	["the Wanted poster"] = "",
+	["the Wanted poster"] = "悬赏告示",
 
 	-- Step 52: Na'zok's camp
 	-- {npc:256728} Na'zok
