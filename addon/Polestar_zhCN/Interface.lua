@@ -493,7 +493,6 @@
 --   %s is mined out for now
 --   Try %s next
 --   Best
---   %s: near %s
 --   Roam near %s, %s, for beasts (level %d-%d)
 --   Roam near %s, %s, for beasts (level %d)
 --   Roam near %s, %s, for beasts
@@ -792,7 +791,6 @@ L["%s at %s"] = "%2$s 处的 %1$s"
 L["Buy a rune at %s"] = "在%s处购买符文"
 L["Buy a rune and cast %s to save about %s"] = "购买符文并施放%s，约可节省%s"
 L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = "你的传送符文用完了，而这位商人有售：买一个再传送比你路线上的飞行更快。"
-L["%s: near %s"] = "%s：%s附近"
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "选择一个奖励以完成交还。"

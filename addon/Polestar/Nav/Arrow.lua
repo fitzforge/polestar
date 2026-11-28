@@ -864,26 +864,20 @@ function Arrow.RoamLines(roam)
 	end
 	return first, roam.verb == "herb" and L["Find Herbs shows them on your minimap"] or L["Find Minerals shows them on your minimap"]
 end
--- The roam of the arrow's area with its name parts from its candidate (Core/KindCraft.lua KC.AreaParts): the
--- Engine's `i`, else the current entry of the target's AreaChoices.
+-- The roam of the arrow's area, open ground with its name parts from its candidate (the Engine's `i`; Core/
+-- KindCraft.lua KC.AreaParts).
 local function roamLines()
 	local E = ns.Engine
 	local roam = E and E.AreaRoam and E.AreaRoam()
 	if type(roam) ~= "table" then return nil end
 	local t, KC = Nav.GetTarget(), ns.KindCraft
-	local guide = t and t.stepIndex and E.GetGuide and E.GetGuide()
-	local goal = guide and guide.steps and guide.steps[t.stepIndex] and guide.steps[t.stepIndex].goals[t.goalIndex]
-	local i = roam.i
-	if not i and goal and E.AreaChoices then
-		local v = E.AreaChoices(t.stepIndex, t.goalIndex)
-		for _, a in ipairs(v and v.list or {}) do
-			if a.current then i = a.i break end
-		end
-	end
-	local c = i and goal and goal.candidates and goal.candidates[i]
-	if c and KC and KC.AreaParts then
-		local place, zone, near = KC.AreaParts(c)
-		roam = { name = KC.AreaName(c), place = place, zone = zone, near = near, verb = roam.verb, items = roam.items, levels = roam.levels }
+	local guide = roam.i and t and t.stepIndex and E.GetGuide and E.GetGuide()
+	local step = guide and guide.steps and guide.steps[t.stepIndex]
+	local goal = step and step.goals and step.goals[t.goalIndex]
+	local c = goal and goal.candidates and goal.candidates[roam.i]
+	if c and c.near and KC and KC.AreaParts then
+		local place, zone = KC.AreaParts(c)
+		roam = { name = roam.name, place = place, zone = zone, near = true, verb = roam.verb, items = roam.items, levels = roam.levels }
 	end
 	return Arrow.RoamLines(roam)
 end

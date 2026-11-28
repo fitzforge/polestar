@@ -511,7 +511,6 @@
 --   %s is mined out for now
 --   Try %s next
 --   Best
---   %s: near %s
 --   Roam near %s, %s, for beasts (level %d-%d)
 --   Roam near %s, %s, for beasts (level %d)
 --   Roam near %s, %s, for beasts
@@ -810,7 +809,6 @@ L["%s at %s"] = "%s em %s"
 L["Buy a rune at %s"] = "Comprar uma runa com %s"
 L["Buy a rune and cast %s to save about %s"] = "Compre uma runa e lance %s para economizar cerca de %s"
 L["You are out of Runes of Teleportation and this vendor sells them: buying one and teleporting beats the flight on your route."] = "Você está sem Runas de Teleporte e este vendedor as vende: comprar uma e se teleportar é mais rápido que o voo da sua rota."
-L["%s: near %s"] = "%s: perto de %s"
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Escolha uma recompensa para concluir a entrega."

@@ -24,8 +24,7 @@
 local _, ns = ...
 local Engine, Materials = ns.Engine, ns.Materials
 local floor, ceil, max, min = math.floor, math.ceil, math.max, math.min
-local pairs, ipairs, type, format = pairs, ipairs, type, string.format
-local L = ns.L
+local pairs, ipairs, type = pairs, ipairs, type
 
 local KC = {}
 ns.KindCraft = KC
@@ -332,9 +331,11 @@ local function materialGoal(goal)
 	return (goal.t == "collect" and goal.gather ~= nil) or goal.t == "auction" or goal.t == "buy"
 end
 
--- An area's name parts from its candidate (docs/GUIDE_FORMAT.md "Gathering areas"): its subzone in the player's
--- language (ns.Names.Area by its AreaTable id, else the guide's English), its zone, and whether it is open ground
--- named after that subzone (`near`). -> place, zone, near
+-- An area's name parts from its candidate (docs/GUIDE_FORMAT.md "Gathering areas"), for the sentences that carry an
+-- open ground's name mid-line ("Roam near Razor Hill, Durotar, for Copper Ore"): its subzone in the player's language
+-- (ns.Names.Area by its AreaTable id, else the guide's English), its zone, and whether it is open ground named after
+-- that subzone (`near`). The name a line starts with is the Engine's own (AreaChoices' `name`: "Near Razor Hill,
+-- Durotar", "Red Cloud Mesa"). -> place, zone, near
 function KC.AreaParts(c)
 	if type(c) ~= "table" then return nil end
 	local N = ns.Names
@@ -342,48 +343,31 @@ function KC.AreaParts(c)
 	local zone = c.map and C().GetMapName and C().GetMapName(c.map) or ""
 	return place, zone, c.near and true or false
 end
--- An area's name at the start of a line: a named subzone as it is ("Red Cloud Mesa"), open ground "Near Razor Hill,
--- Durotar". nil without a candidate.
-function KC.AreaName(c)
-	local place, zone, near = KC.AreaParts(c)
-	if not place then return nil end
-	if near then return format(L["Near %s, %s"], place, zone) end
-	return place
-end
 
 -- A gathering area goal's choices for the window (Engine.AreaChoices, docs/GUIDE_FORMAT.md "Gathering areas"): the
--- ranked list cut to AREA_ROWS, best first (the arrow's area kept among them when it ranks lower), each entry a
--- copy with its name (KC.AreaName) and its candidate (`c`); the level the first area opens at while none is safe yet
--- (`safeFrom`, list empty); the area left mined out (`out`: { name, fromC, next, nextC (their candidates), i }); and
--- `what`: the item its nodes give most (the step's item, else the first area's), for "Safe Copper Ore area from
--- level 6". nil for a goal that is no area goal.
+-- ranked list cut to AREA_ROWS, best first (the arrow's area kept among them when it ranks lower); the level the
+-- first area opens at while none is safe yet (`safeFrom`, list empty); the area left mined out (`out`: { name, fromC,
+-- next, nextC (their candidates, for the open ground's sentences), i }); and `what`: the item its nodes give most
+-- (the step's item, else the first area's), for "Safe Copper Ore area from level 6". nil for a goal that is no area
+-- goal.
 KC.AREA_ROWS = 3
 function KC.Areas(s, gi, goal)
 	if not (s and goal and Engine.IsAreaGoal and Engine.AreaChoices and Engine.IsAreaGoal(goal)) then return nil end
 	local v = Engine.AreaChoices(s, gi)
 	if type(v) ~= "table" then return nil end
-	local all, picked = v.list or {}, {}
-	for i = 1, min(#all, KC.AREA_ROWS) do picked[i] = all[i] end
+	local all, list = v.list or {}, {}
+	for i = 1, min(#all, KC.AREA_ROWS) do list[i] = all[i] end
 	for i = KC.AREA_ROWS + 1, #all do
 		if all[i].current or all[i].picked then
-			picked[KC.AREA_ROWS] = all[i]
+			list[KC.AREA_ROWS] = all[i]
 			break
 		end
 	end
 	local cands = goal.candidates or {}
-	local list = {}
-	for k, e in ipairs(picked) do
-		local a = {}
-		for key, val in pairs(e) do a[key] = val end
-		a.c = cands[e.i]
-		a.name = KC.AreaName(a.c) or e.name
-		list[k] = a
-	end
 	local out
 	if type(v.out) == "table" then
 		local o = v.out
-		local from, nextC = o.from and cands[o.from], o.i and cands[o.i]
-		out = { name = KC.AreaName(from) or o.name, fromC = from or nil, next = KC.AreaName(nextC) or o.next, nextC = nextC or nil, i = o.i }
+		out = { name = o.name, fromC = o.from and cands[o.from] or nil, next = o.next, nextC = o.i and cands[o.i] or nil, i = o.i }
 	end
 	local item = goal.item
 	if not item then

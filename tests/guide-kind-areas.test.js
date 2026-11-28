@@ -12,7 +12,8 @@ const assert = require('node:assert/strict');
 const { runAddon } = require('./helpers/lua');
 
 const POLY = 'poly = "40,78;46,76;48,84;42,86"';
-// The step's candidates, indexed as the stub view's `i`: the name the window shows is built from them (KC.AreaName).
+// The step's candidates, indexed as the stub view's `i`: an open ground's sentences ("Try near X, Zone, next") take
+// their name parts from them (KC.AreaParts); the rows show the Engine's names.
 const NAMES = ['area = "Bael\'dun Digsite", near = true', 'area = "The Golden Plains"', 'area = "Red Cloud Mesa"', 'area = "Thunder Bluff"', 'area = "Ravaged Caravan"'];
 const cands = (extra) => NAMES.map((n) => `{ map = 1412, x = 44, y = 80, ${n}, lvl = { min = 1, max = 1 }, lap = 300, ${extra}, count = 12, ${POLY} }`).join(', ');
 const MINING = `{ id = "test/mining", pack = "test", title = "Mining 1-300", minLevel = 1, maxLevel = 60, category = "Professions",
@@ -43,7 +44,7 @@ picks, aims = {}, {}
 local function view(verb)
 	return { verb = verb, list = {
 		{ i = 3, name = "Red Cloud Mesa", zone = "Mulgore", map = 1412, count = 12, safeFrom = 1, minutes = 0, here = true, best = true, current = true },
-		{ i = 1, name = "Mulgore: near Bael'dun Digsite", zone = "Mulgore", map = 1412, count = 9, safeFrom = 8, minutes = 4.2 },
+		{ i = 1, name = "Near Bael'dun Digsite, Mulgore", zone = "Mulgore", map = 1412, count = 9, safeFrom = 8, minutes = 4.2 },
 		{ i = 2, name = "The Golden Plains", zone = "Mulgore", map = 1412, count = 7, safeFrom = 6, minutes = 6 },
 		{ i = 5, name = "Ravaged Caravan", zone = "Mulgore", map = 1412, count = 6, safeFrom = 7, minutes = 8 },
 		{ i = 4, name = "Thunder Bluff", zone = "Mulgore", map = 1412, count = 5, safeFrom = 9, minutes = 9 },
@@ -144,7 +145,7 @@ emit(rows("areas"))`);
 });
 
 test('mined out: "Try <Area> next" first, saying the pick is mined out; its Guide me picks the next; open ground reads "Try near X, Zone, next"', () => {
-	const near = run('AREAS.out = { name = "Red Cloud Mesa", from = 3, next = "Mulgore: near Bael\'dun Digsite", i = 1 }', `at(1)
+	const near = run('AREAS.out = { name = "Red Cloud Mesa", from = 3, next = "Near Bael\'dun Digsite, Mulgore", i = 1 }', `at(1)
 emit(rows("areas"))`);
 	assert.deepEqual([near[2].text, near[2].sub], ['Try near Bael\'dun Digsite, Mulgore, next', 'Red Cloud Mesa is mined out for now']);
 	const out = run('AREAS.out = { name = "Red Cloud Mesa", from = 3, next = "The Golden Plains", i = 2 }', `at(1)
@@ -161,7 +162,7 @@ test('herbs and beasts: Pick it with ~N herbs; Kill and skin it with ~N beasts a
 cs[1].area, cs[1].map, cs[1].near = "Valley of Trials", 1411, nil
 cs[2].area, cs[2].map, cs[2].near = "Razor Hill", 1411, true
 AREAS = { verb = "herb", list = { { i = 1, name = "Valley of Trials", count = 14, safeFrom = 1, minutes = 2, best = true, current = true } },
-	out = { name = "Durotar: near Razor Hill", from = 2, next = "Valley of Trials", i = 1 } }
+	out = { name = "Near Razor Hill, Durotar", from = 2, next = "Valley of Trials", i = 1 } }
 at(1)
 local herbs = rows("areas")
 AREAS = { verb = "skin", list = { { i = 1, name = "The Golden Plains", count = 22, levels = { min = 1, max = 6 }, safeFrom = 3, minutes = 1, best = true, current = true },
@@ -248,7 +249,7 @@ emit({ card = GF.RegionFrame("areas"):GetParent() == GF.parts.card, n = #rows("a
 
 test('no area text is cut: every row\'s text wraps whole, clear of its button, at the narrowest window', () => {
 	const out = run('', `Polestar.UI.GuideFrame.frame:SetWidth(Polestar.UI.MIN_WIDTH)
-E.GetGuide().steps[1].goals[1].candidates[1].area = "the Venture Co. Mine and Bael'dun Digsite"
+AREAS.list[2].name = "Near the Venture Co. Mine and Bael'dun Digsite, Mulgore"
 at(1)
 local f, bad, n = GF.RegionFrame("areas"), {}, 0
 local width, TEXT_X = Polestar.UI.GuideFrame.frame:GetWidth(), GF.metrics and GF.metrics.TEXT_X or 38
