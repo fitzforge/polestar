@@ -38,9 +38,9 @@ return {
 	["Grizzled Scalps"] = "불곰 가죽",
 
 	-- Step 6: The Master's Glaive
-	-- {object:12666} Twilight Tome · {quest:948} Onu · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl
+	-- {object:12666} Twilight Tome · {item:5251} Phial of Scrying · {object:10076} Scrying Bowl · {quest:948} Onu
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "달빛사냥꾼 우두머리들이 글레이브 주변 숲을 돌아다닙니다. {object:12666}은(는) 분화구 바닥에 있습니다. {quest:948}의 퀘스트를 위해 분화구 바닥에서 {item:5251}을(를) 사용하십시오: {object:10076}이(가) 생기고, 퀘스트는 그 그릇에 제출합니다.",
+	["Moonstalker Sires prowl the woods around the glaive. The {object:12666} is at the bottom of the crater, and the {item:5251} makes the {object:10076} that takes {quest:948}'s quest."] = "",
 	-- plural, as words: Fine Moonstalker Pelts = {item:5386} Fine Moonstalker Pelt
 	["Fine Moonstalker Pelts"] = "고급 달표범 모피",
 	-- {item:5352} Book: The Powers Below
@@ -118,8 +118,8 @@ return {
 	["{npc:3616}, at the Grove"] = "{npc:3616}, 고대정령의 숲에서",
 
 	-- Step 21: Volcor
-	-- {npc:3692} Volcor · {area:449} Master's Glaive · {area:455} Blackwood Den
-	["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "{npc:3692}은(는) {area:449} 동쪽 언덕, {area:455} 안에 숨어 있습니다.",
+	-- {area:455} Blackwood Den · {area:449} Master's Glaive
+	["{area:455} is in the hills east of the {area:449}."] = "",
 	-- {npc:3692} Volcor · {area:455} Blackwood Den
 	["{npc:3692}, inside {area:455}"] = "{npc:3692}, {area:455} 안",
 	-- {npc:12298} Sickly Deer · {item:15826} Curative Animal Salve · {zone:1439} Darkshore
@@ -168,29 +168,34 @@ return {
 	["{quest:98394} (Night Elves) and the {npc:272054} (Skyborne) wait in southern {area:493}. The three relics lie in the {area:2363}, east of them. Reports from the first weeks say a relic gives no loot while another player is looting it: wait a moment and try again."] = "{quest:98394}(나이트 엘프)와(과) {npc:272054}(스카이본)이(가) {area:493} 남쪽에서 기다립니다. 세 유물은 그 동쪽의 {area:2363}에 있습니다. 첫 몇 주의 제보에 따르면 다른 플레이어가 유물을 획득하는 중에는 아무것도 나오지 않습니다: 잠시 기다렸다가 다시 시도하십시오.",
 
 	-- Step 33: Trial of the Sea Lion
-	-- {zone:1436} Westfall · {zone:1439} Darkshore · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
-	["Both half pendants in your bags (the {zone:1436} half from your last {zone:1436} visit, the {zone:1439} half from the north coast): stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then take the pendant to {npc:11802} with the {spell:499} hand-in. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "반쪽 펜던트 두 개를 모두 가방에 가지고({zone:1436} 반쪽은 지난번 {zone:1436} 방문 때, {zone:1439} 반쪽은 북쪽 해안에서 얻음) 호수 북서쪽 기슭의 {area:2362} 옆에 서서 반쪽 하나를 사용해 합치십시오. 그런 다음 {spell:499} 제출 때 함께 펜던트를 {npc:11802}에게 가져가십시오. {npc:11802}은(는) 건물 위층에 서 있습니다. 건물 안에서 올라가십시오. 화살표는 층을 구분하지 못합니다.",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: join the halves at the {area:2362}"] = "{item:15885}: {area:2362}에서 반쪽 합치기",
+
+	-- Step 34: Pendant of the Sea Lion
+	-- {npc:11802} Dendrite Starblaze
+	["{npc:11802} is upstairs in his building, and the arrow cannot tell the floors apart."] = "",
+
+	-- Step 35: Dendrite Starblaze
+	-- {item:15885} Pendant of the Sea Lion · {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form
+	["The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building."] = "{item:15885}은(는) 이미 {npc:11802}에게 있습니다: 그의 건물 위층에서 {quest:5061}을(를) 받으십시오.",
 	-- {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form · {npc:4217} Mathrengyl Bearwalker
 	["{npc:11802}: {quest:5061}, for {npc:4217}"] = "{npc:11802}: {quest:5061}, {npc:4217}에게",
 
-	-- Step 34: Dendrite Starblaze
-	-- {item:15885} Pendant of the Sea Lion · {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form
-	["The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building."] = "{item:15885}은(는) 이미 {npc:11802}에게 있습니다: 그의 건물 위층에서 {quest:5061}을(를) 받으십시오.",
-
-	-- Step 35: Back to Dendrite Starblaze
+	-- Step 36: Back to Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze
 	["Back to {npc:11802}"] = "{npc:11802}에게 돌아가기",
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Back to {npc:11802} in {area:2361}, then {npc:11800} there flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 38: To Darnassus
+	-- Step 39: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine · {zone:1440} Ashenvale
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}. {npc:4217} is a Druid trainer: learn your new spells from him."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Both half pendants in your bags (the {zone:1436} half from your last {zone:1436} visit, the {zone:1439} half from the north coast): stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then take the pendant to {npc:11802} with the {spell:499} hand-in. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "반쪽 펜던트 두 개를 모두 가방에 가지고({zone:1436} 반쪽은 지난번 {zone:1436} 방문 때, {zone:1439} 반쪽은 북쪽 해안에서 얻음) 호수 북서쪽 기슭의 {area:2362} 옆에 서서 반쪽 하나를 사용해 합치십시오. 그런 다음 {spell:499} 제출 때 함께 펜던트를 {npc:11802}에게 가져가십시오. {npc:11802}은(는) 건물 위층에 서 있습니다. 건물 안에서 올라가십시오. 화살표는 층을 구분하지 못합니다.",
 	-- ["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있는 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다. 비행 경로가 없다면 그곳에서 배우세요.",
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "덩치큰 달표범이 글레이브 주변 숲을 배회합니다. {object:10076}와(과) {object:12666}은(는) 구덩이 바닥에 있고, {npc:3584}은(는) 구덩이 북쪽에 서 있습니다.",
+	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "달빛사냥꾼 우두머리들이 글레이브 주변 숲을 돌아다닙니다. {object:12666}은(는) 분화구 바닥에 있습니다. {quest:948}의 퀘스트를 위해 분화구 바닥에서 {item:5251}을(를) 사용하십시오: {object:10076}이(가) 생기고, 퀘스트는 그 그릇에 제출합니다.",
 	-- ["Moonstalker Sires prowl the woods around the glaive. The {object:12666} sits at the bottom of the crater; {npc:3584} stands on its north side. For {quest:948}'s quest, use the {item:5251} at the bottom of the crater: it makes the {object:10076}, and you hand the quest in to the bowl."] = "덩치큰 달표범이 글레이브 주변 숲을 배회합니다. {object:12666}은(는) 구덩이 바닥에 있고, {npc:3584}은(는) 구덩이 북쪽에 서 있습니다. {quest:948}의 퀘스트는 구덩이 바닥에서 {item:5251}을(를) 사용하십시오: {object:10076}이(가) 나타나며, 퀘스트는 그 그릇에 제출합니다.",
+	-- ["{npc:3692} hides in the hills east of the {area:449}, inside {area:455}."] = "{npc:3692}은(는) {area:449} 동쪽 언덕, {area:455} 안에 숨어 있습니다.",
 }

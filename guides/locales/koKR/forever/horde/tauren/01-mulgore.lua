@@ -81,8 +81,8 @@ return {
 	["Back east to {area:358}: the Bristleback Shamans stand among the quilboar there."] = "동쪽의 {area:358}(으)로 돌아가세요. 뾰족털일족 주술사는 그곳 가시멧돼지 사이에 있습니다.",
 
 	-- Step 14: Call of Earth
-	-- {npc:5888} Seer Ravenfeather · {npc:5891} Minor Manifestation of Earth · {item:6635} Earth Sapta · {item:6656} Rough Quartz
-	["Back to {npc:5888} in the camp. The {npc:5891} waits on the mesa east of the camp: drink the {item:6635} there to see it, then take the {item:6656} back to the Seer."] = "야영지의 {npc:5888}에게 돌아가세요. {npc:5891}은(는) 야영지 동쪽 고원에서 기다립니다. 그곳에서 {item:6635}을(를) 마시면 보입니다. {item:6656}을(를) 예언자에게 가져가세요.",
+	-- {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth
+	["Only the {item:6635} shows the {npc:5891}, on the mesa east of the camp."] = "",
 	-- {npc:5888} Seer Ravenfeather · {npc:5873} Stoneskin Totem · {item:5175} Earth Totem
 	["{npc:5888}: {npc:5873} and your {item:5175}"] = "{npc:5888}: {npc:5873}, {item:5175}",
 
@@ -255,7 +255,7 @@ return {
 	-- Step 50: Dwarven Digging
 	-- {area:404} Bael'dun Digsite
 	-- plural, as words: Prospector's Picks = {item:4702} Prospector's Pick
-	["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the dwarves' forge in the digsite."] = "{area:404}의 드워프들이 발굴조사단장의 곡괭이를 지니고 있습니다. 발굴현장 안의 드워프 대장간에서 부수세요.",
+	["The dwarves of the {area:404} carry the Prospector's Picks."] = "",
 	-- {item:4703} Broken Tools
 	["{item:4703}, at the digsite forge"] = "{item:4703}, 발굴현장 대장간에서",
 
@@ -449,6 +449,7 @@ return {
 	-- ["Back south to the {area:396}."] = "남쪽의 {area:396}(으)로 돌아가세요.",
 	-- ["Back south-east to the {area:396}."] = "남동쪽의 {area:396}(으)로 돌아가세요.",
 	-- ["Back to Bloodhoof"] = "블러드후프 마을로 돌아가기",
+	-- ["Back to {npc:5888} in the camp. The {npc:5891} waits on the mesa east of the camp: drink the {item:6635} there to see it, then take the {item:6656} back to the Seer."] = "야영지의 {npc:5888}에게 돌아가세요. {npc:5891}은(는) 야영지 동쪽 고원에서 기다립니다. 그곳에서 {item:6635}을(를) 마시면 보입니다. {item:6656}을(를) 예언자에게 가져가세요.",
 	-- ["Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. {npc:8554} stands at its eastern end, and the {item:4851} lies on the ground in the camp."] = "전투멧돼지는 제단 북쪽에서 풀을 뜯고, 뾰족털 가시멧돼지는 북동쪽 협곡을 차지하고 있습니다. {npc:8554}은(는) 협곡 동쪽 끝에 서 있고, {item:4851}은(는) 야영지 바닥에 있습니다.",
 	-- ["Burning Blade Cultists hold {area:1898}, east of the road north to {zone:1454}; they drop the {item:6652}. The {item:5026} comes from the Razormane on the next guide's first visit to their camp."] = "불타는칼날단 이교도가 {zone:1454}(으)로 가는 북쪽 길 동쪽의 {area:1898}을(를) 차지하고 있으며, {item:6652}을(를) 떨어뜨립니다. {item:5026}은(는) 다음 가이드에서 서슬갈기일족 야영지에 처음 갈 때 그들에게서 얻습니다.",
 	-- ["Finish the wolf heart, cougar femur, plainstrider scale and swoop gizzard on the plains around the village."] = "마을 주변 평원에서 늑대 심장, 퓨마 대퇴골, 초원타조 비늘, 검독수리 모래주머니를 마저 모으세요.",
@@ -469,6 +470,7 @@ return {
 	-- ["Swoops glide over the plains all around Bloodhoof."] = "검독수리는 블러드후프 마을 주변 평원 곳곳을 활공합니다.",
 	-- ["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "갈라크일족 켄타우로스는 우물 동쪽 평원에 야영하고 있으며, 헤라크가 그들을 이끕니다.",
 	-- ["The Galak centaurs camp on the plains north of the {area:821}; Herak leads them. Prairie Wolf Alphas roam among the wolves."] = "갈라크일족 켄타우로스는 {area:821} 북쪽 평원에 야영하고 있으며, 헤라크가 그들을 이끕니다. 우두머리 초원늑대는 늑대들 사이를 돌아다닙니다.",
+	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the dwarves' forge in the digsite."] = "{area:404}의 드워프들이 발굴조사단장의 곡괭이를 지니고 있습니다. 발굴현장 안의 드워프 대장간에서 부수세요.",
 	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the forge in {area:222}."] = "{area:404}의 드워프들이 발굴조사단장의 곡괭이를 지니고 있습니다. {area:222}의 대장간에서 부수세요.",
 	-- ["The goblins work the mine in the hills north-east of the well. {quest:765} stands in the back of the mine; his {item:281031} start {quest:98424}, and the other pages lie inside the mine."] = "고블린들은 우물 북동쪽 언덕의 광산에서 일합니다. {quest:765}은(는) 광산 안쪽에 서 있습니다. 그의 {item:281031}이(가) {quest:98424}을(를) 시작하며, 나머지 쪽은 광산 안에 있습니다.",
 	-- ["The goblins work the mine in the hills north-east of the well. {quest:765} stands in the back of the mine; his {item:281031} start {quest:98424}, and the other pages lie inside the mine.\nCareful: the goblins stand close together in the tunnels and {quest:765} is level 12: clear the way one pull at a time."] = "고블린들은 우물 북동쪽 언덕의 광산에서 일합니다. {quest:765}은(는) 광산 안쪽에 서 있습니다. 그의 {item:281031}이(가) {quest:98424}을(를) 시작하며, 나머지 쪽은 광산 안에 있습니다.\n주의: 고블린들은 갱도에 서로 가까이 서 있고 {quest:765}은(는) 12레벨입니다. 한 번에 하나씩 끌어와 길을 뚫으세요.",

@@ -308,9 +308,9 @@ return {
 
 	-- Step 65: Raptor nests
 	["Raptor nests"] = "Ninhos de raptor",
-	-- {area:392} Ratchet · {area:1697} Raptor Grounds · {item:5165} Sunscale Feather
+	-- {item:5165} Sunscale Feather
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "Para o sudoeste a partir de {area:392}, atravessando as planícies até {area:1697}: os três ninhos ficam juntos a sudoeste do oásis, e Garrafoices Helióscamo os guardam. Cada ninho precisa de uma {item:5165}: mate raptores Helióscamo (a maioria solta uma) até ter três, depois use uma pena em cada ninho.",
+	["Sunscale Scytheclaws guard the three nests. Most Sunscale raptors drop a {item:5165}, and each nest takes one."] = "",
 
 	-- Step 66: Raptor Grounds: kill these as you meet them
 	-- {area:1697} Raptor Grounds
@@ -330,8 +330,8 @@ return {
 	["{npc:3446}, beside the WANTED poster"] = "",
 
 	-- Step 73: Dreadmist Peak
-	-- {area:384} Dreadmist Peak · {item:15842} Empty Dreadmist Peak Sampler · {object:19464} Dreadmist Peak Pool (no name in this language: may be words) · {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
-	["Head north from the Crossroads to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the Crossroads. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "Siga para o norte da Encruzilhada até {area:384} e encha o {item:15842} em {object:19464}, depois volte a {npc:3448} na Encruzilhada. Sem {skill:182}? {npc:3490}, ao lado dele, vende {item:2449}, três por vez até repor o estoque.",
+	-- {npc:3490} Hula'mahi · {npc:3448} Tonga Runetotem · {item:2449} Earthroot
+	["{npc:3490} beside {npc:3448} sells {item:2449}, three at a time until he restocks."] = "",
 	-- {item:2449} Earthroot · {npc:3490} Hula'mahi
 	["{item:2449} from {npc:3490}; herbalists pick it on the plains"] = "{item:2449} de {npc:3490}; herbalistas colhem nas planícies",
 
@@ -399,8 +399,8 @@ return {
 	["He gives you the {item:15826}"] = "Ele dá a você {item:15826}",
 
 	-- Step 87: Verog the Dervish
-	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {npc:3448} Tonga Runetotem
-	["{npc:3395} doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the {area:388}, south-east of the Crossroads. Keep killing them around the oasis until he appears. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395} não anda por conta própria: ele aparece quando você mata os centauros Kolkar em {area:388}, a sudeste da Encruzilhada. Continue matando-os em volta do oásis até ele aparecer. Teste as sementes de {npc:3448} na fenda borbulhante da margem leste do oásis enquanto estiver lá.",
+	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis
+	["{npc:3395} doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the {area:388}."] = "",
 	["Underwater"] = "Debaixo d'água",
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "{npc:12296}: use o {item:15826} neles; eles andam pelas planícies em volta da Encruzilhada",
@@ -626,8 +626,8 @@ return {
 	["Thunderhawk Cloudscrapers circle over the plains south of the camp."] = "Falcotrons Raspa-nuvens voam em círculos sobre as planícies ao sul do acampamento.",
 
 	-- Step 143: Brine
-	-- {npc:5899} Brine · {area:378} Camp Taurajo · {item:7766} Empty Brown Waterskin
-	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "A cabana de {npc:5899} fica na crista acima do bebedouro dos javatuscos, ao sul de {area:378}: encha o {item:7766} no bebedouro abaixo dela.",
+	-- {npc:5899} Brine · {area:378} Camp Taurajo
+	["{npc:5899}'s hut is on the ridge above the quilboar watering hole, south of {area:378}."] = "",
 	-- {item:7766} Empty Brown Waterskin
 	["Fill the {item:7766} at the quilboar watering hole"] = "Encha o {item:7766} no bebedouro dos javaligs",
 	-- {object:107045} Spring Well (no name in this language: may be words) · {area:272} Tarren Mill · {area:287} Hillsbrad
@@ -756,6 +756,7 @@ return {
 	-- ["Follow the road east to the outpost above the {area:814}."] = "Siga a estrada para leste até o posto acima de {area:814}.",
 	-- ["Follow the road south-east to {area:392} on the coast."] = "Siga a estrada para sudeste até {area:392}, no litoral.",
 	-- ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "Siga a estrada para sudeste até {area:392}, na costa: {npc:3391} e {npc:7161} na ponta norte da cidade, {npc:3442} e {npc:16227}, {npc:3446} e o cartaz {object:3972}, depois {quest:1492} no cais, na saída para o sul.",
+	-- ["Head north from the Crossroads to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the Crossroads. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "Siga para o norte da Encruzilhada até {area:384} e encha o {item:15842} em {object:19464}, depois volte a {npc:3448} na Encruzilhada. Sem {skill:182}? {npc:3490}, ao lado dele, vende {item:2449}, três por vez até repor o estoque.",
 	-- ["In from the north gate: {npc:3464} first, {npc:3338} by the inn, {npc:3448} at the south gate, then up to {npc:3449} and {npc:3429} on the tower platform, where the flight master stands."] = "Entrando pelo portão norte: {npc:3464} primeiro, {npc:3338} junto à estalagem, {npc:3448} no portão sul; depois suba até {npc:3449} e {npc:3429}, na plataforma da torre, onde fica o mestre de voo.",
 	-- ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks."] = "No acampamento, os Rabdomantes e os Tecespinhos ficam na metade oeste e os Caçadores Crinavalha no meio; as caixas de suprimentos ficam na ponta leste.\nOs Pinotes daqui também contam para os bicos.",
 	-- ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "No acampamento, os Rabdomantes e os Tecespinhos ficam na metade oeste e os Caçadores Crinavalha no meio; as caixas de suprimentos ficam na ponta leste.\nOs Pinotes daqui também contam para os bicos.\nCuidado: os Come-carnes e os Berserkers Crinavalha (18-19) são elites; eles ficam no nordeste do acampamento, ao lado das caixas de suprimentos: puxe os javatuscos para longe deles, um de cada vez.",
@@ -779,6 +780,7 @@ return {
 	-- ["South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank; {npc:3448} takes the result on the next Crossroads stop, so carry on north-west to the {area:383} from here."] = "A sudeste da Encruzilhada. Teste as sementes na fenda borbulhante da margem leste do oásis; {npc:3448} recebe o resultado na próxima parada na Encruzilhada, então siga daqui para o noroeste até {area:383}.",
 	-- ["South-east of the {area:380}. Test the seeds at the bubbling fissure on the oasis' east bank."] = "A sudeste da {area:380}. Teste as sementes na fenda borbulhante da margem leste do oásis.",
 	-- ["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them."] = "Para o sudoeste a partir de {area:392}, atravessando as planícies até {area:1697}: os três ninhos ficam juntos a sudoeste do oásis, e Garrafoices Helióscamo os guardam.",
+	-- ["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "Para o sudoeste a partir de {area:392}, atravessando as planícies até {area:1697}: os três ninhos ficam juntos a sudoeste do oásis, e Garrafoices Helióscamo os guardam. Cada ninho precisa de uma {item:5165}: mate raptores Helióscamo (a maioria solta uma) até ter três, depois use uma pena em cada ninho.",
 	-- ["Southsea beach"] = "Praia dos Mares do Sul",
 	-- ["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "Ainda não chegou a doze? Batecaudas e Uivadores Helióscamo andam pelas planícies a nordeste da Encruzilhada, na volta para o sul, vindo da toca de {quest:881}.",
 	-- ["Still short of twelve? The Sunscale Screechers are thickest on the plains around {quest:881}'s lair, north of the Razormane camp."] = "Ainda não chegou a doze? Os Uivadores Helióscamo são mais numerosos nas planícies em volta do covil de {quest:881}, ao norte do acampamento Crinavalha.",
@@ -822,6 +824,7 @@ return {
 	-- ["{npc:3338} by the inn first, then the innkeeper, Helbrim by the north gate, {npc:3429} and {npc:3449} on the tower platform, {npc:3432} by the inn, and {npc:3448} at the south gate on the way out."] = "{npc:3338} junto à estalagem primeiro, depois o estalajadeiro, Hermógenes junto ao portão norte, {npc:3429} e {npc:3449} na plataforma da torre, {npc:3432} junto à estalagem e {npc:3448} no portão sul, na saída.",
 	-- ["{npc:3389}: {npc:3395} walks with the Kolkar at the {area:388}, later"] = "{npc:3389}: {npc:3395} anda com os Kolkar em {area:388}, mais tarde",
 	-- ["{npc:3391}: the crates lie at the south end of the beach camp, on the walk to {area:385} at 18"] = "{npc:3391}: as caixas ficam na ponta sul do acampamento da praia, no caminho para {area:385}, no nível 18",
+	-- ["{npc:3395} doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the {area:388}, south-east of the Crossroads. Keep killing them around the oasis until he appears. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395} não anda por conta própria: ele aparece quando você mata os centauros Kolkar em {area:388}, a sudeste da Encruzilhada. Continue matando-os em volta do oásis até ele aparecer. Teste as sementes de {npc:3448} na fenda borbulhante da margem leste do oásis enquanto estiver lá.",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads."] = "{npc:3395} anda entre os Kolkar em {area:388}, a sudeste da Encruzilhada.",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Oasis Snapjaws crawl in the water around it: their shells are for {npc:3448}."] = "{npc:3395} anda entre os Kolkar em {area:388}, a sudeste da Encruzilhada. Mordeliscas do Oásis rastejam na água em volta dele: as carapaças delas são para {npc:3448}.",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395} anda entre os Kolkar em {area:388}, a sudeste da Encruzilhada. Teste as sementes de {npc:3448} na fenda borbulhante da margem leste do oásis enquanto estiver lá.",
@@ -834,6 +837,7 @@ return {
 	-- ["{npc:3448}: the Oasis Snapjaws at the {area:388}, with {npc:3395}"] = "{npc:3448}: as Mordeliscas do Oásis em {area:388}, com {npc:3395}",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, o mestre dos mantícoras",
 	-- ["{npc:5878} camps beside the road from the Crossroads to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878} acampa junto à estrada da Encruzilhada para {area:392}. O {object:58369} fica no sul do acampamento Crinavalha, logo ao norte dele.",
+	-- ["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "A cabana de {npc:5899} fica na crista acima do bebedouro dos javatuscos, ao sul de {area:378}: encha o {item:7766} no bebedouro abaixo dela.",
 	-- ["{npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "{npc:5900} faz {item:6636} com o piche e o bornal. Use-o junto ao braseiro ao lado dele para revelar o {npc:5893}, mate-o pela {item:6655} e depois coloque a brasa no braseiro.",
 	-- ["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900} espera na margem do rio ao sul de {area:379}, do outro lado da ponte.",
 	-- ["{npc:5907} stands on the ridge north of the Razormane camp."] = "{npc:5907} fica na serra ao norte do acampamento Crinavalha.",

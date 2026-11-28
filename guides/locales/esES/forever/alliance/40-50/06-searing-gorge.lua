@@ -137,9 +137,8 @@ return {
 	-- Step 37: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Sentry Braziers"] = "Braseros de centinela",
-	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "Lleva la {object:149047} hacia el sur por el borde de La Caldera y enciende los cuatro Braseros de centinela, del suroeste al sureste.",
+	["The four Sentry Braziers sit along the rim of the Cauldron, from the south-west round to the south-east."] = "",
 
 	-- Step 38: Level 48.98
 	["Level 48.98"] = "Nivel 48.98",
@@ -182,6 +181,7 @@ return {
 	["Xiggs waits in the {object:32359}."] = "Xiggs espera en el Distrito Militar ({object:32359}).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "Lleva la {object:149047} hacia el sur por el borde de La Caldera y enciende los cuatro Braseros de centinela, del suroeste al sureste.",
 	-- ["For {npc:8256} in {area:1537}, later"] = "Para {npc:8256} en {area:1537}, más adelante",
 	-- ["Greater Lava Spiders"] = "Arañas de lava abrasadoras",
 	-- ["Heavy War Golems patrol the floor of the Cauldron below Velarok; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts."] = "Los Gólems de guerra pesados patrullan el fondo de La Caldera bajo Velarok; los Elementales de magma vagan entre ellos. Gólems y elementales sueltan el aceite; los elementales, los corazones.",

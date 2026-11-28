@@ -52,9 +52,8 @@ return {
 	["{npc:5911}: the soldiers and the pillager camp just east of {npc:3341}, on the way south"] = "",
 
 	-- Step 8: Field of Giants
-	-- {npc:3341} Gann Stonespire · {area:390} Field of Giants
-	-- plural, as words: Silithid Mounds = {object:3685} Silithid Mound · Silithid Swarmers = {npc:3252} Silithid Swarmer
-	["South of Camp Taurajo, on the road to {npc:3341}, the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them.\nCareful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit."] = "타우라조 야영지 남쪽, {npc:3341}에게 가는 길의 {area:390}에 실리시드 흙더미가 흩어져 있습니다. 알은 그 안에 있으며, 우두머리 실리시드가 나와 지킵니다.\n주의: 이 지역의 우두머리 실리시드는 주문을 방해하는 작은 몹을 여럿 풀어놓습니다. 가시 같은 피해 보호막이면 한 방에 죽습니다.",
+	-- plural, as words: Silithid Swarmers = {npc:3252} Silithid Swarmer
+	["Silithid Swarmers defend the mounds and release many tiny adds that interrupt spells, and damage shields such as Thorns kill those adds in one hit."] = "",
 
 	-- Step 10: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:359} Bael Modan
@@ -105,8 +104,8 @@ return {
 
 	-- Step 20: The flying machine
 	["The flying machine"] = "비행 기계",
-	-- {item:5021} Explosive Stick of Gann · {npc:3341} Gann Stonespire
-	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "드워프의 비행 기계는 발굴 현장 안 발판 위에 있습니다. {npc:3341}이(가) 준 {item:5021}을(를) 그 위에 사용하세요.",
+	-- {item:5021} Explosive Stick of Gann
+	["The {item:5021} destroys the dwarves' flying machine, on its platform inside the dig site."] = "",
 
 	-- Step 22: To Camp Taurajo
 	-- {area:378} Camp Taurajo
@@ -233,8 +232,8 @@ return {
 	-- {area:465} The Charred Vale
 	["{area:465}: kill these as you meet them"] = "{area:465}: 만나는 대로 처치하세요",
 	-- {area:465} The Charred Vale · {item:16312} Incendrites
-	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed · Burning Destroyers = {npc:4038} Burning Destroyer · Scorched Basilisks = {npc:4041} Scorched Basilisk
-	["South-west of Sun Rock lies the burned {area:465}. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop {item:16312}. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: the Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches here are level 27 and the valley floor is crowded: pull one at a time and keep to its edges."] = "해바위 야영지 남서쪽에 불타 버린 {area:465}이(가) 있습니다. 골짜기 바닥의 흙더미에 가이아 씨앗을 심으세요. 불의 정령은 {item:16312}을(를) 떨어뜨립니다. 혈폭풍하피와 복병은 북쪽에, 암살자와 약탈자는 남쪽에 둥지를 틀고 있습니다. 주의: 이곳의 불타는 파괴자, 그을린 바실리스크, 혈폭풍 폭풍마녀는 27레벨이고 골짜기 바닥은 붐빕니다. 하나씩 끌어오고 가장자리로 다니세요.",
+	-- plural, as words: Burning Destroyers = {npc:4038} Burning Destroyer · Scorched Basilisks = {npc:4041} Scorched Basilisk
+	["{area:465} is south-west of Sun Rock, and its fire elementals drop {item:16312}. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches are level 27, and the valley floor is crowded."] = "",
 	-- {item:277936} Glittering Sunstone
 	["{item:277936}, from any Bloodfury harpy"] = "혈폭풍하피 누구에게서나 얻는 {item:277936}",
 	-- plural, as words: Gaea Dirt Mounds = {object:177929} Gaea Dirt Mound
@@ -257,8 +256,8 @@ return {
 	["{item:5736}, from {quest:1096}"] = "{item:5736}: {quest:1096}에게서",
 
 	-- Step 49: The Flying Machine Airport
-	-- {object:19594} Venture Co. Copter Pad · {npc:4202} Gerenzo Wrenchwhistle · {item:5638} Toxic Fogger · {zone:1456} Thunder Bluff
-	["The {object:19594} is the platform just south-east of {npc:4202}'s tower: place Zamah's {item:5638} on it. Zamah takes it back on the next guide's {zone:1456} stop."] = "{object:19594}은(는) {npc:4202}의 탑 바로 남동쪽에 있는 발판입니다. 자마의 {item:5638}을(를) 그 위에 놓으세요. 자마의 퀘스트는 다음 가이드에서 {zone:1456}에 들를 때 제출합니다.",
+	-- {zone:1456} Thunder Bluff
+	["Zamah takes the fogger back at the next guide's {zone:1456} stop."] = "",
 	-- {item:5638} Toxic Fogger · {object:19594} Venture Co. Copter Pad
 	["Place the {item:5638} on the {object:19594}"] = "{object:19594}에 {item:5638} 놓기",
 
@@ -313,6 +312,8 @@ return {
 	-- ["Ride north from the {area:380} to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the {area:380}. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "{area:380}에서 북쪽 {area:384}(으)로 가서 {object:19464}에서 {item:15842}을(를) 채운 뒤, {area:380}의 {npc:3448}에게 돌아가십시오. {skill:182}이(가) 없다면 옆의 {npc:3490}이(가) {item:2449}을(를) 판매합니다. 재입고될 때까지 한 번에 세 개입니다.",
 	-- ["Savannah Patriarchs roam the plains east of the hills, and the Sprung Traps lie among them. {quest:876} leads the Witchwing harpies in the hills to the west."] = "우두머리 사바나 사자가 언덕 동쪽 평원을 돌아다니며, 용수철 덫은 그들 사이에 있습니다. {quest:876}이(가) 서쪽 언덕의 칼날바람하피를 이끕니다.",
 	-- ["South of Camp Taurajo the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them. Silithid Harvesters are rare: if you see one, kill it for its head."] = "타우라조 야영지 남쪽 {area:390}에 실리시드 흙더미가 흩어져 있습니다. 알은 그 안에 있으며, 우두머리 실리시드가 나와 지킵니다. 여왕 실리시드는 드무니 보이면 처치해 머리를 얻으십시오.",
+	-- ["South of Camp Taurajo, on the road to {npc:3341}, the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them.\nCareful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit."] = "타우라조 야영지 남쪽, {npc:3341}에게 가는 길의 {area:390}에 실리시드 흙더미가 흩어져 있습니다. 알은 그 안에 있으며, 우두머리 실리시드가 나와 지킵니다.\n주의: 이 지역의 우두머리 실리시드는 주문을 방해하는 작은 몹을 여럿 풀어놓습니다. 가시 같은 피해 보호막이면 한 방에 죽습니다.",
+	-- ["South-west of Sun Rock lies the burned {area:465}. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop {item:16312}. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: the Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches here are level 27 and the valley floor is crowded: pull one at a time and keep to its edges."] = "해바위 야영지 남서쪽에 불타 버린 {area:465}이(가) 있습니다. 골짜기 바닥의 흙더미에 가이아 씨앗을 심으세요. 불의 정령은 {item:16312}을(를) 떨어뜨립니다. 혈폭풍하피와 복병은 북쪽에, 암살자와 약탈자는 남쪽에 둥지를 틀고 있습니다. 주의: 이곳의 불타는 파괴자, 그을린 바실리스크, 혈폭풍 폭풍마녀는 27레벨이고 골짜기 바닥은 붐빕니다. 하나씩 끌어오고 가장자리로 다니세요.",
 	-- ["Stay stealthed: {npc:7287} carries the key to the tower; Gallywix and his lockbox are at the top. Gallywix is elite: grouping up is advised."] = "은신을 유지하십시오. {npc:7287}이(가) 탑 열쇠를 가지고 있으며, 갤리윅스와 금고는 꼭대기에 있습니다. 갤리윅스는 정예이므로 파티를 권장합니다.",
 	-- ["Sunscale Scytheclaws hunt the plains south of the {area:380}, around the {area:1697}; they drop the horns. Hand them in on your next pass through {area:392}."] = "갈퀴발톱 열대초원랩터가 {area:380} 남쪽, {area:1697} 주변 평원에서 사냥하며 뿔을 떨어뜨립니다. 다음에 {area:392}을(를) 지날 때 제출하십시오.",
 	-- ["Tauren: the {npc:11957} waits on the southern hill above the bridge. Skyborne: the {npc:272054} stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue."] = "타우렌: {npc:11957}은(는) 다리 위 남쪽 언덕에서 기다립니다. 스카이본: {npc:272054}은(는) 쌍둥이 다리 남쪽에 있습니다. 그다음 호수 동쪽 굴로 가십시오. 변신을 풀고, 입구의 석상을 클릭해 5분간 은신하고, 안의 혼령을 피해 유물을 하나씩 가져가십시오. {item:280680}은(는) 흰 살쾡이 석상 아래에 있습니다.",
@@ -321,6 +322,7 @@ return {
 	-- ["The Venture Co. Overseers and Enforcers at the mine in the north-east corner of the zone drop the {item:5097}."] = "지역 북동쪽 구석 광산의 투자개발회사 감독과 투자개발회사 집행자가 {item:5097}을(를) 떨어뜨립니다.",
 	-- ["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away."] = "더듬이는 떨어진 지 15분 후에 사라지니 북쪽으로 돌아가는 길에 지금 모으십시오. {area:390} 흙더미의 우두머리 실리시드와 독침 실리시드를 다섯 개가 될 때까지 처치한 뒤 곧바로 {area:378}(으)로 귀환하십시오.",
 	-- ["The dwarves' flying machine sits on its platform inside the dig site."] = "드워프의 비행 기계는 발굴 현장 안 발판 위에 있습니다.",
+	-- ["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "드워프의 비행 기계는 발굴 현장 안 발판 위에 있습니다. {npc:3341}이(가) 준 {item:5021}을(를) 그 위에 사용하세요.",
 	-- ["The level-20 class quests in {zone:1454} ({npc:3354}, {npc:5892}, the Warlock and Rogue trainers) are only offered from level 20, so finish the level here before you fly. The Thunderhawk Hatchlings (18) on the plains south-west of the {area:380} and the Kolkar (14-15) at the {area:388} are the nearest mobs worth killing; you need well under a level."] = "{zone:1454}의 20레벨 직업 퀘스트({npc:3354}, {npc:5892}, 흑마법사와 도적 상급자)는 20레벨부터만 제공되니 비행하기 전에 여기서 레벨을 마치십시오. {area:380} 남서쪽 평원의 새끼 천둥매(18)와 {area:388}의 콜카르일족(14-15)이 가장 가까운 사냥감입니다. 필요한 경험치는 한 레벨보다 훨씬 적습니다.",
 	-- ["The pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "해적들은 {area:392} 남쪽 해변에 야영하며, {npc:3467}은(는) 남쪽 끝에 있습니다.",
 	-- ["The {area:2363}"] = "{area:2363}",
@@ -329,6 +331,7 @@ return {
 	-- ["The {object:172960} is the canyon under the {object:172982}."] = "{object:172960}은(는) {object:172982} 아래 협곡입니다.",
 	-- ["The {object:177790} lies at the north edge of the {area:382}, by the Venture Co. tower. It holds the {item:15883} for {quest:30}."] = "{object:177790}은(는) {area:382} 북쪽 가장자리, 투자개발회사 탑 옆에 있습니다. {quest:30}용 {item:15883}이(가) 들어 있습니다.",
 	-- ["The {object:177792} lies at the north edge of the {area:382}, by the Venture Co. tower. It holds the {item:15883} for {quest:30}."] = "{object:177792}은(는) {area:382} 북쪽 가장자리, 투자개발회사 탑 옆에 있습니다. {quest:30}용 {item:15883}이(가) 들어 있습니다.",
+	-- ["The {object:19594} is the platform just south-east of {npc:4202}'s tower: place Zamah's {item:5638} on it. Zamah takes it back on the next guide's {zone:1456} stop."] = "{object:19594}은(는) {npc:4202}의 탑 바로 남동쪽에 있는 발판입니다. 자마의 {item:5638}을(를) 그 위에 놓으세요. 자마의 퀘스트는 다음 가이드에서 {zone:1456}에 들를 때 제출합니다.",
 	-- ["Thunderhawk Cloudscrapers circle over the same plains south of the camp."] = "비단천둥매가 야영지 남쪽 같은 평원 위를 맴돕니다.",
 	-- ["Thunderheads graze on the plains just south of {area:378}. {quest:884}, a blue thunder lizard, roams among them: his Tailspike starts a quest."] = "천둥꼬리도마뱀이 {area:378} 바로 남쪽 평원에서 풀을 뜯습니다. 파란 천둥꼬리도마뱀 {quest:884}이(가) 그 사이를 돌아다니며, 그 꼬리가시로 퀘스트가 시작됩니다.",
 	-- ["To {zone:1456}"] = "{zone:1456}(으)로",

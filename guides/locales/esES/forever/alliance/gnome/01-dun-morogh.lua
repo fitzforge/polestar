@@ -586,9 +586,8 @@ return {
 	-- Step 119: Tram to Stormwind
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "Tranvía a {zone:1453}",
-	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
-	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "En la plataforma de {zone:1455} de {area:2257}, {npc:12997} pide ayuda con las ratas: usa su {item:17117} sobre las ratas del subterráneo alrededor de la plataforma, entrégalas, y luego lleva su carta a su hermano {npc:13018} en el extremo de {zone:1453}. El tranvía no tiene mapa dentro. Los marcadores de la ciudad muestran las entradas, no a los dos hermanos.",
+	-- {npc:12997} Monty · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:13018} Nipsy · {zone:1453} Stormwind
+	["{npc:12997} is on the {zone:1455} platform of the {area:2257}, and his brother {npc:13018} is at the {zone:1453} end. The tram has no map inside, so the city markers show the entrances, not the brothers."] = "",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
 	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}, en el andén de {zone:1455}",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute
@@ -649,8 +648,8 @@ return {
 	["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "{npc:5497} está en la torre de los magos de {object:2101}; te da un frasco para la cascada de {quest:1861}.",
 
 	-- Step 132: Mirror Lake
-	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
-	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Sal de {zone:1453} por la puerta principal. La cascada de {quest:1861} está al suroeste de las puertas, de camino al oeste hacia {zone:1436}: llena {item:7207} al pie de ella.",
+	-- {quest:1861} Mirror Lake · {zone:1453} Stormwind · {zone:1436} Westfall
+	["The {quest:1861} waterfall is south-west of {zone:1453}'s main gate, on the way west to {zone:1436}."] = "",
 
 	-- Step 133: Goldshire
 	-- {zone:1453} Stormwind · {area:87} Goldshire · {zone:1436} Westfall
@@ -664,8 +663,10 @@ return {
 	-- ["Follow the road up to {zone:1455} and train with your class trainer. The {area:2257} leaves from {object:171524}, in the east of the city. Ride it to {zone:1453}."] = "Sigue el camino hasta {zone:1455} y entrena con tu instructor de clase. El {area:2257} sale de {object:171524}, en el este de la ciudad. Tómalo hasta {zone:1453}.",
 	-- ["Iceclaw Bear Pendants, from the Frostmane Troll Whelps on the slopes above the camp"] = "Colgantes de oso garrahielo ({item:264356}), de las crías de trol Peloescarcha ({npc:706}) de las laderas sobre el campamento",
 	-- ["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Sal de {zone:1453} por la puerta principal, ve al sur hasta {area:87} y al este por el camino hasta {area:62}. {npc:881} (nivel 9) está junto a su granja.",
+	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Sal de {zone:1453} por la puerta principal. La cascada de {quest:1861} está al suroeste de las puertas, de camino al oeste hacia {zone:1436}: llena {item:7207} al pie de ella.",
 	-- ["Leper Gnomes around Brewnall and the {area:133} road carry the cogs and gears. Ice Claw Bears, Elder Crag Boars and Snow Leopards roam the hills around the lake."] = "Los Gnomos parias de los alrededores de Las Birras y del camino de {area:133} llevan los engranajes y ruedas dentadas. Los Osos zarpahelada, los Jabalíes del risco mayores y los Leopardos de la nieve recorren las colinas alrededor del lago.",
 	-- ["Level 4 spells, before Gozwin's camp"] = "Hechizos de nivel 4, antes del campamento de Gozwin",
+	-- ["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "En la plataforma de {zone:1455} de {area:2257}, {npc:12997} pide ayuda con las ratas: usa su {item:17117} sobre las ratas del subterráneo alrededor de la plataforma, entrégalas, y luego lleva su carta a su hermano {npc:13018} en el extremo de {zone:1453}. El tranvía no tiene mapa dentro. Los marcadores de la ciudad muestran las entradas, no a los dos hermanos.",
 	-- ["Sit by Eric's campfire (type /sit) and wait for the buff. With a profession learned, Eric also offers its Camping 101, which its trainer takes: blacksmithing with {npc:1241} and {skill:129} with {npc:2326} in {area:131}, mining and engineering at {area:189}."] = "Siéntate junto a la hoguera de Eric (escribe /sentarse) y espera el beneficio. Si has aprendido una profesión, Eric también ofrece su Acampada 101, que recoge su instructor: herrería con {npc:1241} y {skill:129} con {npc:2326} en {area:131}, minería e ingeniería en {area:189}.",
 	-- ["Stonesplinter Seers (level 13) stand among the troggs in the south of {area:923}, south of {npc:257808}; Tunnel Rat Geomancers (level 12) work the {area:149} at the north end of the loch. The troggs come in packs and some throw from range: pull one at a time."] = "Los Profetas Rompecantos (nivel 13) están entre los troggs del sur de {area:923}, al sur de {npc:257808}; los Geománticos Ratatúnel (nivel 12) trabajan en {area:149}, en el extremo norte del lago. Los troggs van en grupos y algunos atacan a distancia: atráelos de uno en uno.",
 	-- ["Subdue the voidwalker"] = "Somete al abisario",

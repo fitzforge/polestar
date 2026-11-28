@@ -308,9 +308,9 @@ return {
 
 	-- Step 65: Raptor nests
 	["Raptor nests"] = "Гнезда ящеров",
-	-- {area:392} Ratchet · {area:1697} Raptor Grounds · {item:5165} Sunscale Feather
+	-- {item:5165} Sunscale Feather
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "На юго-запад от места {area:392} через равнины. Цель: {area:1697}. Три гнезда находятся рядом к юго-западу от оазиса, их охраняют яркочешуйчатые смертехваты. Для каждого гнезда нужен предмет {item:5165}: убивайте яркочешуйчатых ящеров (с большинства он падает), пока не наберете три, затем используйте перо у каждого гнезда.",
+	["Sunscale Scytheclaws guard the three nests. Most Sunscale raptors drop a {item:5165}, and each nest takes one."] = "",
 
 	-- Step 66: Raptor Grounds: kill these as you meet them
 	-- {area:1697} Raptor Grounds
@@ -330,8 +330,8 @@ return {
 	["{npc:3446}, beside the WANTED poster"] = "",
 
 	-- Step 73: Dreadmist Peak
-	-- {area:384} Dreadmist Peak · {item:15842} Empty Dreadmist Peak Sampler · {object:19464} Dreadmist Peak Pool · {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
-	["Head north from the Crossroads to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the Crossroads. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "На север от Перекрёстка в {area:384} и наполните {item:15842} у {object:19464}, затем обратно к {npc:3448} на Перекрёсток. Нет {skill:182}? {npc:3490} рядом с ним продаёт {item:2449}, по три штуки, пока не пополнит запасы.",
+	-- {npc:3490} Hula'mahi · {npc:3448} Tonga Runetotem · {item:2449} Earthroot
+	["{npc:3490} beside {npc:3448} sells {item:2449}, three at a time until he restocks."] = "",
 	-- {item:2449} Earthroot · {npc:3490} Hula'mahi
 	["{item:2449} from {npc:3490}; herbalists pick it on the plains"] = "{item:2449}: продает {npc:3490}; травники собирают на равнинах",
 
@@ -399,8 +399,8 @@ return {
 	["He gives you the {item:15826}"] = "Он даст вам {item:15826}",
 
 	-- Step 87: Verog the Dervish
-	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {npc:3448} Tonga Runetotem
-	["{npc:3395} doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the {area:388}, south-east of the Crossroads. Keep killing them around the oasis until he appears. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395} не бродит сам по себе: он появляется, когда вы убиваете кентавров Колкар у места {area:388} к юго-востоку от Перекрестка. Убивайте их вокруг оазиса, пока он не появится. Раз уж вы там, проверьте семена NPC {npc:3448} у бурлящей расщелины на восточном берегу оазиса.",
+	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis
+	["{npc:3395} doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the {area:388}."] = "",
 	["Underwater"] = "Под водой",
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "{npc:12296}: примените на них {item:15826}; они бродят по равнинам вокруг Перекрёстка",
@@ -626,8 +626,8 @@ return {
 	["Thunderhawk Cloudscrapers circle over the plains south of the camp."] = "Над равнинами к югу от лагеря кружат грозовые змеи-облачники.",
 
 	-- Step 143: Brine
-	-- {npc:5899} Brine · {area:378} Camp Taurajo · {item:7766} Empty Brown Waterskin
-	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "Хижина {npc:5899} стоит на хребте над водопоем свинобразов, к югу от места {area:378}: наполните {item:7766} у водопоя под ней.",
+	-- {npc:5899} Brine · {area:378} Camp Taurajo
+	["{npc:5899}'s hut is on the ridge above the quilboar watering hole, south of {area:378}."] = "",
 	-- {item:7766} Empty Brown Waterskin
 	["Fill the {item:7766} at the quilboar watering hole"] = "Наполните {item:7766} у водопоя свинобразов",
 	-- {object:107045} Spring Well · {area:272} Tarren Mill · {area:287} Hillsbrad
@@ -747,6 +747,7 @@ return {
 	-- ["Follow the road east to the outpost above the {area:814}."] = "Идите по дороге на восток к заставе над рекой ({area:814}).",
 	-- ["Follow the road south-east to {area:392} on the coast."] = "Идите по дороге на юго-восток: {area:392} на побережье.",
 	-- ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "Идите по дороге на юго-восток в {area:392} на побережье: {npc:3391} и {npc:7161} – в северной части города, {npc:3442} и {npc:16227}, {npc:3446} и плакат «{object:3972}», затем {quest:1492} на причале по пути на юг.",
+	-- ["Head north from the Crossroads to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the Crossroads. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "На север от Перекрёстка в {area:384} и наполните {item:15842} у {object:19464}, затем обратно к {npc:3448} на Перекрёсток. Нет {skill:182}? {npc:3490} рядом с ним продаёт {item:2449}, по три штуки, пока не пополнит запасы.",
 	-- ["In from the north gate: {npc:3464}, {npc:3449} on the tower platform, {npc:3338} by the inn, then {npc:3448} and Mura at the south gate. The next guide starts here and takes you to {zone:1454} and the zeppelin to {zone:1420}."] = "Войдите через северные ворота: {npc:3464}, {npc:3449} на площадке башни, {npc:3338} у таверны, затем {npc:3448} и Мура у южных ворот. Отсюда начинается следующий гайд; он ведет в {zone:1454} и к дирижаблю в зону {zone:1420}.",
 	-- ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks."] = "В лагере водоискатели и терноплеты держат западную половину, охотники – середину; ящики с припасами стоят на восточном краю.\nДолгоноги здесь тоже дают клювы.",
 	-- ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "В лагере водоискатели и терноплеты держат западную половину, охотники – середину; ящики с припасами стоят на восточном краю.\nДолгоноги здесь тоже дают клювы.\nОсторожно: трупоедки и берсерки из племени Иглогривых (18-19) – элитные противники; они стоят в северо-восточной части лагеря, у ящиков с припасами: выманивайте свинобразов подальше от них по одному.",
@@ -764,6 +765,7 @@ return {
 	-- ["Raptor nests"] = "Гнезда ящеров",
 	-- ["South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank; {npc:3448} takes the result on the next Crossroads stop, so carry on north-west to the {area:383} from here."] = "К юго-востоку от Перекрестка. Проверьте семена у бурлящей расщелины на восточном берегу оазиса; результат {npc:3448} примет при следующем заходе в Перекресток, так что отсюда идите дальше на северо-запад. Цель: {area:383}.",
 	-- ["South-east of the {area:380}. Test the seeds at the bubbling fissure on the oasis' east bank."] = "К юго-востоку от места {area:380}. Проверьте семена у бурлящей расщелины на восточном берегу оазиса.",
+	-- ["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "На юго-запад от места {area:392} через равнины. Цель: {area:1697}. Три гнезда находятся рядом к юго-западу от оазиса, их охраняют яркочешуйчатые смертехваты. Для каждого гнезда нужен предмет {item:5165}: убивайте яркочешуйчатых ящеров (с большинства он падает), пока не наберете три, затем используйте перо у каждого гнезда.",
 	-- ["Southsea beach"] = "Пляж Южных морей",
 	-- ["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "Всё ещё не хватает двенадцати? Яркочешуйчатые кнутохвосты и крикуны бродят по равнинам к северо-востоку от Перекрёстка, по пути обратно на юг от логова {quest:881}.",
 	-- ["Still short of twelve? The Sunscale Screechers are thickest on the plains around {quest:881}'s lair, north of the Razormane camp."] = "Не хватает до двенадцати? Больше всего яркочешуйчатых крикунов на равнинах вокруг логова ({quest:881}), к северу от лагеря Иглогривых.",
@@ -797,6 +799,7 @@ return {
 	-- ["{item:15885}: use a half at the {area:2362}"] = "{item:15885}: используйте половинку здесь: {area:2362}",
 	-- ["{npc:3337}: {quest:840}, from {zone:1411}"] = "{npc:3337}: {quest:840}, из зоны {zone:1411}",
 	-- ["{npc:3389}: {npc:3395} walks with the Kolkar at the {area:388}, later"] = "{npc:3389}: {npc:3395} ходит с Колкар у места {area:388}, позже",
+	-- ["{npc:3395} doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the {area:388}, south-east of the Crossroads. Keep killing them around the oasis until he appears. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395} не бродит сам по себе: он появляется, когда вы убиваете кентавров Колкар у места {area:388} к юго-востоку от Перекрестка. Убивайте их вокруг оазиса, пока он не появится. Раз уж вы там, проверьте семена NPC {npc:3448} у бурлящей расщелины на восточном берегу оазиса.",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Oasis Snapjaws crawl in the water around it: their shells are for {npc:3448}."] = "{npc:3395} ходит среди Колкар у места {area:388} к юго-востоку от Перекрестка. Вокруг в воде ползают оазисные хрустогрызы: их панцири нужны NPC {npc:3448}.",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395} ходит среди Колкар у места {area:388} к юго-востоку от Перекрестка. Раз уж вы там, проверьте семена NPC {npc:3448} у бурлящей расщелины на восточном берегу оазиса.",
 	-- ["{npc:3446}, beside the {object:3972} poster"] = "{npc:3446}, рядом с плакатом ({object:3972})",
@@ -804,6 +807,7 @@ return {
 	-- ["{npc:3448}: the Oasis Snapjaws at the {area:388}, with {npc:3395}"] = "{npc:3448}: оазисные хрустогрызы – {area:388}, вместе с NPC {npc:3395}",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, распорядитель полетов",
 	-- ["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878} разбил лагерь у дороги от места {area:380} к месту {area:392}. {object:58369} стоит на юге лагеря Иглогривых, сразу к северу от него.",
+	-- ["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "Хижина {npc:5899} стоит на хребте над водопоем свинобразов, к югу от места {area:378}: наполните {item:7766} у водопоя под ней.",
 	-- ["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900} ждет на берегу реки к югу от заставы {area:379}, за мостом.",
 	-- ["{npc:5907} stands on the ridge north of the Razormane camp."] = "{npc:5907} стоит на гребне к северу от лагеря Иглогривых.",
 	-- ["{object:3972} poster"] = "Плакат: {object:3972}",

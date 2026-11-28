@@ -614,7 +614,8 @@ step Woo Ping
 step Mirror Lake
   only Mage
   zone Elwynn Forest
-  tip Leave Stormwind by the main gate. The Mirror Lake waterfall is south-west of the gates, on the way west to Westfall: fill Jennea's Flask at its base.
+  tip The Mirror Lake waterfall is south-west of Stormwind's main gate, on the way west to Westfall.
+  use 7207 quest 1861.1 @28.6,61.4 map 1429
   collect 7206 quest 1861.1                   -- Mirror Lake Water Sample
 
 step Surena Caledon
@@ -627,10 +628,11 @@ step Surena Caledon
 step The Binding
   only Warlock
   zone Stormwind City
-  tip Back to Gakin. Use the Bloodstone Choker at the summoning circle in the Slaughtered Lamb's cellar and defeat the voidwalker it calls.
+  tip Gakin the Darkbinder and the summoning circle are in the cellar of the Slaughtered Lamb, in Stormwind's Mage Quarter.
   enter "Stormwind City" @69.5,85.5
   turnin 1688                                 -- Gakin the Darkbinder
   accept 1689
+  use 6928 quest 1689.1 @39.2,84.4 map 1453 live
   complete 1689                               -- Subdue the voidwalker
   turnin 1689                                 -- Summon Voidwalker
 

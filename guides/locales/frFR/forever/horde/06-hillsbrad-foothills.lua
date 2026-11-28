@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Tarren Mill
 	-- {area:272} Tarren Mill
-	["{area:272} is your base for this guide: you come back here between each loop. Everyone stands around the town square."] = "{area:272} est votre base pour ce guide : vous y revenez entre chaque boucle. Tout le monde se tient autour de la place du village.",
+	["{area:272} is the base for this guide, with a return here between each loop. Everyone stands around the town square."] = "",
 	-- {item:7768} Empty Red Waterskin · {object:107045} Spring Well
 	["Fill the {item:7768} at the {object:107045} beside the inn"] = "Remplissez l'{item:7768} au {object:107045} à côté de l'auberge",
 	-- {npc:2216} Apothecary Lydon
@@ -163,8 +163,8 @@ return {
 	["While you're here: learn Swords from {npc:11870} ({object:36070}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "Pendant que vous y êtes : apprenez le maniement des épées auprès de {npc:11870} ({object:36070}, 10 pièces d'argent) ; une épée en main droite fait progresser un Voleur régulièrement.",
 
 	-- Step 30: Trial of the Sea Lion
-	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. Join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Lancez {spell:18960}. Assemblez les deux moitiés de pendentif au {area:2362}, sur la rive nord-ouest du lac, avant d'aller voir {npc:11802} à {area:2361}. {npc:11802} se tient à l'étage de son bâtiment : montez par l'intérieur, la flèche ne distingue pas les étages.",
+	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
+	["{npc:11802} is upstairs in his building in {area:2361}, and the arrow cannot tell the floors apart."] = "",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: use a half at the {area:2362}"] = "{item:15885} : utilisez une moitié au {area:2362}",
 
@@ -200,6 +200,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back down to Masoj on the hillside above {area:290}."] = "Redescendez jusqu'à Masoj, sur le flanc de colline au-dessus de {area:290}.",
 	-- ["Back to {area:272}"] = "Retour à {area:272}",
+	-- ["Cast {spell:18960}. Join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Lancez {spell:18960}. Assemblez les deux moitiés de pendentif au {area:2362}, sur la rive nord-ouest du lac, avant d'aller voir {npc:11802} à {area:2361}. {npc:11802} se tient à l'étage de son bâtiment : montez par l'intérieur, la flèche ne distingue pas les étages.",
 	-- ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "La suite de {quest:528} de Darthalia et l'Élixir d'agonie de Lydon sont pour la prochaine visite, vers le niveau 30.",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Drull et {npc:2238} sont enchaînés dans les bâtiments de la cour de {area:275}. Leurs cadenas nécessitent des clés : {npc:2427} porte la {item:3467} et {npc:2428} la {item:3499}, tous deux dans le donjon. Tuez-les, puis ouvrez les deux cadenas.\nDepuis {area:272}, allez vers le sud-est dans les collines en direction de {area:275}. Des Voleurs et des Guetteurs tiennent les camps en chemin.",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "Drull et {npc:2238} sont enchaînés dans les bâtiments de la cour de {area:275} ; ouvrez les deux cadenas.",
@@ -260,6 +261,7 @@ return {
 	-- ["Walk back up to {area:272} and fly to the {area:228}: {npc:2121} stands by the crypt entrance."] = "Remontez à pied jusqu'à {area:272} et prenez un vol pour le {area:228} : {npc:2121} se tient près de l'entrée de la crypte.",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Vous arrivez lié à l'auberge de {area:272}. Tout le monde se tient autour de la place du village.",
 	-- ["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272} est votre base pour ce guide : la pierre de foyer vous y ramène deux fois. Tout le monde se tient autour de la place du village.",
+	-- ["{area:272} is your base for this guide: you come back here between each loop. Everyone stands around the town square."] = "{area:272} est votre base pour ce guide : vous y revenez entre chaque boucle. Tout le monde se tient autour de la place du village.",
 	-- ["{area:378} flight master"] = "Maître de vol du {area:378}",
 	-- ["{item:3692}: the Peasants in the fields"] = "{item:3692} : les Paysans d'Hillsbrad dans les champs",
 	-- ["{npc:10079}, at the top of the lift"] = "{npc:10079}, en haut de l'élévateur",

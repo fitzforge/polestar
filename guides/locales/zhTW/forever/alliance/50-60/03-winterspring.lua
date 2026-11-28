@@ -208,8 +208,8 @@ return {
 	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "沿東側向北騎往猩猩高地。55級的猩猩{npc:9622}在最深的洞穴裡：先清掉洞口的猩猩。",
 
 	-- Step 38: Lar'korwi
-	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder · {item:11568} Torwa's Pouch
-	["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there.\nCareful: {npc:9684} is level 56, a level or two over you here: start at full health, and clear the raptors around the lair first."] = "",
+	-- {npc:9684} Lar'korwi
+	["{npc:9684} is level 56, a level or two above you here, and raptors surround his lair."] = "",
 
 	-- Step 39: Eastern Pylon and the crate
 	["Eastern Pylon and the crate"] = "東部水晶塔與箱子",
@@ -243,8 +243,8 @@ return {
 	["North-east from the pylon to {area:543}: {npc:10302} the goblin sits by the water."] = "",
 
 	-- Step 46: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "向東騎往{area:537}，爬上去，在山頂附近的熔岩噴口使用{npc:10541}。",
+	-- {area:537} Fire Plume Ridge
+	["The lava vents are near the top of {area:537}, to the east."] = "",
 
 	-- Step 47: Krakle
 	-- {npc:10302} Krakle
@@ -260,7 +260,7 @@ return {
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "護送{npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "把{npc:9999}向北引到{area:541}。他昏倒時，對他使用{item:11804}把他喚醒。",
+	["{npc:9999} faints along the way to {area:541}, and {item:11804} wakes him."] = "",
 
 	-- Step 51: Fly to Gadgetzan
 	-- {area:541} Marshal's Refuge
@@ -304,9 +304,8 @@ return {
 	-- Step 59: Shadow Hold braziers
 	-- {area:1770} Shadow Hold
 	["{area:1770} braziers"] = "{area:1770}的火盆",
-	-- {area:1770} Shadow Hold · {area:1763} Jaedenar · {item:12906} Purified Moonwell Water · {item:13140} Blood Red Key · {npc:11018} Arko'narin
-	-- plural, as words: Jaedenar Darkweavers = {npc:7118} Jaedenar Darkweaver
-	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns: pull at the edge of each group and fight one pack at a time.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "",
+	-- {area:1770} Shadow Hold · {item:13140} Blood Red Key · {npc:11018} Arko'narin
+	["{area:1770} is full of level 53-55 Shadow Council mobs in large linked groups, many with stuns. The Darkweavers, Warlocks and Enforcers drop the {item:13140} about once in thirty kills, and it opens {npc:11018}'s cell."] = "",
 	-- {object:176159} Brazier of Malice
 	["{object:176159}, below ground"] = "{object:176159}，地下",
 	-- {object:176160} Brazier of Suffering
@@ -420,8 +419,8 @@ return {
 	["The relics are in the ruins just south of {quest:5250}"] = "",
 
 	-- Step 82: The Ruins of Kel'Theril
-	-- {area:2253} Starfall Village · {npc:10304} Aurora Skycaller · {zone:1423} Eastern Plaguelands
-	["The ruins lie around the frozen lake south of {area:2253}. Pick up the four relic fragments lying in the ruins: {npc:10304} in the {zone:1423} takes them, on the next guide."] = "",
+	-- {npc:10304} Aurora Skycaller · {zone:1423} Eastern Plaguelands
+	["{npc:10304} in the {zone:1423} takes the four relic fragments, in the next guide."] = "",
 
 	-- Step 83: The road to Everlook: furs and horns
 	-- {area:2255} Everlook
@@ -474,6 +473,7 @@ return {
 	-- ["Into {zone:1423}"] = "進入{zone:1423}",
 	-- ["Its jars are filled on the {zone:1451} guide's Un'Goro visit: keep it"] = "罐子會在{zone:1451}指南的安戈洛行程中裝滿：保留此任務",
 	-- ["Keep it: Gregan in {zone:1444} brews the elixir later"] = "保留此任務：{zone:1444}的格雷甘稍後會調製藥劑",
+	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "把{npc:9999}向北引到{area:541}。他昏倒時，對他使用{item:11804}把他喚醒。",
 	-- ["Level 55 at {area:2246}"] = "在{area:2246}升到55級",
 	-- ["Level 55.05"] = "55.05級",
 	-- ["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54)."] = "從營地向西北前往安多哈爾西邊的{area:199}：{npc:11075}（53）在喋喋不休的食屍鬼（54）之間守著大鍋。",
@@ -483,6 +483,7 @@ return {
 	-- ["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "撿起馬車周圍的補給物資，並從附近的梟獸身上奪回{npc:10301}的護符。",
 	-- ["Pristine Yeti Horns"] = "完美的雪人角",
 	-- ["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "純心、杜瑪、瓦洛菲斯特和麥克唐奈站在營地中央附近，飛行管理員旁邊。",
+	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "向東騎往{area:537}，爬上去，在山頂附近的熔岩噴口使用{npc:10541}。",
 	-- ["Ride north to {area:2627}. {npc:12384} lives in the ruined hut, and his receipt book lies in the ruined inn nearby."] = "向北騎往{area:2627}。{npc:12384}住在廢棄的小屋裡，他的收據冊在附近的旅店廢墟中。",
 	-- ["Ride north up the valley, past {area:2255}, to {area:2253}."] = "沿山谷向北騎行，經過{area:2255}，前往{area:2253}。",
 	-- ["Ride north-west back to the village."] = "向西北騎回村莊。",

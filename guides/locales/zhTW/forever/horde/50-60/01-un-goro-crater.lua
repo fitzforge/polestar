@@ -159,9 +159,9 @@ return {
 	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "哥布林{npc:10302}坐在{area:543}，就在水晶塔東邊。",
 
 	-- Step 32: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
+	-- {area:537} Fire Plume Ridge
 	-- plural, as words: Living Blazes = {npc:6521} Living Blaze · Scorching Elementals = {npc:6520} Scorching Elemental
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "",
+	["Living Blazes (54-55) and Scorching Elementals (53-54) roam the slopes of {area:537}, and the path up has the fewest."] = "",
 
 	-- Step 33: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
@@ -175,7 +175,7 @@ return {
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "護送{npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "把{npc:9999}向北引到{area:541}。他昏倒時，對他使用{item:11804}把他喚醒。",
+	["{npc:9999} faints along the way to {area:541}, and {item:11804} wakes him."] = "",
 
 	-- Step 36: J.D. Collie
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:9117} J.D. Collie
@@ -256,9 +256,6 @@ return {
 	-- Step 55: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Sentry Braziers"] = "哨兵火盆",
-	-- {object:149047} Torch of Retribution
-	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "",
 
 	-- Step 56: Squire Maltrake
 	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade
@@ -362,8 +359,7 @@ return {
 
 	-- Step 78: Scarlet forward camp
 	["Scarlet forward camp"] = "血色十字軍前進營地",
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "從{area:152}沿路向東進入{zone:1422}。血色十字軍的帳篷就在費爾斯通農場後面，在{area:199}和{area:200}之間。用{item:12814}點燃指揮帳篷，插上天譴旗幟。小心：帳篷周圍的血色十字軍最高54級，祈求者會施法：從離指揮帳篷最近的一側進入，別管其他人。",
+	["The Scarlets around the tents reach level 54, and the Invokers are casters."] = "",
 
 	-- Step 79: Janice Felstone
 	-- {npc:10778} Janice Felstone
@@ -388,6 +384,7 @@ return {
 	-- ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "為了你接下來的{area:1584}之行，在穿過{area:254}的路上：{area:340}的{object:164867}告示要你削減裡面的鐵怒矮人。",
 	-- ["Free Darrowshire Spirits: talk to them"] = "釋放達隆郡居民的靈魂：和它們交談",
 	-- ["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "從現在起，拾取沿途經過的每一個{npc:271301}（藍、綠、紅、黃）和每一堆{quest:3761}：共25份土壤，20份給哈繆爾，5份給匹斯特蘇格。",
+	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "從{area:152}沿路向東進入{zone:1422}。血色十字軍的帳篷就在費爾斯通農場後面，在{area:199}和{area:200}之間。用{item:12814}點燃指揮帳篷，插上天譴旗幟。小心：帳篷周圍的血色十字軍最高54級，祈求者會施法：從離指揮帳篷最近的一側進入，別管其他人。",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "從{area:152}沿著道路向東進入{zone:1422}。血色十字軍的帳篷就在費爾斯通農場過去一點，位於{area:199}和{area:200}之間。用{object:176092}燒掉指揮帳篷，並插上天災戰旗。",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "從{area:152}沿著道路向東進入{zone:1422}。血色十字軍的帳篷就在費爾斯通農場過去一點，位於{area:199}和{area:200}之間。用{object:176092}燒掉指揮帳篷，並插上天災戰旗。注意：帳篷周圍的血色十字軍最高54級，祈咒者會施法：從最靠近指揮帳篷的一側進入，別理其他人。",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "從{area:1938}向西騎到蜿蜒而下進入{area:490}的長坡道，然後沿著環形山北壁前往{area:541}，一個位於懸崖洞穴中的營地。這裡的所有人都是中立的。",
@@ -398,7 +395,7 @@ return {
 	-- ["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "保留{quest:5152}：瑪萊恩住在{zone:1422}的{area:197}。",
 	-- ["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "保留{quest:5901}：它的白蟻丘在{area:2627}，位於下一份指南前往提里奧的路上。下一份指南從這裡東南方{area:202}旁的{npc:10739}開始。",
 	-- ["Lashers and Threshers"] = "血瓣花鞭笞者與猛擊者",
-	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "帶領{npc:9999}向北前往{area:541}。他昏倒時，對他使用{item:11804}叫醒他。",
+	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "把{npc:9999}向北引到{area:541}。他昏倒時，對他使用{item:11804}把他喚醒。",
 	-- ["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "離開{zone:1458}，沿著道路向東穿過{area:85}前往邊境上的被遺忘者要塞{area:152}。",
 	-- ["Level 51"] = "等級51",
 	-- ["North of Torwa, a dead Threshadon lies by the water."] = "在托爾瓦北邊，一頭死去的蛇頸龍躺在水邊。",

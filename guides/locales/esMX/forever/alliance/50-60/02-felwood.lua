@@ -41,18 +41,17 @@ return {
 
 	-- Step 6: Jadefire Glen
 	-- {npc:9454} Xavathras · {spell:7992} Slowing Poison
-	-- plural, as words: Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker · Cursed Oozes = {npc:7086} Cursed Ooze
-	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "Los sátiros Fuego de Jade ocupan la cañada al oeste del camino, con {npc:9454} al fondo.\nCuidado: Los acechasombras Fuego de Jade (nivel 51-52) usan Sigilo y {spell:7992} y van ocultos, así que a menudo se suman a las peleas sin que los llames.\nLos mocos malditos se deslizan por los arroyos de la cañada: mátalos y usa el tarro vacío para mocos de Laris sobre sus restos.",
+	-- plural, as words: Cursed Oozes = {npc:7086} Cursed Ooze · Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker
+	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back, and Cursed Oozes roam its streams. Jadefire Shadowstalkers (level 51-52) are stealthed and use Sneak and {spell:7992}, so they often join fights uninvited."] = "",
 
 	-- Step 7: Ruins of Constellas
 	-- {npc:9454} Xavathras · {area:2481} Ruins of Constellas
 	["Careful: {npc:9454} (54) stands at the back of the {area:2481}, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health."] = "Cuidado: {npc:9454} (54) está al fondo de {area:2481}, alrededor de 32.2,67.1, con acechasombras a su alrededor: elimínalos de uno en uno y luego atráelo solo con la salud llena.",
 
 	-- Step 8: Jaedenar
-	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge · {item:11948} Empty Tainted Ooze Jar
+	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	-- was: ["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him."] = "{area:1763} es el templo en ruinas al norte de la cañada.\nCuidado: el {npc:11141} (53, élite) ronda el extremo oeste de {area:1763}, alrededor de 35,60: trabaja el sureste, donde marca la flecha, y aleja de él a los sectarios y los canes."
-	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him.\nTainted Oozes slide about {area:1763}'s fel pools: kill them and use the {item:11948} on their remains."] = "",
+	["{area:1763} is the ruined temple north of the glen, and Tainted Oozes slide around its fel pools. Careful: the {npc:11141} (53, elite) haunts the west end around 35,60."] = "",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}: los mocos corruptos se deslizan por las pozas viles de {area:1763}",
@@ -288,6 +287,7 @@ return {
 	-- ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. Keep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "Los fúrbolgs Muertobosque de {area:1762} llenan las colinas al oeste de la cueva. Sigue matándolos hasta que uno suelte un {quest:8470}, más o menos uno de cada treinta, luego haz clic derecho en él: {npc:11558}, en {area:1769}, lo acepta cuando los Fauces de Madera te sean neutrales, ahora si ya lo son, o cuando la última guía vuelva a pasar por la cueva a nivel 58.\nCuidado: Los vigías del cubil son de nivel 53-54; piden ayuda a los aliados a menos de 25 m cuando bajan del 50% de salud y huyen en busca de ayuda por debajo del 15%.",
 	-- ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. The Avengers can drop a {quest:8470}."] = "Los fúrbolgs Muertobosque de {area:1762} llenan las colinas al oeste de la cueva. Los vengadores pueden soltar un {quest:8470}.",
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "Los sátiros Fuego de Jade ocupan la cañada al oeste del camino, con {npc:9454} al fondo.",
+	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "Los sátiros Fuego de Jade ocupan la cañada al oeste del camino, con {npc:9454} al fondo.\nCuidado: Los acechasombras Fuego de Jade (nivel 51-52) usan Sigilo y {spell:7992} y van ocultos, así que a menudo se suman a las peleas sin que los llames.\nLos mocos malditos se deslizan por los arroyos de la cañada: mátalos y usa el tarro vacío para mocos de Laris sobre sus restos.",
 	-- ["The vial is filled in {zone:1457}: keep it"] = "El vial se llena en {zone:1457}: guárdala",
 	-- ["The vial is filled in {zone:1457}: keep it; inside"] = "El vial se llena en {zone:1457}: guárdalo; adentro",
 	-- ["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "La {item:11242} crece dentro de un edificio en ruinas al norte de {npc:7765}: entra por la brecha de su muro desde la cornisa de al lado.",

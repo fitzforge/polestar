@@ -67,8 +67,8 @@ return {
 	-- Step 14: Ruins of Stardust fountain
 	-- {area:418} Ruins of Stardust
 	["{area:418} fountain"] = "Fuente de {area:418}",
-	-- {area:418} Ruins of Stardust · {npc:12678} Ursangous · {item:7767} Empty Blue Waterskin
-	["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "La fuente está en medio de {area:418}, por donde ronda {npc:12678}: usa allí {item:7767}.",
+	-- {npc:12678} Ursangous · {area:418} Ruins of Stardust
+	["{npc:12678} roams the {area:418}."] = "",
 
 	-- Step 15: Ursangous
 	-- {area:415} Astranaar · {npc:12678} Ursangous · {area:418} Ruins of Stardust · {area:421} Mystral Lake
@@ -174,9 +174,8 @@ return {
 	-- Step 45: Gloomrise: kill these as you meet them
 	-- {area:17044} Gloomrise
 	["{area:17044}: kill these as you meet them"] = "{area:17044}: mátalos según te los encuentres",
-	-- {area:17044} Gloomrise · {npc:264074} Mazu'kon · {item:273015} Toxin Extractor · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
-	-- plural, as words: Gnawed Corpses = {npc:264096} Gnawed Corpse
-	["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} (30, elite) sits at the north end: leave her unless you do {quest:96261} with a group; her {item:273658} starts {quest:96294}."] = "Al norte del campamento, las arañas invaden el cementerio de {area:17044}. Usa el {item:273015} de {npc:264074} en los Cadáveres roídos; las tejedoras sueltan {item:273181}. {npc:264082} (30, élite) está en el extremo norte: déjala en paz salvo que hagas {quest:96261} en grupo; su {item:273658} inicia {quest:96294}.",
+	-- {npc:264082} Broodmother Valraxx · {area:17044} Gloomrise · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
+	["{npc:264082} (30, elite) at the north end of {area:17044} is for a group doing {quest:96261}, and her {item:273658} starts {quest:96294}."] = "",
 	-- {item:273181} Crystalline Silk
 	-- plural, as words: Gloomrise Spinners = {npc:264081} Gloomrise Spinner
 	["{item:273181}, from Gloomrise Spinners"] = "{item:273181}, de {npc:264081}",
@@ -368,7 +367,7 @@ return {
 
 	-- Step 81: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:10992} es un élite de nivel 30: la mayoría de clases la matan solas a nivel 32, pero puede que necesites ayuda. Sáltala si vas solo.",
+	["The {npc:10992} is a level 30 elite. Most classes can solo it at level 32, but some may need a group."] = "",
 
 	-- Step 82: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
@@ -440,6 +439,7 @@ return {
 	-- ["Keep {npc:4877}'s two harpy quests and {npc:2986}'s {quest:1150}: {area:487} comes with the next Freewind visit, at about 30, with the {area:2240}'s quests."] = "Guarda las dos misiones de arpías de {npc:4877} y {quest:1150} de {npc:2986}: {area:487} toca en la próxima visita a Poblado Viento Libre, hacia el nivel 30, con las misiones de {area:2240}.",
 	-- ["Level 29"] = "Nivel 29",
 	-- ["Naga brazier"] = "Brasero naga",
+	-- ["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} (30, elite) sits at the north end: leave her unless you do {quest:96261} with a group; her {item:273658} starts {quest:96294}."] = "Al norte del campamento, las arañas invaden el cementerio de {area:17044}. Usa el {item:273015} de {npc:264074} en los Cadáveres roídos; las tejedoras sueltan {item:273181}. {npc:264082} (30, élite) está en el extremo norte: déjala en paz salvo que hagas {quest:96261} en grupo; su {item:273658} inicia {quest:96294}.",
 	-- ["North up the road to {area:431} and {area:428} beside it."] = "Al norte por el camino hasta {area:431} y {area:428}, a su lado.",
 	-- ["On the way back north-east to Splintertree: {npc:12676} prowls the woods south-east of the Warsong lumber camp."] = "De vuelta al noreste hacia el Puesto del Hachazo: {npc:12676} merodea por los bosques al sureste del Aserradero Grito de Guerra.",
 	-- ["Pesterhide Snarlers"] = "Gruñidores Pestillejo",
@@ -448,10 +448,12 @@ return {
 	-- ["South of Darkcloud, the harpies of {area:487}. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top."] = "Al sur de la Cumbre de la Nube Negra, las arpías de {area:487}. {npc:4490} (31) camina entre ellas: reduce las arpías a su alrededor antes de atraerla. Las Arpías estridentes, Malaplumas estridentes y Clamavientos estridentes de allí son las de {npc:4877}; sus {quest:98069} están en el suelo al pie del acantilado y en la cueva de arriba.",
 	-- ["Take a lift down from {zone:1456}. The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}."] = "Baja de {zone:1456} en un elevador. El campamento del Anillo de la Tierra está al norte de las mesetas: {npc:264074}, {npc:264072} y {npc:259118}.",
 	-- ["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks between the camps: kill him when you meet him, his note starts a quest for {area:2237}."] = "Los campamentos Galak llenan el cañón al norte del Poblado Viento Libre; exploradores, vaqueros y cazavientos comparten todos los campamentos. Un {npc:10617} solitario va de un campamento a otro: mátalo cuando lo encuentres, su nota inicia una misión para {area:2237}.",
+	-- ["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "La fuente está en medio de {area:418}, por donde ronda {npc:12678}: usa allí {item:7767}.",
 	-- ["The next guide flies on from here to the Crossroads and {zone:1454}."] = "La siguiente guía sigue volando desde aquí hasta el Cruce y {zone:1454}.",
 	-- ["The next guide opens with Korran's The Swarm Grows at the Crossroads, offered from level 29. Short of 29? The Pesterhide Snarlers (28-29) prowl the canyon floor just north-west of {area:484}: kill them until level 29. Or, with a group, run the {area:2797} dungeon instead."] = "La siguiente guía empieza con El enjambre crece de Korran en El Cruce, disponible desde el nivel 29. ¿Aún no tienes el 29? Los Gruñidores Pestillejo (28-29) merodean por el fondo del cañón, justo al noroeste de {area:484}: mátalos hasta llegar al nivel 29. O, en grupo, haz la mazmorra {area:2797}.",
 	-- ["The salt flats"] = "El Desierto de Sal",
 	-- ["The {area:1718}"] = "{area:1718}",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:10992} es un élite de nivel 30: la mayoría de clases la matan solas a nivel 32, pero puede que necesites ayuda. Sáltala si vas solo.",
 	-- ["Thistlefur Hold"] = "Bastión Piel de Cardo",
 	-- ["Tideress"] = "Tideress",
 	-- ["Ursangous"] = "Ursangous",

@@ -123,9 +123,10 @@ return {
 	-- Step 21: Draconic for Dummies, Volume II
 	-- {quest:8597} Draconic for Dummies
 	["{quest:8597}, Volume II"] = "{quest:8597}，第二卷",
-	-- {quest:8620} The Only Prescription · {quest:8597} Draconic for Dummies · {npc:15552} Doctor Weavil · {area:2079} Alcaz Island · {zone:1419} Blasted Lands · {area:2255} Everlook · {zone:1458} Undercity · {npc:11811} Narain Soothfancy
+	-- {quest:8620} The Only Prescription · {quest:8597} Draconic for Dummies · {npc:15552} Doctor Weavil · {area:2079} Alcaz Island · {zone:1419} Blasted Lands · {area:2255} Everlook · {zone:1458} Undercity
 	-- plural, as words: Felguard Elites = {npc:8717} Felguard Elite · Doomguard Commanders = {npc:12396} Doomguard Commander
-	["{quest:8620} needs the eight chapters of {quest:8597}, Volume II: from {npc:15552} in his house on {area:2079} (a level 63 elite with guards, raid), the Felguard Elites, Doomguard Commanders and Dreadlords of the {zone:1419}, the Hederine south of {area:2255}, and a book in the {zone:1458}. {npc:11811} hands out the binding when you accept."] = "{quest:8620}需要{quest:8597}第二卷的八個章節：來自{area:2079}他房子裡的{npc:15552}（63級精英，帶守衛，需團隊）、{zone:1419}的惡魔衛士精英、末日守衛指揮官和恐懼魔王、{area:2255}以南的赫達林，以及{zone:1458}的一本書。接受任務時{npc:11811}會給你裝訂本。",
+	-- was: ["{quest:8620} needs the eight chapters of {quest:8597}, Volume II: from {npc:15552} in his house on {area:2079} (a level 63 elite with guards, raid), the Felguard Elites, Doomguard Commanders and Dreadlords of the {zone:1419}, the Hederine south of {area:2255}, and a book in the {zone:1458}. {npc:11811} hands out the binding when you accept."] = "{quest:8620}需要{quest:8597}第二卷的八個章節：來自{area:2079}他房子裡的{npc:15552}（63級精英，帶守衛，需團隊）、{zone:1419}的惡魔衛士精英、末日守衛指揮官和恐懼魔王、{area:2255}以南的赫達林，以及{zone:1458}的一本書。接受任務時{npc:11811}會給你裝訂本。"
+	["{quest:8620} needs the eight chapters of {quest:8597}, Volume II. They come from {npc:15552} in his house on {area:2079} (a level 63 elite with guards, raid content), the Felguard Elites, Doomguard Commanders and Dreadlords of the {zone:1419}, the Hederine south of {area:2255}, and a book in the {zone:1458}."] = "",
 	-- {quest:8597} Draconic for Dummies
 	["{quest:8597}: Volume II"] = "{quest:8597}：第二卷",
 
@@ -257,4 +258,7 @@ return {
 	["At Exalted, {npc:15192} gives the last ring of your path: The Protector of Kalimdor, The Qiraji Conqueror or The Grand Invoker. Bring the Revered ring; 100 reputation."] = "崇拜時，{npc:15192}會給你所選路徑的最後一枚戒指：卡利姆多保護者、其拉征服者或大祈求者。帶上崇敬戒指；100聲望。",
 	-- {npc:15192} Anachronos
 	["{npc:15192}: the Exalted ring quest of your path"] = "{npc:15192}：你路徑的崇拜戒指任務",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{quest:8620} needs the eight chapters of {quest:8597}, Volume II: from {npc:15552} in his house on {area:2079} (a level 63 elite with guards, raid), the Felguard Elites, Doomguard Commanders and Dreadlords of the {zone:1419}, the Hederine south of {area:2255}, and a book in the {zone:1458}. {npc:11811} hands out the binding when you accept."] = "{quest:8620}需要{quest:8597}第二卷的八個章節：來自{area:2079}他房子裡的{npc:15552}（63級精英，帶守衛，需團隊）、{zone:1419}的惡魔衛士精英、末日守衛指揮官和恐懼魔王、{area:2255}以南的赫達林，以及{zone:1458}的一本書。接受任務時{npc:11811}會給你裝訂本。",
 }

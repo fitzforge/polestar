@@ -157,7 +157,8 @@ step The Isle of Dread
 
 step Draconic for Dummies, Volume II
   zone Dustwallow Marsh
-  tip The Only Prescription needs the eight chapters of Draconic for Dummies, Volume II: from Doctor Weavil in his house on Alcaz Island (a level 63 elite with guards, raid), the Felguard Elites, Doomguard Commanders and Dreadlords of the Blasted Lands, the Hederine south of Everlook, and a book in the Undercity. Narain hands out the binding when you accept.
+  tip The Only Prescription needs the eight chapters of Draconic for Dummies, Volume II. They come from Doctor Weavil in his house on Alcaz Island (a level 63 elite with guards, raid content), the Felguard Elites, Doomguard Commanders and Dreadlords of the Blasted Lands, the Hederine south of Everlook, and a book in the Undercity.
+  use 21112 quest 8620.1 @77.9,17.1 map 1445 optional
   collect 21111 quest 8620.1 optional @77.9,17.1 -- Draconic for Dummies: Volume II
 
 step Dirge's Chops

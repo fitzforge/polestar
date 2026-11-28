@@ -42,17 +42,17 @@ return {
 
 	-- Step 6: Jadefire Glen
 	-- {npc:9454} Xavathras · {spell:7992} Slowing Poison
-	-- plural, as words: Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker · Cursed Oozes = {npc:7086} Cursed Ooze
-	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "Сатиры из племени Нефритового Пламени занимают долину к западу от дороги; {npc:9454} – в ее глубине.\nОсторожно: ночные охотники из племени Нефритового Пламени (51–52-й уровень) используют Крадущийся шаг и {spell:7992} и находятся в незаметности, поэтому часто вмешиваются в бой.\nПроклятые слизнюки ползают по ручьям долины: убивайте их и используйте на останках пустой флакон, полученный у Лариса.",
+	-- plural, as words: Cursed Oozes = {npc:7086} Cursed Ooze · Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker
+	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back, and Cursed Oozes roam its streams. Jadefire Shadowstalkers (level 51-52) are stealthed and use Sneak and {spell:7992}, so they often join fights uninvited."] = "",
 
 	-- Step 7: Ruins of Constellas
 	-- {npc:9454} Xavathras · {area:2481} Ruins of Constellas
 	["Careful: {npc:9454} (54) stands at the back of the {area:2481}, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health."] = "Осторожно: {npc:9454} (54) стоит в глубине руин ({area:2481}), около 32.2,67.1, а вокруг него – крадущиеся в тени: убивайте их по одному, затем выманите его одного при полном здоровье.",
 
 	-- Step 8: Jaedenar
-	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge · {item:11948} Empty Tainted Ooze Jar
+	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him.\nTainted Oozes slide about {area:1763}'s fel pools: kill them and use the {item:11948} on their remains."] = "",
+	["{area:1763} is the ruined temple north of the glen, and Tainted Oozes slide around its fel pools. Careful: the {npc:11141} (53, elite) haunts the west end around 35,60."] = "",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}: нечистые слизнюки ползают по озерам скверны ({area:1763})",
@@ -281,6 +281,7 @@ return {
 	-- ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. Keep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.\nCareful: Den Watchers are level 53-54 and the Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "Фурболги Мертвого Леса из места {area:1762} заполняют холмы к западу от пещеры. Убивайте их, пока с одного не упадет {quest:8470} (примерно один на тридцать), затем щелкните по нему правой кнопкой: {npc:11558} ({area:1769}) примет его, когда Древобрюхи станут к вам равнодушны – сейчас, если уже, или когда последний гайд снова пройдет мимо пещеры на 58-м уровне.\nОсторожно: стражи логова – 53-54 уровня, мстители – 54-55; при здоровье ниже 50% они зовут союзников в радиусе 25 м, а ниже 15% убегают за помощью.",
 	-- ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. The Avengers can drop a {quest:8470}."] = "Фурболги из племени Мертвого Леса ({area:1762}) заполняют холмы к западу от пещеры. С мстителей может упасть {quest:8470}.",
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "Сатиры из племени Нефритового Пламени занимают долину к западу от дороги; {npc:9454} – в ее глубине.",
+	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "Сатиры из племени Нефритового Пламени занимают долину к западу от дороги; {npc:9454} – в ее глубине.\nОсторожно: ночные охотники из племени Нефритового Пламени (51–52-й уровень) используют Крадущийся шаг и {spell:7992} и находятся в незаметности, поэтому часто вмешиваются в бой.\nПроклятые слизнюки ползают по ручьям долины: убивайте их и используйте на останках пустой флакон, полученный у Лариса.",
 	-- ["The vial is filled in {zone:1457}: keep it; inside"] = "Склянка наполняется здесь: {zone:1457} – сохраните задание; внутри",
 	-- ["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "{item:11242} растет внутри разрушенного здания к северу от {npc:7765}: заберитесь внутрь через пролом в стене с уступа рядом.",
 	-- ["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}. If you freed {npc:11018}, go back into {area:1770} for the succubus {npc:9518}; Trey Lightforge's remains lie beside her."] = "Используйте {item:12922} у оскверненного лунного колодца в центре храма ({area:1763}). Если вы освободили персонажа {npc:11018}, вернитесь сюда: {area:1770} – за суккубом {npc:9518}; рядом с ней лежат останки Трея Светогорна.",

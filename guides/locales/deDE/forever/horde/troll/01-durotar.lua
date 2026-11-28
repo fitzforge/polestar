@@ -98,8 +98,8 @@ return {
 	["the {object:654925} on the ground beside her"] = "{object:654925} neben ihr auf dem Boden",
 
 	-- Step 20: Call of Earth
-	-- {npc:5887} Canaga Earthcaller · {area:639} Spirit Rock · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth · {item:6656} Rough Quartz
-	["{npc:5887} stands outside the Den. {area:639} is the hill just south of it: drink the {item:6635} there to see the {npc:5891}, then take the {item:6656} back to {npc:5887}."] = "{npc:5887} steht vor dem Höhlenbau. {area:639} ist der Hügel gleich südlich davon: Trink dort {item:6635}, um {npc:5891} zu sehen, und bring dann {item:6656} zurück zu {npc:5887}.",
+	-- {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth · {area:639} Spirit Rock
+	["Only the {item:6635} shows the {npc:5891} on {area:639}."] = "",
 	-- {npc:5891} Minor Manifestation of Earth · {area:639} Spirit Rock
 	["{npc:5891}, on {area:639}"] = "{npc:5891}, auf dem {area:639}",
 	-- {npc:5887} Canaga Earthcaller · {npc:5873} Stoneskin Totem · {item:5175} Earth Totem
@@ -513,5 +513,6 @@ return {
 	-- ["{npc:3706}, in the barracks with {npc:3139}"] = "{npc:3706}, in der Kaserne bei {npc:3139}",
 	-- ["{npc:5875}: Summon Voidwalker"] = "{npc:5875}: Leerwandler beschwören",
 	-- ["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{npc:5884} in {zone:1411}; in {area:362} gibt es keinen Magierlehrer",
+	-- ["{npc:5887} stands outside the Den. {area:639} is the hill just south of it: drink the {item:6635} there to see the {npc:5891}, then take the {item:6656} back to {npc:5887}."] = "{npc:5887} steht vor dem Höhlenbau. {area:639} ist der Hügel gleich südlich davon: Trink dort {item:6635}, um {npc:5891} zu sehen, und bring dann {item:6656} zurück zu {npc:5887}.",
 	-- ["{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side."] = "{quest:790}, ein großer Skorpid, streift über den Hang südlich von {npc:3287} zwischen den Scorpid Workers; pflücke die Cactus Apples bei den Kakteen auf dem Weg.\nDie {quest:792} schwärmen über den Hang unterhalb von {area:365}, der Höhle an der Nordseite des Tals.",
 }

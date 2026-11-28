@@ -117,8 +117,9 @@ return {
 	-- Step 15: Gelkis: Test Your Theory
 	-- {quest:93045} Test Your Theory
 	["Gelkis: {quest:93045}"] = "吉爾吉斯：{quest:93045}",
-	-- {npc:5397} Uthek the Wise · {item:6071} Draenethyst Crystal · {item:256061} Uthek's Draenethyst Staff · {item:255945} Accursed Skull · {npc:253177} Nerlokh
-	["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "依任務資料：{npc:5397}會給你她的法杖和一個{item:6071}。把它們組合成{item:256061}，帶到村莊東邊不遠水池旁的儀式地點，驅散{item:255945}上的詛咒。然後再向東去找{npc:253177}。",
+	-- {npc:5397} Uthek the Wise · {item:6071} Draenethyst Crystal · {item:258661} Uthek's Draenethyst Staff · {item:255945} Accursed Skull · {npc:253177} Nerlokh
+	-- was: ["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "依任務資料：{npc:5397}會給你她的法杖和一個{item:6071}。把它們組合成{item:256061}，帶到村莊東邊不遠水池旁的儀式地點，驅散{item:255945}上的詛咒。然後再向東去找{npc:253177}。"
+	["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:258661}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "",
 	-- {item:255945} Accursed Skull
 	["dispel the {item:255945} by the pond"] = "在水池旁驅散{item:255945}的詛咒",
 
@@ -130,9 +131,9 @@ return {
 
 	-- Step 17: Gelkis: the heart of the valley
 	["Gelkis: the heart of the valley"] = "吉爾吉斯：山谷中心",
-	-- {npc:253177} Nerlokh · {npc:253446} Haggard Bones · {item:256061} Uthek's Draenethyst Staff
-	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: east of {npc:253177}, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie {npc:253446}, failed summons stuck in the ground: lay eight to rest with {item:256061}, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull."] = "依任務資料：在{npc:253177}東邊的山谷中心，瑪格拉姆關押著吉爾吉斯俘虜：救出五名。他們之間躺著{npc:253446}，是卡在地裡的失敗召喚物：用任務給你的{item:256061}讓八具安息。45級精英食屍者和瑪格拉姆死靈可汗在山谷中走動，會攻擊吉爾吉斯的朋友：等他們走過再拉怪。",
+	-- {npc:253446} Haggard Bones
+	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
+	["The {npc:253446} are failed summons stuck in the ground. Corpsefeeders and Magram Necrokhans, level 45 elites, patrol the valley and attack friends of the Gelkis."] = "",
 	-- {npc:253446} Haggard Bones
 	["Lay {npc:253446} to rest"] = "讓{npc:253446}安息",
 	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive
@@ -258,9 +259,9 @@ return {
 
 	-- Step 35: Magram: the heart of the valley
 	["Magram: the heart of the valley"] = "瑪格拉姆：山谷中心",
-	-- {npc:253136} Orgrul · {npc:253446} Haggard Bones
-	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: south-east of {npc:253136}, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The {npc:253446} there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone."] = "依任務資料：在{npc:253136}東南方的山谷中心，瑪格拉姆關押著吉爾吉斯俘虜：殺死五名。那裡的{npc:253446}是卡在地裡的失敗召喚物：用奧格魯給你的強化死靈法杖喚起十具，並殺掉反擊的那些。45級精英食屍者在山谷中走動，會攻擊任何人；同為精英的瑪格拉姆死靈可汗則不會理會瑪格拉姆的朋友。",
+	-- {npc:253446} Haggard Bones
+	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
+	["The {npc:253446} are failed summons stuck in the ground, and some fight back once raised. Corpsefeeders (level 45 elites) attack anyone, while the elite Magram Necrokhans leave friends of the Magram alone."] = "",
 	-- {npc:253446} Haggard Bones
 	["Raise or slay {npc:253446}"] = "喚起或殺死{npc:253446}",
 
@@ -319,5 +320,8 @@ return {
 	["Both quartermasters sell the same 12 recipes for {quest:93224}, no standing needed: {item:273613} and - Lesser Healing Power; Greater Spellblasting and {item:250941}; {item:250538} and {item:250606} plans; {item:252462}, {item:253973}, {item:10011} and {item:274490} patterns; the {item:269900} and {item:269902} schematics. Keep the totems you need for them before you hand the rest in."] = "兩名軍需官都出售相同的12種配方，用{quest:93224}兌換，不需要聲望：{item:273613}和附魔護腕 - 次級治療能量；強效法爆藥水和{item:250941}；{item:250538}和{item:250606}設計圖；{item:252462}、{item:253973}、{item:10011}和{item:274490}圖樣；以及{item:269900}和{item:269902}結構圖。交出其餘圖騰之前，先留下兌換所需的份量。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["From the quest data: east of {npc:253177}, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie {npc:253446}, failed summons stuck in the ground: lay eight to rest with {item:256061}, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull."] = "依任務資料：在{npc:253177}東邊的山谷中心，瑪格拉姆關押著吉爾吉斯俘虜：救出五名。他們之間躺著{npc:253446}，是卡在地裡的失敗召喚物：用任務給你的{item:256061}讓八具安息。45級精英食屍者和瑪格拉姆死靈可汗在山谷中走動，會攻擊吉爾吉斯的朋友：等他們走過再拉怪。",
+	-- ["From the quest data: south-east of {npc:253136}, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The {npc:253446} there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone."] = "依任務資料：在{npc:253136}東南方的山谷中心，瑪格拉姆關押著吉爾吉斯俘虜：殺死五名。那裡的{npc:253446}是卡在地裡的失敗召喚物：用奧格魯給你的強化死靈法杖喚起十具，並殺掉反擊的那些。45級精英食屍者在山谷中走動，會攻擊任何人；同為精英的瑪格拉姆死靈可汗則不會理會瑪格拉姆的朋友。",
+	-- ["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "依任務資料：{npc:5397}會給你她的法杖和一個{item:6071}。把它們組合成{item:256061}，帶到村莊東邊不遠水池旁的儀式地點，驅散{item:255945}上的詛咒。然後再向東去找{npc:253177}。",
 	-- ["three Tears of Theradras"] = "三個瑟萊德絲之淚",
 }

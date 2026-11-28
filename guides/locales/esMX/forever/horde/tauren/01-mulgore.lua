@@ -81,8 +81,8 @@ return {
 	["Back east to {area:358}: the Bristleback Shamans stand among the quilboar there."] = "De vuelta al este a {area:358}: los Chamanes Erizapúas ({npc:2953}) están entre los jabaespines de allí.",
 
 	-- Step 14: Call of Earth
-	-- {npc:5888} Seer Ravenfeather · {npc:5891} Minor Manifestation of Earth · {item:6635} Earth Sapta · {item:6656} Rough Quartz
-	["Back to {npc:5888} in the camp. The {npc:5891} waits on the mesa east of the camp: drink the {item:6635} there to see it, then take the {item:6656} back to the Seer."] = "De vuelta con {npc:5888} en el campamento. La {npc:5891} espera en la meseta al este del campamento: bebe {item:6635} allí para verla y luego llévale {item:6656} al Vidente.",
+	-- {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth
+	["Only the {item:6635} shows the {npc:5891}, on the mesa east of the camp."] = "",
 	-- {npc:5888} Seer Ravenfeather · {npc:5873} Stoneskin Totem · {item:5175} Earth Totem
 	["{npc:5888}: {npc:5873} and your {item:5175}"] = "{npc:5888}: {npc:5873} y tu {item:5175}",
 
@@ -254,7 +254,7 @@ return {
 	-- Step 50: Dwarven Digging
 	-- {area:404} Bael'dun Digsite
 	-- plural, as words: Prospector's Picks = {item:4702} Prospector's Pick
-	["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the dwarves' forge in the digsite."] = "Los enanos de {area:404} llevan los Picos de prospector. Destrúyelos en la forja de los enanos de la excavación.",
+	["The dwarves of the {area:404} carry the Prospector's Picks."] = "",
 	-- {item:4703} Broken Tools
 	["{item:4703}, at the digsite forge"] = "{item:4703}, en la forja de la excavación",
 
@@ -448,6 +448,7 @@ return {
 	-- ["Back south to the {area:396}."] = "De vuelta al sur a {area:396}.",
 	-- ["Back south-east to the {area:396}."] = "De vuelta al sureste a {area:396}.",
 	-- ["Back to Bloodhoof"] = "De vuelta a Poblado Pezuña de Sangre",
+	-- ["Back to {npc:5888} in the camp. The {npc:5891} waits on the mesa east of the camp: drink the {item:6635} there to see it, then take the {item:6656} back to the Seer."] = "De vuelta con {npc:5888} en el campamento. La {npc:5891} espera en la meseta al este del campamento: bebe {item:6635} allí para verla y luego llévale {item:6656} al Vidente.",
 	-- ["Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. {npc:8554} stands at its eastern end, and the {item:4851} lies on the ground in the camp."] = "Los jabaguerreros pastan al norte del santuario; los jabaespines Erizapúas ocupan el barranco al noreste. {npc:8554} está en su extremo este y {item:4851} está en el suelo del campamento.",
 	-- ["Burning Blade Cultists hold {area:1898}, east of the road north to {zone:1454}; they drop the {item:6652}. The {item:5026} comes from the Razormane on the next guide's first visit to their camp."] = "Los cultores Filo Ardiente ocupan {area:1898}, al este del camino al norte hacia {zone:1454}; sueltan {item:6652}. {item:5026} lo sueltan los Crines de Acero en la primera visita de la siguiente guía a su campamento.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5930} sits in the north-western woods."] = "Lanza {spell:18960}. {npc:11802} está en {area:2361}; {quest:5930} está en el bosque del noroeste.",
@@ -473,6 +474,7 @@ return {
 	-- ["The Galak centaurs camp on the plains east of the well; Herak leads them."] = "Los centauros Galak acampan en las llanuras al este del pozo; Herak los dirige.",
 	-- ["The Galak centaurs camp on the plains east of the well; {npc:275767} leads them."] = "Los centauros Galak acampan en las llanuras al este del pozo; {npc:275767} los dirige.",
 	-- ["The Galak centaurs camp on the plains north of the {area:821}; Herak leads them. Prairie Wolf Alphas roam among the wolves."] = "Los centauros Galak acampan en las llanuras al norte de {area:821}; Herak los dirige. Los Lobos alfa de pradera ({npc:2960}) recorren la zona entre los lobos.",
+	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the dwarves' forge in the digsite."] = "Los enanos de {area:404} llevan los Picos de prospector. Destrúyelos en la forja de los enanos de la excavación.",
 	-- ["The dwarves of the {area:404} carry the Prospector's Picks. Smash them at the forge in {area:222}."] = "Los enanos de {area:404} llevan los Picos de prospector ({item:4702}). Destrúyelos en la forja de {area:222}.",
 	-- ["The goblins work the mine in the hills north-east of the well. {quest:765} stands in the back of the mine; his {item:281031} start {quest:98424}, and the other pages lie inside the mine."] = "Los goblins trabajan la mina en las colinas al noreste del pozo. {quest:765} está al fondo de la mina; sus {item:281031} inician {quest:98424}, y las otras páginas están dentro de la mina.",
 	-- ["The goblins work the mine in the hills north-east of the well. {quest:765} stands in the back of the mine; his {item:281031} start {quest:98424}, and the other pages lie inside the mine.\nCareful: the goblins stand close together in the tunnels and {quest:765} is level 12: clear the way one pull at a time."] = "Los goblins trabajan la mina en las colinas al noreste del pozo. {quest:765} está al fondo de la mina; sus {item:281031} inician {quest:98424}, y las otras páginas están dentro de la mina.\nCuidado: los goblins están muy juntos en los túneles y {quest:765} es de nivel 12: despeja el camino atrayendo de uno en uno.",

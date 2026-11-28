@@ -171,7 +171,7 @@ return {
 	-- Step 34: Mystral Lake
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
-	["{npc:3885} stands at the {area:420} on the east shore of {area:421}. Befouled Water Elementals (23-25) wade in the lake.\nCareful: {npc:12759}, a level 27 water elemental, walks the lake's west shore among them: leave it be."] = "",
+	["{npc:3885} is at the {area:420} on the east shore of {area:421}, where Befouled Water Elementals (23-25) wade. {npc:12759}, a level 27 water elemental, walks the west shore among them."] = "",
 	["Underwater"] = "Sous l'eau",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer

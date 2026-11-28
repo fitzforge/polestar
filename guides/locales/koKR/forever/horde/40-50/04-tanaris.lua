@@ -134,11 +134,9 @@ return {
 	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "조난 탐지기가 있을 때만: OOX-17/TN은 스크림섕크의 벌집 남동쪽에 있습니다. 북쪽 {area:977}까지 호위하세요. 보상은 {area:35}의 오글소프에게서 받습니다.\n주의: 호위 중 두 번 매복이 있습니다. 시작 근처에서 47레벨 전갈 셋이 공격합니다. 끝 무렵 해변 근처에서는 사막유랑단 인간 셋(마법사 하나와 암살자 둘, 44레벨 정도)이 공격합니다.",
 
 	-- Step 29: Tanaris Field Sampling
-	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source · {quest:654} Tanaris Field Sampling · {npc:7407} Chief Engineer Bilgewhizzle
-	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
-	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}."] = "북쪽으로 돌아가 {area:976} 바로 남쪽에서 지금 {item:8524}을(를) 사용하십시오: 2시간 타이머가 시작됩니다. 물집발 하이에나({npc:5426}), 유리가죽 바실리스크({npc:5419}), 전갈 사냥꾼({npc:5422})이 이곳 모래언덕을 함께 씁니다. 각각 검사하지 않은 표본을 떨어뜨릴 수 있습니다: 사용하면 쓸 만한 표본이 되거나 사라집니다. 각각 여덟 개가 될 때까지 계속 처치하십시오. 가방에 동력원이 없거나 두 시간이 지났습니까? {quest:654}이(가) 퀘스트 목록에 있으면 포기한 뒤 {npc:7407}에게 '또 다른 동력원?'을 받으십시오: {area:976} 동쪽 사막유랑단 야영지에서 얻는 사막유랑단 물주머니 열 개로 새것을 줍니다.",
-	-- {item:8524} Model 4711-FTZ Power Source
-	["Use the {item:8524}"] = "{item:8524} 사용하기",
+	["A sample can fail, so it can take several tries to get eight of each."] = "",
+	-- {item:8524} Model 4711-FTZ Power Source · {npc:7407} Chief Engineer Bilgewhizzle · {area:976} Gadgetzan · {quest:654} Tanaris Field Sampling
+	["Use the {item:8524}: it starts the quest and its two-hour timer. No power source, or the timer ran out? Another Power Source? from {npc:7407} trades a new one for ten Wastewander Water Pouches, from the Wastewander camps east of {area:976}, once {quest:654} is out of your log."] = "",
 
 	-- Step 30: Gadgetzan
 	-- {npc:5204} Apothecary Zinge · {zone:1458} Undercity
@@ -225,6 +223,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "북쪽으로 돌아가 {area:976} 바로 남쪽에서 지금 {item:8524}을(를) 사용하세요. 2시간 타이머가 시작됩니다. 이곳 모래언덕에는 물집발 하이에나, 유리가죽 바실리스크, 전갈 사냥꾼이 함께 있습니다. 각각 검사하지 않은 표본을 떨어뜨릴 수 있습니다. 표본을 사용하면 쓸 만한 표본으로 통과하거나 사라집니다. 종류별로 8개씩 모을 때까지 계속 처치하세요.",
+	-- ["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}."] = "북쪽으로 돌아가 {area:976} 바로 남쪽에서 지금 {item:8524}을(를) 사용하십시오: 2시간 타이머가 시작됩니다. 물집발 하이에나({npc:5426}), 유리가죽 바실리스크({npc:5419}), 전갈 사냥꾼({npc:5422})이 이곳 모래언덕을 함께 씁니다. 각각 검사하지 않은 표본을 떨어뜨릴 수 있습니다: 사용하면 쓸 만한 표본이 되거나 사라집니다. 각각 여덟 개가 될 때까지 계속 처치하십시오. 가방에 동력원이 없거나 두 시간이 지났습니까? {quest:654}이(가) 퀘스트 목록에 있으면 포기한 뒤 {npc:7407}에게 '또 다른 동력원?'을 받으십시오: {area:976} 동쪽 사막유랑단 야영지에서 얻는 사막유랑단 물주머니 열 개로 새것을 줍니다.",
 	-- ["Boat to {area:35}"] = "{area:35}행 배",
 	-- ["Dark Iron Lookouts"] = "검은무쇠단 망꾼",
 	-- ["Dig up the {quest:3161} ornaments around the {area:1938} and north of the {area:983}. Leave the ogres for now: {npc:12046} is 49 and the Brutes 46-48; the {area:983} comes at the end of 40-50/06, at about 52."] = "{area:1938} 주변과 {area:983} 북쪽에서 {quest:3161} 장신구를 파내세요. 오우거는 지금은 두세요. {npc:12046}은(는) 49레벨, 모래망치 투사는 46-48레벨입니다. {area:983}은(는) 40-50/06 끝, 52레벨쯤에 합니다.",
@@ -249,6 +248,7 @@ return {
 	-- ["The Steamsmiths' furnaces"] = "증기기술자의 용광로",
 	-- ["The boat to {area:35} docks at {area:392}'s pier, below the flight master's hill."] = "{area:35}행 배는 비행 조련사가 있는 언덕 아래, {area:392} 부두에 정박합니다.",
 	-- ["The {object:142071} machine, in the middle of town: the egg is in southern {zone:1444}, around level 50"] = "마을 한가운데의 {object:142071} 기계: 알은 50레벨쯤 {zone:1444} 남부에 있습니다",
+	-- ["Use the {item:8524}"] = "{item:8524} 사용하기",
 	-- ["Velarok Windblade"] = "벨라로크 윈드블레이드",
 	-- ["Velarok stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "벨라로크는 {area:1446} 남쪽, 용광로 가장자리에 홀로 서 있습니다. 그의 이야기를 들으세요.",
 	-- ["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers for the {area:1938} ride into Un'Goro at about 51."] = "거주지 서쪽 골짜기에는 선인장 괴물이 가득합니다. 이슬먹는 덤불나무괴물(47-48)만 이슬샘을 지니고 있습니다. {zone:1446}의 몬스터 대부분이 드물게 OOX-17/TN 조난 탐지기를 떨어뜨릴 수 있습니다. 얻으면 보관하세요.\n주의: 이 지역의 다른 덤불나무괴물은 48-50레벨이며 많이 돌아다니므로 몹을 더 끌어오기 쉽습니다. 골짜기 가장자리의 이슬먹는 덤불나무괴물을 잡고, {quest:2864}의 옹이진 덤불나무괴물과 뿌리술사는 51레벨쯤 운고로로 가는 길의 {area:1938}을(를) 위해 남겨 두세요.",

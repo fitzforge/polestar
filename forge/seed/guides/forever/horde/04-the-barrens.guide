@@ -123,8 +123,8 @@ step Grunt Logmar
 
 step Field of Giants
   zone The Barrens
-  tip South of Camp Taurajo, on the road to Gann, the Silithid Mounds dot the Field of Giants; the eggs lie in them, and Silithid Swarmers come out to defend them.
-  tip Careful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit.
+  tip Silithid Swarmers defend the mounds and release many tiny adds that interrupt spells, and damage shields such as Thorns kill those adds in one hit.
+  use 5059 quest 868.1 @44.9,69.4 map 1413
   collect 5058 quest 868.1
 
 step The Barrens
@@ -193,7 +193,8 @@ step Gann Stonespire
   accept 849
 
 step The flying machine
-  tip The dwarves' flying machine sits on its platform inside the dig site. Use the Explosive Stick of Gann that Gann gave you on it.
+  tip The Explosive Stick of Gann destroys the dwarves' flying machine, on its platform inside the dig site.
+  use 5021 quest 849.1 @47.0,85.6 map 1413
   interact 3644 quest 849.1
 
 step Gann Stonespire
@@ -317,10 +318,11 @@ step Sun Rock Retreat
 
 step The Charred Vale: kill these as you meet them
   zone Stonetalon Mountains
-  tip South-west of Sun Rock lies the burned Charred Vale. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop Incendrites. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: the Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches here are level 27 and the valley floor is crowded: pull one at a time and keep to its edges.
+  tip The Charred Vale is south-west of Sun Rock, and its fire elementals drop Incendrites. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches are level 27, and the valley floor is crowded.
   collect 16312 quest 6393
   collect 277936 quest 86576.1        -- Glittering Sunstone, from any Bloodfury harpy
   kill 4022 quest 6282.1
+  use 16208 quest 6381.1 @35.2,63.7 map 1442
   interact 177929 quest 6381          -- Gaea Dirt Mounds
   kill 4023 quest 6282.4
   kill 4024 quest 6282.3
@@ -348,7 +350,8 @@ step Gerenzo Wrenchwhistle
 step The Flying Machine Airport
   zone Stonetalon Mountains
   when onquest 1086
-  tip The Venture Co. Copter Pad is the platform just south-east of Gerenzo's tower: place Zamah's Toxic Fogger on it. Zamah takes it back on the next guide's Thunder Bluff stop.
+  tip Zamah takes the fogger back at the next guide's Thunder Bluff stop.
+  use 5638 quest 1086.1 @66.4,45.5
   complete 1086 @66.44,45.46          -- Place the Toxic Fogger on the Venture Co. Copter Pad
 
 step Ziz Fizziks

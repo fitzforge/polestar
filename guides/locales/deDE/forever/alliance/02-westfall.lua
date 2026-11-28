@@ -63,14 +63,10 @@ return {
 	["Follow the road west to {area:87}, on the way to {zone:1436}: {npc:240} stands outside the inn."] = "Folge der Straße nach Westen bis {area:87}, auf dem Weg nach {zone:1436}: {npc:240} steht vor dem Gasthaus.",
 
 	-- Step 14: The Binding
-	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker · {zone:1436} Westfall
-	["North along the road from {area:87} to {zone:1453}: {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls, then back south through {area:87} to {zone:1436}."] = "Folge der Straße von {area:87} nach Norden bis {zone:1453}: {npc:6122} wartet im Keller von {object:2164} im {object:2101}. Benutze dort am Beschwörungskreis {item:6928} und besiege den Leerwandler, der dabei erscheint; dann zurück nach Süden durch {area:87} nach {zone:1436}.",
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {zone:1453} Stormwind · {object:2101} Mage Quarter
+	["{npc:6122} is in the cellar of the {object:2164}, in {zone:1453}'s {object:2101}."] = "",
 	-- {npc:5676} Summoned Voidwalker · {item:6928} Bloodstone Choker
 	["{npc:5676}: use the {item:6928} at the circle"] = "{npc:5676}: Benutze {item:6928} am Kreis",
-
-	-- Step 15: The Binding
-	-- {item:6810} Surena's Choker · {npc:6122} Gakin the Darkbinder · {quest:1689} The Binding · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker
-	["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "{item:6810} ist bereits bei {npc:6122}: nimm {quest:1689} von ihm im Keller von {object:2164}, im {object:2101}. Benutze dort am Beschwörungskreis {item:6928} und besiege den beschworenen Leerwandler.",
 
 	-- Step 16: The Jansen Stead
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
@@ -401,6 +397,7 @@ return {
 	-- ["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "Harvest Watchers und Golems bearbeiten die Felder rund um {area:918}; sie lassen die Isosprings, Gyrostabilisatoren, {item:732} und manchmal ein {item:255155} fallen. {npc:573}, ein Rare der Stufe 20, läuft hier herum: Lass ihn in Ruhe.",
 	-- ["Hearthstone on cooldown? Follow the road north-east."] = "Ruhestein noch nicht bereit? Folge der Straße nach Nordosten.",
 	-- ["Murloc Coastrunners and Raiders line the beach north of the mine. They flee at low health: pull one at a time."] = "Murlocküstenläufer und Murlocräuber säumen den Strand nördlich der Mine. Bei wenig Gesundheit fliehen sie: Zieh einen nach dem anderen.",
+	-- ["North along the road from {area:87} to {zone:1453}: {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls, then back south through {area:87} to {zone:1436}."] = "Folge der Straße von {area:87} nach Norden bis {zone:1453}: {npc:6122} wartet im Keller von {object:2164} im {object:2101}. Benutze dort am Beschwörungskreis {item:6928} und besiege den Leerwandler, der dabei erscheint; dann zurück nach Süden durch {area:87} nach {zone:1436}.",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine, Kobold Diggers work inside. {object:290} stands by the ruined house east of the mine."] = "Nördlich von Molsens Hof. Fallensteller und Schmuggler der Defias lagern vor der Mine, Koboldbuddler arbeiten drinnen. {object:290} steht beim zerstörten Haus östlich der Mine.",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine. {object:290} stands by the ruined house east of the mine."] = "Nördlich von Molsens Hof. Fallensteller und Schmuggler der Defias lagern vor der Mine. {object:290} steht beim zerstörten Haus östlich der Mine.",
 	-- ["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) and Golems work the fields west of the road; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "Auf dem Weg nach Süden von {area:916} nach {area:107}: Erntebehüter (Stufe 14-15) und Golems bearbeiten die Felder westlich der Straße; sie lassen die Isosprings, Gyrostabilisatoren, {item:732} und manchmal eine {item:255155} fallen. {npc:573}, ein Rare der Stufe 20, läuft über diese Felder: Lass ihn in Ruhe.",
@@ -423,6 +420,7 @@ return {
 	-- ["{area:54}: kill these as you meet them"] = "{area:54}: Töte diese, wenn sie dir begegnen",
 	-- ["{area:918}'s Harvest Watchers"] = "Die Harvest Watchers von {area:918}",
 	-- ["{item:254676}, from the crates around {area:20}"] = "{item:254676}, aus den Kisten rund um {area:20}",
+	-- ["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "{item:6810} ist bereits bei {npc:6122}: nimm {quest:1689} von ihm im Keller von {object:2164}, im {object:2101}. Benutze dort am Beschwörungskreis {item:6928} und besiege den beschworenen Leerwandler.",
 	-- ["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} and {npc:253092} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234} und {npc:821} stehen oben auf dem Steinturm. {npc:491} ist im Turm, {npc:878} und {npc:253092} auf der Südseite des Hügels, neben dem Gasthaus und {npc:523}, dem Greifenmeister.",
 	-- ["{npc:237}; Humans took it from {npc:963} in Elwynn"] = "{npc:237}; Menschen haben es von {npc:963} in Elwynn genommen",
 	-- ["{npc:476} walks around {area:54}: look inside the circle on the map"] = "{npc:476} läuft um {area:54} herum: Schau auf der Karte in den Kreis",

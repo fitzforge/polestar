@@ -32,8 +32,7 @@ return {
 
 	-- Step 3: Boars, weapons and peons
 	["Boars, weapons and peons"] = "野猪、武器与苦工",
-	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
-	["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "训练用武器散落在巢穴内及北面野猪群之间。至于苦工：选中睡着的{npc:10556}，对其使用{item:16114}。",
+	["The training weapons lie on the ground in the Den and among the boars to the north."] = "",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556}：用 {item:16114} 击中它",
 	-- {npc:10556} Lazy Peon
@@ -228,9 +227,9 @@ return {
 	-- Step 38: Prowlers, Serena Bloodfeather and Echeyakee
 	-- {npc:3452} Serena Bloodfeather · {quest:881} Echeyakee
 	["Prowlers, {npc:3452} and {quest:881}"] = "徘徊者、{npc:3452}和{quest:881}",
-	-- {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
+	-- {quest:876} Serena Bloodfeather · {quest:881} Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler
-	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "草原徘徊者在十字路口西侧和北侧活动。{quest:876} 在西北远处率领巫翼鹰身人。随后 {npc:3338} 会给你 {item:10327}：到镇北埃其亚基的巢穴的科多兽骸骨旁吹响它，击杀白狮。",
+	["Savannah Prowlers roam west and north of the Crossroads, and {quest:876} leads the Witchwing harpies in the far north-west. {quest:881}, a white lion, appears at the kodo bones of {object:147524}, north of the town."] = "",
 
 	-- Step 39: Chen's Empty Keg (optional hub)
 	-- {quest:819} Chen's Empty Keg
@@ -392,6 +391,8 @@ return {
 	-- ["Keep handing in {quest:7832}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "继续交还{quest:7832}，每次20块{item:14047}。{item:14047}：{zone:1423}的黑暗教徒和暗影法师（58-60级），或拍卖行。",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "这里的科卡尔半人马（30-33级）会掉落。也可以去拍卖行购买。",
 	-- ["Level 56-60 quests and {item:14047} to Exalted, with the old {zone:1411} quests as a fast extra if they still pay in full."] = "通过56-60级任务和{item:14047}刷到崇拜；如果{zone:1411}的旧任务仍给全额声望，可以顺手快速做掉。",
+	-- ["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "草原徘徊者在十字路口西侧和北侧活动。{quest:876} 在西北远处率领巫翼鹰身人。随后 {npc:3338} 会给你 {item:10327}：到镇北埃其亚基的巢穴的科多兽骸骨旁吹响它，击杀白狮。",
+	-- ["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "训练用武器散落在巢穴内及北面野猪群之间。至于苦工：选中睡着的{npc:10556}，对其使用{item:16114}。",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "{area:381}的风险投资公司执行者（16-17级）会掉落。也可以去拍卖行购买。",
 	-- ["{npc:14726} takes cloth for {faction:76} in {faction:76}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7832} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14726}在{faction:76}收取布料以提升{faction:76}声望。首次捐献毛料、丝绸、魔纹布和{item:14047}（各60块）只能做一次，每块布给的声望最多；之后{quest:7832}可重复做到崇拜。与其他种族的主城达到崇拜后，可购买该种族的坐骑。Forever的传承外交官特权可提高声望获取。",
 	-- ["{npc:14726}: {item:14047} delivered"] = "{npc:14726}：已交付{item:14047}",

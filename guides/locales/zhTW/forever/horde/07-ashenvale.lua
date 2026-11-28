@@ -67,8 +67,8 @@ return {
 	-- Step 14: Ruins of Stardust fountain
 	-- {area:418} Ruins of Stardust
 	["{area:418} fountain"] = "{area:418}的噴泉",
-	-- {area:418} Ruins of Stardust · {npc:12678} Ursangous · {item:7767} Empty Blue Waterskin
-	["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "噴泉位於{area:418}中央，{npc:12678}在那裡遊蕩：在那裡使用{item:7767}。",
+	-- {npc:12678} Ursangous · {area:418} Ruins of Stardust
+	["{npc:12678} roams the {area:418}."] = "",
 
 	-- Step 15: Ursangous
 	-- {area:415} Astranaar · {npc:12678} Ursangous · {area:418} Ruins of Stardust · {area:421} Mystral Lake
@@ -174,9 +174,8 @@ return {
 	-- Step 45: Gloomrise: kill these as you meet them
 	-- {area:17044} Gloomrise
 	["{area:17044}: kill these as you meet them"] = "{area:17044}：遇到就殺",
-	-- {area:17044} Gloomrise · {npc:264074} Mazu'kon · {item:273015} Toxin Extractor · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
-	-- plural, as words: Gnawed Corpses = {npc:264096} Gnawed Corpse
-	["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} (30, elite) sits at the north end: leave her unless you do {quest:96261} with a group; her {item:273658} starts {quest:96294}."] = "在營地北邊，蜘蛛佔據了{area:17044}的墓地。對被啃咬的屍體使用{npc:264074}的{item:273015}；紡絲蜘蛛會掉落{item:273181}。{npc:264082}（30級，精英）在北端：除非組隊做{quest:96261}，否則別碰她；她的{item:273658}會開始{quest:96294}。",
+	-- {npc:264082} Broodmother Valraxx · {area:17044} Gloomrise · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
+	["{npc:264082} (30, elite) at the north end of {area:17044} is for a group doing {quest:96261}, and her {item:273658} starts {quest:96294}."] = "",
 	-- {item:273181} Crystalline Silk
 	-- plural, as words: Gloomrise Spinners = {npc:264081} Gloomrise Spinner
 	["{item:273181}, from Gloomrise Spinners"] = "{item:273181}，來自{npc:264081}",
@@ -368,7 +367,7 @@ return {
 
 	-- Step 81: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "這些是精英怪：建議組隊，找人一起打。{npc:10992}是30級精英：大多數職業在32級能單刷，但你可能需要幫手。如果你獨自一人就跳過。",
+	["The {npc:10992} is a level 30 elite. Most classes can solo it at level 32, but some may need a group."] = "",
 
 	-- Step 82: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
@@ -440,6 +439,7 @@ return {
 	-- ["Keep {npc:4877}'s two harpy quests and {npc:2986}'s {quest:1150}: {area:487} comes with the next Freewind visit, at about 30, with the {area:2240}'s quests."] = "保留{npc:4877}的兩個鷹身人任務和{npc:2986}的{quest:1150}：{area:487}留到下次來亂風崗時再做，約30級，連同{area:2240}的任務一起。",
 	-- ["Level 29"] = "29級",
 	-- ["Naga brazier"] = "納迦火盆",
+	-- ["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} (30, elite) sits at the north end: leave her unless you do {quest:96261} with a group; her {item:273658} starts {quest:96294}."] = "在營地北邊，蜘蛛佔據了{area:17044}的墓地。對被啃咬的屍體使用{npc:264074}的{item:273015}；紡絲蜘蛛會掉落{item:273181}。{npc:264082}（30級，精英）在北端：除非組隊做{quest:96261}，否則別碰她；她的{item:273658}會開始{quest:96294}。",
 	-- ["North up the road to {area:431} and {area:428} beside it."] = "沿著道路向北前往{area:431}和旁邊的{area:428}。",
 	-- ["On the way back north-east to Splintertree: {npc:12676} prowls the woods south-east of the Warsong lumber camp."] = "在往東北回碎木崗哨的路上：{npc:12676}在戰歌伐木營地東南方的樹林中徘徊。",
 	-- ["Pesterhide Snarlers"] = "雜毛嚎叫者",
@@ -448,10 +448,12 @@ return {
 	-- ["South of Darkcloud, the harpies of {area:487}. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top."] = "暗雲峰南邊是{area:487}的鷹身人。{npc:4490}（31級）在牠們之間走動：先清掉她周圍的鷹身人再拉她。那裡的尖嘯的鷹身人、尖嘯的遊蕩者和尖嘯的喚風者是{npc:4877}的任務目標；她要的{quest:98069}散落在懸崖腳下的地上，以及上面頂端的洞穴裡。",
 	-- ["Take a lift down from {zone:1456}. The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}."] = "從{zone:1456}搭升降梯下去。陶土議會營地位於峭壁北邊：{npc:264074}、{npc:264072}和{npc:259118}。",
 	-- ["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks between the camps: kill him when you meet him, his note starts a quest for {area:2237}."] = "加拉克營地遍布亂風崗北邊的峽谷；每個營地都有加拉克斥候、加拉克爭鬥者和加拉克逐風者。有一個落單的{npc:10617}在營地之間走動：遇到就殺了他，他的信會開始一個交給{area:2237}的任務。",
+	-- ["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "噴泉位於{area:418}中央，{npc:12678}在那裡遊蕩：在那裡使用{item:7767}。",
 	-- ["The next guide flies on from here to the Crossroads and {zone:1454}."] = "下一份指南會從這裡飛往十字路口和{zone:1454}。",
 	-- ["The next guide opens with Korran's The Swarm Grows at the Crossroads, offered from level 29. Short of 29? The Pesterhide Snarlers (28-29) prowl the canyon floor just north-west of {area:484}: kill them until level 29. Or, with a group, run the {area:2797} dungeon instead."] = "下一份指南以十字路口科蘭的「瘋狂的蟲群」開始，29級起可接。還沒到29級？{npc:4249}（28-29級）在{area:484}西北方的峽谷底部遊蕩：擊殺牠們直到29級。或者組隊去打{area:2797}地城。",
 	-- ["The salt flats"] = "鹽灘",
 	-- ["The {area:1718}"] = "{area:1718}",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "這些是精英怪：建議組隊，找人一起打。{npc:10992}是30級精英：大多數職業在32級能單刷，但你可能需要幫手。如果你獨自一人就跳過。",
 	-- ["Thistlefur Hold"] = "薊皮熊怪的巢穴",
 	-- ["Tideress"] = "泰德雷斯",
 	-- ["Ursangous"] = "烏薩苟斯",

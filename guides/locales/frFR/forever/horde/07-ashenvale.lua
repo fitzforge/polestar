@@ -67,8 +67,8 @@ return {
 	-- Step 14: Ruins of Stardust fountain
 	-- {area:418} Ruins of Stardust
 	["{area:418} fountain"] = "Fontaine de {area:418}",
-	-- {area:418} Ruins of Stardust · {npc:12678} Ursangous · {item:7767} Empty Blue Waterskin
-	["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "La fontaine se trouve au milieu de {area:418}, où rôde {npc:12678} : utilisez-y {item:7767}.",
+	-- {npc:12678} Ursangous · {area:418} Ruins of Stardust
+	["{npc:12678} roams the {area:418}."] = "",
 
 	-- Step 15: Ursangous
 	-- {area:415} Astranaar · {npc:12678} Ursangous · {area:418} Ruins of Stardust · {area:421} Mystral Lake
@@ -174,9 +174,8 @@ return {
 	-- Step 45: Gloomrise: kill these as you meet them
 	-- {area:17044} Gloomrise
 	["{area:17044}: kill these as you meet them"] = "{area:17044} : tuez-les au passage",
-	-- {area:17044} Gloomrise · {npc:264074} Mazu'kon · {item:273015} Toxin Extractor · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
-	-- plural, as words: Gnawed Corpses = {npc:264096} Gnawed Corpse
-	["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} (30, elite) sits at the north end: leave her unless you do {quest:96261} with a group; her {item:273658} starts {quest:96294}."] = "Au nord du camp, des araignées envahissent le cimetière de {area:17044}. Utilisez {item:273015} de {npc:264074} sur les Cadavres rongés ; les Spinners laissent {item:273181}. {npc:264082} (30, élite) se tient au nord : laissez-la tranquille sauf si vous faites {quest:96261} en groupe ; son objet {item:273658} lance {quest:96294}.",
+	-- {npc:264082} Broodmother Valraxx · {area:17044} Gloomrise · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
+	["{npc:264082} (30, elite) at the north end of {area:17044} is for a group doing {quest:96261}, and her {item:273658} starts {quest:96294}."] = "",
 	-- {item:273181} Crystalline Silk
 	-- plural, as words: Gloomrise Spinners = {npc:264081} Gloomrise Spinner
 	["{item:273181}, from Gloomrise Spinners"] = "{item:273181}, sur les Tisseuses de la cime du Chagrin ({npc:264081})",
@@ -368,7 +367,7 @@ return {
 
 	-- Step 81: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. La {npc:10992} est une élite de niveau 30 : la plupart des classes la tuent seules au niveau 32, mais vous aurez peut-être besoin d'aide. Passez-la si vous êtes seul.",
+	["The {npc:10992} is a level 30 elite. Most classes can solo it at level 32, but some may need a group."] = "",
 
 	-- Step 82: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
@@ -454,6 +453,7 @@ return {
 	-- ["Level 29"] = "Niveau 29",
 	-- ["Level 29.49"] = "Niveau 29.49",
 	-- ["Naga brazier"] = "Brasero naga",
+	-- ["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} (30, elite) sits at the north end: leave her unless you do {quest:96261} with a group; her {item:273658} starts {quest:96294}."] = "Au nord du camp, des araignées envahissent le cimetière de {area:17044}. Utilisez {item:273015} de {npc:264074} sur les Cadavres rongés ; les Spinners laissent {item:273181}. {npc:264082} (30, élite) se tient au nord : laissez-la tranquille sauf si vous faites {quest:96261} en groupe ; son objet {item:273658} lance {quest:96294}.",
 	-- ["North up the road to {area:431} and {area:428} beside it."] = "Remontez la route vers le nord jusqu'à {area:431} et {area:428} juste à côté.",
 	-- ["On the road south to the {area:485}, turn east into the {area:359} dig. {npc:3421} hides at its south edge. {object:3646} stands on the bottom floor of the dwarves' fortress, beside {npc:3414} (30) and his Officers (26): pull them to you one at a time."] = "Sur la route du sud vers le {area:485}, tournez vers l'est dans les fouilles de {area:359}. {npc:3421} se cache à leur lisière sud. {object:3646} se trouve à l'étage inférieur de la forteresse des nains, à côté de {npc:3414} (30) et de ses Officiers (26) : attirez-les vers vous un par un.",
 	-- ["On the way back north-east to Splintertree: {npc:12676} prowls the woods south-east of the Warsong lumber camp."] = "Sur le chemin du retour vers Bois-brisé, au nord-est : {npc:12676} rôde dans les bois au sud-est du Camp de bûcherons chanteguerre.",
@@ -464,10 +464,12 @@ return {
 	-- ["South of Darkcloud, the harpies of {area:487}. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s; her {quest:98069} lie on the ground along the foot of the cliff and in the cave up on top."] = "Au sud de Noir-nuage, les harpies de {area:487}. {npc:4490} (31) circule parmi elles : éclaircissez les harpies autour d'elle avant de l'attirer. Les Harpies hurlantes, Volplumes hurlantes et Imploratrices célestes hurlantes de ce lieu sont pour {npc:4877} ; ses {quest:98069} jonchent le sol au pied de la falaise et dans la grotte au sommet.",
 	-- ["Take a lift down from {zone:1456}. The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}."] = "Descendez de {zone:1456} par un ascenseur. Le camp du Cercle terrestre se trouve au nord des pitons : {npc:264074}, {npc:264072} et {npc:259118}.",
 	-- ["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks between the camps: kill him when you meet him, his note starts a quest for {area:2237}."] = "Les camps galak remplissent le canyon au nord du Poste de Librevent ; Eclaireurs, Querelleurs et Chasse-vent galak partagent chaque camp. Un {npc:10617} solitaire circule entre les camps : tuez-le dès que vous le croisez, sa note lance une quête pour {area:2237}.",
+	-- ["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "La fontaine se trouve au milieu de {area:418}, où rôde {npc:12678} : utilisez-y {item:7767}.",
 	-- ["The next guide flies on from here to the Crossroads and {zone:1454}."] = "Le guide suivant part d'ici en vol vers la Croisée et {zone:1454}.",
 	-- ["The next guide opens with Korran's The Swarm Grows at the Crossroads, offered from level 29. Short of 29? The Pesterhide Snarlers (28-29) prowl the canyon floor just north-west of {area:484}: kill them until level 29. Or, with a group, run the {area:2797} dungeon instead."] = "Le guide suivant commence avec « L'essaim s'agrandit » de Korran, à la Croisée, disponible dès le niveau 29. Pas encore 29 ? Les Grogneuses Pestepoil (28-29) rôdent au fond du canyon juste au nord-ouest de {area:484} : tuez-les jusqu'au niveau 29. Ou, en groupe, faites plutôt le donjon {area:2797}.",
 	-- ["The salt flats"] = "Les Salines",
 	-- ["The {area:1718}"] = "{area:1718}",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. La {npc:10992} est une élite de niveau 30 : la plupart des classes la tuent seules au niveau 32, mais vous aurez peut-être besoin d'aide. Passez-la si vous êtes seul.",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. La {npc:10992} est une élite de niveau 30 : la plupart des classes la tuent seules au niveau 32, mais vous aurez peut-être besoin d'aide. Passez-la si vous êtes seul : la route vous fait regagner cette expérience en tuant des monstres.",
 	-- ["Thistlefur Hold"] = "Antre des Crins-de-Chardon",
 	-- ["Tideress"] = "Maréen",

@@ -63,14 +63,10 @@ return {
 	["Follow the road west to {area:87}, on the way to {zone:1436}: {npc:240} stands outside the inn."] = "",
 
 	-- Step 14: The Binding
-	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker · {zone:1436} Westfall
-	["North along the road from {area:87} to {zone:1453}: {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls, then back south through {area:87} to {zone:1436}."] = "{area:87}에서 길을 따라 북쪽 {zone:1453}(으)로 가십시오. {npc:6122}은(는) {object:2101}에 있는 {object:2164}의 지하실에서 기다립니다. 그곳 소환진에서 {item:6928}을(를) 사용해 불러낸 공허방랑자를 물리친 뒤, {area:87}을(를) 지나 남쪽 {zone:1436}(으)로 돌아가십시오.",
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {zone:1453} Stormwind · {object:2101} Mage Quarter
+	["{npc:6122} is in the cellar of the {object:2164}, in {zone:1453}'s {object:2101}."] = "",
 	-- {npc:5676} Summoned Voidwalker · {item:6928} Bloodstone Choker
 	["{npc:5676}: use the {item:6928} at the circle"] = "{npc:5676}: 소환진에서 {item:6928} 사용",
-
-	-- Step 15: The Binding
-	-- {item:6810} Surena's Choker · {npc:6122} Gakin the Darkbinder · {quest:1689} The Binding · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6928} Bloodstone Choker
-	["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "{item:6810}은(는) 이미 {npc:6122}에게 있습니다: {object:2101}의 {object:2164} 지하실에서 그에게 {quest:1689}을(를) 받으십시오. 그곳의 소환진에서 {item:6928}을(를) 사용하고 불려 나온 공허방랑자를 물리치십시오.",
 
 	-- Step 16: The Jansen Stead
 	-- {zone:1436} Westfall · {object:2724} Sack of Oats
@@ -395,6 +391,7 @@ return {
 	-- ["Further north along the road. The Furlbrows sit by their burned farm. Collect the oats from the Sacks of Oats in the fields as you go."] = "길을 따라 더 북쪽으로 가십시오. 펄브로우 부부가 불탄 농장 옆에 앉아 있습니다. 가는 길에 밭의 귀리 부대에서 귀리를 모으십시오.",
 	-- ["Harvest Watchers and Golems work the fields around {area:918}; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone."] = "허수아비골렘 보초와 허수아비골렘이 {area:918} 주변 밭에서 일하며, 골렘 등가용수철, 허수아비골렘 회전안정기, {item:732}, 가끔 {item:255155}을(를) 떨어뜨립니다. 20레벨 희귀 몹 {npc:573}이(가) 이곳을 돌아다니니 건드리지 마십시오.",
 	-- ["Hearthstone on cooldown? Follow the road north-east."] = "귀환석이 재사용 대기 중이라면 북동쪽 길을 따라가십시오.",
+	-- ["North along the road from {area:87} to {zone:1453}: {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls, then back south through {area:87} to {zone:1436}."] = "{area:87}에서 길을 따라 북쪽 {zone:1453}(으)로 가십시오. {npc:6122}은(는) {object:2101}에 있는 {object:2164}의 지하실에서 기다립니다. 그곳 소환진에서 {item:6928}을(를) 사용해 불러낸 공허방랑자를 물리친 뒤, {area:87}을(를) 지나 남쪽 {zone:1436}(으)로 돌아가십시오.",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine, Kobold Diggers work inside. {object:290} stands by the ruined house east of the mine."] = "몰센 농장 북쪽입니다. 데피아즈단 덫사냥꾼과 데피아즈단 밀수업자가 광산 밖에 진을 치고, 코볼트 채굴꾼이 안에서 일합니다. {object:290}은(는) 광산 동쪽의 폐가 옆에 있습니다.",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine. {object:290} stands by the ruined house east of the mine."] = "몰센 농장 북쪽입니다. 데피아즈단 덫사냥꾼과 데피아즈단 밀수업자가 광산 밖에 진을 치고 있습니다. {object:290}은(는) 광산 동쪽의 폐가 옆에 있습니다.",
 	-- ["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) and Golems work the fields west of the road; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "{area:916}에서 남쪽 {area:107}(으)로 가는 길에: 허수아비골렘 보초(14-15레벨)와 골렘이 길 서쪽 밭에서 일하며, 골렘 등가용수철, 허수아비골렘 회전안정기, {item:732}, 가끔 {item:255155}을(를) 떨어뜨립니다. 20레벨 희귀 몹 {npc:573}이(가) 이 밭을 돌아다니니 건드리지 마십시오.",
@@ -413,6 +410,7 @@ return {
 	-- ["Young Goretusks and Fleshrippers roam the fields around the farm: start on livers and the stew's meat on the way back."] = "새끼 뿔엄니멧돼지와 식인독수리가 농장 주변 밭을 돌아다닙니다. 돌아가는 길에 간과 스튜용 고기를 모으기 시작하십시오.",
 	-- ["{area:20} and the Defias hills"] = "{area:20}와(과) 데피아즈단 언덕",
 	-- ["{item:254676}, from the crates around {area:20}"] = "{item:254676}, {area:20} 주변 상자에서",
+	-- ["{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls."] = "{item:6810}은(는) 이미 {npc:6122}에게 있습니다: {object:2101}의 {object:2164} 지하실에서 그에게 {quest:1689}을(를) 받으십시오. 그곳의 소환진에서 {item:6928}을(를) 사용하고 불려 나온 공허방랑자를 물리치십시오.",
 	-- ["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} and {npc:253092} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234}와(과) {npc:821}은(는) 돌탑 꼭대기에 있습니다. {npc:491}은(는) 탑 안에, {npc:878}와(과) {npc:253092}은(는) 언덕 남쪽의 여관과 그리폰 조련사 {npc:523} 옆에 있습니다.",
 	-- ["{npc:237}; Humans took it from {npc:963} in Elwynn"] = "{npc:237}; 인간이 엘윈의 {npc:963}에게서 빼앗았습니다",
 	-- ["{quest:153}: every Defias drops them"] = "{quest:153}: 모든 데피아즈단이 떨어뜨립니다",

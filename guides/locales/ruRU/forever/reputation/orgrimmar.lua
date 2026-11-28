@@ -32,8 +32,7 @@ return {
 
 	-- Step 3: Boars, weapons and peons
 	["Boars, weapons and peons"] = "Кабаны, оружие и прислужники",
-	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
-	["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "Тренировочное оружие лежит на земле в Логове и среди кабанов к северу. Для прислужников: выберите спящего {npc:10556} и используйте на нём {item:16114}.",
+	["The training weapons lie on the ground in the Den and among the boars to the north."] = "",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556}: ударьте его {item:16114}",
 	-- {npc:10556} Lazy Peon
@@ -228,9 +227,9 @@ return {
 	-- Step 38: Prowlers, Serena Bloodfeather and Echeyakee
 	-- {npc:3452} Serena Bloodfeather · {quest:881} Echeyakee
 	["Prowlers, {npc:3452} and {quest:881}"] = "Следопыты, {npc:3452} и {quest:881}",
-	-- {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
+	-- {quest:876} Serena Bloodfeather · {quest:881} Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler
-	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "Хищники саванны лежат западнее и севернее Перекрестка. {quest:876} ведёт гарпий Когтистого Крыла на дальнем северо-западе. Затем {npc:3338} даёт вам {item:10327}: подуйте в него рядом с костями кодо у {object:147524}, севернее города, и убейте белого льва.",
+	["Savannah Prowlers roam west and north of the Crossroads, and {quest:876} leads the Witchwing harpies in the far north-west. {quest:881}, a white lion, appears at the kodo bones of {object:147524}, north of the town."] = "",
 
 	-- Step 39: Chen's Empty Keg (optional hub)
 	-- {quest:819} Chen's Empty Keg
@@ -385,6 +384,8 @@ return {
 	-- ["Keep handing in {quest:7832}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Продолжайте сдавать: {quest:7832}, по 20 шт. ({item:14047}). {item:14047}: Адепты Тьмы и темные маги (уровень 58-60) – зона {zone:1423}, или аукцион.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "Добыча здесь: кентавры из племени Колкар (уровень 30-33). Подойдет и аукцион.",
 	-- ["Level 56-60 quests and {item:14047} to Exalted, with the old {zone:1411} quests as a fast extra if they still pay in full."] = "Задания 56-60 уровня и {item:14047} до превознесения; старые задания в зоне {zone:1411} – быстрое дополнение, если они еще дают полную награду.",
+	-- ["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "Хищники саванны лежат западнее и севернее Перекрестка. {quest:876} ведёт гарпий Когтистого Крыла на дальнем северо-западе. Затем {npc:3338} даёт вам {item:10327}: подуйте в него рядом с костями кодо у {object:147524}, севернее города, и убейте белого льва.",
+	-- ["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "Тренировочное оружие лежит на земле в Логове и среди кабанов к северу. Для прислужников: выберите спящего {npc:10556} и используйте на нём {item:16114}.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Добыча здесь: {npc:3283} ({area:381}, уровень 16-17). Подойдет и аукцион.",
 	-- ["{npc:14726} takes cloth for {faction:76} in {faction:76}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7832} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14726} принимает ткань для фракции {faction:76} (место: {faction:76}). Первые пожертвования шерсти, шелкового материала, магической ткани и предмета {item:14047} (по 60 шт.) делаются один раз и дают больше всего репутации за ткань; после них {quest:7832} повторяется до превознесения. Превознесение у города другой расы позволяет покупать транспорт этой расы. Бонус наследия Forever «Дипломат» ускоряет рост репутации.",
 	-- ["{npc:14726}: {item:14047} delivered"] = "{npc:14726}: {item:14047} сдано",

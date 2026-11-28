@@ -96,10 +96,9 @@ return {
 	-- Step 15: Ketharas's shrine
 	-- {npc:256222} Ketharas
 	["{npc:256222}'s shrine"] = "",
-	["The shrine is a pair of standing stones west of the Hermit's Abode, on the way back to the outpost: bury the remains there."] = "",
+	["The shrine is a pair of standing stones west of the Hermit's Abode."] = "",
 
 	-- Step 17: The ancients' outpost
-	["West to the outpost."] = "",
 	-- {npc:248366} Fraxinus
 	["put the poultice on {npc:248366}"] = "",
 
@@ -153,7 +152,7 @@ return {
 	-- Step 33: The bone pile
 	["The bone pile"] = "",
 	-- {npc:264306} Awakened Fel Ash Slime
-	["West to the bone pile by the slime pools: throw the warlocks' bones on it, then hand the quest in at the pile itself. Handing it in wakes the {npc:264306}, an elite (level 58) that hits hard: unless you are grouped for it, hand in and ride clear at once."] = "",
+	["Handing the quest in at the pile wakes the {npc:264306}, a level 58 elite that hits hard."] = "",
 
 	-- Step 34: Amalgamated Marrow
 	-- {npc:264306} Awakened Fel Ash Slime
@@ -173,7 +172,6 @@ return {
 
 	-- Step 40: The Ashen workstations
 	["The Ashen workstations"] = "",
-	["Four workstations stand in the Ashen camp: throw a pinecone at each, from the south up."] = "",
 	["Slime Workstation"] = "",
 	["Alchemy Workstation"] = "",
 	["Disease Workstation"] = "",
@@ -406,7 +404,7 @@ return {
 
 	-- Step 90: The overlook
 	["The overlook"] = "",
-	["West to the overlook above the valley: the veteran's old scabbard lies there. Hand his quest in at the scabbard and take the next from it, then use the scabbard in your bags to call his spirit and listen to his story."] = "",
+	["The veteran's spirit appears only once the scabbard is used."] = "",
 
 	-- Step 91: Shalla'kal and Galvinquam Leafsyre
 	-- {npc:255683} Shalla'kal · {npc:267109} Galvinquam Leafsyre
@@ -426,8 +424,6 @@ return {
 
 	-- Step 94: The falls and the first kitten
 	["The falls and the first kitten"] = "",
-	-- {npc:267109} Galvinquam Leafsyre · {npc:255685} Solstice · {npc:255683} Shalla'kal
-	["Fill {npc:267109}'s gourd at the falls beside the bridge. {npc:255685}, one of {npc:255683}'s kittens, plays just west of the falls: walk up to her."] = "",
 	["fill the gourd"] = "",
 
 	-- Step 95: Johun "Punchy" Dillas's camp
@@ -579,9 +575,9 @@ return {
 	["{npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them: drain each one first, then fight it. Drained, they are no longer elite and you can take them alone; players in our recordings killed both once drained."] = "{npc:263394} и {npc:252457} – элита 60-го уровня, пока глаз NPC {npc:263406} не истощит их: сначала истощите каждого, затем сражайтесь. Истощенные, они больше не элита, и с ними можно справиться в одиночку; игроки в наших записях убивали обоих после истощения.",
 
 	-- Step 131: Bethra'zel the Feeble
-	-- {npc:263394} Bethra'zel the Feeble · {npc:263406} Elaena Moonwhisper · {npc:252457} Mazzogore · {npc:267439} Doomguard Xarkul · {area:16866} Dae'gun
+	-- {npc:263394} Bethra'zel the Feeble · {npc:252457} Mazzogore · {npc:267439} Doomguard Xarkul · {area:16866} Dae'gun
 	-- plural, as words: Legion Hulks = {npc:249238} Legion Hulk
-	["North-east to {npc:263394}. Drain him first: use {npc:263406}'s eye on him, and only then fight him. Undrained, he and {npc:252457} are level 60 elites. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room."] = "",
+	["{npc:263394} and {npc:252457} are level 60 elites until {npc:263394} is drained. {npc:267439}, a level 61 elite, patrols this corner of {area:16866}.\nLegion Hulks (level 60 rare elites) roam {area:16866}'s camps."] = "",
 
 	-- Step 132: Maerion Thaelemaches
 	-- {npc:267097} Maerion Thaelemaches · {area:16866} Dae'gun · {npc:263394} Bethra'zel the Feeble · {npc:267439} Doomguard Xarkul

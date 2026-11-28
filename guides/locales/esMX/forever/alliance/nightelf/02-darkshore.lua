@@ -49,9 +49,9 @@ return {
 
 	-- Step 9: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "Osos y el campamento Bosque Negro",
-	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
+	-- {area:442} Auberdine
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills south of {area:442}: use {quest:2139} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "Los osos cardo rabiosos recorren las colinas al sur de {area:442}: usa {quest:2139} en uno para capturarlo. Luego sube hasta el campamento de fúrbolgs justo al este de ellos: todavía no hay nada que matar.",
+	["Rabid Thistle Bears roam the hills south of {area:442}. Nothing at the furbolg camp needs killing yet."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "los osos cardo rabiosos más cercanos a {npc:3701}",
@@ -68,8 +68,8 @@ return {
 
 	-- Step 11: The red crystal
 	["The red crystal"] = "El cristal rojo",
-	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Sube a las montañas al este de {area:447}; el {object:175524} está en una cornisa.",
+	-- {object:175524} Mysterious Red Crystal · {area:447} Ameth'Aran
+	["The {object:175524} sits on a ledge in the mountains east of {area:447}."] = "",
 
 	-- Step 12: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
@@ -136,7 +136,7 @@ return {
 
 	-- Step 22: Ameth'Aran
 	-- {area:447} Ameth'Aran
-	["Back north to {area:447}: the flame burns in the south of the ruins."] = "De vuelta al norte hasta {area:447}: la llama arde en el sur de las ruinas.",
+	["The flame burns in the south of the {area:447} ruins, to the north."] = "",
 
 	-- Step 23: Anaya's Pendant
 	-- {npc:3667} Anaya Dawnrunner · {npc:2184} Lady Moongazer
@@ -246,12 +246,15 @@ return {
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446} en {zone:1426}; {area:87} no tiene instructor de chamanes",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north to {area:447}: the flame burns in the south of the ruins."] = "De vuelta al norte hasta {area:447}: la llama arde en el sur de las ruinas.",
 	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Los abrecaminos y soplavientos Bosque Negro ocupan el campamento al sureste de {area:442}.",
 	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "Los Abrecaminos Bosque Negro y los Hablavientos ocupan el campamento al sureste de {area:442}.\nCuidado: los Hablavientos (13-14) lanzan hechizos a distancia y los fúrbolgs están en parejas: atráelos de uno en uno.",
+	-- ["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Sube a las montañas al este de {area:447}; el {object:175524} está en una cornisa.",
 	-- ["Into {area:148}"] = "Hacia {area:148}",
 	-- ["North along the hills to {npc:3650}, then west down to {area:442}."] = "Al norte por las colinas hasta {npc:3650}, luego al oeste, bajando hasta {area:442}.",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {object:17183} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Al norte por las colinas. {npc:3650} espera en las ruinas de {quest:954}; las llenan grells salvajes y duendes viles, y los sátiros Deth'ryll ocupan el borde este. {object:17183} está junto al camino al oeste de las ruinas; un {quest:4723} yace en la orilla, de camino hacia él.",
 	-- ["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "Los osos cardo rabiosos recorren las colinas al sur de {area:442}: usa {item:7586} en uno para capturarlo. Luego sube hasta el campamento de fúrbolgs justo al este de ellos: todavía no hay nada que matar.",
+	-- ["Rabid Thistle Bears roam the hills south of {area:442}: use {quest:2139} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "Los osos cardo rabiosos recorren las colinas al sur de {area:442}: usa {quest:2139} en uno para capturarlo. Luego sube hasta el campamento de fúrbolgs justo al este de ellos: todavía no hay nada que matar.",
 	-- ["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "El barco atraca al oeste del pueblo. El maestro de vuelo está en la colina al sur de la posada; los asignadores de misiones están repartidos por la calle principal.",
 	-- ["{item:5382}: {npc:3667}, level 16; pull her away from the Highborne"] = "{item:5382}: {npc:3667}, nivel 16; aléjala de los Altonato",
 	-- ["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "{npc:1646} está en {object:2098}, al oeste de {object:2096}: su brújula está en su vieja casa de {zone:1436}, en el camino.",

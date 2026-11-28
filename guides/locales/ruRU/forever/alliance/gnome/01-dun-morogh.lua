@@ -589,10 +589,8 @@ return {
 	-- Step 119: Tram to Stormwind
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "Поезд до {zone:1453}",
-	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
-	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	-- was: ["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "На платформе {zone:1455} у {area:2257} {npc:12997} просит помочь с крысами: используйте его {item:17117} на крысах Подземного хода вокруг платформы, сдайте их, затем отнесите его письмо его брату {npc:13018} на конце {zone:1453}."
-	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "",
+	-- {npc:12997} Monty · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:13018} Nipsy · {zone:1453} Stormwind
+	["{npc:12997} is on the {zone:1455} platform of the {area:2257}, and his brother {npc:13018} is at the {zone:1453} end. The tram has no map inside, so the city markers show the entrances, not the brothers."] = "",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
 	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}, на платформе {zone:1455}",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute
@@ -653,8 +651,8 @@ return {
 	["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "{npc:5497} стоит в башне магов ({object:2101}); она дает вам флягу для водопада ({quest:1861}).",
 
 	-- Step 132: Mirror Lake
-	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
-	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Выйдите из города {zone:1453} через главные ворота. Водопад ({quest:1861}) – к юго-западу от ворот, по пути на запад в зону {zone:1436}: наполните {item:7207} у его подножия.",
+	-- {quest:1861} Mirror Lake · {zone:1453} Stormwind · {zone:1436} Westfall
+	["The {quest:1861} waterfall is south-west of {zone:1453}'s main gate, on the way west to {zone:1436}."] = "",
 
 	-- Step 133: Goldshire
 	-- {zone:1453} Stormwind · {area:87} Goldshire · {zone:1436} Westfall
@@ -672,6 +670,7 @@ return {
 	-- ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "Пройдите через туннель в зону {zone:1432}. Сразу за ним тропа, отмеченная камнями, поднимается по холмам справа от дороги на север, к лагерю {npc:257808}.",
 	-- ["Iceclaw Bear Pendants, from the Frostmane Troll Whelps on the slopes above the camp"] = "Подвески медведя-ледокогтя, с троллей-подростков из племени Мерзлогривов на склонах над лагерем",
 	-- ["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Выйдите из города {zone:1453} через главные ворота, идите на юг сюда: {area:87} и на восток по дороге сюда: {area:62}. {npc:881} (уровень 9) стоит у фермерского дома.",
+	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Выйдите из города {zone:1453} через главные ворота. Водопад ({quest:1861}) – к юго-западу от ворот, по пути на запад в зону {zone:1436}: наполните {item:7207} у его подножия.",
 	-- ["Leper Gnomes around Brewnall and the {area:133} road carry the cogs and gears. Ice Claw Bears, Elder Crag Boars and Snow Leopards roam the hills around the lake."] = "Лепрогномы вокруг поселка Пивоваров и дороги к месту {area:133} носят шестеренки и зубчатки. Медведи-ледолапы, старые скальные вепри и снежные леопарды бродят по холмам вокруг озера.",
 	-- ["Level 4 spells, before Gozwin's camp"] = "Заклинания 4-го уровня, до лагеря Гозвина",
 	-- ["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: Headsplitter, a level 15 trogg, walks {area:923} among the 11-12 troggs: work the camps at its north edge, near the post, and keep clear of him."] = "Севернее поста, западнее дороги: трогги и разведчики из племени Камнедробов разбили лагерь в холмах. С тех и с других падают каменные зубы троггов.\nОсторожно: Череполом, трогг 15-го уровня, ходит по месту {area:923} среди троггов 11-12-го уровня: работайте по лагерям у его северного края, рядом с постом, и держитесь от него подальше.",

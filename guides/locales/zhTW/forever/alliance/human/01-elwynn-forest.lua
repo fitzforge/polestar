@@ -460,16 +460,16 @@ return {
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "順便：向{npc:11867}（{object:2096}，10銀幣）學習法杖；升級期間，法杖提供的法術屬性比單手武器多。",
 
 	-- Step 91: Mirror Lake
-	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
-	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "從正門離開{zone:1453}。{quest:1861}瀑布在城門西南方，位於往西前往{zone:1436}的路上：在瀑布底部裝滿{item:7207}。",
+	-- {quest:1861} Mirror Lake · {zone:1453} Stormwind · {zone:1436} Westfall
+	["The {quest:1861} waterfall is south-west of {zone:1453}'s main gate, on the way west to {zone:1436}."] = "",
 
 	-- Step 92: Surena Caledon
 	-- {area:87} Goldshire · {area:62} Brackwell Pumpkin Patch · {npc:881} Surena Caledon
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "穿過{area:87}返回，沿路向東到{area:62}。{npc:881}（9級）站在農舍旁。",
 
 	-- Step 93: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
-	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "回到{npc:6122}那裡。在{object:2164}地下室的召喚法陣使用{item:6928}，擊敗被召喚出的虛空行者。",
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {area:1519} Stormwind · {object:2101} Mage Quarter
+	["{npc:6122} and the summoning circle are in the cellar of the {object:2164}, in {area:1519}'s {object:2101}."] = "",
 	["Subdue the voidwalker"] = "制服虛空行者",
 
 	-- Step 94: Back to Elwynn Forest
@@ -536,6 +536,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to the {area:120}, by the road to {zone:1436}. {npc:963} stands outside the barracks, {npc:955} beside him."] = "向南回到{area:120}，在通往{zone:1436}的路旁。{npc:963}站在兵營外，{npc:955}在他旁邊。",
 	-- ["Back to the Cathedral of Light."] = "回到光明大教堂。",
+	-- ["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "回到{npc:6122}那裡。在{object:2164}地下室的召喚法陣使用{item:6928}，擊敗被召喚出的虛空行者。",
 	-- ["Bait ingredients"] = "誘餌材料",
 	-- ["Boar meat"] = "野豬肉",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "迪菲亞流浪巫師在{area:86}岸邊紮營；他們也會掉落紅色亞麻面罩。{object:56}在東北岸的魚人村裡。",
@@ -554,6 +555,7 @@ return {
 	-- ["If you skipped {quest:91752}, grind here to level 5.77 to stay on the route's plan."] = "如果你跳過了{quest:91752}，在這裡刷到5.77級以跟上路線計劃。",
 	-- ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "狗頭人苦力在礦坑隧道裡工作。{npc:248362}在右邊第二個轉角深處等著。",
 	-- ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "狗頭人苦力在礦坑隧道裡工作。{npc:248362}在右邊第二個轉角深處等著。\n小心：{npc:248362}（3級）是精英：除非有朋友同行，否則別去惹他。",
+	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "從正門離開{zone:1453}。{quest:1861}瀑布在城門西南方，位於往西前往{zone:1436}的路上：在瀑布底部裝滿{item:7207}。",
 	-- ["Level 5.48"] = "等級5.48",
 	-- ["Level 5.77"] = "等級5.77",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "魚人強盜和魚人潛伏者分布在橋南邊的河岸。迪菲亞的{npc:473}在橋西邊的{area:62}走動。沿途把覓食的灰狼和小森林熊殺完。",

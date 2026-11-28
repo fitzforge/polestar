@@ -308,9 +308,9 @@ return {
 
 	-- Step 65: Raptor nests
 	["Raptor nests"] = "迅猛龍巢",
-	-- {area:392} Ratchet · {area:1697} Raptor Grounds · {item:5165} Sunscale Feather
+	-- {item:5165} Sunscale Feather
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "從{area:392}往西南穿過平原前往{area:1697}：三個巢一起位於綠洲西南方，由赤鱗鐮爪龍守護。每個巢都需要一根{item:5165}：擊殺赤鱗迅猛龍（大多會掉落一根）直到你有三根，然後在每個巢使用一根羽毛。",
+	["Sunscale Scytheclaws guard the three nests. Most Sunscale raptors drop a {item:5165}, and each nest takes one."] = "",
 
 	-- Step 66: Raptor Grounds: kill these as you meet them
 	-- {area:1697} Raptor Grounds
@@ -330,8 +330,8 @@ return {
 	["{npc:3446}, beside the WANTED poster"] = "",
 
 	-- Step 73: Dreadmist Peak
-	-- {area:384} Dreadmist Peak · {item:15842} Empty Dreadmist Peak Sampler · {object:19464} Dreadmist Peak Pool · {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
-	["Head north from the Crossroads to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the Crossroads. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "從十字路口向北到{area:384}，在{object:19464}處把{item:15842}裝滿，然後回到十字路口的{npc:3448}那裡。沒有{skill:182}？他旁邊的{npc:3490}賣{item:2449}，一次三個，直到他補貨。",
+	-- {npc:3490} Hula'mahi · {npc:3448} Tonga Runetotem · {item:2449} Earthroot
+	["{npc:3490} beside {npc:3448} sells {item:2449}, three at a time until he restocks."] = "",
 	-- {item:2449} Earthroot · {npc:3490} Hula'mahi
 	["{item:2449} from {npc:3490}; herbalists pick it on the plains"] = "向{npc:3490}購買{item:2449}；草藥學家可在平原上採集",
 
@@ -399,8 +399,8 @@ return {
 	["He gives you the {item:15826}"] = "他會給你{item:15826}",
 
 	-- Step 87: Verog the Dervish
-	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {npc:3448} Tonga Runetotem
-	["{npc:3395} doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the {area:388}, south-east of the Crossroads. Keep killing them around the oasis until he appears. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395}不會自己出現：在十字路口東南方的{area:388}擊殺科卡爾半人馬時他才會現身。在綠洲周圍持續擊殺直到他出現。趁在那裡，到綠洲東岸冒泡的裂縫測試{npc:3448}的種子。",
+	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis
+	["{npc:3395} doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the {area:388}."] = "",
 	["Underwater"] = "在水下",
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "{npc:12296}：對它們使用{item:15826}；它們在十字路口周圍的平原上游蕩",
@@ -626,8 +626,8 @@ return {
 	["Thunderhawk Cloudscrapers circle over the plains south of the camp."] = "雷鷹破雲者在營地南邊的平原上空盤旋。",
 
 	-- Step 143: Brine
-	-- {npc:5899} Brine · {area:378} Camp Taurajo · {item:7766} Empty Brown Waterskin
-	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "{npc:5899}的小屋在{area:378}南邊野豬人水坑上方的山脊上：在它下方的水坑裝滿{item:7766}。",
+	-- {npc:5899} Brine · {area:378} Camp Taurajo
+	["{npc:5899}'s hut is on the ridge above the quilboar watering hole, south of {area:378}."] = "",
 	-- {item:7766} Empty Brown Waterskin
 	["Fill the {item:7766} at the quilboar watering hole"] = "在野豬人的水源裝滿{item:7766}",
 	-- {object:107045} Spring Well · {area:272} Tarren Mill · {area:287} Hillsbrad
@@ -747,6 +747,7 @@ return {
 	-- ["Follow the road east to the outpost above the {area:814}."] = "沿道路向東前往{area:814}上方的哨站。",
 	-- ["Follow the road south-east to {area:392} on the coast."] = "沿道路向東南前往海岸的{area:392}。",
 	-- ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "沿道路往東南前往海岸邊的{area:392}：鎮北端的{npc:3391}和{npc:7161}，接著是{npc:3442}和{npc:16227}、{npc:3446}和{object:3972}告示，往南離開時再找碼頭上的{quest:1492}。",
+	-- ["Head north from the Crossroads to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the Crossroads. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "從十字路口向北到{area:384}，在{object:19464}處把{item:15842}裝滿，然後回到十字路口的{npc:3448}那裡。沒有{skill:182}？他旁邊的{npc:3490}賣{item:2449}，一次三個，直到他補貨。",
 	-- ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "營地裡，鋼鬃尋水者和鋼鬃織棘者占據西半部，鋼鬃獵手在中間；補給箱在營地東端。\n這裡的陸行鳥也算在鳥喙的數量裡。\n小心：{npc:267308}和狂戰士（18-19級）是精英；牠們站在營地東北部的補給箱旁：把野豬人一隻一隻地從牠們身邊引開。",
 	-- ["Keep it: {quest:3923} stands outside {zone:1454}; a later guide hands it in"] = "先留著：{quest:3923}站在{zone:1454}外；之後的指南會繳交",
 	-- ["Kolkar Wranglers and Stormers hold the camps south of {npc:3389}."] = "科卡爾牧民和科卡爾召雷師佔據{npc:3389}南邊的營地。",
@@ -759,6 +760,7 @@ return {
 	-- ["Raptor nests"] = "迅猛龍巢",
 	-- ["South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank; {npc:3448} takes the result on the next Crossroads stop, so carry on north-west to the {area:383} from here."] = "在十字路口東南方。在綠洲東岸冒泡的裂縫測試種子；{npc:3448}會在下次回到十字路口時收下結果，所以從這裡繼續往西北前往{area:383}。",
 	-- ["South-east of the {area:380}. Test the seeds at the bubbling fissure on the oasis' east bank."] = "在{area:380}東南方。在綠洲東岸冒泡的裂縫測試種子。",
+	-- ["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "從{area:392}往西南穿過平原前往{area:1697}：三個巢一起位於綠洲西南方，由赤鱗鐮爪龍守護。每個巢都需要一根{item:5165}：擊殺赤鱗迅猛龍（大多會掉落一根）直到你有三根，然後在每個巢使用一根羽毛。",
 	-- ["Southsea beach"] = "南海海灘",
 	-- ["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "還差十二個？陽鱗鞭尾龍和尖嘯者在十字路口東北的平原遊蕩，就在從{quest:881}巢穴往南回來的路上。",
 	-- ["The Savannah Prowlers hunt the plains between town and the Razormane camp to the east. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end."] = "草原徘徊者在城鎮與東邊鋼鬃營地之間的平原狩獵。營地中，鋼鬃尋水者和鋼鬃織棘者佔據西半部，鋼鬃獵手在中間；補給箱在營地東端。",
@@ -786,6 +788,7 @@ return {
 	-- ["{area:380} is your base for this guide. Everyone you need stands within a few steps of the inn."] = "{area:380}是本指南的基地。你需要的人都在旅店附近幾步之內。",
 	-- ["{item:15885}: use a half at the {area:2362}"] = "{item:15885}：在{area:2362}使用一半墜飾",
 	-- ["{npc:3337}: {quest:840}, from {zone:1411}"] = "{npc:3337}：{quest:840}，來自{zone:1411}",
+	-- ["{npc:3395} doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the {area:388}, south-east of the Crossroads. Keep killing them around the oasis until he appears. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395}不會自己出現：在十字路口東南方的{area:388}擊殺科卡爾半人馬時他才會現身。在綠洲周圍持續擊殺直到他出現。趁在那裡，到綠洲東岸冒泡的裂縫測試{npc:3448}的種子。",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Oasis Snapjaws crawl in the water around it: their shells are for {npc:3448}."] = "{npc:3395}在十字路口東南方的{area:388}與科卡爾半人馬一起走動。綠洲鉗嘴龜在周圍的水中爬行：牠們的殼要交給{npc:3448}。",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395}在十字路口東南方{area:388}的科卡爾之間走動。趁在那裡，到綠洲東岸冒泡的裂縫測試{npc:3448}的種子。",
 	-- ["{npc:3446}, beside the {object:3972} poster"] = "{npc:3446}，在{object:3972}告示旁邊",
@@ -793,6 +796,7 @@ return {
 	-- ["{npc:3448}: the Oasis Snapjaws at the {area:388}, with {npc:3395}"] = "{npc:3448}：{area:388}的綠洲鉗嘴龜，以及{npc:3395}",
 	-- ["{npc:3615}, the wind rider master"] = "雙足飛龍管理員{npc:3615}",
 	-- ["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878}在從{area:380}通往{area:392}的道路旁紮營。{object:58369}在他北邊不遠的鋼鬃營地南部。",
+	-- ["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "{npc:5899}的小屋在{area:378}南邊野豬人水坑上方的山脊上：在它下方的水坑裝滿{item:7766}。",
 	-- ["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900}在{area:379}南邊、過橋後的河岸上等著。",
 	-- ["{npc:5907} stands on the ridge north of the Razormane camp."] = "{npc:5907}站在鋼鬃營地北邊的山脊上。",
 	-- ["{object:3972} poster"] = "{object:3972}海報",

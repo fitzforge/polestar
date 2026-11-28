@@ -207,8 +207,8 @@ return {
 	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "Reite an der Ostseite nach Norden zum Gorillaplateau. {npc:9622}, ein Gorilla der Stufe 55, sitzt in dessen tiefster Höhle: Säubere zuerst die Gorillas am Höhleneingang.",
 
 	-- Step 38: Lar'korwi
-	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder · {item:11568} Torwa's Pouch
-	["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there.\nCareful: {npc:9684} is level 56, a level or two over you here: start at full health, and clear the raptors around the lair first."] = "{npc:9684}s Höhle liegt im Dschungel nördlich von {npc:9619}, unter den östlichen Klippen: Benutze {item:11568} dort.\nVorsicht: {npc:9684} ist Stufe 56, hier eine oder zwei Stufen über dir: Beginne mit voller Gesundheit und beseitige zuerst die Raptoren um die Höhle.",
+	-- {npc:9684} Lar'korwi
+	["{npc:9684} is level 56, a level or two above you here, and raptors surround his lair."] = "",
 
 	-- Step 39: Eastern Pylon and the crate
 	["Eastern Pylon and the crate"] = "Östlicher Pylon und die Kiste",
@@ -242,8 +242,8 @@ return {
 	["North-east from the pylon to {area:543}: {npc:10302} the goblin sits by the water."] = "Nordostlich vom Pyramide zu {area:543}: {npc:10302} die Goblin sitzt am Wasser.",
 
 	-- Step 46: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "Reite nach Osten zum {area:537}, klettere hinauf und benutze {npc:10541} an den Lavaschloten nahe dem Gipfel.",
+	-- {area:537} Fire Plume Ridge
+	["The lava vents are near the top of {area:537}, to the east."] = "",
 
 	-- Step 47: Krakle
 	-- {npc:10302} Krakle
@@ -259,7 +259,7 @@ return {
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "Eskortiere {npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Führ {npc:9999} nach Norden nach {area:541}. Wenn er ohnmächtig wird, benutze {item:11804} an ihm, um ihn zu wecken.",
+	["{npc:9999} faints along the way to {area:541}, and {item:11804} wakes him."] = "",
 
 	-- Step 51: Fly to Gadgetzan
 	-- {area:541} Marshal's Refuge
@@ -303,9 +303,8 @@ return {
 	-- Step 59: Shadow Hold braziers
 	-- {area:1770} Shadow Hold
 	["{area:1770} braziers"] = "Kohlenbecken in {area:1770}",
-	-- {area:1770} Shadow Hold · {area:1763} Jaedenar · {item:12906} Purified Moonwell Water · {item:13140} Blood Red Key · {npc:11018} Arko'narin
-	-- plural, as words: Jaedenar Darkweavers = {npc:7118} Jaedenar Darkweaver
-	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns: pull at the edge of each group and fight one pack at a time.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "{area:1770} ist die Höhle am hinteren Ende von {area:1763}, westlich der Straße. Benutze {item:12906} an den vier Wachkohlenbecken drinnen.\nVorsicht: Mobs des Shadow Council der Stufen 53-55 füllen die Höhle und kommen oft in großen verbundenen Gruppen, viele mit Betäubungen: Ziehe am Rand jeder Gruppe und bekämpfe eine Gruppe nach der anderen.\nDie Dunkelwirker von Jaedenar, Warlocks und Enforcers hier lassen {item:13140} fallen, etwa eine von dreißig Tötungen: Töte sie weiter, bis es fällt. Es öffnet die Zelle von {npc:11018}, der Nachtelfe, die in der Höhle festgehalten wird.",
+	-- {area:1770} Shadow Hold · {item:13140} Blood Red Key · {npc:11018} Arko'narin
+	["{area:1770} is full of level 53-55 Shadow Council mobs in large linked groups, many with stuns. The Darkweavers, Warlocks and Enforcers drop the {item:13140} about once in thirty kills, and it opens {npc:11018}'s cell."] = "",
 	-- {object:176159} Brazier of Malice
 	["{object:176159}, below ground"] = "{object:176159}, unterirdisch",
 	-- {object:176160} Brazier of Suffering
@@ -419,8 +418,8 @@ return {
 	["The relics are in the ruins just south of {quest:5250}"] = "Die Reliquien liegen in den Ruinen direkt südlich von {quest:5250}",
 
 	-- Step 82: The Ruins of Kel'Theril
-	-- {area:2253} Starfall Village · {npc:10304} Aurora Skycaller · {zone:1423} Eastern Plaguelands
-	["The ruins lie around the frozen lake south of {area:2253}. Pick up the four relic fragments lying in the ruins: {npc:10304} in the {zone:1423} takes them, on the next guide."] = "Die Ruinen liegen um den gefrorenen See südlich von {area:2253}. Erhebe die vier Reliquiendeschlag in den Ruinen: {npc:10304} in {zone:1423} nimmt sie, auf dem nächsten Guide.",
+	-- {npc:10304} Aurora Skycaller · {zone:1423} Eastern Plaguelands
+	["{npc:10304} in the {zone:1423} takes the four relic fragments, in the next guide."] = "",
 
 	-- Step 83: The road to Everlook: furs and horns
 	-- {area:2255} Everlook
@@ -473,6 +472,7 @@ return {
 	-- ["Into {zone:1423}"] = "Nach {zone:1423}",
 	-- ["Its jars are filled on the {zone:1451} guide's Un'Goro visit: keep it"] = "Die Gefäße werden beim Besuch in Un'Goro im {zone:1451}-Guide gefüllt: Behalten",
 	-- ["Keep it: Gregan in {zone:1444} brews the elixir later"] = "Behalten: Gregan in {zone:1444} braut das Elixier später",
+	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Führ {npc:9999} nach Norden nach {area:541}. Wenn er ohnmächtig wird, benutze {item:11804} an ihm, um ihn zu wecken.",
 	-- ["Level 55 at {area:2246}"] = "Stufe 55 bei {area:2246}",
 	-- ["Level 55.05"] = "Stufe 55,05",
 	-- ["North-west out of the camp to {area:199}, west of Andorhal: {npc:11075} (53) guards the cauldron among the Jabbering Ghouls (54)."] = "Nach Nordwesten aus dem Lager zu {area:199}, westlich von Andorhal: {npc:11075} (53) bewacht den Kessel zwischen den Plappernden Ghulen (54).",
@@ -482,6 +482,7 @@ return {
 	-- ["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "Sammle die Vorräte um den Wagen auf und hol dir {npc:10301}s Amulett von den Eulenbestien in der Nähe zurück.",
 	-- ["Pristine Yeti Horns"] = "Makellose Yetihörner",
 	-- ["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "Reinherz, Dumah, Tapferfaust und MacDonnell stehen in der Mitte des Lagers, beim Flugmeister.",
+	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "Reite nach Osten zum {area:537}, klettere hinauf und benutze {npc:10541} an den Lavaschloten nahe dem Gipfel.",
 	-- ["Ride north to {area:2627}. {npc:12384} lives in the ruined hut, and his receipt book lies in the ruined inn nearby."] = "Reite nach Norden nach {area:2627}. {npc:12384} lebt in der zerstörten Hütte, sein Quittungsbuch liegt im zerstörten Gasthaus in der Nähe.",
 	-- ["Ride north up the valley, past {area:2255}, to {area:2253}."] = "Reite das Tal nach Norden hinauf, an {area:2255} vorbei, bis {area:2253}.",
 	-- ["Ride north-west back to the village."] = "Reite nach Nordwesten zurück ins Dorf.",
@@ -497,6 +498,7 @@ return {
 	-- ["The Winterfall furbolg village lies east of {area:2255}: Shaman (56-57), Den Watchers (55-56) and Ursa (57-58), all above you. Kill the Shaman first, they heal, and pull from the edge. {npc:10738} in the cave at the back is elite: stay out."] = "Das Furbolgdorf der Winterfelle liegt östlich von {area:2255}: Schamanen (56-57), Höhlenbehüter (55-56) und Ursas (57-58), alle über deiner Stufe. Töte zuerst die Schamanen, sie heilen, und lock vom Rand aus. {npc:10738} in der Höhle hinten ist Elite: Bleib draußen.",
 	-- ["The next guide starts here and flies to {area:3197}."] = "Der nächste Guide beginnt hier und fliegt nach {area:3197}.",
 	-- ["The ruins lie around the frozen lake south of {area:2253}. Pick up the four relic fragments lying in the ruins and the Moontouched Feathers on the ground where the wildkin roam."] = "Die Ruinen liegen um den gefrorenen See südlich von {area:2253}. Sammle die vier Reliktfragmente in den Ruinen und die Mondbestrahlten Federn am Boden, wo die Wildekin umherstreifen.",
+	-- ["The ruins lie around the frozen lake south of {area:2253}. Pick up the four relic fragments lying in the ruins: {npc:10304} in the {zone:1423} takes them, on the next guide."] = "Die Ruinen liegen um den gefrorenen See südlich von {area:2253}. Erhebe die vier Reliquiendeschlag in den Ruinen: {npc:10304} in {zone:1423} nimmt sie, auf dem nächsten Guide.",
 	-- ["The three pieces of the doll lie in the ruined houses of {area:2262}; picking one up can call out ghosts. Combine them into the doll."] = "Die drei Teile der Puppe liegen in den zerstörten Häusern von {area:2262}; beim Aufheben können Geister erscheinen. Füge sie zur Puppe zusammen.",
 	-- ["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten) and, rarely, a {quest:8471}: right-click whichever drops. Keep the {quest:6031} the furbolgs drop for Meilosh."] = "Das westliche Lager der Winterfelle liegt in den Hügeln zwischen {npc:11556} und {npc:9298}. Jeder Furbolg hier kann {item:12771} (etwa einer von zehn) und selten {quest:8471} fallen lassen: Rechtsklicke, was immer fällt. Behalte {quest:6031}, das die Furbolgs fallen lassen, für Meilosh.",
 	-- ["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten: it comes within the kills these quests need) and a {quest:8471} (about one in thirty: it comes within the top-ups): right-click whichever drops. Keep the {item:14047} the furbolgs drop for Meilosh.\nThe rest of {zone:1452}'s work is level 55-58: stay on this camp until level 54, so your first kills also count for {npc:9298} and {npc:11556}."] = "Das westliche Lager der Winterquell liegt in den Hügeln zwischen {npc:11556} und {npc:9298}. Jeder Furbolg hier kann einen {item:12771} fallen lassen (etwa bei jedem zehnten: Er kommt innerhalb der Kills, die diese Quests brauchen) und ein {quest:8471} (etwa bei jedem dreißigsten: Es kommt innerhalb der Grind-Runden): Klicke mit Rechtsklick an, was auch immer fällt. Behalte die {item:14047}, die die Furbolgs fallen lassen, für Meilosh.\nDie übrige Arbeit in {zone:1452} ist Stufe 55-58: Bleib bis Stufe 54 in diesem Lager, damit deine ersten Kills auch für {npc:9298} und {npc:11556} zählen.",
@@ -514,6 +516,7 @@ return {
 	-- ["grind on {npc:7442}"] = "Grinde an {npc:7442}",
 	-- ["grind on {npc:7460} at the {area:2247}, {zone:1452}"] = "grinde {npc:7460} bei {area:2247}, {zone:1452}",
 	-- ["{area:150} flight master"] = "Flugmeister von {area:150}",
+	-- ["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns: pull at the edge of each group and fight one pack at a time.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "{area:1770} ist die Höhle am hinteren Ende von {area:1763}, westlich der Straße. Benutze {item:12906} an den vier Wachkohlenbecken drinnen.\nVorsicht: Mobs des Shadow Council der Stufen 53-55 füllen die Höhle und kommen oft in großen verbundenen Gruppen, viele mit Betäubungen: Ziehe am Rand jeder Gruppe und bekämpfe eine Gruppe nach der anderen.\nDie Dunkelwirker von Jaedenar, Warlocks und Enforcers hier lassen {item:13140} fallen, etwa eine von dreißig Tötungen: Töte sie weiter, bis es fällt. Es öffnet die Zelle von {npc:11018}, der Nachtelfe, die in der Höhle festgehalten wird.",
 	-- ["{area:199} cauldron"] = "Kessel im {area:199}",
 	-- ["{area:2247}: kill these as you meet them"] = "{area:2247}: Töte sie, wenn du ihnen begegnest",
 	-- ["{area:2255} flight master"] = "Flugmeister in {area:2255}",
@@ -547,6 +550,7 @@ return {
 	-- ["{npc:12250} is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "{npc:12250} ist Elite: Eine Gruppe wird empfohlen. Er wartet ganz unten im {area:2261}, der Krypta im Südwesten des Gebiets.",
 	-- ["{npc:9116}'s next task, {npc:222647}, ends with {npc:3848} at {area:2358}, south of the route once {zone:1448} is done: skip it."] = "{npc:9116}'s nächste Aufgabe, {npc:222647}, endet mit {npc:3848} in {area:2358}, südlich der Route, sobald {zone:1448} erledigt ist: überspringe es.",
 	-- ["{npc:9616} works in the {object:32356}: hand him {zone:1448}'s ooze jars now, on your way through."] = "{npc:9616} arbeitet in {object:32356}: Gib ihm jetzt auf dem Weg die Schlammgefäße aus {zone:1448}.",
+	-- ["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there.\nCareful: {npc:9684} is level 56, a level or two over you here: start at full health, and clear the raptors around the lair first."] = "{npc:9684}s Höhle liegt im Dschungel nördlich von {npc:9619}, unter den östlichen Klippen: Benutze {item:11568} dort.\nVorsicht: {npc:9684} ist Stufe 56, hier eine oder zwei Stufen über dir: Beginne mit voller Gesundheit und beseitige zuerst die Raptoren um die Höhle.",
 	-- ["{object:175894}, inside"] = "{object:175894}, drinnen",
 	-- ["{quest:5152}, in the {area:28}: keep it"] = "{quest:5152}, in {area:28}: behalten",
 	-- ["{quest:5152}, in the {zone:1422}: keep it"] = "{quest:5152}, in {zone:1422}: behalten",

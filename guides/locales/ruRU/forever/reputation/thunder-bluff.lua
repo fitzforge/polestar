@@ -113,9 +113,8 @@ return {
 	["{npc:264074}: {quest:96241} (Darkspear +100)"] = "{npc:264074}: {quest:96241} (Черное Копьё +100)",
 
 	-- Step 19: Gloomrise
-	-- {area:17044} Gloomrise · {faction:81} Thunder Bluff · {item:273015} Toxin Extractor · {npc:264082} Broodmother Valraxx · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
-	-- plural, as words: Gnawed Corpses = {npc:264096} Gnawed Corpse
-	["{area:17044} is the tauren burial ground north of {faction:81}. Use the {item:273015} on the Gnawed Corpses. {npc:264082} waits at the heart of it; her body carries a {item:273658}: read it to start {quest:96294}."] = "{area:17044} — тауренское кладбище севернее {faction:81}. Примените {item:273015} к обглоданным трупам. {npc:264082} ждёт в его сердцевине; на её теле лежит {item:273658}: прочитайте его, чтобы начать {quest:96294}.",
+	-- {area:17044} Gloomrise · {faction:81} Thunder Bluff · {npc:264082} Broodmother Valraxx · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
+	["{area:17044} is the tauren burial ground north of {faction:81}. {npc:264082} is at its heart, and her body carries a {item:273658} that starts {quest:96294}."] = "",
 	-- {item:273181} Crystalline Silk
 	-- plural, as words: Gloomrise Spinners = {npc:264081} Gloomrise Spinner
 	["{item:273181}, from Gloomrise Spinners"] = "{item:273181}, с прядильщиц ({npc:264081})",
@@ -239,6 +238,7 @@ return {
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "Добыча здесь: кентавры из племени Колкар (уровень 30-33). Подойдет и аукцион.",
 	-- ["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "Элитный крошер Торговой компании «Отсекатель» работает глубоко внутри шахты, дальше того места, где стоял Физсрокет: его ключ нужен для {quest:98427}.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Добыча здесь: {npc:3283} ({area:381}, уровень 16-17). Подойдет и аукцион.",
+	-- ["{area:17044} is the tauren burial ground north of {faction:81}. Use the {item:273015} on the Gnawed Corpses. {npc:264082} waits at the heart of it; her body carries a {item:273658}: read it to start {quest:96294}."] = "{area:17044} — тауренское кладбище севернее {faction:81}. Примените {item:273015} к обглоданным трупам. {npc:264082} ждёт в его сердцевине; на её теле лежит {item:273658}: прочитайте его, чтобы начать {quest:96294}.",
 	-- ["{npc:14728} takes cloth for {faction:81} in {faction:81}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7825} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14728} принимает ткань для фракции {faction:81} (место: {faction:81}). Первые пожертвования шерсти, шелкового материала, магической ткани и предмета {item:14047} (по 60 шт.) делаются один раз и дают больше всего репутации за ткань; после них {quest:7825} повторяется до превознесения. Превознесение у города другой расы позволяет покупать транспорт этой расы. Бонус наследия Forever «Дипломат» ускоряет рост репутации.",
 	-- ["{npc:14728}: {item:14047} delivered"] = "{npc:14728}: {item:14047} сдано",
 	-- ["{quest:7825} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7825}: 20 шт. ({item:14047}) за сдачу, повторяется сколько угодно. Приносите {item:14047} партиями по 20 и сдавайте все сразу, одну сдачу за другой. {item:14047}: Адепты Тьмы и темные маги (уровень 58-60) – зона {zone:1423}, или аукцион.",

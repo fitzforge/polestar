@@ -42,17 +42,17 @@ return {
 
 	-- Step 6: Jadefire Glen
 	-- {npc:9454} Xavathras · {spell:7992} Slowing Poison
-	-- plural, as words: Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker · Cursed Oozes = {npc:7086} Cursed Ooze
-	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "碧火薩特佔據道路以西的山谷，{npc:9454}在最深處。\n小心：碧火暗影潛伏者（51-52級）會潛行並使用{spell:7992}，常常不請自來地加入戰鬥。\n詛咒軟泥怪在山谷的溪流裡四處遊蕩：殺死它們，再對殘骸使用拉里斯的空軟泥怪罐。",
+	-- plural, as words: Cursed Oozes = {npc:7086} Cursed Ooze · Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker
+	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back, and Cursed Oozes roam its streams. Jadefire Shadowstalkers (level 51-52) are stealthed and use Sneak and {spell:7992}, so they often join fights uninvited."] = "",
 
 	-- Step 7: Ruins of Constellas
 	-- {npc:9454} Xavathras · {area:2481} Ruins of Constellas
 	["Careful: {npc:9454} (54) stands at the back of the {area:2481}, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health."] = "小心：{npc:9454}（54級）站在{area:2481}後方，約32.2,67.1，周圍有暗影潛行者：一次清掉一隻，然後在滿血時單獨拉他。",
 
 	-- Step 8: Jaedenar
-	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge · {item:11948} Empty Tainted Ooze Jar
+	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him.\nTainted Oozes slide about {area:1763}'s fel pools: kill them and use the {item:11948} on their remains."] = "",
+	["{area:1763} is the ruined temple north of the glen, and Tainted Oozes slide around its fel pools. Careful: the {npc:11141} (53, elite) haunts the west end around 35,60."] = "",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}：汙染軟泥怪在{area:1763}的邪能水池裡四處遊蕩",
@@ -286,6 +286,7 @@ return {
 	-- ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. Keep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 58.\nCareful: Den Watchers are level 53-54 and the Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "{area:1762}的死木熊怪佈滿洞穴西邊的山丘。持續擊殺直到掉落{quest:8470}（約三十隻掉一個），然後右鍵點擊它：木喉要塞對你中立後，{area:1769}的{npc:11558}就會收下它，若已經中立就現在交，否則等最後一份指南在58級再次經過洞穴時交。\n小心：巢穴守衛是53-54級，復仇者是54-55級；血量低於50%時會呼叫25碼內的同伴，低於15%時會逃跑求援。",
 	-- ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. The Avengers can drop a {quest:8470}."] = "{area:1762}的死木熊怪佈滿洞穴西邊的山丘。死木復仇者可能掉落{quest:8470}。",
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "碧火薩特佔據道路西邊的山谷，{npc:9454}在山谷深處。",
+	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "碧火薩特佔據道路以西的山谷，{npc:9454}在最深處。\n小心：碧火暗影潛伏者（51-52級）會潛行並使用{spell:7992}，常常不請自來地加入戰鬥。\n詛咒軟泥怪在山谷的溪流裡四處遊蕩：殺死它們，再對殘骸使用拉里斯的空軟泥怪罐。",
 	-- ["The vial is filled in {zone:1457}: keep it; inside"] = "瓶子在{zone:1457}裝滿：保留此任務；在裡面",
 	-- ["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "{item:11242}生長在{npc:7765}北邊一棟廢墟建築裡：從旁邊的岩架穿過牆上的破口爬進去。",
 	-- ["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53."] = "在這裡補到52.69級，再去{area:1763}交任務，交完會升到53級。",

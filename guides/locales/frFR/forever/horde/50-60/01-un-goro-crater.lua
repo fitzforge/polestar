@@ -160,9 +160,9 @@ return {
 	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "",
 
 	-- Step 32: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
+	-- {area:537} Fire Plume Ridge
 	-- plural, as words: Living Blazes = {npc:6521} Living Blaze · Scorching Elementals = {npc:6520} Scorching Elemental
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "",
+	["Living Blazes (54-55) and Scorching Elementals (53-54) roam the slopes of {area:537}, and the path up has the fewest."] = "",
 
 	-- Step 33: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
@@ -176,7 +176,7 @@ return {
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "Escortez {npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Menez {npc:9999} vers le nord jusqu'au {area:541}. Quand il s'évanouit, utilisez {item:11804} sur lui pour le réveiller.",
+	["{npc:9999} faints along the way to {area:541}, and {item:11804} wakes him."] = "",
 
 	-- Step 36: J.D. Collie
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:9117} J.D. Collie
@@ -257,9 +257,6 @@ return {
 	-- Step 55: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Sentry Braziers"] = "Braseros de sentinelle",
-	-- {object:149047} Torch of Retribution
-	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "",
 
 	-- Step 56: Squire Maltrake
 	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade
@@ -363,8 +360,7 @@ return {
 
 	-- Step 78: Scarlet forward camp
 	["Scarlet forward camp"] = "Camp avancé écarlate",
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Depuis {area:152}, suivez la route vers l'est jusqu'aux {zone:1422}. Les tentes de la Croisade écarlate se trouvent juste après la ferme des Felstone, entre {area:199} et {area:200}. Incendiez la tente de commandement avec {item:12814} et plantez la bannière du Fléau. Attention : les Écarlates autour des tentes vont jusqu'au niveau 54 et les invocateurs lancent des sorts : arrivez par le côté le plus proche de la tente de commandement et laissez les autres tranquilles.",
+	["The Scarlets around the tents reach level 54, and the Invokers are casters."] = "",
 
 	-- Step 79: Janice Felstone
 	-- {npc:10778} Janice Felstone
@@ -395,6 +391,7 @@ return {
 	-- ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Pour votre expédition dans {area:1584}, la prochaine, en traversant le {area:254} : l'affiche {object:164867} de {area:340} veut que vous éclaircissiez les rangs des nains Enclume-ardente de l'intérieur.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "Libérez des Esprits de Darrowshire ({npc:11064}) : parlez-leur",
 	-- ["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Dès maintenant, ramassez chaque {npc:271301} (bleu, vert, rouge, jaune) et chaque tas de {quest:3761} sur votre route : 25 terres en tout, 20 pour Hamuul et 5 pour Pestlezugg.",
+	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Depuis {area:152}, suivez la route vers l'est jusqu'aux {zone:1422}. Les tentes de la Croisade écarlate se trouvent juste après la ferme des Felstone, entre {area:199} et {area:200}. Incendiez la tente de commandement avec {item:12814} et plantez la bannière du Fléau. Attention : les Écarlates autour des tentes vont jusqu'au niveau 54 et les invocateurs lancent des sorts : arrivez par le côté le plus proche de la tente de commandement et laissez les autres tranquilles.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Depuis la {area:152}, suivez la route vers l'est jusqu'aux {zone:1422}. Les tentes de la Croisade écarlate se dressent juste après la ferme Felstone, entre {area:199} et {area:200}. Incendiez la tente de commandement avec la {object:176092} et plantez la bannière du Fléau.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Depuis la {area:152}, suivez la route vers l'est jusqu'aux {zone:1422}. Les tentes de la Croisade écarlate se dressent juste après la ferme Felstone, entre {area:199} et {area:200}. Incendiez la tente de commandement avec les {object:176092} et plantez la bannière du Fléau. Attention : les Écarlates autour des tentes vont jusqu'au niveau 54 et les Invocateurs lancent des sorts : arrivez par le côté le plus proche de la tente de commandement et laissez les autres tranquilles.",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "Depuis le {area:1938}, allez vers l'ouest jusqu'à la longue rampe qui descend en serpentant dans le {area:490}, puis suivez la paroi nord du cratère jusqu'à {area:541}, un camp dans les grottes de la falaise. Tout le monde ici est neutre.",
@@ -409,7 +406,7 @@ return {
 	-- ["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "Gardez {quest:5152} : Marlene vit à la {area:197}, dans les {zone:1422}.",
 	-- ["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Gardez {quest:5901} : ses termitières se trouvent à {area:2627}, sur le trajet du guide suivant vers Tirion. Le guide suivant commence avec {npc:10739} près de {area:202}, au sud-est d'ici.",
 	-- ["Lashers and Threshers"] = "Flagellants et Batteurs",
-	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Menez {npc:9999} au nord jusqu'au {area:541}. Quand il s'évanouit, utilisez la {item:11804} sur lui pour le réveiller.",
+	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Menez {npc:9999} vers le nord jusqu'au {area:541}. Quand il s'évanouit, utilisez {item:11804} sur lui pour le réveiller.",
 	-- ["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "Quittez {zone:1458} et allez vers l'est par la route à travers les {area:85} jusqu'au {area:152}, le fort des Réprouvés à la frontière.",
 	-- ["Leave the {zone:1458} and ride east along the road through {area:85}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "Quittez {zone:1458} et allez vers l'est par la route à travers les {area:85}, au-delà du {area:152}. La ferme Felstone est la première le long de la route ; {npc:10778} attend dans la maison.",
 	-- ["Level 51"] = "Niveau 51",

@@ -61,7 +61,7 @@ return {
 
 	-- Step 12: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:8737} Linken · {npc:9117} J.D. Collie
-	["The flight lands at {area:541}: {npc:8737} stands by the cave a few steps from the flight master, {npc:9117} inside it."] = "",
+	["The flight lands at {area:541}. {npc:8737} stands by the cave a few steps from the flight master, and {npc:9117} is inside it."] = "",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}, no subterrâneo",
 	-- {quest:3942} Linken's Memory · {npc:9116} Eridan Bluewind · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
@@ -224,8 +224,8 @@ return {
 	["You missed this on the Un'Goro guide's loop: {npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "",
 
 	-- Step 47: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "Siga para o leste até {area:537}, suba e use {npc:10541} na fenda de lava perto do topo; depois volte para o oeste até {npc:10302}.",
+	-- {area:537} Fire Plume Ridge · {npc:10302} Krakle
+	["The lava vent is near the top of {area:537}, east of {npc:10302}."] = "",
 
 	-- Step 48: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
@@ -247,7 +247,7 @@ return {
 
 	-- Step 52: Lar'korwi
 	-- {item:11568} Torwa's Pouch · {npc:9684} Lar'korwi
-	["Open {item:11568}: it holds the meat and the pheromone mixture. {npc:9684}'s lair is the bone-strewn valley just south of the pylon: place the meat among the bones, then use the mixture on it to call {npc:9684}. He is level 56 and hits hard, so start at full health."] = "",
+	["{item:11568} holds the meat and the pheromone mixture. {npc:9684} is level 56 and hits hard."] = "",
 
 	-- Step 53: Ringo
 	-- {npc:9999} Ringo
@@ -257,7 +257,7 @@ return {
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "Escolte {npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Leve {npc:9999} para o norte até {area:541}. Quando ele desmaiar, use {item:11804} nele para acordá-lo.",
+	["{npc:9999} faints along the way to {area:541}, and {item:11804} wakes him."] = "",
 
 	-- Step 56: The Mighty U'cha
 	-- {area:541} Marshal's Refuge · {npc:9622} U'cha · {npc:9619} Torwa Pathfinder
@@ -310,6 +310,7 @@ return {
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "Guarde a isca: {npc:9684} é nível 56, e a segunda volta passa pelo covil dele.",
 	-- ["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the next guide's way through {zone:1448}."] = "Guarde {quest:3942}: {npc:9116} está no {area:2479}, no caminho do próximo guia por {zone:1448}.",
 	-- ["Knights and magi work the {area:192}; the medics and hunters camp south of it. Set {npc:11615}'s termite barrel down in the middle of the lumber mill while you are there.\nCareful: a {npc:10996}, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the {zone:1422}: give it room."] = "Cavaleiros e magos trabalham no {area:192}; os médicos e caçadores acampam ao sul dele. Aproveite e coloque o barril de cupins de {npc:11615} no meio da serraria.\nCuidado: um {npc:10996}, elite de nível 58-59, pode estar no acampamento madeireiro, como em vários outros pontos de {zone:1422}: mantenha distância.",
+	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Leve {npc:9999} para o norte até {area:541}. Quando ele desmaiar, use {item:11804} nele para acordá-lo.",
 	-- ["Level 57"] = "Nível 57",
 	-- ["Level 58"] = "Nível 58",
 	-- ["Level 59.14"] = "Nível 59.14",
@@ -323,6 +324,7 @@ return {
 	-- ["Radley and Durgen"] = "Eiras e Durgen",
 	-- ["Ride east across the plaguelands to the chapel."] = "Cavalgue para leste pelas terras pestilentas até a capela.",
 	-- ["Ride east along the road to the {area:152} on the border."] = "Cavalgue para leste pela estrada até o {area:152}, na divisa.",
+	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "Siga para o leste até {area:537}, suba e use {npc:10541} na fenda de lava perto do topo; depois volte para o oeste até {npc:10302}.",
 	-- ["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "Cavalgue para leste até a cabana de {npc:1855} junto ao {area:2619} e ouça o que ele tem a dizer.",
 	-- ["Ride north-east to {area:2276} by {area:2275}: the high elf Rangers, Pathstriders and Woodsmen guard it and the Registry lies inside. Careful: the Pathstriders are 57-58 but the Rangers reach 60: pull one at a time and take the Rangers last."] = "Cavalgue para nordeste até {area:2276}, perto de {area:2275}: os Patrulheiros, Trilheiros e Lenhadores altos elfos a guardam, e o Registro fica lá dentro. Cuidado: os Trilheiros são 57-58, mas os Patrulheiros chegam a 60: puxe um de cada vez e deixe os Patrulheiros por último.",
 	-- ["Ride north-east to {area:3447}."] = "Cavalgue para nordeste até o {area:3447}.",

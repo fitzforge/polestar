@@ -560,8 +560,8 @@ return {
 	["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "{npc:5497} fica no Santuário do Mago, a torre do {object:2101}; ela dá a você um frasco para a cachoeira do {quest:1861}.",
 
 	-- Step 120: Mirror Lake
-	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
-	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Saia de {zone:1453} pelo portão principal. A cachoeira do {quest:1861} fica a sudoeste dos portões, no caminho para {zone:1436}, a oeste: encha o {item:7207} na base dela.",
+	-- {quest:1861} Mirror Lake · {zone:1453} Stormwind · {zone:1436} Westfall
+	["The {quest:1861} waterfall is south-west of {zone:1453}'s main gate, on the way west to {zone:1436}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to Shen'dar"] = "De volta a Shen'dar",
@@ -574,6 +574,7 @@ return {
 	-- ["Head north-west to the hippogryph nests on the western cliffs. {item:263493} lies around the nests; the Matriarch patrols among them."] = "Vá para noroeste até os ninhos de hipogrifo nos penhascos do oeste. {item:263493} fica espalhada pelos ninhos; a Matriarca Hipogrifo patrulha entre eles.",
 	-- ["Heal 7 druids in the Nightfang Den, then find {npc:258130}"] = "Cure 7 druidas no Covil Presanoite e depois encontre {npc:258130}",
 	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {area:40}: fill {item:7207} at its base."] = "Saia de {zone:1453} pelo portão principal. A cachoeira de {quest:1861} fica a sudoeste dos portões, no caminho para o oeste rumo a {area:40}: encha {item:7207} na base dela.",
+	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Saia de {zone:1453} pelo portão principal. A cachoeira do {quest:1861} fica a sudoeste dos portões, no caminho para {zone:1436}, a oeste: encha o {item:7207} na base dela.",
 	-- ["Level 6 spells"] = "Feitiços de nível 6",
 	-- ["Lorthuna waits on the eastern shore of the isle, east of the {area:16629}."] = "Lorthuna espera na costa leste da ilha, a leste do {area:16629}.",
 	-- ["Meet Valennia at the gate"] = "Encontre Valennia no portão",

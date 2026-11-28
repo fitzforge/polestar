@@ -304,8 +304,8 @@ return {
 	-- Step 66: The Ruins of Eldarath
 	-- {area:1221} Ruins of Eldarath
 	["The {area:1221}"] = "{area:1221}",
-	-- {area:1221} Ruins of Eldarath · {item:13815} Some Rune · {item:10445} Drawing Kit
-	["The Spitelash naga of the {area:1221} carry {item:13815}. Tymor's runes stand among the ruins: use his {item:10445} on each."] = "Los nagas Látigo de Ira de {area:1221} llevan {item:13815}. Las runas de Tymor están entre las ruinas: usa su {item:10445} en cada una.",
+	-- {area:1221} Ruins of Eldarath
+	["Spitelash naga guard the {area:1221}."] = "",
 
 	-- Step 67: Lord Sarthiss
 	-- {npc:239939} Lord Sarthiss
@@ -410,6 +410,7 @@ return {
 	-- ["Thaurissan Relics"] = "Reliquias Thaurissan",
 	-- ["The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.\nCareful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of {area:249}: pull the ogres on the rock itself and look around before each pull."] = "Los ogros Pirontraña ocupan la gran roca al norte de la Vigilia, con los toscos en su lado este.\nCuidado: los Canes del Núcleo fugados (nivel 60) deambulan por las Estepas, algunos en las laderas al oeste y al sur de {area:249}: atrae a los ogros sobre la propia roca y mira alrededor antes de atraer a cada uno.",
 	-- ["The Highborne ghosts haunt the ruins around the shrine; the Haldarr satyrs hold the camp just north of it."] = "Los fantasmas altonato rondan las ruinas alrededor del santuario; los sátiros Haldarr ocupan el campamento justo al norte.",
+	-- ["The Spitelash naga of the {area:1221} carry {item:13815}. Tymor's runes stand among the ruins: use his {item:10445} on each."] = "Los nagas Látigo de Ira de {area:1221} llevan {item:13815}. Las runas de Tymor están entre las ruinas: usa su {item:10445} en cada una.",
 	-- ["The Spitelash naga of the {area:1221} carry {item:13815}. {npc:8507}'s four runes stand among the ruins: use his {item:10445} on each."] = "Los nagas Látigo de Ira de {area:1221} llevan {item:13815}. Las cuatro runas de {npc:8507} están entre las ruinas: usa su {item:10445} en cada una.",
 	-- ["The Spitelash naga of the {area:1221} carry {item:13815}. {npc:8507}'s runes stand among the ruins: use his {item:10445} on each. The naga here are the ones the top-up below asks for, so these kills count towards it."] = "Los nagas Látigo de Ira de {area:1221} llevan {item:13815}. Las runas de {npc:8507} están entre las ruinas: usa su {item:10445} en cada una. Estos nagas son los que pide la subida de nivel de abajo, así que estas muertes cuentan para ella.",
 	-- ["The Spitelash naga of these ruins drop Truesong's Eldarath Relics, top-up or not. {npc:239939} (52) stands in the ruins of Eldarath, south-west of the Myrmidons: pull him alone."] = "Los nagas Látigo de Ira de estas ruinas sueltan reliquias de Eldarath para Truesong, subas de nivel o no. {npc:239939} (52) está en las ruinas de Eldarath, al suroeste de los mirmidones: atráelo solo.",

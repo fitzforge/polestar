@@ -32,8 +32,7 @@ return {
 
 	-- Step 3: Boars, weapons and peons
 	["Boars, weapons and peons"] = "Sangliers, armes et péons",
-	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
-	["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "Les armes d'entraînement sont posées au sol dans la Tanière et parmi les sangliers au nord. Pour les péons : ciblez un {npc:10556} endormi et utilisez la {item:16114} sur lui.",
+	["The training weapons lie on the ground in the Den and among the boars to the north."] = "",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556} : frappez-le avec la {item:16114}",
 	-- {npc:10556} Lazy Peon
@@ -228,9 +227,9 @@ return {
 	-- Step 38: Prowlers, Serena Bloodfeather and Echeyakee
 	-- {npc:3452} Serena Bloodfeather · {quest:881} Echeyakee
 	["Prowlers, {npc:3452} and {quest:881}"] = "Rôdeurs, {npc:3452} et {quest:881}",
-	-- {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
+	-- {quest:876} Serena Bloodfeather · {quest:881} Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler
-	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "Les Rôdeurs des savanes se tiennent à l'ouest et au nord de la Croisée. {quest:876} dirige les harpies Ensorçaile loin au nord-ouest. Ensuite, {npc:3338} vous donne la {item:10327} : sonnez-la près des os de kodo de {object:147524}, au nord de la ville, et tuez le lion blanc.",
+	["Savannah Prowlers roam west and north of the Crossroads, and {quest:876} leads the Witchwing harpies in the far north-west. {quest:881}, a white lion, appears at the kodo bones of {object:147524}, north of the town."] = "",
 
 	-- Step 39: Chen's Empty Keg (optional hub)
 	-- {quest:819} Chen's Empty Keg
@@ -391,6 +390,8 @@ return {
 	-- ["Keep handing in {quest:7832}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Continuez à rendre {quest:7832}, 20 {item:14047} à la fois. {item:14047} : Adeptes noirs et Ombremages (niveau 58-60) en {zone:1423}, ou l'hôtel des ventes.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "Les centaures kolkar (niveau 30-33) en laissent tomber ici. L'hôtel des ventes fonctionne aussi.",
 	-- ["Level 56-60 quests and {item:14047} to Exalted, with the old {zone:1411} quests as a fast extra if they still pay in full."] = "Quêtes de niveau 56-60 et {item:14047} jusqu'à Exalté, avec les anciennes quêtes de {zone:1411} en complément rapide si elles rapportent encore en entier.",
+	-- ["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "Les Rôdeurs des savanes se tiennent à l'ouest et au nord de la Croisée. {quest:876} dirige les harpies Ensorçaile loin au nord-ouest. Ensuite, {npc:3338} vous donne la {item:10327} : sonnez-la près des os de kodo de {object:147524}, au nord de la ville, et tuez le lion blanc.",
+	-- ["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "Les armes d'entraînement sont posées au sol dans la Tanière et parmi les sangliers au nord. Pour les péons : ciblez un {npc:10556} endormi et utilisez la {item:16114} sur lui.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Les Massacreurs de la KapitalRisk de {area:381} (niveau 16-17) en laissent tomber ici. L'hôtel des ventes fonctionne aussi.",
 	-- ["{npc:14726} takes cloth for {faction:76} in {faction:76}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7832} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14726} prend les étoffes pour {faction:76} à {faction:76}. Les premiers dons d'Etoffe de laine, d'Etoffe de soie, d'Etoffe de tisse-mage et de {item:14047} (60 étoffes chacun) ne se font qu'une fois et donnent le plus de réputation par étoffe ; ensuite, {quest:7832} se répète jusqu'à Exalté. Être exalté auprès de la ville d'une autre race permet d'acheter les montures de cette race. L'atout Diplomate de l'Héritage de Forever augmente les gains de réputation.",
 	-- ["{npc:14726}: {item:14047} delivered"] = "{npc:14726} : {item:14047} livrée",

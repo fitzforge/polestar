@@ -52,9 +52,8 @@ return {
 	["{npc:5911}: the soldiers and the pillager camp just east of {npc:3341}, on the way south"] = "{npc:5911}：向南途中，{npc:3341}东边的士兵和掠夺者营地",
 
 	-- Step 8: Field of Giants
-	-- {npc:3341} Gann Stonespire · {area:390} Field of Giants
-	-- plural, as words: Silithid Mounds = {object:3685} Silithid Mound · Silithid Swarmers = {npc:3252} Silithid Swarmer
-	["South of Camp Taurajo, on the road to {npc:3341}, the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them.\nCareful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit."] = "陶拉祖营地南边，前往{npc:3341}的路上，异种蝎土丘遍布{area:390}；蛋就在土丘里，异种群居蝎会出来保护它们。\n小心：这里的异种群居蝎会放出许多打断施法的小怪；荆棘术等伤害护盾能一击杀死它们。",
+	-- plural, as words: Silithid Swarmers = {npc:3252} Silithid Swarmer
+	["Silithid Swarmers defend the mounds and release many tiny adds that interrupt spells, and damage shields such as Thorns kill those adds in one hit."] = "",
 
 	-- Step 10: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:359} Bael Modan
@@ -105,8 +104,8 @@ return {
 
 	-- Step 20: The flying machine
 	["The flying machine"] = "飞行器",
-	-- {item:5021} Explosive Stick of Gann · {npc:3341} Gann Stonespire
-	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "矮人的飞行器停在挖掘场内的平台上。对它使用{npc:3341}给你的{item:5021}。",
+	-- {item:5021} Explosive Stick of Gann
+	["The {item:5021} destroys the dwarves' flying machine, on its platform inside the dig site."] = "",
 
 	-- Step 22: To Camp Taurajo
 	-- {area:378} Camp Taurajo
@@ -233,8 +232,8 @@ return {
 	-- {area:465} The Charred Vale
 	["{area:465}: kill these as you meet them"] = "{area:465}：沿途遇到就击杀",
 	-- {area:465} The Charred Vale · {item:16312} Incendrites
-	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed · Burning Destroyers = {npc:4038} Burning Destroyer · Scorched Basilisks = {npc:4041} Scorched Basilisk
-	["South-west of Sun Rock lies the burned {area:465}. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop {item:16312}. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: the Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches here are level 27 and the valley floor is crowded: pull one at a time and keep to its edges."] = "烈日石居西南方是烧焦的{area:465}。把盖亚之种种在谷底的土堆里；火元素掉落{item:16312}。血怒鹰身人和血怒伏击者在北侧筑巢，血怒杀戮者和血怒游荡者在南侧。小心：这里的燃烧的破坏者、炭色石化蜥蜴和血怒风暴女巫都是27级，而且谷底很拥挤：一次引一只，并沿着谷底边缘活动。",
+	-- plural, as words: Burning Destroyers = {npc:4038} Burning Destroyer · Scorched Basilisks = {npc:4041} Scorched Basilisk
+	["{area:465} is south-west of Sun Rock, and its fire elementals drop {item:16312}. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches are level 27, and the valley floor is crowded."] = "",
 	-- {item:277936} Glittering Sunstone
 	["{item:277936}, from any Bloodfury harpy"] = "{item:277936}，来自任何血怒鹰身人",
 	-- plural, as words: Gaea Dirt Mounds = {object:177929} Gaea Dirt Mound
@@ -257,8 +256,8 @@ return {
 	["{item:5736}, from {quest:1096}"] = "{item:5736}，来自{quest:1096}",
 
 	-- Step 49: The Flying Machine Airport
-	-- {object:19594} Venture Co. Copter Pad · {npc:4202} Gerenzo Wrenchwhistle · {item:5638} Toxic Fogger · {zone:1456} Thunder Bluff
-	["The {object:19594} is the platform just south-east of {npc:4202}'s tower: place Zamah's {item:5638} on it. Zamah takes it back on the next guide's {zone:1456} stop."] = "{object:19594}是{npc:4202}塔楼东南边不远处的平台：把扎玛的{item:5638}放在上面。在下一篇指南经过{zone:1456}时找扎玛交还。",
+	-- {zone:1456} Thunder Bluff
+	["Zamah takes the fogger back at the next guide's {zone:1456} stop."] = "",
 	-- {item:5638} Toxic Fogger · {object:19594} Venture Co. Copter Pad
 	["Place the {item:5638} on the {object:19594}"] = "将{item:5638}放置在{object:19594}上",
 
@@ -320,8 +319,10 @@ return {
 	-- ["Ride north from the {area:380} to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the {area:380}. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "从{area:380}向北骑到{area:384}，在{object:19464}装满{item:15842}，然后回到{area:380}找{npc:3448}。没有{skill:182}？他旁边的{npc:3490}出售{item:2449}，每次三个，之后要等他补货。",
 	-- ["Savannah Patriarchs roam the plains east of the hills, and the Sprung Traps lie among them. {quest:876} leads the Witchwing harpies in the hills to the west."] = "草原狮王在山丘东边的平原上游荡，爆炸陷阱就散落在它们中间。{quest:876}率领着西边山丘里的巫翼鹰身人。",
 	-- ["South of Camp Taurajo the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them. Silithid Harvesters are rare: if you see one, kill it for its head."] = "陶拉祖营地南边，{object:3685}遍布{area:390}；蛋就在土丘里，{npc:3252}会出来保护它们。{npc:3253}很稀有：如果看到，杀死它取下它的头。",
+	-- ["South of Camp Taurajo, on the road to {npc:3341}, the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them.\nCareful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit."] = "陶拉祖营地南边，前往{npc:3341}的路上，异种蝎土丘遍布{area:390}；蛋就在土丘里，异种群居蝎会出来保护它们。\n小心：这里的异种群居蝎会放出许多打断施法的小怪；荆棘术等伤害护盾能一击杀死它们。",
 	-- ["South of Gann, the Bael'dun dwarves dig at {area:359}. Excavators and Foremen work the pit; {npc:3392} (26) carries the journal: pull him alone."] = "在加恩南边，巴尔丹矮人在{area:359}挖掘。巴尔丹挖掘者和巴尔丹工头在坑里干活；{npc:3392}（26级）带着日志：单独把他引出来。",
 	-- ["South-west of Bael Modan, {npc:12576} waits at the top of the {area:1718}."] = "巴尔莫丹西南方，{npc:12576} 在 {area:1718} 顶端等待。",
+	-- ["South-west of Sun Rock lies the burned {area:465}. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop {item:16312}. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: the Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches here are level 27 and the valley floor is crowded: pull one at a time and keep to its edges."] = "烈日石居西南方是烧焦的{area:465}。把盖亚之种种在谷底的土堆里；火元素掉落{item:16312}。血怒鹰身人和血怒伏击者在北侧筑巢，血怒杀戮者和血怒游荡者在南侧。小心：这里的燃烧的破坏者、炭色石化蜥蜴和血怒风暴女巫都是27级，而且谷底很拥挤：一次引一只，并沿着谷底边缘活动。",
 	-- ["Stay stealthed: {npc:7287} carries the key to the tower; Gallywix and his lockbox are at the top. Gallywix is elite: grouping up is advised."] = "保持潜行：{npc:7287}带着塔的钥匙；加里维克斯和他的保险箱在塔顶。加里维克斯是精英：建议组队。",
 	-- ["Sunscale Scytheclaws hunt the plains south of the {area:380}, around the {area:1697}; they drop the horns. Hand them in on your next pass through {area:392}."] = "赤鳞镰爪龙在{area:380}南边的平原上、{area:1697}一带捕猎；它们掉落角。下次路过{area:392}时交还。",
 	-- ["Tauren: the {npc:11957} waits on the southern hill above the bridge. Skyborne: the {npc:272054} stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue."] = "牛头人：{npc:11957}在桥上方的南边山丘上等候。天裔：{npc:272054}站在双桥南边。然后前往湖东边的兽穴：解除变形，点击入口处的雕像获得五分钟潜行，避开里面的灵魂，每种遗物各拿一件；{item:280680}在白色猎豹雕像脚下。",
@@ -330,6 +331,7 @@ return {
 	-- ["The Venture Co. Overseers and Enforcers at the mine in the north-east corner of the zone drop the {item:5097}."] = "地区东北角矿洞的风险投资公司监督和风险投资公司执行者掉落{item:5097}。",
 	-- ["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away."] = "触角掉落十五分钟后就会消失，所以趁现在北返时收集：在{area:390}的土丘旁杀异种群居蝎和异种爬行者，直到拿到五个，然后立刻用炉石回到{area:378}。",
 	-- ["The dwarves' flying machine sits on its platform inside the dig site."] = "矮人的飞行器停在挖掘场内的平台上。",
+	-- ["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "矮人的飞行器停在挖掘场内的平台上。对它使用{npc:3341}给你的{item:5021}。",
 	-- ["The level-20 class quests in {zone:1454} ({npc:3354}, {npc:5892}, the Warlock and Rogue trainers) are only offered from level 20, so finish the level here before you fly. The Thunderhawk Hatchlings (18) on the plains south-west of the {area:380} and the Kolkar (14-15) at the {area:388} are the nearest mobs worth killing; you need well under a level."] = "{zone:1454}的20级职业任务（{npc:3354}、{npc:5892}、术士和潜行者训练师）20级才提供，所以飞走前先在这里升到20级。{area:380}西南平原上的雷鹰雏鸟（18级）和{area:388}的科卡尔半人马（14-15级）是最近的值得击杀的怪物；你需要的经验远不到一级。",
 	-- ["The pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "海盗在{area:392}南边的海滩上扎营；{npc:3467}站在营地南端。",
 	-- ["The top of the {area:1718}"] = "{area:1718}顶部",
@@ -339,6 +341,7 @@ return {
 	-- ["The {object:172960} is the canyon under the {object:172982}."] = "{object:172960}是{object:172982}下方的峡谷。",
 	-- ["The {object:177790} lies at the north edge of the {area:382}, by the Venture Co. tower. It holds the {item:15883} for {quest:30}."] = "{object:177790}位于{area:382}北缘、风险投资公司的塔旁。里面装着{quest:30}所需的{item:15883}。",
 	-- ["The {object:177792} lies at the north edge of the {area:382}, by the Venture Co. tower. It holds the {item:15883} for {quest:30}."] = "{object:177792}位于{area:382}北缘、风险投资公司的塔旁。里面装着{quest:30}所需的{item:15883}。",
+	-- ["The {object:19594} is the platform just south-east of {npc:4202}'s tower: place Zamah's {item:5638} on it. Zamah takes it back on the next guide's {zone:1456} stop."] = "{object:19594}是{npc:4202}塔楼东南边不远处的平台：把扎玛的{item:5638}放在上面。在下一篇指南经过{zone:1456}时找扎玛交还。",
 	-- ["Thunderhawk Cloudscrapers circle over the same plains south of the camp."] = "雷鹰破云者在营地南边同一片平原上空盘旋。",
 	-- ["Thunderheads graze on the plains just south of {area:378}. {quest:884}, a blue thunder lizard, roams among them: his Tailspike starts a quest."] = "电角蜥蜴在{area:378}正南的平原上吃草。{quest:884}是一只蓝色的雷霆蜥蜴，在它们中间游荡：它的尾刺可以开始一个任务。",
 	-- ["To {zone:1456}"] = "前往{zone:1456}",

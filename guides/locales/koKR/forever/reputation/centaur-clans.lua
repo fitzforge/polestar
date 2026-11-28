@@ -117,8 +117,9 @@ return {
 	-- Step 15: Gelkis: Test Your Theory
 	-- {quest:93045} Test Your Theory
 	["Gelkis: {quest:93045}"] = "겔키스일족: {quest:93045}",
-	-- {npc:5397} Uthek the Wise · {item:6071} Draenethyst Crystal · {item:256061} Uthek's Draenethyst Staff · {item:255945} Accursed Skull · {npc:253177} Nerlokh
-	["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "퀘스트 데이터 기준: {npc:5397}이(가) 자신의 지팡이와 {item:6071}을(를) 줍니다. 둘을 합쳐 {item:256061}을(를) 만들고, 마을 바로 동쪽 연못가의 의식 장소로 가져가 {item:255945}의 저주를 풀어 주십시오. 그런 다음 다시 동쪽 {npc:253177}에게 가십시오.",
+	-- {npc:5397} Uthek the Wise · {item:6071} Draenethyst Crystal · {item:258661} Uthek's Draenethyst Staff · {item:255945} Accursed Skull · {npc:253177} Nerlokh
+	-- was: ["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "퀘스트 데이터 기준: {npc:5397}이(가) 자신의 지팡이와 {item:6071}을(를) 줍니다. 둘을 합쳐 {item:256061}을(를) 만들고, 마을 바로 동쪽 연못가의 의식 장소로 가져가 {item:255945}의 저주를 풀어 주십시오. 그런 다음 다시 동쪽 {npc:253177}에게 가십시오."
+	["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:258661}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "",
 	-- {item:255945} Accursed Skull
 	["dispel the {item:255945} by the pond"] = "연못가에서 {item:255945}의 저주 풀기",
 
@@ -130,9 +131,9 @@ return {
 
 	-- Step 17: Gelkis: the heart of the valley
 	["Gelkis: the heart of the valley"] = "겔키스일족: 골짜기 한가운데",
-	-- {npc:253177} Nerlokh · {npc:253446} Haggard Bones · {item:256061} Uthek's Draenethyst Staff
-	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: east of {npc:253177}, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie {npc:253446}, failed summons stuck in the ground: lay eight to rest with {item:256061}, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull."] = "퀘스트 데이터 기준: {npc:253177} 동쪽, 골짜기 한가운데에서 마그람일족이 겔키스일족 포로를 붙잡고 있습니다. 다섯 명을 풀어 주십시오. 그 사이에 소환에 실패해 땅에 박힌 {npc:253446}이(가) 있습니다. 퀘스트에서 받는 {item:256061}(으)로 여덟 개를 잠재우십시오. 45레벨 정예 시체먹이와 마그람일족 강령왕이 골짜기를 돌아다니며 겔키스일족의 동맹을 공격합니다. 끌어오기 전에 지나가게 두십시오.",
+	-- {npc:253446} Haggard Bones
+	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
+	["The {npc:253446} are failed summons stuck in the ground. Corpsefeeders and Magram Necrokhans, level 45 elites, patrol the valley and attack friends of the Gelkis."] = "",
 	-- {npc:253446} Haggard Bones
 	["Lay {npc:253446} to rest"] = "{npc:253446} 잠재우기",
 	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive
@@ -258,9 +259,9 @@ return {
 
 	-- Step 35: Magram: the heart of the valley
 	["Magram: the heart of the valley"] = "마그람일족: 골짜기 한가운데",
-	-- {npc:253136} Orgrul · {npc:253446} Haggard Bones
-	-- plural, as words: Gelkis Captives = {npc:253431} Gelkis Captive · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	["From the quest data: south-east of {npc:253136}, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The {npc:253446} there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone."] = "퀘스트 데이터 기준: {npc:253136} 남동쪽, 골짜기 한가운데에서 마그람일족이 겔키스일족 포로를 붙잡고 있습니다. 다섯 명을 처치하십시오. 그곳의 {npc:253446}은(는) 소환에 실패해 땅에 박힌 것들입니다. 오르그룰이 준 강화된 강령술 지팡이로 열 개를 일으키고, 반격하는 것은 처치하십시오. 45레벨 정예 시체먹이는 골짜기를 돌아다니며 누구든 공격합니다. 역시 정예인 마그람일족 강령왕은 마그람일족의 동맹은 건드리지 않습니다.",
+	-- {npc:253446} Haggard Bones
+	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
+	["The {npc:253446} are failed summons stuck in the ground, and some fight back once raised. Corpsefeeders (level 45 elites) attack anyone, while the elite Magram Necrokhans leave friends of the Magram alone."] = "",
 	-- {npc:253446} Haggard Bones
 	["Raise or slay {npc:253446}"] = "{npc:253446} 일으키거나 처치하기",
 
@@ -319,5 +320,8 @@ return {
 	["Both quartermasters sell the same 12 recipes for {quest:93224}, no standing needed: {item:273613} and - Lesser Healing Power; Greater Spellblasting and {item:250941}; {item:250538} and {item:250606} plans; {item:252462}, {item:253973}, {item:10011} and {item:274490} patterns; the {item:269900} and {item:269902} schematics. Keep the totems you need for them before you hand the rest in."] = "두 병참장교 모두 같은 제조법 12개를 {quest:93224}(으)로 팔며, 평판 조건이 없습니다: {item:273613}와(과) 손목보호구 마법부여 - 하급 치유력, 상급 주문 작렬 물약과 {item:250941}, {item:250538}와(과) {item:250606} 설계도, {item:252462}, {item:253973}, {item:10011}, {item:274490} 도안, {item:269900}와(과) {item:269902} 설계도. 나머지를 제출하기 전에 이 제조법에 필요한 토템은 남겨 두세요.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["From the quest data: east of {npc:253177}, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie {npc:253446}, failed summons stuck in the ground: lay eight to rest with {item:256061}, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull."] = "퀘스트 데이터 기준: {npc:253177} 동쪽, 골짜기 한가운데에서 마그람일족이 겔키스일족 포로를 붙잡고 있습니다. 다섯 명을 풀어 주십시오. 그 사이에 소환에 실패해 땅에 박힌 {npc:253446}이(가) 있습니다. 퀘스트에서 받는 {item:256061}(으)로 여덟 개를 잠재우십시오. 45레벨 정예 시체먹이와 마그람일족 강령왕이 골짜기를 돌아다니며 겔키스일족의 동맹을 공격합니다. 끌어오기 전에 지나가게 두십시오.",
+	-- ["From the quest data: south-east of {npc:253136}, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The {npc:253446} there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone."] = "퀘스트 데이터 기준: {npc:253136} 남동쪽, 골짜기 한가운데에서 마그람일족이 겔키스일족 포로를 붙잡고 있습니다. 다섯 명을 처치하십시오. 그곳의 {npc:253446}은(는) 소환에 실패해 땅에 박힌 것들입니다. 오르그룰이 준 강화된 강령술 지팡이로 열 개를 일으키고, 반격하는 것은 처치하십시오. 45레벨 정예 시체먹이는 골짜기를 돌아다니며 누구든 공격합니다. 역시 정예인 마그람일족 강령왕은 마그람일족의 동맹은 건드리지 않습니다.",
+	-- ["From the quest data: {npc:5397} gives you her staff and a {item:6071}. Put them together into {item:256061}, take it to the ritual site by the pond just east of the village and dispel the curse on the {item:255945}. Then east again to {npc:253177}."] = "퀘스트 데이터 기준: {npc:5397}이(가) 자신의 지팡이와 {item:6071}을(를) 줍니다. 둘을 합쳐 {item:256061}을(를) 만들고, 마을 바로 동쪽 연못가의 의식 장소로 가져가 {item:255945}의 저주를 풀어 주십시오. 그런 다음 다시 동쪽 {npc:253177}에게 가십시오.",
 	-- ["three Tears of Theradras"] = "테라드라스의 눈물 세 개",
 }

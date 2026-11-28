@@ -159,9 +159,9 @@ return {
 	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "Гоблин {npc:10302} сидит здесь: {area:543}, чуть к востоку от пилона.",
 
 	-- Step 32: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
+	-- {area:537} Fire Plume Ridge
 	-- plural, as words: Living Blazes = {npc:6521} Living Blaze · Scorching Elementals = {npc:6520} Scorching Elemental
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "",
+	["Living Blazes (54-55) and Scorching Elementals (53-54) roam the slopes of {area:537}, and the path up has the fewest."] = "",
 
 	-- Step 33: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
@@ -176,8 +176,7 @@ return {
 	-- was: ["Escort {npc:9999}"] = "Сопровождение: {npc:9999}"
 	["Escort {npc:9999}"] = "",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	-- was: ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Ведите персонажа {npc:9999} на север сюда: {area:541}. Когда он падает в обморок, используйте на нем предмет {item:11804}, чтобы привести его в чувство."
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "",
+	["{npc:9999} faints along the way to {area:541}, and {item:11804} wakes him."] = "",
 
 	-- Step 36: J.D. Collie
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:9117} J.D. Collie
@@ -258,9 +257,6 @@ return {
 	-- Step 55: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Sentry Braziers"] = "Сторожевые жаровни",
-	-- {object:149047} Torch of Retribution
-	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "",
 
 	-- Step 56: Squire Maltrake
 	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade
@@ -364,8 +360,7 @@ return {
 
 	-- Step 78: Scarlet forward camp
 	["Scarlet forward camp"] = "Передовой лагерь Алого ордена",
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "От места {area:152} езжайте по дороге на восток в зону {zone:1422}. Палатки Алого ордена стоят сразу за фермой Фелстоунов, между местами {area:199} и {area:200}. Подожгите командную палатку с помощью {item:12814} и установите знамя Плети. Осторожно: воины Алого ордена у палаток до 54-го уровня, а заклинатели колдуют: заходите со стороны, ближайшей к командной палатке, и не трогайте остальных.",
+	["The Scarlets around the tents reach level 54, and the Invokers are casters."] = "",
 
 	-- Step 79: Janice Felstone
 	-- {npc:10778} Janice Felstone
@@ -391,6 +386,7 @@ return {
 	-- ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Для подземелья {area:1584}, далее, по пути через {area:254}: плакат «{object:164867}» ({area:340}) просит проредить дворфов из клана Гнева Наковальни внутри.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "Освободите духов Дарроушира: поговорите с ними",
 	-- ["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Отсюда собирайте все {npc:271301} (синие, зеленые, красные, желтые) и все кучи земли ({quest:3761}) по пути: всего 25 земли – 20 для Хамуула и 5 для Пестычинса.",
+	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "От места {area:152} езжайте по дороге на восток в зону {zone:1422}. Палатки Алого ордена стоят сразу за фермой Фелстоунов, между местами {area:199} и {area:200}. Подожгите командную палатку с помощью {item:12814} и установите знамя Плети. Осторожно: воины Алого ордена у палаток до 54-го уровня, а заклинатели колдуют: заходите со стороны, ближайшей к командной палатке, и не трогайте остальных.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "От места {area:152} езжайте по дороге на восток в край {zone:1422}. Палатки Алого ордена стоят сразу за фермой Фелстоунов, между местами {area:199} и {area:200}. Подожгите командную палатку ({object:176092}) и установите знамя Плети.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "От места {area:152} езжайте по дороге на восток в край {zone:1422}. Палатки Алого ордена стоят сразу за фермой Фелстоунов, между местами {area:199} и {area:200}. Подожгите командную палатку ({object:176092}) и установите знамя Плети. Осторожно: воины Алого ордена у палаток – до 54 уровня, а заклинатели колдуют: заходите со стороны, ближайшей к командной палатке, и не трогайте остальных.",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "От места {area:1938} езжайте на запад к длинному извилистому спуску в край {area:490}, затем вдоль северной стены кратера сюда: {area:541} – лагерь в пещерах скалы. Все здесь нейтральны.",

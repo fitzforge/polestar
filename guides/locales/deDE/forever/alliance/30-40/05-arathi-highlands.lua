@@ -100,8 +100,8 @@ return {
 	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}."] = "{npc:6122} wartet in der Keller des {object:2164}, in dem {object:2101}.",
 
 	-- Step 19: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6913} Heartswood Core · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
-	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}. Use the {item:6913} at the summoning circle there and defeat the succubus it calls. If you took {quest:65602}, hand him the {item:190309} too, place it at the same circle and defeat the incubus."] = "{npc:6122} wartet im Keller von {object:2164} in {object:2101}. Benutze {item:6913} am Beschwörungskreis dort und besiege den herbeigerufenen Sukkubus. Wenn du {quest:65602} angenommen hast, gib ihm auch {item:190309}, stelle sie am selben Kreis ab und besiege den Inkubus.",
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {zone:1453} Stormwind · {object:2101} Mage Quarter
+	["{npc:6122} is in the cellar of the {object:2164}, in {zone:1453}'s {object:2101}."] = "",
 	-- {npc:5677} Summoned Succubus
 	["{npc:5677}, at the summoning circle"] = "{npc:5677}, am Beschwörungskreis",
 	-- {quest:65602} What Is Love?
@@ -432,5 +432,6 @@ return {
 	-- ["{npc:2700}: {npc:1075}'s plea, from 01-hillsbrad-foothills"] = "{npc:2700}: Die Bitte von {npc:1075}, von 01-hillsbrad-foothills",
 	-- ["{npc:2789}: {npc:2793}'s cave comes after {area:327}"] = "{npc:2789}: Die Höhle von {npc:2793} kommt nach {area:327}",
 	-- ["{npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "{npc:2793}, ein Ogermagier, hält die Höhle am Südende des Witherbark-Tals.",
+	-- ["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}. Use the {item:6913} at the summoning circle there and defeat the succubus it calls. If you took {quest:65602}, hand him the {item:190309} too, place it at the same circle and defeat the incubus."] = "{npc:6122} wartet im Keller von {object:2164} in {object:2101}. Benutze {item:6913} am Beschwörungskreis dort und besiege den herbeigerufenen Sukkubus. Wenn du {quest:65602} angenommen hast, gib ihm auch {item:190309}, stelle sie am selben Kreis ab und besiege den Inkubus.",
 	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455} and train with {npc:258098}. {npc:1573} in the {object:32372} flies to {area:271} too."] = "{zone:1453} hat keinen Schamanenlehrer: Nimm {area:2257} vom {object:28027} nach {zone:1455} und trainiere bei {npc:258098}. {npc:1573} bei {object:32372} fliegt ebenfalls nach {area:271}.",
 }

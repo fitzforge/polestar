@@ -98,8 +98,8 @@ return {
 	["the {object:654925} on the ground beside her"] = "le {object:654925} par terre à côté d'elle",
 
 	-- Step 20: Call of Earth
-	-- {npc:5887} Canaga Earthcaller · {area:639} Spirit Rock · {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth · {item:6656} Rough Quartz
-	["{npc:5887} stands outside the Den. {area:639} is the hill just south of it: drink the {item:6635} there to see the {npc:5891}, then take the {item:6656} back to {npc:5887}."] = "{npc:5887} se tient devant l'Antre. {area:639} est la colline juste au sud : buvez-y le {item:6635} pour voir la {npc:5891}, puis rapportez le {item:6656} à {npc:5887}.",
+	-- {item:6635} Earth Sapta · {npc:5891} Minor Manifestation of Earth · {area:639} Spirit Rock
+	["Only the {item:6635} shows the {npc:5891} on {area:639}."] = "",
 	-- {npc:5891} Minor Manifestation of Earth · {area:639} Spirit Rock
 	["{npc:5891}, on {area:639}"] = "{npc:5891}, sur {area:639}",
 	-- {npc:5887} Canaga Earthcaller · {npc:5873} Stoneskin Totem · {item:5175} Earth Totem
@@ -520,5 +520,6 @@ return {
 	-- ["{npc:3706}, beside {npc:3139}: the {item:16606}"] = "{npc:3706}, à côté de {npc:3139} : la {item:16606}",
 	-- ["{npc:3706}, in the barracks with {npc:3139}"] = "{npc:3706}, dans la caserne avec {npc:3139}",
 	-- ["{npc:5884} in {zone:1411}; {area:362} has no mage trainer"] = "{npc:5884} ({zone:1411}) ; {area:362} n'a pas de maître des mages",
+	-- ["{npc:5887} stands outside the Den. {area:639} is the hill just south of it: drink the {item:6635} there to see the {npc:5891}, then take the {item:6656} back to {npc:5887}."] = "{npc:5887} se tient devant l'Antre. {area:639} est la colline juste au sud : buvez-y le {item:6635} pour voir la {npc:5891}, puis rapportez le {item:6656} à {npc:5887}.",
 	-- ["{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side."] = "{quest:790}, un grand scorpide, rôde sur la pente au sud de {npc:3287} parmi les Ouvriers scorpides ; cueillez les Pommes de cactus près des cactus en chemin.\nLes {quest:792} grouillent sur la pente sous l'{area:365}, la grotte du côté nord de la vallée.",
 }

@@ -460,16 +460,16 @@ return {
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "여기 있을 때: {npc:11867}에게 지팡이를 배우세요({object:2096}, 은화 10개); 성장 중에는 지팡이가 한손 무기보다 주문 능력치가 더 높습니다.",
 
 	-- Step 91: Mirror Lake
-	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
-	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "정문으로 {zone:1453}을(를) 나가십시오. {quest:1861} 폭포는 성문 남서쪽, 서쪽 {zone:1436}(으)로 가는 길에 있습니다. 폭포 아래에서 {item:7207}을(를) 채우십시오.",
+	-- {quest:1861} Mirror Lake · {zone:1453} Stormwind · {zone:1436} Westfall
+	["The {quest:1861} waterfall is south-west of {zone:1453}'s main gate, on the way west to {zone:1436}."] = "",
 
 	-- Step 92: Surena Caledon
 	-- {area:87} Goldshire · {area:62} Brackwell Pumpkin Patch · {npc:881} Surena Caledon
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "{area:87}을 통해 돌아 나와 도로를 따라 동쪽 {area:62}으로 가세요. {npc:881} (9레벨)이 농가 옆에 있습니다.",
 
 	-- Step 93: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
-	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "{npc:6122}에게 돌아가십시오. {object:2164} 지하실의 소환진에서 {item:6928}을(를) 사용하고 소환된 공허방랑자를 쓰러뜨리십시오.",
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {area:1519} Stormwind · {object:2101} Mage Quarter
+	["{npc:6122} and the summoning circle are in the cellar of the {object:2164}, in {area:1519}'s {object:2101}."] = "",
 	["Subdue the voidwalker"] = "공허방랑자 제압",
 
 	-- Step 94: Back to Elwynn Forest
@@ -537,6 +537,7 @@ return {
 	-- ["Back south to the {area:120}, by the road to {zone:1436}. {npc:963} stands outside the barracks, {npc:955} beside him."] = "{zone:1436}(으)로 가는 길가의 {area:120}(으)로 남쪽으로 돌아가십시오. {npc:963}은(는) 병영 밖에, {npc:955}은(는) 그 옆에 있습니다.",
 	-- ["Back to Gakin. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "가킨에게 돌아가십시오. {object:2164} 지하실의 소환진에서 {item:6928}을(를) 사용하고 소환된 공허방랑자를 쓰러뜨리십시오.",
 	-- ["Back to the Cathedral of Light."] = "빛의 대성당으로 돌아가십시오.",
+	-- ["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "{npc:6122}에게 돌아가십시오. {object:2164} 지하실의 소환진에서 {item:6928}을(를) 사용하고 소환된 공허방랑자를 쓰러뜨리십시오.",
 	-- ["Bait ingredients"] = "미끼 재료",
 	-- ["Boar meat"] = "멧돼지 고기",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "데피아즈단 견습마술사가 {area:86} 기슭에 야영하며, 붉은 리넨 복면도 떨어뜨립니다. {object:56}은(는) 북동쪽 기슭의 멀록 마을에 있습니다.",
@@ -552,6 +553,7 @@ return {
 	-- ["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "들판을 가로질러 북서쪽, {area:120} 북쪽의 {quest:91736}(으)로 가십시오. 윤기나는 빨간 사과 네 개를 넣으면 {item:247824}이(가) 나옵니다.",
 	-- ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "코볼트 일꾼이 광산 안 터널에서 일합니다. {npc:248362}은(는) 두 번째 오른쪽 굽이 아래에서 기다립니다.",
 	-- ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "코볼트 일꾼이 광산 안 터널에서 일합니다. {npc:248362}은(는) 두 번째 오른쪽 굽이 아래에서 기다립니다.\n주의: {npc:248362}(3)은(는) 정예입니다. 친구가 없으면 그냥 두세요.",
+	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "정문으로 {zone:1453}을(를) 나가십시오. {quest:1861} 폭포는 성문 남서쪽, 서쪽 {zone:1436}(으)로 가는 길에 있습니다. 폭포 아래에서 {item:7207}을(를) 채우십시오.",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "멀록 채집꾼과 멀록 잠복꾼이 다리 남쪽 강을 따라 있습니다. 데피아즈단인 {npc:473}이(가) 그 서쪽 {area:62}을(를) 돌아다닙니다. 가는 길에 굶주린 늑대와 새끼곰을 마저 처치하십시오.",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "멀록 채집꾼과 멀록 잠복꾼이 다리 남쪽 강을 따라 있습니다. 데피아즈단인 {npc:473}이(가) 그 서쪽 {area:62}을(를) 돌아다닙니다. 가는 길에 굶주린 늑대와 새끼곰을 마저 처치하십시오. {npc:248278}도 멀록 해안을 돌아다닙니다: 떨어뜨리는 머리를 오른쪽 클릭하십시오. {npc:248278}은(는) 정예입니다: 파티를 권장합니다.",
 	-- ["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "멀록과 멀록 길잡이가 동쪽 기슭을 차지하고 있으며, 잡동사니 더미는 그들의 야영지에 있습니다.",

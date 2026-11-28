@@ -100,8 +100,8 @@ return {
 	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}."] = "{npc:6122} espera en el sótano de {object:2164}, en {object:2101}.",
 
 	-- Step 19: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6913} Heartswood Core · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
-	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}. Use the {item:6913} at the summoning circle there and defeat the succubus it calls. If you took {quest:65602}, hand him the {item:190309} too, place it at the same circle and defeat the incubus."] = "{npc:6122} espera en el sótano de {object:2164}, en {object:2101}. Usa el {item:6913} en el círculo de invocación de allí y derrota a la súcubo que aparece. Si aceptaste {quest:65602}, dale también la {item:190309}, colócala en el mismo círculo y derrota al íncubo.",
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {zone:1453} Stormwind · {object:2101} Mage Quarter
+	["{npc:6122} is in the cellar of the {object:2164}, in {zone:1453}'s {object:2101}."] = "",
 	-- {npc:5677} Summoned Succubus
 	["{npc:5677}, at the summoning circle"] = "{npc:5677}, en el círculo de invocación",
 	-- {quest:65602} What Is Love?
@@ -432,5 +432,6 @@ return {
 	-- ["{npc:2700}: {npc:1075}'s plea, from 01-hillsbrad-foothills"] = "{npc:2700}: la súplica de {npc:1075}, de 01-hillsbrad-foothills",
 	-- ["{npc:2789}: {npc:2793}'s cave comes after {area:327}"] = "{npc:2789}: la cueva de {npc:2793} va después de {area:327}",
 	-- ["{npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "{npc:2793}, un mago ogro, ocupa la cueva del extremo sur del valle Secacorteza.",
+	-- ["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}. Use the {item:6913} at the summoning circle there and defeat the succubus it calls. If you took {quest:65602}, hand him the {item:190309} too, place it at the same circle and defeat the incubus."] = "{npc:6122} espera en el sótano de {object:2164}, en {object:2101}. Usa el {item:6913} en el círculo de invocación de allí y derrota a la súcubo que aparece. Si aceptaste {quest:65602}, dale también la {item:190309}, colócala en el mismo círculo y derrota al íncubo.",
 	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455} and train with {npc:258098}. {npc:1573} in the {object:32372} flies to {area:271} too."] = "{zone:1453} no tiene instructor de chamanes: toma {area:2257} desde {object:28027} hasta {zone:1455} y entrena con {npc:258098}. {npc:1573}, en {object:32372}, también vuela a {area:271}.",
 }

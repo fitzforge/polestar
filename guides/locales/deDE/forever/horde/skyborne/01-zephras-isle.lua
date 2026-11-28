@@ -356,8 +356,8 @@ return {
 	["The {object:148418}"] = "{object:148418}",
 
 	-- Step 79: The Eternal Flame
-	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
-	["Back to {npc:268592}. Wait for him to light the {npc:268762}, then carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638} before the timer runs out."] = "Zurück zu {npc:268592}. Warte, bis er {npc:268762} entzündet, und trag die Flamme dann direkt zu {npc:268679} neben {npc:252382} in {area:16638}, bevor der Timer abläuft.",
+	-- {object:148418} Eternal Flame · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar · {npc:268592} Olariaan Swiftburn
+	["Once taken, the {object:148418} lasts six minutes, so the walk to the {npc:268679} beside {npc:252382} in {area:16638} has no room for detours. If it runs out, the quest can be taken again from {npc:268592}."] = "",
 	-- {npc:252382} Sessaria Skystride · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
 	["{npc:252382}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:252382}: {npc:2523}, dein {item:5176} und {item:263412}",
 
@@ -544,6 +544,7 @@ return {
 	-- ["/sit by {npc:263664}'s campfire until you get Boosted Rest"] = "Mit /sit am Lagerfeuer von {npc:263664} sitzen, bis du Verbesserter Ruhebonus bekommst",
 	-- ["Back to {area:16624} with what you found."] = "Zurück nach {area:16624} mit dem, was du gefunden hast.",
 	-- ["Back to {npc:268592}, then west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "Zurück zu {npc:268592}, dann nach Westen in {area:16623}: {npc:268605}s Zuhause ist in den Hügeln südlich der Seen der Windweisenkriecher.",
+	-- ["Back to {npc:268592}. Wait for him to light the {npc:268762}, then carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638} before the timer runs out."] = "Zurück zu {npc:268592}. Warte, bis er {npc:268762} entzündet, und trag die Flamme dann direkt zu {npc:268679} neben {npc:252382} in {area:16638}, bevor der Timer abläuft.",
 	-- ["Bandit Highwaymen"] = "Banditenstraßenräuber",
 	-- ["Cast Skysight near the {object:460001}"] = "Wirke Skysight in der Nähe von {object:460001}",
 	-- ["Climb the watchtower in the village, jump off the top and use {spell:1259416} to float down."] = "Steig auf den Wachturm im Dorf, spring von oben und benutze {spell:1259416}, um hinabzuschweben.",

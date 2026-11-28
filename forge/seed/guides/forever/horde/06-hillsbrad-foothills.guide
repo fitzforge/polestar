@@ -47,6 +47,7 @@ next forever/horde/04-the-barrens
 step Tarren Mill
   tip Tarren Mill is your base for this guide: you come back here between each loop. Everyone stands around the town square.
   getfp "Tarren Mill"
+  use 7768 quest 1536.1 @62.2,20.8 map 1424 only Shaman
   collect 7771 quest 1536 only Shaman -- Fill the Empty Red Waterskin at the Spring Well beside the inn
   accept 501
   accept 496                          -- Apothecary Lydon
@@ -218,7 +219,8 @@ step Trial of the Sea Lion
   only Tauren,Skyborne,Druid
   zone Moonglade
   when onquest 30
-  tip Cast Teleport: Moonglade. Join the two pendant halves at the Shrine of Remulos, on the north-west shore of the lake, before you see Dendrite Starblaze in Nighthaven. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
+  tip Dendrite Starblaze is upstairs in his building in Nighthaven, and the arrow cannot tell the floors apart.
+  use 15883 quest 30.1 @36.0,41.4
   collect 15885 quest 30.1              -- Pendant of the Sea Lion: use a half at the Shrine of Remulos
   turnin 30                             -- Dendrite Starblaze
 

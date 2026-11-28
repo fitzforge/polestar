@@ -189,8 +189,9 @@ step Gelkis: back to Nerlokh
   accept 93062
 
 step Gelkis: the heart of the valley
-  tip From the quest data: east of Nerlokh, in the heart of the valley, the Magram hold Gelkis Captives: free five. Among them lie Haggard Bones, failed summons stuck in the ground: lay eight to rest with Uthek's Draenethyst Staff, which the quest gives you. Corpsefeeders and Magram Necrokhans, elite and level 45, walk the valley and attack a friend of the Gelkis: let them pass before you pull.
+  tip The Haggard Bones are failed summons stuck in the ground. Corpsefeeders and Magram Necrokhans, level 45 elites, patrol the valley and attack friends of the Gelkis.
   level 40
+  use 258661 quest 93062.1 @35.7,29.3 map 2652 live
   kill 253446 x8 quest 93062.1 "Lay Haggard Bones to rest"
   complete 93058 @45.12,32.26 live    -- free five Gelkis Captives
 
@@ -328,9 +329,10 @@ step Magram: Orgrul's next tasks
 
 step Magram: the heart of the valley
   zone Shen'dralas
-  tip From the quest data: south-east of Orgrul, in the heart of the valley, the Magram keep Gelkis Captives: kill five. The Haggard Bones there are failed summons stuck in the ground: raise ten with the Enhanced Necromancy Staff Orgrul gave you, and kill the ones that fight back. Corpsefeeders, elite and level 45, walk the valley and attack anyone; the Magram Necrokhans, elite too, leave a friend of the Magram alone.
+  tip The Haggard Bones are failed summons stuck in the ground, and some fight back once raised. Corpsefeeders (level 45 elites) attack anyone, while the elite Magram Necrokhans leave friends of the Magram alone.
   level 41
   kill 253431 x5 quest 92893.1
+  use 255403 quest 92894.1 @42.9,30.1 map 2652 live
   kill 253446 x10 quest 92894.1 "Raise or slay Haggard Bones"
 
 step Magram: Bristleback Retreat

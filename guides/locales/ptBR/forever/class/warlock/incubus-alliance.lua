@@ -51,8 +51,8 @@ return {
 	-- Step 7: The Binding: incubus
 	-- {quest:65603} The Binding
 	["{quest:65603}: incubus"] = "{quest:65603}: íncubo",
-	-- {item:190309} Wooden Figurine · {npc:6122} Gakin the Darkbinder
-	["Give Gakin the figurine, then use the {item:190309} at the middle of the same circle and defeat the incubus it calls (level 20, not elite; it can charm you) with your voidwalker tanking. Keep the figurine: {npc:6122} takes it back."] = "Entregue a estatueta a Gakin, depois use {item:190309} no meio do mesmo círculo e derrote o íncubo que ele chama (nível 20, não elite; ele pode enfeitiçar você) com seu emissário do caos tankando. Guarde a estatueta: {npc:6122} pega de volta.",
+	-- {npc:6122} Gakin the Darkbinder
+	["The incubus is level 20 and not elite, but it can charm you. {npc:6122} takes the figurine back afterward."] = "",
 	-- {npc:185335} Summoned Incubus
 	["{npc:185335}, at the circle in the crypt"] = "{npc:185335}, no círculo da cripta",
 
@@ -61,6 +61,7 @@ return {
 	-- ["At 20 {npc:6122}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6244} in the {zone:1413}."] = "No nível 20, {npc:6122}, no porão do {object:2164} no {object:2101}, manda você até {npc:6244} nos {zone:1413}.",
 	-- ["Back to {npc:6122} in the {object:2164}. Place the figurine at the summoning circle in the crypt below him and defeat the incubus it calls."] = "De volta a {npc:6122} no {object:2164}. Ponha a estatueta no círculo de evocação da cripta abaixo dele e derrote o íncubo que ela invoca.",
 	-- ["From {area:415} take the road west to {area:413}: the figurine lies in a house among the trees north of the post."] = "De {area:415} pegue a estrada para oeste até {area:413}: a estatueta está numa casa entre as árvores ao norte do posto.",
+	-- ["Give Gakin the figurine, then use the {item:190309} at the middle of the same circle and defeat the incubus it calls (level 20, not elite; it can charm you) with your voidwalker tanking. Keep the figurine: {npc:6122} takes it back."] = "Entregue a estatueta a Gakin, depois use {item:190309} no meio do mesmo círculo e derrote o íncubo que ele chama (nível 20, não elite; ele pode enfeitiçar você) com seu emissário do caos tankando. Guarde a estatueta: {npc:6122} pega de volta.",
 	-- ["Incubus (Alliance)"] = "Íncubo (Aliança)",
 	-- ["The house stands alone in the trees of north-western {zone:1440}, north-west of Ordil'Aran and well north of {area:413}: do it on the same trip as the {quest:1738}. Take the {item:190307} from the table outside, light it at a campfire (a {object:29784} of your own, or Talen's fire on {area:414}), and go straight back: the {item:190308} burns out after five minutes, so a fire of your own beside the house is quickest. Without it the figure in the house stops you. The figurine is upstairs."] = "A casa fica sozinha entre as árvores do noroeste de {zone:1440}, a noroeste de Ordil'Aran e bem ao norte de {area:413}: faça na mesma viagem de {quest:1738}. Pegue {item:190307} da mesa lá fora, acenda numa fogueira ({object:29784} sua, ou a fogueira de Talen em {area:414}) e volte direto: {item:190308} se apaga em cinco minutos, então uma fogueira sua ao lado da casa é o mais rápido. Sem ele, a figura na casa impede você. A estatueta fica no andar de cima.",
 	-- ["{npc:6122}: he binds the incubus to you"] = "{npc:6122}: ele vincula o íncubo a você",

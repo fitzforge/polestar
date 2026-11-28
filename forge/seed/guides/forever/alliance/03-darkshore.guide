@@ -168,7 +168,8 @@ step The skeletal turtle
   turnin 4681                                 -- Gwennyth Bly'Leggonde
 
 step Plagued bears
-  tip Rabid Thistle Bears roam the hills just east of Auberdine. Use Tharnariun's Hope on one and lead it back to him.
+  tip Rabid Thistle Bears roam the hills just east of Auberdine.
+  use 7586 quest 2118.1 @38.21,52.59 map 1439 era only Dwarf,Gnome,Human,Skyborne
   complete 2118 @38.21,52.59 map 1439 era only Dwarf,Gnome,Human,Skyborne -- the Rabid Thistle Bears nearest Tharnariun
   turnin 2118 only Dwarf,Gnome,Human,Skyborne -- Tharnariun Treetender
   accept 2138
@@ -199,6 +200,7 @@ step Ameth'Aran
 
 step The red crystal
   tip Climb the eastern mountains east of Ameth'Aran; the Mysterious Red Crystal sits on a ledge.
+  interact 175524 quest 4811.1 @47.3,48.7 only Dwarf,Gnome,Human,Skyborne
   complete 4811 @47.2,48.7 only Dwarf,Gnome,Human,Skyborne -- Mysterious Red Crystal
 
 step Rabid Thistle Bear
@@ -286,6 +288,7 @@ step Blackwood furbolgs
 
 step The Ancient Flame
   tip The flame burns in the south of Ameth'Aran.
+  use 5338 quest 957.1 @42.4,61.8 map 1439 only Dwarf,Gnome,Human,Skyborne
   interact 16393 quest 957.1 only Dwarf,Gnome,Human,Skyborne -- Ancient Flame
 
 step The red crystal
@@ -294,9 +297,10 @@ step The red crystal
   accept 4813 only Dwarf,Gnome,Human,Skyborne
 
 step Cliffspring Falls
-  tip Follow the hills north to the Cliffspring River and up to the falls. Two more beached remains lie on the north shore: near the Ruins of Mathystra and north of Bashal'Aran.
+  tip Two more beached remains lie on the north shore, near the Ruins of Mathystra and north of Bashal'Aran.
   use 12350 quest 4762.1 @50.8,25.6 map 1439
   collect 12349 quest 4762                    -- Cliffspring River Sample, at the waterfall
+  use 15844 quest 6122.1 @54.9,33.3 map 1439 only NightElf,Skyborne,Druid
   collect 15845 quest 6122.1 only NightElf,Skyborne,Druid -- Filled Cliffspring Falls Sampler: at the mouth of the cave by the falls
   accept 4727 only Dwarf,Gnome,Human,Skyborne -- Beached Sea Turtle
   accept 4725                                 -- Beached Sea Turtle

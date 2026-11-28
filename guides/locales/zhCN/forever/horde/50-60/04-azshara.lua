@@ -123,9 +123,9 @@ return {
 	["Upstairs"] = "在楼上",
 
 	-- Step 30: Good Luck Other-Half-Charm
-	-- {item:12722} Good Luck Other-Half-Charm · {item:12723} Good Luck Charm · {npc:10778} Janice Felstone
+	-- {item:12722} Good Luck Other-Half-Charm · {npc:10778} Janice Felstone
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["Jabbering Ghouls on Felstone Farm carry the {item:12722}: kill them until one drops it, then right-click the halves in your bags to join them into the {item:12723}, and take it to {npc:10778} upstairs."] = "在费尔斯通农场打喋喋不休的食尸鬼，直到掉落{item:12722}。在背包里右键合并两半护符，得到{item:12723}，再上楼交给{npc:10778}。",
+	["Jabbering Ghouls on Felstone Farm carry the {item:12722}. {npc:10778} is upstairs."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back north to {npc:8420} with the rune, then south-west along the road."] = "带着符文向北回到{npc:8420}处，然后沿道路向西南走。",
@@ -139,6 +139,7 @@ return {
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "飞往{zone:1454}；{npc:4485}在{object:172958}，{npc:3326}和{npc:8659}在{object:172960}。",
 	-- ["Fly to {zone:1454}; {npc:4485} is in the {object:172958}."] = "飞往{zone:1454}；{npc:4485}在{object:172958}。",
 	-- ["In the {object:172961}. Have the Wool, Silk and Mageweave in your bags."] = "在{object:172961}。把毛料、丝绸和魔纹布带在背包里。",
+	-- ["Jabbering Ghouls on Felstone Farm carry the {item:12722}: kill them until one drops it, then right-click the halves in your bags to join them into the {item:12723}, and take it to {npc:10778} upstairs."] = "在费尔斯通农场打喋喋不休的食尸鬼，直到掉落{item:12722}。在背包里右键合并两半护符，得到{item:12723}，再上楼交给{npc:10778}。",
 	-- ["Keep the deliveries for {npc:8659}, {npc:6522}, {npc:4485} and {npc:3326}: you pass {zone:1454} and the {zone:1458} next. Magatha's, in {zone:1456}, is off this route: leave it."] = "留着交给{npc:8659}、{npc:6522}、{npc:4485}和{npc:3326}的任务：接下来会经过{zone:1454}和{zone:1458}。{zone:1456}的玛加萨的任务不在这条路线上：先放着。",
 	-- ["Makrinni Burrowers"] = "马克林尼掘地者",
 	-- ["On north-east across the middle of {zone:1447}: {npc:235903} camps by the road."] = "继续向东北穿过{zone:1447}中部：{npc:235903}在路旁扎营。",

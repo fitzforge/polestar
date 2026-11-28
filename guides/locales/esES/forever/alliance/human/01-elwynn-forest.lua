@@ -460,16 +460,16 @@ return {
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Ya que estás aquí: aprende Bastones con {npc:11867} ({object:2096}, 10 de plata); un bastón tiene más estadísticas de hechizo que un arma de una mano mientras subes de nivel.",
 
 	-- Step 91: Mirror Lake
-	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
-	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Sal de {zone:1453} por la puerta principal. La cascada de {quest:1861} está al suroeste de las puertas, de camino al oeste hacia {zone:1436}: llena {item:7207} al pie de ella.",
+	-- {quest:1861} Mirror Lake · {zone:1453} Stormwind · {zone:1436} Westfall
+	["The {quest:1861} waterfall is south-west of {zone:1453}'s main gate, on the way west to {zone:1436}."] = "",
 
 	-- Step 92: Surena Caledon
 	-- {area:87} Goldshire · {area:62} Brackwell Pumpkin Patch · {npc:881} Surena Caledon
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Regresa por {area:87} y hacia el este por el camino hasta {area:62}. {npc:881} (nivel 9) está junto a la granja.",
 
 	-- Step 93: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
-	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Vuelve con {npc:6122} el Vinculaoscuro. Usa el {item:6928} en el círculo de invocación del sótano de {object:2164} y derrota al abisario que aparece.",
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {area:1519} Stormwind · {object:2101} Mage Quarter
+	["{npc:6122} and the summoning circle are in the cellar of the {object:2164}, in {area:1519}'s {object:2101}."] = "",
 	["Subdue the voidwalker"] = "Somete al abisario",
 
 	-- Step 94: Back to Elwynn Forest
@@ -536,6 +536,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to the {area:120}, by the road to {zone:1436}. {npc:963} stands outside the barracks, {npc:955} beside him."] = "Vuelve al sur hasta {area:120}, junto al camino a {zone:1436}. {npc:963} está fuera del cuartel, con {npc:955} a su lado.",
 	-- ["Back to the Cathedral of Light."] = "Vuelve a la Catedral de la Luz.",
+	-- ["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Vuelve con {npc:6122} el Vinculaoscuro. Usa el {item:6928} en el círculo de invocación del sótano de {object:2164} y derrota al abisario que aparece.",
 	-- ["Bait ingredients"] = "Ingredientes del cebo",
 	-- ["Boar meat"] = "Carne de jabalí",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Los Zahoríes bribones Defias acampan en las orillas de {area:86}; también sueltan los Pañuelos de lino rojo. {object:56} está en el poblado múrloc de la orilla noreste.",
@@ -554,6 +555,7 @@ return {
 	-- ["If you skipped {quest:91752}, grind here to level 5.77 to stay on the route's plan."] = "Si te saltaste {quest:91752}, mata enemigos aquí hasta el nivel 5.77 para seguir el plan de la ruta.",
 	-- ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "Los Obreros kóbold trabajan en los túneles de la mina. {npc:248362} espera tras el segundo giro a la derecha.",
 	-- ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "Los Obreros kóbold trabajan en los túneles de la mina. {npc:248362} espera tras el segundo giro a la derecha.\nCuidado: {npc:248362} (3) es élite: déjalo salvo que tengas un amigo.",
+	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Sal de {zone:1453} por la puerta principal. La cascada de {quest:1861} está al suroeste de las puertas, de camino al oeste hacia {zone:1436}: llena {item:7207} al pie de ella.",
 	-- ["Level 5.48"] = "Nivel 5.48",
 	-- ["Level 5.77"] = "Nivel 5.77",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "Los Batidores múrloc y los Rondadores ocupan el río al sur del puente. {npc:473}, un Defias, recorre {area:62}, al oeste. Termina con los Merodeadores y los Osos del bosque jóvenes por el camino.",

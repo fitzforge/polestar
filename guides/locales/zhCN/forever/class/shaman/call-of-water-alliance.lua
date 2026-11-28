@@ -26,19 +26,20 @@ return {
 
 	-- Step 4: The brown waterskin
 	["The brown waterskin"] = "棕色水袋",
-	-- {item:265732} Unfilled Brown Waterskin · {npc:258203} Hervdana Saegrund · {object:147516} Dark Iron
-	["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "在 {npc:258203} 洞穴下方瀑布底部、淡水与咸淡混合水交会处，装满 {item:265732}。瀑布附近有 {object:147516} 矮人游荡。",
+	-- {npc:258203} Hervdana Saegrund · {object:147516} Dark Iron
+	-- was: ["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "在 {npc:258203} 洞穴下方瀑布底部、淡水与咸淡混合水交会处，装满 {item:265732}。瀑布附近有 {object:147516} 矮人游荡。"
+	["The water source is at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "",
 
 	-- Step 6: The red waterskin
 	["The red waterskin"] = "红色水袋",
-	-- {area:71} Stonewatch Falls · {area:68} Lake Everstill · {zone:1455} Ironforge · {area:69} Lakeshire · {item:265747} Unfilled Red Waterskin · {npc:258203} Hervdana Saegrund
+	-- {area:71} Stonewatch Falls · {area:68} Lake Everstill · {npc:258203} Hervdana Saegrund
 	-- plural, as words: Murloc Nightcrawlers = {npc:544} Murloc Nightcrawler
-	["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "{area:71} 从赤脊山东端的 {area:68} 奔流而下（从 {zone:1455} 飞往 {area:69}）。在瀑布底部鱼人夜行者聚集的地方装满 {item:265747}；先把鱼人从取水点拉走。若水囊消失却未计入任务，放弃任务，再从 {npc:258203} 处重新接受以取得新的水囊。",
+	["{area:71} pours out of {area:68} at the east end of Redridge, and Murloc Nightcrawlers gather at its foot. If the skin vanishes without counting, {npc:258203} gives a new one when the quest is taken again."] = "",
 
 	-- Step 8: The blue waterskin
 	["The blue waterskin"] = "蓝色水袋",
-	-- {area:150} Menethil Harbor · {area:442} Auberdine · {area:271} Southshore · {zone:1439} Darkshore · {area:415} Astranaar · {zone:1440} Ashenvale · {item:265772} Unfilled Blue Waterskin
-	["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "从 {area:150} 乘船前往 {area:442}（途中会停靠 {area:271}），再飞行或向南步行穿过 {zone:1439}，前往 {zone:1440} 的 {area:415}。在城镇周围的湖中装满 {item:265772}，然后乘船返回米奈希尔港。",
+	-- {area:150} Menethil Harbor · {area:442} Auberdine · {zone:1439} Darkshore · {zone:1440} Ashenvale
+	["The boat from {area:150} goes to {area:442} in {zone:1439}, north of {zone:1440}."] = "",
 
 	-- Step 9: Hervdana Saegrund
 	-- {item:7810} Vial of Purest Water · {npc:258043} Norric Lochthane
@@ -73,6 +74,9 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 20 {npc:258098}, the shaman trainer in {zone:1455}, sends you to {npc:258043} in {zone:1432}."] = "20级时，{zone:1455}的萨满祭司训练师{npc:258098}会让你去{zone:1432}找{npc:258043}。",
 	-- ["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish."] = "在{npc:258203}的洞穴下方瀑布底部、淡水与咸水交汇处装满{item:265732}。",
+	-- ["Fill the {item:265732} at the bottom of the waterfalls below {npc:258203}'s cave, where the fresh water meets the brackish. {object:147516} dwarves roam near the falls."] = "在 {npc:258203} 洞穴下方瀑布底部、淡水与咸淡混合水交会处，装满 {item:265732}。瀑布附近有 {object:147516} 矮人游荡。",
+	-- ["Take the boat from {area:150} to {area:442} (it stops in {area:271} on the way), then fly or walk south through {zone:1439} to {area:415} in {zone:1440}. Fill the {item:265772} in the lake around the town, then the boat back to Menethil."] = "从 {area:150} 乘船前往 {area:442}（途中会停靠 {area:271}），再飞行或向南步行穿过 {zone:1439}，前往 {zone:1440} 的 {area:415}。在城镇周围的湖中装满 {item:265772}，然后乘船返回米奈希尔港。",
+	-- ["{area:71} pour out of {area:68} at the east end of Redridge (fly from {zone:1455} to {area:69}). Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather; pull the murlocs off the spot first. If the skin vanishes without counting, abandon the quest and take it again from {npc:258203} for a new one."] = "{area:71} 从赤脊山东端的 {area:68} 奔流而下（从 {zone:1455} 飞往 {area:69}）。在瀑布底部鱼人夜行者聚集的地方装满 {item:265747}；先把鱼人从取水点拉走。若水囊消失却未计入任务，放弃任务，再从 {npc:258203} 处重新接受以取得新的水囊。",
 	-- ["{area:71} pour out of {area:68} at the east end of Redridge. Fill the {item:265747} at their foot, where the Murloc Nightcrawlers gather."] = "{area:71}从赤脊山东端的{area:68}倾泻而下。在瀑布脚下{npc:544}聚集的地方装满{item:265747}。",
 	-- ["{area:919} lies outside {area:20}. Drink the {item:6637} there and defeat the {npc:5894} for its bracers, then place them and the {item:7811} on the {object:619896}. The {npc:5895} it calls forth gives you the {item:7813}."] = "{area:919}位于{area:20}外面。在那里喝下{item:6637}，击败{npc:5894}拿到它的护腕，然后把护腕和{item:7811}放在{object:619896}上。被召唤出来的{npc:5895}会给你{item:7813}。",
 	-- ["{npc:258043}'s burrow hut stands on the north-western edge of the loch, south of {area:146}."] = "{npc:258043}的地洞小屋位于湖的西北边缘，{area:146}南边。",

@@ -53,9 +53,9 @@ return {
 
 	-- Step 7: Plagued bears
 	["Plagued bears"] = "Osos apestados",
-	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
+	-- {area:442} Auberdine
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "Los osos cardo rabiosos rondan las colinas justo al este de {area:442}. Usa {quest:2139} en uno y llévalo de vuelta con él.",
+	["Rabid Thistle Bears roam the hills just east of {area:442}."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "los osos cardo rabiosos más cercanos a {npc:3701}",
@@ -82,8 +82,8 @@ return {
 
 	-- Step 11: The red crystal
 	["The red crystal"] = "El cristal rojo",
-	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Sube a las montañas al este de {area:447}; el {object:175524} está en una cornisa.",
+	-- {object:175524} Mysterious Red Crystal · {area:447} Ameth'Aran
+	["The {object:175524} sits on a ledge in the mountains east of {area:447}."] = "",
 
 	-- Step 13: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
@@ -137,8 +137,8 @@ return {
 	["Back north-east into the mountains to the crystal."] = "Vuelve al noreste, a las montañas, hasta el cristal.",
 
 	-- Step 23: Cliffspring Falls
-	-- {area:456} Cliffspring River · {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
-	["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "Sigue las colinas hacia el norte hasta {area:456} y sube a las cascadas. Hay dos restos varados más en la costa norte: cerca de {area:443} y al norte de {quest:954}.",
+	-- {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
+	["Two more beached remains lie on the north shore, near the {area:443} and north of {quest:954}."] = "",
 	-- {item:12349} Cliffspring River Sample
 	["{item:12349}, at the waterfall"] = "{item:12349}, en la cascada",
 	-- {item:15845} Filled Cliffspring Falls Sampler
@@ -222,6 +222,7 @@ return {
 	-- ["Boat to {zone:1453}"] = "Barco a {zone:1453}",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Shrine Baubles lie in the containers on the floor of {area:656}, below {area:2361}: take one to the {area:2362} in the north-west, use it there and speak to {npc:11799}. Then fly back to {area:442} from {area:2361}."] = "Lanza {spell:18960}. {npc:11802} está en {area:2361}. Los Adornos de altar ({item:15877}) están en los contenedores del fondo de {area:656}, debajo de {area:2361}: lleva uno a {area:2362}, al noroeste, úsalo allí y habla con {npc:11799}. Luego vuela de vuelta a {area:442} desde {area:2361}.",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "Lanza {spell:18960}. {npc:11802} está en {area:2361}; aprende allí la ruta de vuelo si no la tienes.",
+	-- ["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Sube a las montañas al este de {area:447}; el {object:175524} está en una cornisa.",
 	-- ["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "Escóltala fuera de la guja; la entrega se hace a Therysil en {zone:1440}",
 	-- ["Fine Moonstalker Pelts"] = "Pelambres de Acechalunas refinadas",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "Sigue la costa al noreste hasta {area:443}. {quest:951} están entre las ruinas; las ocupan myrmidones, hechiceras y guerreros Escama Tormentosa, y las maestras de bestias Escama Tormentosa recorren la orilla.",
@@ -229,6 +230,7 @@ return {
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "Sigue la costa hacia el sur más allá de {area:447}: un {quest:4728} yace en la orilla al oeste del Páramo de los Ancianos y otro más al sur, cerca de {area:450}.",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "Sigue la costa hacia el sur más allá de {area:447}: un {quest:4728} yace en la orilla al oeste del Páramo de los Ancianos y otro más al sur, cerca de {area:450}. Otros tres restos yacen más al suroeste entre oráculos Brumagris y cazamareas Brumagris (18-20): la guía los deja para la última vuelta, cuando estés más cerca de su nivel.",
 	-- ["Follow the hills north to the {area:456} and up to the falls. Three more beached remains lie on the north shore: near the {area:443}, north of {quest:954} and west of {quest:954}."] = "Sigue las colinas hacia el norte hasta {area:456} y sube a las cascadas. Hay tres restos varados más en la costa norte: cerca de {area:443}, al norte de {quest:954} y al oeste de {quest:954}.",
+	-- ["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "Sigue las colinas hacia el norte hasta {area:456} y sube a las cascadas. Hay dos restos varados más en la costa norte: cerca de {area:443} y al norte de {quest:954}.",
 	-- ["Follow the road north."] = "Sigue el camino al norte.",
 	-- ["Follow the road south. {quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "Sigue el camino al sur. {quest:948} es el anciano del Páramo de los Ancianos; {npc:270269} y {npc:11218} duermen a su lado.",
 	-- ["Grizzled Scalps"] = "Cueros cabelludos grisáceos",
@@ -241,6 +243,7 @@ return {
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "Ve al norte por las colinas. {npc:3650} espera en las ruinas de {quest:954}; están llenas de grells salvajes y duendes viles, y los sátiros Deth'ryll ocupan el borde este. {quest:1001} está junto al camino al oeste de las ruinas.",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Ve al norte por las colinas. {npc:3650} espera en las ruinas de {quest:954}; están llenas de grells salvajes y duendes viles, y los sátiros Deth'ryll ocupan el borde este. {quest:1001} está junto al camino al oeste de las ruinas; un {quest:4723} yace en la orilla de camino hacia él.",
 	-- ["Only if a Disciple or Thug dropped {item:5352}: right-click it"] = "Solo si un discípulo o matón soltó {item:5352}: haz clic derecho en él",
+	-- ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "Los osos cardo rabiosos rondan las colinas justo al este de {area:442}. Usa {quest:2139} en uno y llévalo de vuelta con él.",
 	-- ["Read both tablets"] = "Lee ambas tablillas",
 	-- ["Scaber Stalks"] = "Boletos rudos",
 	-- ["She gives you the {item:15826}"] = "Ella te da el {item:15826}",

@@ -42,17 +42,17 @@ return {
 
 	-- Step 6: Jadefire Glen
 	-- {npc:9454} Xavathras · {spell:7992} Slowing Poison
-	-- plural, as words: Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker · Cursed Oozes = {npc:7086} Cursed Ooze
-	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "Os sátiros Flamejade dominam o vale a oeste da estrada, com {npc:9454} nos fundos.\nCuidado: os Assombrantes Flamejade (nível 51-52) usam Furtividade e {spell:7992} e ficam furtivos, então costumam entrar nas lutas sem serem chamados.\nGosmas Amaldiçoadas deslizam pelos riachos do vale: mate-as e use o Laris's Empty Ooze Jar nos restos delas.",
+	-- plural, as words: Cursed Oozes = {npc:7086} Cursed Ooze · Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker
+	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back, and Cursed Oozes roam its streams. Jadefire Shadowstalkers (level 51-52) are stealthed and use Sneak and {spell:7992}, so they often join fights uninvited."] = "",
 
 	-- Step 7: Ruins of Constellas
 	-- {npc:9454} Xavathras · {area:2481} Ruins of Constellas
 	["Careful: {npc:9454} (54) stands at the back of the {area:2481}, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health."] = "Cuidado: {npc:9454} (54) fica no fundo de {area:2481}, por volta de 32.2,67.1, com Espreitadores Sombrios ao redor: elimine-os um de cada vez e depois puxe-o sozinho com a vida cheia.",
 
 	-- Step 8: Jaedenar
-	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge · {item:11948} Empty Tainted Ooze Jar
+	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him.\nTainted Oozes slide about {area:1763}'s fel pools: kill them and use the {item:11948} on their remains."] = "",
+	["{area:1763} is the ruined temple north of the glen, and Tainted Oozes slide around its fel pools. Careful: the {npc:11141} (53, elite) haunts the west end around 35,60."] = "",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}: Gosmas Maculadas deslizam pelas poças vis de {area:1763}",
@@ -291,6 +291,7 @@ return {
 	-- ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. The Avengers can drop a {quest:8470}."] = "Os furbolgs de Lenha Morta de {area:1762} enchem as colinas a oeste da caverna. Os Vingadores de Lenha Morta podem deixar cair um {quest:8470}.",
 	-- ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. The Avengers can drop a {quest:8470}.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "Os furbolgs de Lenha Morta de {area:1762} lotam as colinas a oeste da caverna. Os Vingadores podem deixar cair um {quest:8470}.\nCuidado: os Vigias do Covil são nível 53-54; chamam aliados num raio de 25 m quando ficam abaixo de 50% de vida e saem correndo atrás de ajuda abaixo de 15%.",
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "Os sátiros Flamejade ocupam o vale a oeste da estrada, com {npc:9454} no fundo.",
+	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "Os sátiros Flamejade dominam o vale a oeste da estrada, com {npc:9454} nos fundos.\nCuidado: os Assombrantes Flamejade (nível 51-52) usam Furtividade e {spell:7992} e ficam furtivos, então costumam entrar nas lutas sem serem chamados.\nGosmas Amaldiçoadas deslizam pelos riachos do vale: mate-as e use o Laris's Empty Ooze Jar nos restos delas.",
 	-- ["The vial is filled in {zone:1457}: keep it"] = "A ampola é enchida em {zone:1457}: guarde-a",
 	-- ["The vial is filled in {zone:1457}: keep it; inside"] = "O frasco se enche em {zone:1457}: guarde; lá dentro",
 	-- ["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "O {item:11242} cresce dentro de uma construção em ruínas ao norte de {npc:7765}: entre pela abertura na parede, a partir da saliência ao lado.",

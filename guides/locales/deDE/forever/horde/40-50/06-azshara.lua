@@ -216,7 +216,8 @@ return {
 
 	-- Step 53: Edana Hatetalon
 	-- {npc:8075} Edana Hatetalon
-	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "{npc:8075} (Stufe 50, Elite) sitzt auf der Klippe direkt nördlich der Harpyiennester. Räume zuerst die Harpyien um sie herum auf.",
+	-- was: ["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "{npc:8075} (Stufe 50, Elite) sitzt auf der Klippe direkt nördlich der Harpyiennester. Räume zuerst die Harpyien um sie herum auf."
+	["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests, with harpies around her."] = "",
 
 	-- Step 54: Rage Scar yetis
 	["Rage Scar yetis"] = "Wutschrammyetis",
@@ -324,6 +325,7 @@ return {
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}: Die Bären sind im {zone:1448}",
 	-- ["{npc:7825} stands in the {object:36082}."] = "{npc:7825} steht im {object:36082}.",
 	-- ["{npc:7876}'s tar and Pestlezugg's samples come from {zone:1449}."] = "Der Teer für {npc:7876} und Pestlezuggs Proben stammen aus {zone:1449}.",
+	-- ["{npc:8075} (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first."] = "{npc:8075} (Stufe 50, Elite) sitzt auf der Klippe direkt nördlich der Harpyiennester. Räume zuerst die Harpyien um sie herum auf.",
 	-- ["{npc:8395}, at the east edge of the camp: no experience, only a teleport to Azshara Tower"] = "{npc:8395}, am Ostrand des Lagers: keine Erfahrung, nur ein Teleport zum Azsharaturm",
 	-- ["{npc:8659}, the {object:172960}"] = "{npc:8659}, {object:172960}",
 	-- ["{object:3202} flight master"] = "Flugmeister von {object:3202}",

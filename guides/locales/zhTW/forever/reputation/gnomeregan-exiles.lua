@@ -121,7 +121,7 @@ return {
 	["{zone:1448}: Cursed and Tainted Oozes"] = "{zone:1448}：被詛咒的軟泥怪和受汙染的軟泥怪",
 	-- {area:1763} Jaedenar · {area:1765} Bloodvenom Falls
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill one and use an empty jar on its remains."] = "被詛咒的軟泥怪和受汙染的軟泥怪在{area:1763}和{area:1765}周圍的溪流和邪能水池裡滑行：殺一隻，在它的殘骸上使用空瓶。",
+	["Cursed and Tainted Oozes are found around the streams and fel pools near {area:1763} and {area:1765}."] = "",
 
 	-- Step 21: Tinker Town: the second jars
 	-- {object:171524} Tinker Town
@@ -133,7 +133,7 @@ return {
 	["{zone:1449}: Primal Oozes"] = "{zone:1449}：原始軟泥怪",
 	-- {area:537} Fire Plume Ridge
 	-- plural, as words: Primal Oozes = {npc:6557} Primal Ooze · Glutinous Oozes = {npc:6559} Glutinous Ooze
-	["The Primal Oozes live in the pools around {area:537} in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "原始軟泥怪生活在火山口中央{area:537}周圍的水池裡；黏液軟泥怪和膠質軟泥怪也能裝滿瓶子。殺一隻，在它的殘骸上使用瓶子。",
+	["Primal Oozes live in the pools around {area:537} in the middle of the crater. Muculent and Glutinous Oozes also fill the jars."] = "",
 
 	-- Step 23: Tinker Town: hand in
 	-- {object:171524} Tinker Town
@@ -176,6 +176,8 @@ return {
 	-- ["Keep handing in {quest:7812}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "持續繳交{quest:7812}，每次20個{item:14047}。{item:14047}：{zone:1423}的黑暗教徒和暗影法師（58-60級），或拍賣場。",
 	-- ["Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too."] = "河爪強盜和河爪監工（16-18級）在這裡會掉落。拍賣場也買得到。",
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "激流堡的辛迪加雇傭兵（31-32級）在這裡會掉落。拍賣場也買得到。",
+	-- ["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill one and use an empty jar on its remains."] = "被詛咒的軟泥怪和受汙染的軟泥怪在{area:1763}和{area:1765}周圍的溪流和邪能水池裡滑行：殺一隻，在它的殘骸上使用空瓶。",
+	-- ["The Primal Oozes live in the pools around {area:537} in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "原始軟泥怪生活在火山口中央{area:537}周圍的水池裡；黏液軟泥怪和膠質軟泥怪也能裝滿瓶子。殺一隻，在它的殘骸上使用瓶子。",
 	-- ["{npc:14724} takes cloth for {faction:54} in {object:171524}, {zone:1455}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7812} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14724}在{zone:1455}的{object:171524}收取布料以提升{faction:54}聲望。毛料、絲綢、魔紋布和{item:14047}的首次捐獻（各60塊布）只能做一次，每塊布給的聲望最多；之後{quest:7812}可重複到崇拜。與其他種族主城崇拜後，可購買該種族的坐騎。Forever的傳承外交官天賦可提高聲望獲取。",
 	-- ["{npc:14724}: {item:14047} delivered"] = "{npc:14724}：{item:14047}已交付",
 	-- ["{quest:7812} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7812}每次繳交需要20個{item:14047}，可無限次重複。以20的倍數攜帶{item:14047}，一次全部連續繳交。{item:14047}：{zone:1423}的黑暗教徒和暗影法師（58-60級），或拍賣場。",

@@ -53,9 +53,9 @@ return {
 
 	-- Step 7: Plagued bears
 	["Plagued bears"] = "染病的熊",
-	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
+	-- {area:442} Auberdine
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "狂暴薊熊在{area:442}東邊不遠的丘陵遊蕩。對一隻使用{quest:2139}，把牠帶回給他。",
+	["Rabid Thistle Bears roam the hills just east of {area:442}."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "距{npc:3701}最近的狂暴薊熊",
@@ -82,8 +82,8 @@ return {
 
 	-- Step 11: The red crystal
 	["The red crystal"] = "紅色水晶",
-	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "爬上{area:447}東邊的山脈；{object:175524}在一處岩架上。",
+	-- {object:175524} Mysterious Red Crystal · {area:447} Ameth'Aran
+	["The {object:175524} sits on a ledge in the mountains east of {area:447}."] = "",
 
 	-- Step 13: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
@@ -138,8 +138,8 @@ return {
 	["Back north-east into the mountains to the crystal."] = "向東北回到山中的水晶那裡。",
 
 	-- Step 23: Cliffspring Falls
-	-- {area:456} Cliffspring River · {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
-	["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "沿丘陵向北到{area:456}，再往上到瀑布。北岸還有兩具擱淺的骨骸：在{area:443}附近和{quest:954}北邊。",
+	-- {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
+	["Two more beached remains lie on the north shore, near the {area:443} and north of {quest:954}."] = "",
 	-- {item:12349} Cliffspring River Sample
 	["{item:12349}, at the waterfall"] = "{item:12349}，在瀑布",
 	-- {item:15845} Filled Cliffspring Falls Sampler
@@ -222,6 +222,7 @@ return {
 	-- ["Back to {npc:11802} in {area:2361}, then fly to {area:702} (by way of {area:442})."] = "回到{area:2361}找{npc:11802}，然後飛往{area:702}（途經{area:442}）。",
 	-- ["Boat to {zone:1453}"] = "搭船前往{zone:1453}",
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}在{area:2361}；如果還沒有那裡的飛行路線就學一下。",
+	-- ["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "爬上{area:447}東邊的山脈；{object:175524}在一處岩架上。",
 	-- ["Escort her out of the glaive; Therysil takes the turn-in in {zone:1440}"] = "護送她離開月刃；瑟瑞希爾在{zone:1440}接受繳交",
 	-- ["Fine Moonstalker Pelts"] = "優質月夜猛虎毛皮",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "沿海岸向東北前往{area:443}。{quest:951}散落在廢墟中；雷鱗侍從、雷鱗巫師和雷鱗戰士佔據著廢墟，雷鱗獸王在岸邊走動。",
@@ -229,6 +230,7 @@ return {
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "沿海岸向南經過{area:447}：一個{quest:4728}在古樹之林西邊的岸上，另一個在更南邊的{area:450}附近。",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "沿海岸向南經過{area:447}：一個{quest:4728}在古樹之林西邊的岸上，另一個在更南邊的{area:450}附近。更西南方的灰霧智者和灰霧潮行者（18-20級）之間還有三具骨骸：指南把它們留到最後一輪，那時你的等級更接近牠們。",
 	-- ["Follow the hills north to the {area:456} and up to the falls. Three more beached remains lie on the north shore: near the {area:443}, north of {quest:954} and west of {quest:954}."] = "沿丘陵向北到{area:456}，再往上到瀑布。北岸還有三具擱淺的骨骸：在{area:443}附近、{quest:954}北邊和{quest:954}西邊。",
+	-- ["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "沿丘陵向北到{area:456}，再往上到瀑布。北岸還有兩具擱淺的骨骸：在{area:443}附近和{quest:954}北邊。",
 	-- ["Follow the road north."] = "沿道路向北。",
 	-- ["Follow the road south. {quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "沿道路向南。{quest:948}是古樹之林的古樹；{npc:270269}和{npc:11218}睡在他旁邊。",
 	-- ["Grizzled Scalps"] = "灰色頭皮",
@@ -240,6 +242,7 @@ return {
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins."] = "沿丘陵向北。{npc:3650}在{quest:954}的廢墟中等著；野生劣魔和惡靈劣魔遍布廢墟，戴瑟雷薩特在東緣。{quest:1001}站在廢墟西邊的路旁。",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {quest:1001} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "沿丘陵向北。{npc:3650}在{quest:954}的廢墟中等著；野生劣魔和惡靈劣魔遍布廢墟，戴瑟雷薩特在東緣。{quest:1001}站在廢墟西邊的路旁；前往它的路上，岸邊有一個{quest:4723}。",
 	-- ["Only if a Disciple or Thug dropped {item:5352}: right-click it"] = "只有在暮光信徒或暮光暴徒掉落{item:5352}時：右鍵點擊它",
+	-- ["Rabid Thistle Bears roam the hills just east of {area:442}. Use {quest:2139} on one and lead it back to him."] = "狂暴薊熊在{area:442}東邊不遠的丘陵遊蕩。對一隻使用{quest:2139}，把牠帶回給他。",
 	-- ["Read both tablets"] = "閱讀兩塊石板",
 	-- ["Scaber Stalks"] = "粗柄蘑菇",
 	-- ["She gives you the {item:15826}"] = "她會給你{item:15826}",

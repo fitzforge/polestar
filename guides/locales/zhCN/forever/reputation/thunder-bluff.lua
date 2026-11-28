@@ -112,9 +112,8 @@ return {
 	["{npc:264074}: {quest:96241} (Darkspear +100)"] = "{npc:264074}：{quest:96241}（暗矛+100）",
 
 	-- Step 19: Gloomrise
-	-- {area:17044} Gloomrise · {faction:81} Thunder Bluff · {item:273015} Toxin Extractor · {npc:264082} Broodmother Valraxx · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
-	-- plural, as words: Gnawed Corpses = {npc:264096} Gnawed Corpse
-	["{area:17044} is the tauren burial ground north of {faction:81}. Use the {item:273015} on the Gnawed Corpses. {npc:264082} waits at the heart of it; her body carries a {item:273658}: read it to start {quest:96294}."] = "{area:17044} 是 {faction:81} 北侧的牛头人墓地。对啃噬过的尸体使用 {item:273015}。{npc:264082} 在墓地中央等待；她的尸体上有一份 {item:273658}：阅读后可开始 {quest:96294}。",
+	-- {area:17044} Gloomrise · {faction:81} Thunder Bluff · {npc:264082} Broodmother Valraxx · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
+	["{area:17044} is the tauren burial ground north of {faction:81}. {npc:264082} is at its heart, and her body carries a {item:273658} that starts {quest:96294}."] = "",
 	-- {item:273181} Crystalline Silk
 	-- plural, as words: Gloomrise Spinners = {npc:264081} Gloomrise Spinner
 	["{item:273181}, from Gloomrise Spinners"] = "{item:273181}，从暮升织网者获取",
@@ -241,6 +240,7 @@ return {
 	-- ["Keep handing in {quest:7825}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "继续交还{quest:7825}，每次20块{item:14047}。{item:14047}：{zone:1423}的黑暗教徒和暗影法师（58-60级），或拍卖行。",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "这里的科卡尔半人马（30-33级）会掉落。也可以去拍卖行购买。",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "{area:381}的风险投资公司执行者（16-17级）会掉落。也可以去拍卖行购买。",
+	-- ["{area:17044} is the tauren burial ground north of {faction:81}. Use the {item:273015} on the Gnawed Corpses. {npc:264082} waits at the heart of it; her body carries a {item:273658}: read it to start {quest:96294}."] = "{area:17044} 是 {faction:81} 北侧的牛头人墓地。对啃噬过的尸体使用 {item:273015}。{npc:264082} 在墓地中央等待；她的尸体上有一份 {item:273658}：阅读后可开始 {quest:96294}。",
 	-- ["{npc:14728} takes cloth for {faction:81} in {faction:81}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7825} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14728}在{faction:81}收取布料以提升{faction:81}声望。首次捐献毛料、丝绸、魔纹布和{item:14047}（各60块）只能做一次，每块布给的声望最多；之后{quest:7825}可重复做到崇拜。与其他种族的主城达到崇拜后，可购买该种族的坐骑。Forever的传承外交官特权可提高声望获取。",
 	-- ["{npc:14728}: {item:14047} delivered"] = "{npc:14728}：已交付{item:14047}",
 	-- ["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50 (in Classic a fifth at 60). {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "{quest:3804} 每次用 10 个 {item:11040} 换 50 点声望，可以无限重复，60 级时仍提供全额奖励，但速度很慢：{item:11020} 每 10 分钟长出一个果荚，每个果荚平均含约一个 {item:11040}，因此每次交还约需等待 90 分钟、消耗 18 个 {quest:3761} 和 9 包种子（90 银）。可以一边做其他事一边种：每小时略多于 30 点声望。前置任务链为 50 级（经典旧世中 60 级时只有五分之一奖励）。{npc:6746} 会让你去找 {area:1639} 的 {npc:5769}；他需要 20 个 {quest:3761}。",

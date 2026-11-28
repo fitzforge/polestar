@@ -49,9 +49,9 @@ return {
 
 	-- Step 9: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "Bären und das Lager der Schwarzfelle",
-	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
+	-- {area:442} Auberdine
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["Rabid Thistle Bears roam the hills south of {area:442}: use {quest:2139} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "Tollwütige Distelbären streifen durch die Hügel südlich von {area:442}: Benutze {quest:2139} auf einen, um ihn zu fangen. Geh dann zum Furbolg-Lager direkt östlich von ihnen: Hier gibt es noch nichts zu töten.",
+	["Rabid Thistle Bears roam the hills south of {area:442}. Nothing at the furbolg camp needs killing yet."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "die Rabid Thistle Bears in der Nähe von {npc:3701}",
@@ -68,8 +68,8 @@ return {
 
 	-- Step 11: The red crystal
 	["The red crystal"] = "Der rote Kristall",
-	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Klettere östlich von {area:447} in die östlichen Berge; der {object:175524} liegt auf einem Felsvorsprung.",
+	-- {object:175524} Mysterious Red Crystal · {area:447} Ameth'Aran
+	["The {object:175524} sits on a ledge in the mountains east of {area:447}."] = "",
 
 	-- Step 12: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
@@ -136,7 +136,7 @@ return {
 
 	-- Step 22: Ameth'Aran
 	-- {area:447} Ameth'Aran
-	["Back north to {area:447}: the flame burns in the south of the ruins."] = "Zurück nach Norden nach {area:447}: Die Flamme brennt im Süden der Ruinen.",
+	["The flame burns in the south of the {area:447} ruins, to the north."] = "",
 
 	-- Step 23: Anaya's Pendant
 	-- {npc:3667} Anaya Dawnrunner · {npc:2184} Lady Moongazer
@@ -246,12 +246,15 @@ return {
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446} in {zone:1426}; {area:87} hat keinen Schamanenlehrer",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north to {area:447}: the flame burns in the south of the ruins."] = "Zurück nach Norden nach {area:447}: Die Flamme brennt im Süden der Ruinen.",
 	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Pfadfinder und Windsprecher der Schwarzfelle halten das Lager südöstlich von {area:442}.",
 	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "Pfadfinder und Windsprecher der Schwarzfelle halten das Lager südöstlich von {area:442}.\nVorsicht: Die Windsprecher (13-14) wirken aus der Ferne und die Furbolgs stehen paarweise: Zieh sie einzeln.",
+	-- ["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Klettere östlich von {area:447} in die östlichen Berge; der {object:175524} liegt auf einem Felsvorsprung.",
 	-- ["Into {area:148}"] = "Nach {area:148}",
 	-- ["North along the hills to {npc:3650}, then west down to {area:442}."] = "Nördlich an den Hügeln entlang zu {npc:3650}, dann westlich hinunter nach {area:442}.",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {object:17183} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Nördlich an den Hügeln entlang. {npc:3650} wartet in den Ruinen von {quest:954}; Wild Grells und Vile Sprites bevölkern sie, Deth'ryll Satyrs den Ostrand. {object:17183} steht an der Straße westlich der Ruinen; ein {quest:4723} liegt auf dem Weg zu ihm am Ufer.",
 	-- ["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "Rabid Thistle Bears streifen durch die Hügel südlich von {area:442}: Benutze {item:7586} an einem, um ihn einzufangen. Geh dann zum Furbolg-Lager direkt östlich von ihnen: Noch ist nichts zu töten.",
+	-- ["Rabid Thistle Bears roam the hills south of {area:442}: use {quest:2139} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "Tollwütige Distelbären streifen durch die Hügel südlich von {area:442}: Benutze {quest:2139} auf einen, um ihn zu fangen. Geh dann zum Furbolg-Lager direkt östlich von ihnen: Hier gibt es noch nichts zu töten.",
 	-- ["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "Das Boot legt westlich des Dorfes an. Der Flugmeister steht auf dem Hügel südlich des Gasthauses; die Questgeber sind entlang der Hauptstraße verteilt.",
 	-- ["{item:5382}: {npc:3667}, level 16; pull her away from the Highborne"] = "{item:5382}: {npc:3667}, Stufe 16; zieh sie von den Hochgeborenen weg",
 	-- ["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "{npc:1646} steht in {object:2098}, westlich von {object:2096}: Sein Kompass liegt in seinem alten Haus in {zone:1436}, auf dem Weg.",

@@ -116,9 +116,10 @@ step Fallen Sky Lake
 
 step The Binding: incubus (Orgrimmar)
   zone Orgrimmar
-  tip Back to Gan'rul with the scarf, then use the Withered Scarf on the same circle in Neeru's tent and defeat the incubus it calls (level 20, not elite) with your voidwalker tanking. Keep the scarf: Gan'rul takes it back.
+  tip The incubus is level 20 and not elite. Gan'rul takes the scarf back afterward.
   turnin 65610                        -- Gan'rul Bloodeye
   accept 65604
+  use 190187 quest 65604.1 @49.4,50.0 map 1454
   kill 185335 quest 65604.1           -- Summoned Incubus, at the circle in Neeru's tent
   turnin 65604                        -- Gan'rul Bloodeye: Summon Incubus
 
@@ -161,8 +162,9 @@ step Isaac Pearson
 
 step The Binding: incubus (Undercity)
   zone Undercity
-  tip Back to Carendin with the lovers' hearts, then place the Lovers' Hearts on the same circle and defeat the incubus they call (level 20, not elite; it can charm you). Keep the hearts: Carendin takes them back.
+  tip The incubus is level 20 and not elite, but it can charm you. Carendin takes the hearts back at turn-in.
   turnin 65593                        -- Carendin Halgar
   accept 65597
+  use 190181 quest 65597.1 @86.6,27.1 map 1458
   kill 185335 quest 65597.1           -- Summoned Incubus, at the circle below Carendin
   turnin 65597                        -- Carendin Halgar: Summon Incubus

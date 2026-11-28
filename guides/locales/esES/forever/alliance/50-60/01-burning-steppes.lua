@@ -308,9 +308,8 @@ return {
 	-- Step 66: The Ruins of Eldarath
 	-- {area:1221} Ruins of Eldarath
 	["The {area:1221}"] = "Las {area:1221}",
-	-- {area:1221} Ruins of Eldarath · {item:13815} Some Rune · {item:10445} Drawing Kit
-	-- was: ["The Spitelash naga of the {area:1221} carry {item:13815}. {npc:8507}'s four runes stand among the ruins: use his {item:10445} on each."] = "Las nagas Látigo de Ira de las {area:1221} llevan {item:13815}. Las cuatro runas de {npc:8507} están entre las ruinas: usa su {item:10445} en cada una."
-	["The Spitelash naga of the {area:1221} carry {item:13815}. Tymor's runes stand among the ruins: use his {item:10445} on each."] = "",
+	-- {area:1221} Ruins of Eldarath
+	["Spitelash naga guard the {area:1221}."] = "",
 
 	-- Step 67: Lord Sarthiss
 	-- {npc:239939} Lord Sarthiss

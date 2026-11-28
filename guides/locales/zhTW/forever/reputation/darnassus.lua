@@ -101,10 +101,11 @@ return {
 	["{area:442}: the coast and the woods"] = "{area:442}：海岸與樹林",
 	-- {area:445} Cliffspring Falls
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "鎮南的熊怪營地算作“威脅有多大”；狂暴薊熊在鎮南的樹林遊蕩；鎮東南阿米斯阿蘭廢墟的上層精靈幽靈帶著遺物，阿納雅的鬼魂也在那裡遊走；骸骨躺在鎮南的海灘上；蘑菇生長在東北{area:445}的洞穴裡。",
+	["The furbolg camp and the Rabid Thistle Bears are in the woods south of town, and the bones lie on the beach south of town. The relics come from the Highborne ghosts of the Ruins of Ameth'Aran to the south-east, where Anaya's ghost also walks, and the mushrooms grow in the {area:445} cave to the north-east."] = "",
 	["the corrupt furbolg camp south of town"] = "城鎮南邊被腐化的熊怪營地",
-	-- {npc:2164} Rabid Thistle Bear · {quest:2139} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
-	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}：對它使用{quest:2139}，然後帶回{npc:3701}那裡",
+	-- {npc:2164} Rabid Thistle Bear · {item:7586} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
+	-- was: ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}：對它使用{quest:2139}，然後帶回{npc:3701}那裡"
+	["{npc:2164}: use {item:7586} on it and lead it back to {npc:3701}"] = "",
 	-- {npc:2164} Rabid Thistle Bear
 	["Capture a {npc:2164}"] = "捕獲一隻{npc:2164}",
 	-- {quest:954} Bashal'Aran
@@ -129,7 +130,7 @@ return {
 	["{area:442}: the seal, the {npc:6788} and the pelts"] = "{area:442}：封印、{npc:6788}與毛皮",
 	-- {item:5338} Ancient Moonstone Seal · {quest:956} Bashal'Aran · {npc:6788} Den Mother · {zone:1439} Darkshore
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "{item:5338}由{quest:956}的薩特掉落；在那裡火焰旁摧毀封印。{npc:6788}巢居在{quest:956}東北；月行者公豹和母豹在{zone:1439}南部遊蕩。",
+	["The {item:5338} drops from the satyrs of {quest:956}. The {npc:6788} lairs north-east of {quest:956}, and Moonstalker Sires and Matriarchs roam southern {zone:1439}."] = "",
 	["the seal at the ancient flame"] = "古老火焰處的封印",
 
 	-- Step 20: A Donation of Silk
@@ -168,6 +169,8 @@ return {
 	["{npc:9047}, beside Fandral in the {area:1658}, takes the soil. {npc:4217} sells the {item:11020} and Packets of Tharlendris Seeds. With a seed packet and 2 {quest:3764} in your bags, use the pouch to grow an {item:11024} and open it: about one casing in three holds {item:11040} (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things."] = "{npc:9047}在{area:1658}範達爾身旁收泥土。{npc:4217}出售{item:11020}和塔倫德里斯種子包。揹包裡有種子包和2個{quest:3764}時，用袋子種出一個{item:11024}並開啟它：約三分之一的莢殼含{item:11040}（1到5個），其餘是別的草藥。袋子每10分鐘只能用一次，所以做別的事時一好就用。",
 
 	-- Step 33: Darnassus: Morrowgrain Research
+	-- {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
+	["Each casing needs a seed packet and 2 {quest:3764}, only about one in three holds {item:11040} (1 to 5), and the pouch works once every 10 minutes."] = "",
 	-- {item:11040} Morrowgrain
 	["{item:11040}: grow it here and open the casings"] = "{item:11040}：在這裡種植並開啟莢殼",
 
@@ -200,7 +203,10 @@ return {
 	-- ["Keep handing in {quest:7801}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "持續繳交{quest:7801}，每次20個{item:14047}。{item:14047}：{zone:1423}的黑暗教徒和暗影法師（58-60級），或拍賣場。",
 	-- ["Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too."] = "河爪強盜和河爪監工（16-18級）在這裡會掉落。拍賣場也買得到。",
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "激流堡的辛迪加雇傭兵（31-32級）在這裡會掉落。拍賣場也買得到。",
+	-- ["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "鎮南的熊怪營地算作“威脅有多大”；狂暴薊熊在鎮南的樹林遊蕩；鎮東南阿米斯阿蘭廢墟的上層精靈幽靈帶著遺物，阿納雅的鬼魂也在那裡遊走；骸骨躺在鎮南的海灘上；蘑菇生長在東北{area:445}的洞穴裡。",
+	-- ["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "{item:5338}由{quest:956}的薩特掉落；在那裡火焰旁摧毀封印。{npc:6788}巢居在{quest:956}東北；月行者公豹和母豹在{zone:1439}南部遊蕩。",
 	-- ["{npc:14725} takes cloth for {faction:69} in {faction:69}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7801} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14725}在{faction:69}收取布料以提升{faction:69}聲望。毛料、絲綢、魔紋布和{item:14047}的首次捐獻（各60塊布）只能做一次，每塊布給的聲望最多；之後{quest:7801}可重複到崇拜。與其他種族主城崇拜後，可購買該種族的坐騎。Forever的傳承外交官天賦可提高聲望獲取。",
 	-- ["{npc:14725}: {item:14047} delivered"] = "{npc:14725}：{item:14047}已交付",
+	-- ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}：對它使用{quest:2139}，然後帶回{npc:3701}那裡",
 	-- ["{quest:7801} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7801}每次繳交需要20個{item:14047}，可無限次重複。以20的倍數攜帶{item:14047}，一次全部連續繳交。{item:14047}：{zone:1423}的黑暗教徒和暗影法師（58-60級），或拍賣場。",
 }

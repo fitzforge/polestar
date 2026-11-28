@@ -49,10 +49,9 @@ return {
 
 	-- Step 9: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "Ursos e o acampamento Bosquenero",
-	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
+	-- {area:442} Auberdine
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	-- was: ["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "Ursocardos Raivosos vagam pelas colinas ao sul de {area:442}: use {item:7586} em um para capturá-lo. Depois suba até o acampamento dos furbolgs, logo a leste deles: nada para matar ainda."
-	["Rabid Thistle Bears roam the hills south of {area:442}: use {quest:2139} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "",
+	["Rabid Thistle Bears roam the hills south of {area:442}. Nothing at the furbolg camp needs killing yet."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "os Ursocardos Raivosos mais perto de {npc:3701}",
@@ -69,8 +68,8 @@ return {
 
 	-- Step 11: The red crystal
 	["The red crystal"] = "O cristal vermelho",
-	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Suba as montanhas a leste de {area:447}; o {object:175524} fica numa saliência.",
+	-- {object:175524} Mysterious Red Crystal · {area:447} Ameth'Aran
+	["The {object:175524} sits on a ledge in the mountains east of {area:447}."] = "",
 
 	-- Step 12: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
@@ -139,7 +138,7 @@ return {
 
 	-- Step 22: Ameth'Aran
 	-- {area:447} Ameth'Aran
-	["Back north to {area:447}: the flame burns in the south of the ruins."] = "De volta ao norte até {area:447}: a chama arde no sul das ruínas.",
+	["The flame burns in the south of the {area:447} ruins, to the north."] = "",
 
 	-- Step 23: Anaya's Pendant
 	-- {npc:3667} Anaya Dawnrunner · {npc:2184} Lady Moongazer
@@ -251,8 +250,10 @@ return {
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446} em {zone:1426}; {area:87} não tem instrutor de xamã",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north to {area:447}: the flame burns in the south of the ruins."] = "De volta ao norte até {area:447}: a chama arde no sul das ruínas.",
 	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Desbravadores Bosqueneros e Vozes-do-vento Bosqueneros ocupam o acampamento a sudeste de {area:442}.",
 	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "Desbravadores e Falaventos Bosquenero ocupam o acampamento a sudeste de {area:442}.\nCuidado: os Falaventos (13-14) lançam feitiços à distância e os furbolgs ficam em pares: puxe-os um de cada vez.",
+	-- ["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Suba as montanhas a leste de {area:447}; o {object:175524} fica numa saliência.",
 	-- ["Into {area:148}"] = "Rumo a {area:148}",
 	-- ["North along the hills to {npc:3650}, then west down to {area:442}."] = "Ao norte pelas colinas até {npc:3650}, depois a oeste, descendo até {area:442}.",
 	-- ["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {object:17183} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Para o norte pelas colinas. {npc:3650} espera nas ruínas de {quest:954}; Capetas Selvagens e Duendes Torpes lotam as ruínas, e Sátiros Deth'ryll a borda leste. A {object:17183} fica junto à estrada a oeste das ruínas; uma {quest:4723} está na praia no caminho até ele.",

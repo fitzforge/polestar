@@ -52,9 +52,8 @@ return {
 	["{npc:5911}: the soldiers and the pillager camp just east of {npc:3341}, on the way south"] = "{npc:5911}: Die Soldaten und der Plünderer lagern direkt östlich von {npc:3341}, auf dem Weg nach Süden",
 
 	-- Step 8: Field of Giants
-	-- {npc:3341} Gann Stonespire · {area:390} Field of Giants
-	-- plural, as words: Silithid Mounds = {object:3685} Silithid Mound · Silithid Swarmers = {npc:3252} Silithid Swarmer
-	["South of Camp Taurajo, on the road to {npc:3341}, the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them.\nCareful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit."] = "Südlich von Camp Taurajo, auf dem Weg zu {npc:3341}, verteilen sich die Silithid-Buckel über {area:390}; die Eier liegen darin, und Silithidschwärmer kommen heraus, um sie zu verteidigen.\nVorsicht: Silithidschwärmer setzen viele winzige Adds frei, die Zauber unterbrechen; Schadensschilde wie Dornen töten sie mit einem Treffer.",
+	-- plural, as words: Silithid Swarmers = {npc:3252} Silithid Swarmer
+	["Silithid Swarmers defend the mounds and release many tiny adds that interrupt spells, and damage shields such as Thorns kill those adds in one hit."] = "",
 
 	-- Step 10: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:359} Bael Modan
@@ -105,8 +104,8 @@ return {
 
 	-- Step 20: The flying machine
 	["The flying machine"] = "Die Flugmaschine",
-	-- {item:5021} Explosive Stick of Gann · {npc:3341} Gann Stonespire
-	["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "Die Flugmaschine der Zwerge steht auf ihrer Plattform in der Grabungsstätte. Benutze {item:5021}, den dir {npc:3341} gegeben hat, an ihr.",
+	-- {item:5021} Explosive Stick of Gann
+	["The {item:5021} destroys the dwarves' flying machine, on its platform inside the dig site."] = "",
 
 	-- Step 22: To Camp Taurajo
 	-- {area:378} Camp Taurajo
@@ -233,8 +232,8 @@ return {
 	-- {area:465} The Charred Vale
 	["{area:465}: kill these as you meet them"] = "{area:465}: Töte diese, wenn sie dir begegnen",
 	-- {area:465} The Charred Vale · {item:16312} Incendrites
-	-- plural, as words: Gaea Seeds = {item:16205} Gaea Seed · Burning Destroyers = {npc:4038} Burning Destroyer · Scorched Basilisks = {npc:4041} Scorched Basilisk
-	["South-west of Sun Rock lies the burned {area:465}. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop {item:16312}. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: the Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches here are level 27 and the valley floor is crowded: pull one at a time and keep to its edges."] = "Südwestlich vom Sonnenfels liegt das {area:465}. Pflanz die Gaeasamenkörner in die Erdhügel auf dem Talgrund; die Feuerelementare lassen {item:16312} fallen. Harpyien und Wegelagerinnen der Blutfurien nisten auf der Nordseite, Töterinnen und Wildfedern im Süden. Vorsicht: Die Brennenden Zerstörer, Versengten Basilisken und Sturmhexen der Blutfurien hier sind Stufe 27 und der Talgrund ist voll: Zieh sie einzeln und halte dich an seine Ränder.",
+	-- plural, as words: Burning Destroyers = {npc:4038} Burning Destroyer · Scorched Basilisks = {npc:4041} Scorched Basilisk
+	["{area:465} is south-west of Sun Rock, and its fire elementals drop {item:16312}. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches are level 27, and the valley floor is crowded."] = "",
 	-- {item:277936} Glittering Sunstone
 	["{item:277936}, from any Bloodfury harpy"] = "{item:277936}, von jeder Harpyie der Blutfurien",
 	-- plural, as words: Gaea Dirt Mounds = {object:177929} Gaea Dirt Mound
@@ -257,8 +256,8 @@ return {
 	["{item:5736}, from {quest:1096}"] = "{item:5736}, von {quest:1096}",
 
 	-- Step 49: The Flying Machine Airport
-	-- {object:19594} Venture Co. Copter Pad · {npc:4202} Gerenzo Wrenchwhistle · {item:5638} Toxic Fogger · {zone:1456} Thunder Bluff
-	["The {object:19594} is the platform just south-east of {npc:4202}'s tower: place Zamah's {item:5638} on it. Zamah takes it back on the next guide's {zone:1456} stop."] = "Der {object:19594} ist die Plattform gleich südöstlich des Turms von {npc:4202}: Stell Zamahs {item:5638} darauf. Zamah nimmt ihn beim Halt des nächsten Guides in {zone:1456} wieder an.",
+	-- {zone:1456} Thunder Bluff
+	["Zamah takes the fogger back at the next guide's {zone:1456} stop."] = "",
 	-- {item:5638} Toxic Fogger · {object:19594} Venture Co. Copter Pad
 	["Place the {item:5638} on the {object:19594}"] = "Platziere den {item:5638} auf dem {object:19594}",
 
@@ -319,8 +318,10 @@ return {
 	-- ["Ride north from the {area:380} to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the {area:380}. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "Reite von {area:380} nach Norden zum {area:384} und füll {item:15842} am {object:19464}, dann zurück zu {npc:3448} in {area:380}. Kein {skill:182}? {npc:3490} neben ihm verkauft {item:2449}, je drei, bis er nachfüllt.",
 	-- ["Savannah Patriarchs roam the plains east of the hills, and the Sprung Traps lie among them. {quest:876} leads the Witchwing harpies in the hills to the west."] = "Savannenpatriarchen streifen über die Ebenen östlich der Hügel, und die Ausgelösten Fallen liegen zwischen ihnen. {quest:876} führt die Harpyien der Hexenschwingen in den Hügeln im Westen an.",
 	-- ["South of Camp Taurajo the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them. Silithid Harvesters are rare: if you see one, kill it for its head."] = "Südlich von Camp Taurajo verteilen sich die Silithid-Buckel über {area:390}; die Eier liegen darin, und Silithidschwärmer kommen heraus, um sie zu verteidigen. Silithidernter sind selten: Siehst du einen, töte ihn für seinen Kopf.",
+	-- ["South of Camp Taurajo, on the road to {npc:3341}, the Silithid Mounds dot the {area:390}; the eggs lie in them, and Silithid Swarmers come out to defend them.\nCareful: Silithid Swarmers in the area release many tiny adds that interrupt spells; damage shields such as Thorns kill them in one hit."] = "Südlich von Camp Taurajo, auf dem Weg zu {npc:3341}, verteilen sich die Silithid-Buckel über {area:390}; die Eier liegen darin, und Silithidschwärmer kommen heraus, um sie zu verteidigen.\nVorsicht: Silithidschwärmer setzen viele winzige Adds frei, die Zauber unterbrechen; Schadensschilde wie Dornen töten sie mit einem Treffer.",
 	-- ["South of Gann, the Bael'dun dwarves dig at {area:359}. Excavators and Foremen work the pit; {npc:3392} (26) carries the journal: pull him alone."] = "Südlich von Gann graben die Zwerge von Bael'dun bei {area:359}. Ausgräber und Großknechte arbeiten in der Grube; {npc:3392} (26) trägt das Tagebuch: Zieh ihn allein.",
 	-- ["South-west of Bael Modan, {npc:12576} waits at the top of the {area:1718}."] = "Südwestlich von Bael Modan wartet {npc:12576} oben am {area:1718}.",
+	-- ["South-west of Sun Rock lies the burned {area:465}. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop {item:16312}. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south. Careful: the Burning Destroyers, Scorched Basilisks and Bloodfury Storm Witches here are level 27 and the valley floor is crowded: pull one at a time and keep to its edges."] = "Südwestlich vom Sonnenfels liegt das {area:465}. Pflanz die Gaeasamenkörner in die Erdhügel auf dem Talgrund; die Feuerelementare lassen {item:16312} fallen. Harpyien und Wegelagerinnen der Blutfurien nisten auf der Nordseite, Töterinnen und Wildfedern im Süden. Vorsicht: Die Brennenden Zerstörer, Versengten Basilisken und Sturmhexen der Blutfurien hier sind Stufe 27 und der Talgrund ist voll: Zieh sie einzeln und halte dich an seine Ränder.",
 	-- ["Stay stealthed: {npc:7287} carries the key to the tower; Gallywix and his lockbox are at the top. Gallywix is elite: grouping up is advised."] = "Bleib verstohlen: {npc:7287} trägt den Schlüssel zum Turm; Gallywix und seine Schließkassette sind oben. Gallywix ist Elite: Such dir am besten eine Gruppe.",
 	-- ["Sunscale Scytheclaws hunt the plains south of the {area:380}, around the {area:1697}; they drop the horns. Hand them in on your next pass through {area:392}."] = "Bluthornsensenklauen jagen auf den Ebenen südlich von {area:380}, um {area:1697}; sie lassen die Hörner fallen. Gib sie ab, wenn du das nächste Mal durch {area:392} kommst.",
 	-- ["Tauren: the {npc:11957} waits on the southern hill above the bridge. Skyborne: the {npc:272054} stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue."] = "Tauren: {npc:11957} wartet auf dem südlichen Hügel über der Brücke. Himmelsgeborene: {npc:272054} steht südlich der Zwillingsbrücken. Dann die Grabhügel östlich des Sees: Verlass deine Gestalt, klick die Statue am Eingang an für fünf Minuten Verstohlenheit, halte dich von den Geistern darin fern und nimm von jedem Relikt eins; {item:280680} liegt am Fuß der weißen Katzenstatue.",
@@ -330,6 +331,7 @@ return {
 	-- ["The Venture Co. Overseers and Enforcers at the mine in the north-east corner of the zone drop the {item:5097}."] = "Die Vorarbeiter und Vollstrecker der Venture Co. an der Mine in der Nordostecke des Gebiets lassen {item:5097} fallen.",
 	-- ["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away."] = "Die Fühler verschwinden fünfzehn Minuten nachdem sie fallen, also sammle sie jetzt, auf dem Rückweg nach Norden: Töte die Silithidschwärmer und Silithidkrabbler an den Buckeln im {area:390}, bis du fünf hast, und nimm dann sofort deinen Ruhestein zum {area:378}.",
 	-- ["The dwarves' flying machine sits on its platform inside the dig site."] = "Die Flugmaschine der Zwerge steht auf ihrer Plattform in der Grabungsstätte.",
+	-- ["The dwarves' flying machine sits on its platform inside the dig site. Use the {item:5021} that {npc:3341} gave you on it."] = "Die Flugmaschine der Zwerge steht auf ihrer Plattform in der Grabungsstätte. Benutze {item:5021}, den dir {npc:3341} gegeben hat, an ihr.",
 	-- ["The level-20 class quests in {zone:1454} ({npc:3354}, {npc:5892}, the Warlock and Rogue trainers) are only offered from level 20, so finish the level here before you fly. The Thunderhawk Hatchlings (18) on the plains south-west of the {area:380} and the Kolkar (14-15) at the {area:388} are the nearest mobs worth killing; you need well under a level."] = "Die Klassenquests der Stufe 20 in {zone:1454} ({npc:3354}, {npc:5892}, die Lehrer für Hexenmeister und Schurken) gibt es erst ab Stufe 20, also schließ die Stufe hier ab, bevor du fliegst. Die Donnerfalkenjungtiere (18) auf den Ebenen südwestlich von {area:380} und die Kolkar (14-15) an {area:388} sind die nächsten Gegner, die sich lohnen; dir fehlt deutlich weniger als eine Stufe.",
 	-- ["The pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "Die Piraten lagern am Strand südlich von {area:392}; {npc:3467} steht an seinem Südende.",
 	-- ["The top of the {area:1718}"] = "Die Spitze des {area:1718}",
@@ -339,6 +341,7 @@ return {
 	-- ["The {object:172960} is the canyon under the {object:172982}."] = "{object:172960} ist die Schlucht unter dem {object:172982}.",
 	-- ["The {object:177790} lies at the north edge of the {area:382}, by the Venture Co. tower. It holds the {item:15883} for {quest:30}."] = "{object:177790} liegt am Nordrand von {area:382}, beim Turm der Venture Co. Darin ist {item:15883} für {quest:30}.",
 	-- ["The {object:177792} lies at the north edge of the {area:382}, by the Venture Co. tower. It holds the {item:15883} for {quest:30}."] = "{object:177792} liegt am Nordrand von {area:382}, beim Turm der Venture Co. Darin ist {item:15883} für {quest:30}.",
+	-- ["The {object:19594} is the platform just south-east of {npc:4202}'s tower: place Zamah's {item:5638} on it. Zamah takes it back on the next guide's {zone:1456} stop."] = "Der {object:19594} ist die Plattform gleich südöstlich des Turms von {npc:4202}: Stell Zamahs {item:5638} darauf. Zamah nimmt ihn beim Halt des nächsten Guides in {zone:1456} wieder an.",
 	-- ["Thunderhawk Cloudscrapers circle over the same plains south of the camp."] = "Donnerfalkenwolkenkitzler kreisen über denselben Ebenen südlich des Lagers.",
 	-- ["Thunderheads graze on the plains just south of {area:378}. {quest:884}, a blue thunder lizard, roams among them: his Tailspike starts a quest."] = "Donnerköpfe grasen auf den Ebenen gleich südlich vom {area:378}. {quest:884}, eine blaue Donnerechse, streift zwischen ihnen umher: Ihr Schwanzstachel startet eine Quest.",
 	-- ["To {zone:1456}"] = "Nach {zone:1456}",

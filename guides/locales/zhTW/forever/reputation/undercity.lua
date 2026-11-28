@@ -34,7 +34,7 @@ return {
 	-- {area:154} Deathknell
 	["Around {area:154}"] = "{area:154}一帶",
 	-- {object:164662} Equipment Boxes · {quest:380} Night Web's Hollow · {npc:271961} Webbed Forsaken · {npc:1919} Samuel Fipps · {object:178090} Marla's Grave
-	["The {object:164662} are all around the village. {quest:380} is the mine north-west; the {npc:271961} hang inside. {npc:1919} waits at the ruined camp by the road north-east: bury his remains at {object:178090}, in the front row of the village graveyard."] = "{object:164662}遍佈村子四周。{quest:380}是西北方的礦洞；{npc:271961}吊在裡面。{npc:1919}在東北方路邊的廢棄營地等你：把他的遺骨埋到{object:178090}，就在村墓地的前排。",
+	["The {object:164662} are all around the village. {quest:380} is the mine to the north-west, with the {npc:271961} inside. {npc:1919} is at the ruined camp by the road to the north-east, and {object:178090} is in the front row of the village graveyard."] = "",
 	-- {npc:271961} Webbed Forsaken
 	["{npc:271961} freed"] = "{npc:271961}已釋放",
 	-- {object:178090} Marla's Grave · {item:16333} Samuel's Remains
@@ -62,8 +62,8 @@ return {
 	-- Step 9: Around Brill
 	-- {area:159} Brill
 	["Around {area:159}"] = "{area:159}一帶",
-	-- {item:286176} Executor's Motivator · {area:159} Brill · {quest:99141} Patience · {npc:1496} Deathguard Dillinger · {npc:251001} Deathguard Kristof · {npc:10666} Gordo · {npc:1525} Rotting Dead
-	["Use the {item:286176} on five Deathguards around {area:159}. For {quest:99141}, talk to {npc:1496} west of {area:159}, {npc:251001} at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}. The {npc:1525} walk around the old bridge west of {area:159}; the dry branches lie under the trees there. Darkhounds roam everywhere."] = "對{area:159}周圍的五名亡靈衛兵使用{item:286176}。{quest:99141}要找：{area:159}西邊的{npc:1496}、東邊驛站的{npc:251001}和路上的{npc:10666}。腐皮豺狼人在{area:159}以北的亂葬崗刨土。{npc:1525}在{area:159}以西的舊橋一帶走動；幹樹枝就在那裡的樹下。黑暗犬到處遊蕩。",
+	-- {area:159} Brill · {npc:10666} Gordo · {npc:1525} Rotting Dead
+	["The Deathguards are around {area:159}: Dillinger west of town, Kristof at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}, the {npc:1525} walk around the old bridge west of it with the dry branches under the trees there, and Darkhounds roam everywhere."] = "",
 	-- {area:159} Brill
 	["Motivate 5 Deathguards: the Deathguards around {area:159}"] = "激勵5名亡靈衛兵：{area:159}周圍的亡靈衛兵",
 
@@ -111,8 +111,8 @@ return {
 	["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there. Lady Sylvanas in the {object:36126} gives {quest:5961}, an introduction to {npc:11878}: {quest:6136}, his last quest here, needs it handed in."] = "等級55到60的任務給予全額聲望。首先是{area:152}：{faction:68}電梯旁的{npc:10879}會派你去那裡。{object:36126}的希瓦娜斯女士給予{quest:5961}，是給{npc:11878}的引薦：他在這裡的最後一個任務{quest:6136}需要先繳交它。",
 
 	-- Step 18: Bulwark: Scarlet Diversions
-	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity · {item:12814} Flame in a Bottle · {area:200} Dalson's Tears · {area:199} Felstone Field · {item:12807} Scourge Banner
-	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "{area:152}是從提里斯法通往{zone:1422}路上的被遺忘者營地。{npc:10837}的任務鏈派你去對付{zone:1422}的天災大鍋：約820點{faction:68}聲望。從他旁邊的箱子裡拿一個{item:12814}；燒掉{area:200}和{area:199}之間血色營地指揮帳篷，並在旁邊埋下{item:12807}。",
+	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity
+	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain against the Scourge cauldrons is worth about 820 {faction:68} reputation."] = "",
 	-- {quest:5096} Scarlet Diversions
 	["{quest:5096}, +100 (level 53)"] = "{quest:5096}，+100（53級）",
 	-- {object:176088} Scarlet Crusade Forward Camp (no name in this language: may be words)
@@ -127,8 +127,8 @@ return {
 	-- Step 20: Felstone Field and the Andorhal towers
 	-- {area:199} Felstone Field
 	["{area:199} and the Andorhal towers"] = "{area:199}和安多哈爾塔樓",
-	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field · {quest:5230} Return to the Bulwark · {item:12815} Beacon Torch
-	["{npc:11075} guards the cauldron at {area:199}. Click the cauldron after the kill to start {quest:5230}. Mark the four towers of Andorhal with the {item:12815} at their doors."] = "{npc:11075}守著{area:199}的瘟疫鍋。擊殺後點選瘟疫鍋開始{quest:5230}。用{item:12815}在安多哈爾四座塔樓的門口做標記。",
+	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field
+	["{npc:11075} guards the cauldron at {area:199}."] = "",
 	-- {object:176361} Scourge Cauldron
 	["the {object:176361}"] = "{object:176361}",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
@@ -177,9 +177,9 @@ return {
 	-- Step 29: Plaguebats, Quel'Lithien Lodge and Corin's Crossing
 	-- {area:2276} Quel'Lithien Lodge · {area:2264} Corin's Crossing
 	["Plaguebats, {area:2276} and {area:2264}"] = "瘟疫蝙蝠，{area:2276}和{area:2264}",
-	-- {area:2276} Quel'Lithien Lodge · {area:2268} Light's Hope Chapel · {item:15847} Quel'Thalas Registry · {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {item:15448} Coagulated Rot
+	-- {area:2276} Quel'Lithien Lodge · {item:15847} Quel'Thalas Registry · {area:2268} Light's Hope Chapel · {area:2264} Corin's Crossing · {item:15447} Living Rot
 	-- plural, as words: Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Monstrous Plaguebats = {npc:8602} Monstrous Plaguebat
-	["The Noxious Plaguebats fly in the south of the zone, the Monstrous Plaguebats further north-west. {area:2276} is north-west of {area:2268}; the {item:15847} lies inside. Do {area:2264} last: its Scourge drop {item:15447}, which lasts only 10 minutes. With 7 in your bags, use the {item:15454} at once for the {item:15448}."] = "劇毒瘟疫蝙蝠在該地區南部飛，巨型瘟疫蝙蝠在更西北方。{area:2276}在{area:2268}西北方；{item:15847}就在裡面。{area:2264}留到最後做：那裡的天災掉落的{item:15447}只能儲存10分鐘。揹包裡攢夠7個後，立刻使用{item:15454}換取{item:15448}。",
+	["Noxious Plaguebats fly in the south of the zone and Monstrous Plaguebats further north-west. {area:2276}, with the {item:15847} inside, is north-west of {area:2268}. The Scourge at {area:2264} drop {item:15447}, which lasts only 10 minutes."] = "",
 	-- {item:15448} Coagulated Rot · {item:15447} Living Rot · {item:15454} Mortar and Pestle
 	["{item:15448}: 7 {item:15447} and the {item:15454}"] = "{item:15448}：7個{item:15447}加{item:15454}",
 
@@ -230,8 +230,8 @@ return {
 	["read the {object:142715}"] = "閱讀{object:142715}",
 
 	-- Step 38: Shadra'Alor: Shadra
-	-- {item:9323} Gadrin's Parchment · {area:353} Shadra'Alor · {npc:2707} Shadra
-	["Read {item:9323} at the altar of {area:353} to call {npc:2707}, an elite level 55 spider: she drops her venom every time."] = "在{area:353}的祭壇讀取{item:9323}來召喚{npc:2707}，一隻55級精英蜘蛛：她每次必掉毒液。",
+	-- {npc:2707} Shadra
+	["{npc:2707}, an elite level 55 spider, always drops her venom."] = "",
 	-- {item:9324} Shadra's Venom · {npc:2707} Shadra
 	["{item:9324}, from {npc:2707}"] = "{item:9324}，出自{npc:2707}",
 
@@ -267,7 +267,13 @@ return {
 	-- ["Keep handing in {quest:7819} until {faction:68} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "持續繳交{quest:7819}，直到{faction:68}崇拜。{item:14047}：{zone:1423}的黑暗教徒和暗影法師（58-60級），或拍賣場。",
 	-- ["Keep handing in {quest:7819}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "持續繳交{quest:7819}，每次20個{item:14047}。{item:14047}：{zone:1423}的黑暗教徒和暗影法師（58-60級），或拍賣場。",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "科卡爾半人馬（30-33級）在這裡會掉落。拍賣場也買得到。",
+	-- ["Read {item:9323} at the altar of {area:353} to call {npc:2707}, an elite level 55 spider: she drops her venom every time."] = "在{area:353}的祭壇讀取{item:9323}來召喚{npc:2707}，一隻55級精英蜘蛛：她每次必掉毒液。",
+	-- ["The Noxious Plaguebats fly in the south of the zone, the Monstrous Plaguebats further north-west. {area:2276} is north-west of {area:2268}; the {item:15847} lies inside. Do {area:2264} last: its Scourge drop {item:15447}, which lasts only 10 minutes. With 7 in your bags, use the {item:15454} at once for the {item:15448}."] = "劇毒瘟疫蝙蝠在該地區南部飛，巨型瘟疫蝙蝠在更西北方。{area:2276}在{area:2268}西北方；{item:15847}就在裡面。{area:2264}留到最後做：那裡的天災掉落的{item:15447}只能儲存10分鐘。揹包裡攢夠7個後，立刻使用{item:15454}換取{item:15448}。",
+	-- ["The {object:164662} are all around the village. {quest:380} is the mine north-west; the {npc:271961} hang inside. {npc:1919} waits at the ruined camp by the road north-east: bury his remains at {object:178090}, in the front row of the village graveyard."] = "{object:164662}遍佈村子四周。{quest:380}是西北方的礦洞；{npc:271961}吊在裡面。{npc:1919}在東北方路邊的廢棄營地等你：把他的遺骨埋到{object:178090}，就在村墓地的前排。",
+	-- ["Use the {item:286176} on five Deathguards around {area:159}. For {quest:99141}, talk to {npc:1496} west of {area:159}, {npc:251001} at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}. The {npc:1525} walk around the old bridge west of {area:159}; the dry branches lie under the trees there. Darkhounds roam everywhere."] = "對{area:159}周圍的五名亡靈衛兵使用{item:286176}。{quest:99141}要找：{area:159}西邊的{npc:1496}、東邊驛站的{npc:251001}和路上的{npc:10666}。腐皮豺狼人在{area:159}以北的亂葬崗刨土。{npc:1525}在{area:159}以西的舊橋一帶走動；幹樹枝就在那裡的樹下。黑暗犬到處遊蕩。",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "{area:381}的風險投資公司執行者（16-17級）在這裡會掉落。拍賣場也買得到。",
+	-- ["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "{area:152}是從提里斯法通往{zone:1422}路上的被遺忘者營地。{npc:10837}的任務鏈派你去對付{zone:1422}的天災大鍋：約820點{faction:68}聲望。從他旁邊的箱子裡拿一個{item:12814}；燒掉{area:200}和{area:199}之間血色營地指揮帳篷，並在旁邊埋下{item:12807}。",
+	-- ["{npc:11075} guards the cauldron at {area:199}. Click the cauldron after the kill to start {quest:5230}. Mark the four towers of Andorhal with the {item:12815} at their doors."] = "{npc:11075}守著{area:199}的瘟疫鍋。擊殺後點選瘟疫鍋開始{quest:5230}。用{item:12815}在安多哈爾四座塔樓的門口做標記。",
 	-- ["{npc:14729} takes cloth for {faction:68} in {faction:68}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7819} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14729}在{faction:68}收取布料以提升{faction:68}聲望。毛料、絲綢、魔紋布和{item:14047}的首次捐獻（各60塊布）只能做一次，每塊布給的聲望最多；之後{quest:7819}可重複到崇拜。與其他種族主城崇拜後，可購買該種族的坐騎。Forever的傳承外交官天賦可提高聲望獲取。",
 	-- ["{npc:14729}: {item:14047} delivered"] = "{npc:14729}：{item:14047}已交付",
 	-- ["{quest:7819} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7819}每次繳交需要20個{item:14047}，可無限次重複。以20的倍數攜帶{item:14047}，一次全部連續繳交。{item:14047}：{zone:1423}的黑暗教徒和暗影法師（58-60級），或拍賣場。",

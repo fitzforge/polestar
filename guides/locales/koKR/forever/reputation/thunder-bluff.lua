@@ -113,9 +113,8 @@ return {
 	["{npc:264074}: {quest:96241} (Darkspear +100)"] = "{npc:264074}: {quest:96241} (다크스펠 +100)",
 
 	-- Step 19: Gloomrise
-	-- {area:17044} Gloomrise · {faction:81} Thunder Bluff · {item:273015} Toxin Extractor · {npc:264082} Broodmother Valraxx · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
-	-- plural, as words: Gnawed Corpses = {npc:264096} Gnawed Corpse
-	["{area:17044} is the tauren burial ground north of {faction:81}. Use the {item:273015} on the Gnawed Corpses. {npc:264082} waits at the heart of it; her body carries a {item:273658}: read it to start {quest:96294}."] = "{area:17044}은(는) {faction:81} 북쪽의 타우렌 매지터입니다. 갉아먹힌 시체에게 {item:273015}을(를) 사용하세요. {npc:264082}이(가) 그 심장부에서 기다리고, 그녀의 몸에는 {item:273658}이(가) 있습니다. 읽으면 {quest:96294}가 시작됩니다.",
+	-- {area:17044} Gloomrise · {faction:81} Thunder Bluff · {npc:264082} Broodmother Valraxx · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
+	["{area:17044} is the tauren burial ground north of {faction:81}. {npc:264082} is at its heart, and her body carries a {item:273658} that starts {quest:96294}."] = "",
 	-- {item:273181} Crystalline Silk
 	-- plural, as words: Gloomrise Spinners = {npc:264081} Gloomrise Spinner
 	["{item:273181}, from Gloomrise Spinners"] = "{npc:264081}에게서 얻는 {item:273181}",
@@ -239,6 +238,7 @@ return {
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "콜카르 켄타우로스(30-33레벨)가 이곳에서 떨어뜨립니다. 경매장도 이용할 수 있습니다.",
 	-- ["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "정예 파쇄기계 투자개발회사 클리어커터가 피즈스프로킷이 서 있던 곳 너머 광산 깊은 곳에서 일합니다. 그 열쇠가 {quest:98427}용입니다.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "{area:381}의 {npc:3283}(16-17레벨)이 이곳에서 떨어뜨립니다. 경매장도 이용할 수 있습니다.",
+	-- ["{area:17044} is the tauren burial ground north of {faction:81}. Use the {item:273015} on the Gnawed Corpses. {npc:264082} waits at the heart of it; her body carries a {item:273658}: read it to start {quest:96294}."] = "{area:17044}은(는) {faction:81} 북쪽의 타우렌 매지터입니다. 갉아먹힌 시체에게 {item:273015}을(를) 사용하세요. {npc:264082}이(가) 그 심장부에서 기다리고, 그녀의 몸에는 {item:273658}이(가) 있습니다. 읽으면 {quest:96294}가 시작됩니다.",
 	-- ["{npc:14728} takes cloth for {faction:81} in {faction:81}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7825} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14728}은(는) {faction:81}을(를) 위해 {faction:81}에서 옷감을 받습니다. 양모, 비단, 마법 옷감, {item:14047}의 첫 기부(각 60장)는 한 번만 할 수 있으며 옷감당 평판이 가장 높습니다. 그 뒤에는 {quest:7825}을(를) 확고한 동맹까지 반복합니다. 다른 종족의 도시와 확고한 동맹이 되면 그 종족의 탈것을 살 수 있습니다. Forever의 외교관 유산 특전은 평판 획득량을 늘려 줍니다.",
 	-- ["{npc:14728}: {item:14047} delivered"] = "{npc:14728}: {item:14047} 기부 완료",
 	-- ["{quest:7825} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7825}은(는) 제출할 때마다 {item:14047} 20장을 받으며 원하는 만큼 반복할 수 있습니다. {item:14047}을(를) 20장 단위로 가져와 한 번에 연달아 모두 제출하세요. {item:14047}: {zone:1423}의 {npc:8546}와(과) 어둠마법사(58-60레벨), 또는 경매장.",

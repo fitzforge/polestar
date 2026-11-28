@@ -49,10 +49,9 @@ return {
 
 	-- Step 9: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "Les ours et le camp Noirbois",
-	-- {area:442} Auberdine · {quest:2139} Tharnariun's Hope
+	-- {area:442} Auberdine
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	-- was: ["Rabid Thistle Bears roam the hills south of {area:442}: use {item:7586} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "Des Ours des chardons enragés parcourent les collines au sud d'{area:442} : utilisez {item:7586} sur l'un d'eux pour le capturer. Montez ensuite jusqu'au camp de furbolgs juste à l'est : rien à tuer pour l'instant."
-	["Rabid Thistle Bears roam the hills south of {area:442}: use {quest:2139} on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet."] = "",
+	["Rabid Thistle Bears roam the hills south of {area:442}. Nothing at the furbolg camp needs killing yet."] = "",
 	-- {npc:3701} Tharnariun Treetender
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "les Ours des chardons enragés les plus proches de {npc:3701}",
@@ -69,8 +68,8 @@ return {
 
 	-- Step 11: The red crystal
 	["The red crystal"] = "Le cristal rouge",
-	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
-	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Escaladez les montagnes à l'est d'{area:447} ; le {object:175524} repose sur une corniche.",
+	-- {object:175524} Mysterious Red Crystal · {area:447} Ameth'Aran
+	["The {object:175524} sits on a ledge in the mountains east of {area:447}."] = "",
 
 	-- Step 12: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {quest:1001} Buzzbox 411 · {quest:4723} Beached Sea Creature
@@ -139,7 +138,7 @@ return {
 
 	-- Step 22: Ameth'Aran
 	-- {area:447} Ameth'Aran
-	["Back north to {area:447}: the flame burns in the south of the ruins."] = "Retournez au nord jusqu'à {area:447} : la flamme brûle au sud des ruines.",
+	["The flame burns in the south of the {area:447} ruins, to the north."] = "",
 
 	-- Step 23: Anaya's Pendant
 	-- {npc:3667} Anaya Dawnrunner · {npc:2184} Lady Moongazer
@@ -251,9 +250,11 @@ return {
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446} à {zone:1426} ; {area:87} n'a pas de maître des chamans",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north to {area:447}: the flame burns in the south of the ruins."] = "Retournez au nord jusqu'à {area:447} : la flamme brûle au sud des ruines.",
 	-- ["Back south"] = "Retour au sud",
 	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "Des Guides Noirbois et des Messagers du Vent Noirbois tiennent le camp au sud-est d'{area:442}.",
 	-- ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "Les Guides Noirbois et les Parlevents occupent le camp au sud-est d'{area:442}.\nAttention : les Parlevents (13-14) lancent des sorts à distance et les furbolgs se tiennent par deux : attirez-les un par un.",
+	-- ["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Escaladez les montagnes à l'est d'{area:447} ; le {object:175524} repose sur une corniche.",
 	-- ["Follow the coast north-east to the {area:443}. Mathystra Relics lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "Suivez la côte vers le nord-est jusqu'aux {area:443}. Des Reliques de Mathystra jonchent les ruines ; des Myrmidons, des Ensorceleuses et des Guerriers Tempécaille les gardent, et des Maîtresses des bêtes Tempécaille arpentent le rivage.",
 	-- ["Follow the road north."] = "Suivez la route vers le nord.",
 	-- ["Follow the road south. Onu is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "Suivez la route vers le sud. Onu est l'ancien du Bosquet ; {npc:270269} et {npc:11218} dorment à côté de lui.",

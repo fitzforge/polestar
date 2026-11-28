@@ -121,7 +121,7 @@ return {
 	["{zone:1448}: Cursed and Tainted Oozes"] = "{zone:1448}: mocos malditos y corruptos",
 	-- {area:1763} Jaedenar · {area:1765} Bloodvenom Falls
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill one and use an empty jar on its remains."] = "Los mocos malditos y corruptos se deslizan por los arroyos y pozas viles alrededor de {area:1763} y {area:1765}: mata uno y usa un tarro vacío sobre sus restos.",
+	["Cursed and Tainted Oozes are found around the streams and fel pools near {area:1763} and {area:1765}."] = "",
 
 	-- Step 21: Tinker Town: the second jars
 	-- {object:171524} Tinker Town
@@ -133,7 +133,7 @@ return {
 	["{zone:1449}: Primal Oozes"] = "{zone:1449}: mocos primigenios",
 	-- {area:537} Fire Plume Ridge
 	-- plural, as words: Primal Oozes = {npc:6557} Primal Ooze · Glutinous Oozes = {npc:6559} Glutinous Ooze
-	["The Primal Oozes live in the pools around {area:537} in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "Los mocos primigenios viven en las pozas alrededor de {area:537}, en el centro del cráter; los mocos mucosos y glutinosos también llenan los tarros. Mata uno y usa un tarro sobre sus restos.",
+	["Primal Oozes live in the pools around {area:537} in the middle of the crater. Muculent and Glutinous Oozes also fill the jars."] = "",
 
 	-- Step 23: Tinker Town: hand in
 	-- {object:171524} Tinker Town
@@ -176,6 +176,8 @@ return {
 	-- ["Keep handing in {quest:7812}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Sigue entregando {quest:7812}, 20 {item:14047} cada vez. {item:14047}: Adeptos oscuros y Magos oscuros (nivel 58-60) en {zone:1423}, o la casa de subastas.",
 	-- ["Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too."] = "Los Bandidos Zarparrío y los Capataces Zarparrío (nivel 16-18) lo sueltan aquí. La casa de subastas también sirve.",
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "Los Mercenarios de la Hermandad en Stromgarde (nivel 31-32) lo sueltan aquí. La casa de subastas también sirve.",
+	-- ["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill one and use an empty jar on its remains."] = "Los mocos malditos y corruptos se deslizan por los arroyos y pozas viles alrededor de {area:1763} y {area:1765}: mata uno y usa un tarro vacío sobre sus restos.",
+	-- ["The Primal Oozes live in the pools around {area:537} in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "Los mocos primigenios viven en las pozas alrededor de {area:537}, en el centro del cráter; los mocos mucosos y glutinosos también llenan los tarros. Mata uno y usa un tarro sobre sus restos.",
 	-- ["{npc:14724} takes cloth for {faction:54} in {object:171524}, {zone:1455}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7812} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14724} acepta paño para {faction:54} en {object:171524}, {zone:1455}. Las primeras donaciones de Paño de lana, Paño de seda, Paño de tejido mágico y {item:14047} (60 paños cada una) se hacen una sola vez y dan la mayor reputación por paño; después, {quest:7812} se repite hasta Exaltado. Ser Exaltado con la ciudad de otra raza te permite comprar las monturas de esa raza. La ventaja Diplomático del Legado de Forever aumenta la reputación obtenida.",
 	-- ["{npc:14724}: {item:14047} delivered"] = "{npc:14724}: {item:14047} entregado",
 	-- ["{quest:7812} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7812} pide 20 {item:14047} por entrega y se repite cuantas veces quieras. Lleva {item:14047} en múltiplos de 20 y entrégalos todos de una vez, una entrega tras otra. {item:14047}: Adeptos oscuros y Magos oscuros (nivel 58-60) en {zone:1423}, o la casa de subastas.",

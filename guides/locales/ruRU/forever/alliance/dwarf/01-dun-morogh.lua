@@ -657,10 +657,8 @@ return {
 	-- Step 127: Tram to Stormwind
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "Поезд до {zone:1453}",
-	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
-	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	-- was: ["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "На платформе {zone:1455} у {area:2257} {npc:12997} просит помочь с крысами: используйте его {item:17117} на крысах Подземного хода вокруг платформы, сдайте их, затем отнесите его письмо его брату {npc:13018} на конце {zone:1453}."
-	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "",
+	-- {npc:12997} Monty · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:13018} Nipsy · {zone:1453} Stormwind
+	["{npc:12997} is on the {zone:1455} platform of the {area:2257}, and his brother {npc:13018} is at the {zone:1453} end. The tram has no map inside, so the city markers show the entrances, not the brothers."] = "",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
 	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}, на платформе {zone:1455}",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute

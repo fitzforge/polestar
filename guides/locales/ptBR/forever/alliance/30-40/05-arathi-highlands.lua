@@ -100,8 +100,8 @@ return {
 	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}."] = "{npc:6122} espera no porão de {object:2164}, em {object:2101}.",
 
 	-- Step 19: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {item:6913} Heartswood Core · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
-	["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}. Use the {item:6913} at the summoning circle there and defeat the succubus it calls. If you took {quest:65602}, hand him the {item:190309} too, place it at the same circle and defeat the incubus."] = "{npc:6122} espera no porão do {object:2164}, no {object:2101}. Use o {item:6913} no círculo de evocação de lá e derrote a súcubo que ele chama. Se você pegou {quest:65602}, entregue também a {item:190309} a ele, coloque-a no mesmo círculo e derrote o íncubo.",
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {zone:1453} Stormwind · {object:2101} Mage Quarter
+	["{npc:6122} is in the cellar of the {object:2164}, in {zone:1453}'s {object:2101}."] = "",
 	-- {npc:5677} Summoned Succubus
 	["{npc:5677}, at the summoning circle"] = "{npc:5677}, no círculo de evocação",
 	-- {quest:65602} What Is Love?
@@ -439,5 +439,6 @@ return {
 	-- ["{npc:2789}: {npc:2793}'s cave comes after {area:327}"] = "{npc:2789}: a caverna de {npc:2793} vem depois de {area:327}",
 	-- ["{npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "{npc:2793}, um ogro mago, ocupa a caverna no extremo sul do vale Cascasseca.",
 	-- ["{npc:5476} guards the road junction in the west of the swamp. {npc:217412} stands a short way north of him."] = "{npc:5476} guarda o entroncamento no oeste do pântano. {npc:217412} fica um pouco ao norte dele.",
+	-- ["{npc:6122} waits in the {object:2164}'s cellar, in the {object:2101}. Use the {item:6913} at the summoning circle there and defeat the succubus it calls. If you took {quest:65602}, hand him the {item:190309} too, place it at the same circle and defeat the incubus."] = "{npc:6122} espera no porão do {object:2164}, no {object:2101}. Use o {item:6913} no círculo de evocação de lá e derrote a súcubo que ele chama. Se você pegou {quest:65602}, entregue também a {item:190309} a ele, coloque-a no mesmo círculo e derrote o íncubo.",
 	-- ["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455} and train with {npc:258098}. {npc:1573} in the {object:32372} flies to {area:271} too."] = "{zone:1453} não tem instrutor de xamã: pegue o {area:2257} no {object:28027} até {zone:1455} e treine com {npc:258098}. {npc:1573}, na {object:32372}, também voa para {area:271}.",
 }

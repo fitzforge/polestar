@@ -32,8 +32,7 @@ return {
 
 	-- Step 3: Boars, weapons and peons
 	["Boars, weapons and peons"] = "Sangliers, armes et péons",
-	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
-	["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "Les armes d'entraînement sont posées au sol dans la Tanière et parmi les sangliers au nord. Pour les péons : ciblez un {npc:10556} endormi et utilisez la {item:16114} sur lui.",
+	["The training weapons lie on the ground in the Den and among the boars to the north."] = "",
 	-- {npc:10556} Lazy Peon · {item:16114} Foreman's Blackjack
 	["{npc:10556}: hit it with the {item:16114}"] = "{npc:10556} : frappez-le avec la {item:16114}",
 	-- {npc:10556} Lazy Peon
@@ -231,6 +230,7 @@ return {
 	-- ["Keep handing in {quest:7837} until {faction:530} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Continuez à rendre {quest:7837} jusqu'à être Exalté auprès de {faction:530}. {item:14047} : Adeptes noirs et Ombremages (niveau 58-60) dans les {zone:1423}, ou l'hôtel des ventes.",
 	-- ["Keep handing in {quest:7837}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Continuez à rendre {quest:7837}, 20 {item:14047} à la fois. {item:14047} : Adeptes noirs et Ombremages (niveau 58-60) dans les {zone:1423}, ou l'hôtel des ventes.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "Les centaures kolkar (niveau 30-33) en lâchent ici. L'hôtel des ventes fonctionne aussi.",
+	-- ["The training weapons lie on the ground in the Den and among the boars to the north. For the peons: target a sleeping {npc:10556} and use the {item:16114} on it."] = "Les armes d'entraînement sont posées au sol dans la Tanière et parmi les sangliers au nord. Pour les péons : ciblez un {npc:10556} endormi et utilisez la {item:16114} sur lui.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Les Massacreurs de la KapitalRisk de la {area:381} (niveau 16-17) en lâchent ici. L'hôtel des ventes fonctionne aussi.",
 	-- ["{npc:14727} takes cloth for {faction:530} in the {object:172961}, {zone:1454}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7837} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14727} prend les étoffes pour {faction:530} dans la {object:172961}, à {zone:1454}. Les premiers dons d'étoffe de laine, de soie, de tisse-mage et d'{item:14047} (60 étoffes chacun) se font une fois et donnent le plus de réputation par étoffe ; ensuite, {quest:7837} se répète jusqu'à Exalté. Être Exalté auprès de la ville d'une autre race permet d'acheter les montures de cette race. L'atout Diplomate de l'Héritage de Forever augmente les gains de réputation.",
 	-- ["{npc:14727}: {item:14047} delivered"] = "{npc:14727} : {item:14047} livrée",

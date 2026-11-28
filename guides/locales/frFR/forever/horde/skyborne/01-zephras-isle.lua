@@ -356,8 +356,8 @@ return {
 	["The {object:148418}"] = "{object:148418}",
 
 	-- Step 79: The Eternal Flame
-	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
-	["Back to {npc:268592}. Wait for him to light the {npc:268762}, then carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638} before the timer runs out."] = "Retournez voir {npc:268592}. Attendez qu'il allume {npc:268762}, puis portez la flamme directement jusqu'à {npc:268679}, à côté de {npc:252382} à {area:16638}, avant la fin du temps imparti.",
+	-- {object:148418} Eternal Flame · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar · {npc:268592} Olariaan Swiftburn
+	["Once taken, the {object:148418} lasts six minutes, so the walk to the {npc:268679} beside {npc:252382} in {area:16638} has no room for detours. If it runs out, the quest can be taken again from {npc:268592}."] = "",
 	-- {npc:252382} Sessaria Skystride · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
 	["{npc:252382}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:252382} : {npc:2523}, votre {item:5176} et {item:263412}",
 
@@ -543,6 +543,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:268592}, then west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "Retournez voir {npc:268592}, puis allez vers l'ouest dans les {area:16623} : la demeure de {npc:268605} est dans les collines au sud des lacs des Clampants chantevent.",
+	-- ["Back to {npc:268592}. Wait for him to light the {npc:268762}, then carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638} before the timer runs out."] = "Retournez voir {npc:268592}. Attendez qu'il allume {npc:268762}, puis portez la flamme directement jusqu'à {npc:268679}, à côté de {npc:252382} à {area:16638}, avant la fin du temps imparti.",
 	-- ["Bandit Highwaymen"] = "Bandits de grand chemin",
 	-- ["Climb the watchtower in the village, jump off the top and use {spell:1259416} to float down."] = "Montez en haut de la tour de guet du village, sautez du sommet et utilisez {spell:1259416} pour redescendre en planant.",
 	-- ["Faladiel stands on the hill west of the falls, north of {area:16638}."] = "Faladiel se tient sur la colline à l'ouest des chutes, au nord de {area:16638}.",

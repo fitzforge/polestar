@@ -356,8 +356,8 @@ return {
 	["The {object:148418}"] = "{object:148418}",
 
 	-- Step 79: The Eternal Flame
-	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
-	["Back to {npc:268592}. Wait for him to light the {npc:268762}, then carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638} before the timer runs out."] = "{npc:268592}에게 돌아가세요. 그가 {npc:268762}에 불을 붙이면, 시간이 끝나기 전에 불꽃을 곧장 {area:16638}의 {npc:252382} 옆 {npc:268679}(으)로 가져가세요.",
+	-- {object:148418} Eternal Flame · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar · {npc:268592} Olariaan Swiftburn
+	["Once taken, the {object:148418} lasts six minutes, so the walk to the {npc:268679} beside {npc:252382} in {area:16638} has no room for detours. If it runs out, the quest can be taken again from {npc:268592}."] = "",
 	-- {npc:252382} Sessaria Skystride · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
 	["{npc:252382}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:252382}: {npc:2523}, {item:5176}, {item:263412}",
 
@@ -543,6 +543,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:268592}, then west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "{npc:268592}에게 돌아간 뒤 서쪽 {area:16623}(으)로 가세요. {npc:268605}의 집은 바람노래 집게발 호수 남쪽 언덕에 있습니다.",
+	-- ["Back to {npc:268592}. Wait for him to light the {npc:268762}, then carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638} before the timer runs out."] = "{npc:268592}에게 돌아가세요. 그가 {npc:268762}에 불을 붙이면, 시간이 끝나기 전에 불꽃을 곧장 {area:16638}의 {npc:252382} 옆 {npc:268679}(으)로 가져가세요.",
 	-- ["Bandit Highwaymen"] = "산적 노상강도",
 	-- ["Climb the watchtower in the village, jump off the top and use {spell:1259416} to float down."] = "마을의 감시탑에 올라 꼭대기에서 뛰어내린 뒤 {spell:1259416}(으)로 천천히 내려오세요.",
 	-- ["Follow the road south to {area:16624}, in the middle of the isle."] = "길을 따라 남쪽으로 섬 한가운데의 {area:16624}에 가세요.",

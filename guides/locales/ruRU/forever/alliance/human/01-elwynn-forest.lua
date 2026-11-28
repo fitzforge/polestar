@@ -460,16 +460,16 @@ return {
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Раз уж вы здесь: изучите посохи у NPC {npc:11867} ({object:2096}, 10 серебра); при прокачке посох дает больше характеристик для заклинаний, чем одноручное оружие.",
 
 	-- Step 91: Mirror Lake
-	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
-	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Выйдите из города {zone:1453} через главные ворота. Водопад ({quest:1861}) – к юго-западу от ворот, по пути на запад в зону {zone:1436}: наполните {item:7207} у его подножия.",
+	-- {quest:1861} Mirror Lake · {zone:1453} Stormwind · {zone:1436} Westfall
+	["The {quest:1861} waterfall is south-west of {zone:1453}'s main gate, on the way west to {zone:1436}."] = "",
 
 	-- Step 92: Surena Caledon
 	-- {area:87} Goldshire · {area:62} Brackwell Pumpkin Patch · {npc:881} Surena Caledon
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Возвращайтесь через {area:87} и на восток вдоль дороги к {area:62}. {npc:881} (9 уровня) стоит у фермерского домика.",
 
 	-- Step 93: The Binding
-	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
-	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Назад к {npc:6122}. Используйте {item:6928} у круга призыва в подвале ({object:2164}) и победите призванного демона Бездны.",
+	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {area:1519} Stormwind · {object:2101} Mage Quarter
+	["{npc:6122} and the summoning circle are in the cellar of the {object:2164}, in {area:1519}'s {object:2101}."] = "",
 	["Subdue the voidwalker"] = "Одолейте демона Бездны",
 
 	-- Step 94: Back to Elwynn Forest
@@ -536,6 +536,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to the {area:120}, by the road to {zone:1436}. {npc:963} stands outside the barracks, {npc:955} beside him."] = "Назад на юг. Цель: {area:120}, у дороги в зону {zone:1436}. {npc:963} стоит у казарм, {npc:955} – рядом с ним.",
 	-- ["Back to the Cathedral of Light."] = "Назад в Собор Света.",
+	-- ["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Назад к {npc:6122}. Используйте {item:6928} у круга призыва в подвале ({object:2164}) и победите призванного демона Бездны.",
 	-- ["Bait ingredients"] = "Ингредиенты для приманки",
 	-- ["Boar meat"] = "Кабанина",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Волшебники-плуты из Братства Справедливости стоят лагерем на берегах ({area:86}); с них падают и красные льняные банданы. {object:56} лежит в деревне мурлоков на северо-восточном берегу.",
@@ -555,6 +556,7 @@ return {
 	-- ["If you skipped {quest:91752}, grind here to level 5.77 to stay on the route's plan."] = "Если вы пропустили {quest:91752}, убивайте монстров здесь до уровня 5.77, чтобы не отстать от маршрута.",
 	-- ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "В туннелях рудника работают кобольды-работники. {npc:248362} ждет за вторым поворотом направо.",
 	-- ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "В туннелях рудника работают кобольды-работники. {npc:248362} ждет за вторым поворотом направо.\nОсторожно: {npc:248362} (3) – элитный противник: не трогайте его, если вы не с другом.",
+	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Выйдите из города {zone:1453} через главные ворота. Водопад ({quest:1861}) – к юго-западу от ворот, по пути на запад в зону {zone:1436}: наполните {item:7207} у его подножия.",
 	-- ["Level 5.48"] = "Уровень 5.48",
 	-- ["Level 5.77"] = "Уровень 5.77",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "Мурлоки-добытчики и мурлоки-скрытни занимают реку к югу от моста. {npc:473} из Братства Справедливости ходит здесь: {area:62}, к западу от нее. По пути добейте лесных хищников и молодых лесных медведей.",

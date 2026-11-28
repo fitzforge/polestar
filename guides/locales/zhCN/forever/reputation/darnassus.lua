@@ -101,10 +101,11 @@ return {
 	["{area:442}: the coast and the woods"] = "{area:442}：海岸和树林",
 	-- {area:445} Cliffspring Falls
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "镇子南边的熊怪营地可完成 熊怪的威胁；狂暴蓟熊在镇子南边的森林中游荡；镇子东南方亚米萨兰废墟中的上层精灵幽灵带着遗物，安娜雅的幽灵也在那里走动；骸骨在镇子南边的海滩上；蘑菇长在东北方 {area:445} 的洞穴里。",
+	["The furbolg camp and the Rabid Thistle Bears are in the woods south of town, and the bones lie on the beach south of town. The relics come from the Highborne ghosts of the Ruins of Ameth'Aran to the south-east, where Anaya's ghost also walks, and the mushrooms grow in the {area:445} cave to the north-east."] = "",
 	["the corrupt furbolg camp south of town"] = "镇子南边被腐化的熊怪营地",
-	-- {npc:2164} Rabid Thistle Bear · {quest:2139} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
-	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}：对它使用{quest:2139}，再将它带回{npc:3701}处",
+	-- {npc:2164} Rabid Thistle Bear · {item:7586} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
+	-- was: ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}：对它使用{quest:2139}，再将它带回{npc:3701}处"
+	["{npc:2164}: use {item:7586} on it and lead it back to {npc:3701}"] = "",
 	-- {npc:2164} Rabid Thistle Bear
 	["Capture a {npc:2164}"] = "捕捉一只{npc:2164}",
 	-- {quest:954} Bashal'Aran
@@ -129,7 +130,7 @@ return {
 	["{area:442}: the seal, the {npc:6788} and the pelts"] = "{area:442}：封印、{npc:6788} 和毛皮",
 	-- {item:5338} Ancient Moonstone Seal · {quest:956} Bashal'Aran · {npc:6788} Den Mother · {zone:1439} Darkshore
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "{item:5338} 由 {quest:956} 的萨特掉落；在那里的火焰处摧毁封印。{npc:6788} 栖息在 {quest:956} 东北；月夜雄虎和月夜雌虎则在 {zone:1439} 南部游荡。",
+	["The {item:5338} drops from the satyrs of {quest:956}. The {npc:6788} lairs north-east of {quest:956}, and Moonstalker Sires and Matriarchs roam southern {zone:1439}."] = "",
 	["the seal at the ancient flame"] = "远古火焰处的封印。",
 
 	-- Step 20: A Donation of Silk
@@ -168,6 +169,8 @@ return {
 	["{npc:9047}, beside Fandral in the {area:1658}, takes the soil. {npc:4217} sells the {item:11020} and Packets of Tharlendris Seeds. With a seed packet and 2 {quest:3764} in your bags, use the pouch to grow an {item:11024} and open it: about one casing in three holds {item:11040} (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things."] = "{area:1658} 的范达尔身边，{npc:9047} 会收下泥土。{npc:4217} 出售 {item:11020} 和萨伦迪斯种子包。背包里带着一包种子和 2 个 {quest:3764} 时，使用种植袋长出 {item:11024}，再打开：约三分之一的果壳里有 {item:11040}（1 至 5 个），其余是其他草药。种植袋每 10 分钟能用一次，所以做其他事情时，冷却一好就用。",
 
 	-- Step 33: Darnassus: Morrowgrain Research
+	-- {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
+	["Each casing needs a seed packet and 2 {quest:3764}, only about one in three holds {item:11040} (1 to 5), and the pouch works once every 10 minutes."] = "",
 	-- {item:11040} Morrowgrain
 	["{item:11040}: grow it here and open the casings"] = "{item:11040}：在这里种植，并打开外壳",
 
@@ -204,8 +207,11 @@ return {
 	-- ["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation (280 at a fifth) in an hour at 60. The givers stand along the town's street and pier. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "可选：{zone:1439} 的 {area:442}，从 {area:702} 坐船可到，60级时约一小时获得1,400点声望（若只有五分之一则为280点）。任务给予者站在镇子街道和码头沿线。经典版中，低于你6级或更多的任务奖励会减少（60级时为五分之一）；一份无限服测试报告称会给全额声望。首次交还即可判断：如果只有五分之一，就跳过这些任务点。跳过此步骤即可跳过该任务点。",
 	-- ["Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too."] = "这里的河爪强盗和河爪监工（16-18级）会掉落。也可以去拍卖行购买。",
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "激流堡的辛迪加雇佣兵（31-32级）会掉落。也可以去拍卖行购买。",
+	-- ["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "镇子南边的熊怪营地可完成 熊怪的威胁；狂暴蓟熊在镇子南边的森林中游荡；镇子东南方亚米萨兰废墟中的上层精灵幽灵带着遗物，安娜雅的幽灵也在那里走动；骸骨在镇子南边的海滩上；蘑菇长在东北方 {area:445} 的洞穴里。",
+	-- ["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "{item:5338} 由 {quest:956} 的萨特掉落；在那里的火焰处摧毁封印。{npc:6788} 栖息在 {quest:956} 东北；月夜雄虎和月夜雌虎则在 {zone:1439} 南部游荡。",
 	-- ["{npc:14725} takes cloth for {faction:69} in {faction:69}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7801} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14725}在{faction:69}收取布料以提升{faction:69}声望。首次捐献毛料、丝绸、魔纹布和{item:14047}（各60块）只能做一次，每块布给的声望最多；之后{quest:7801}可重复做到崇拜。与其他种族的主城达到崇拜后，可购买该种族的坐骑。Forever的传承外交官特权可提高声望获取。",
 	-- ["{npc:14725}: {item:14047} delivered"] = "{npc:14725}：已交付{item:14047}",
+	-- ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}：对它使用{quest:2139}，再将它带回{npc:3701}处",
 	-- ["{quest:3803} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60. The chain before it is level 50 (in Classic a fifth at 60): 220 at full. {npc:6735} sends you to {npc:3516} in the {area:1658}; he wants 20 {quest:3764}. (The innkeepers of {zone:1453} and {zone:1455} give the same start.)"] = "{quest:3803} 可无限重复，每次收取 10 个 {item:11040}，奖励 50 点声望，60 级仍给全额。前置任务链为 50 级任务（经典怀旧服中 60 级只得五分之一）：全额共 220 点。{npc:6735} 让你去 {area:1658} 找 {npc:3516}；他需要 20 个 {quest:3764}。（{zone:1453} 和 {zone:1455} 的旅店老板也提供相同的起始任务。）",
 	-- ["{quest:7801} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7801}每次交还需要20块{item:14047}，可无限重复。按20的倍数带上{item:14047}，一次接一次全部交还。{item:14047}：{zone:1423}的黑暗教徒和暗影法师（58-60级），或拍卖行。",
 	-- ["{quest:7801}: 50 reputation for 20 {item:14047}, as often as you like. After the four first donations a Human, Dwarf or Gnome stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 {item:14047} (Night Elves start 900 higher: 88 turn-ins; Skyborne start at Neutral 500, so 7,900 away: 158, two fewer after Exploring the Alliance). {quest:4183} and the {item:11040} chain above take 8 turn-ins off, and every 10 {item:11040} you hand in counts as one more; each hub you did takes 20 to 28 more off if it paid in full. More quests pay {faction:69}, in full while they are no more than 5 levels below you: the rest of {zone:1439} (about 3,400 more), {area:415} in {zone:1440} (about 3,900) and Feathermoon in {zone:1444} (about 1,700). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your {item:14047} at once."] = "{quest:7801}：每20块{item:14047}换50声望，可无限重复。完成最初四次捐献后，人类、矮人或侏儒约为友善700/6,000，距尊敬还差5,300：需要交还106次、2,120块{item:14047}（暗夜精灵起点高900：需要88次；天裔从中立500开始，还差7,900：需要158次，完成联盟之旅后少两次）。{quest:4183}和上面的{item:11040}任务线可减少8次交布，之后每交10个{item:11040}又可再少一次；每完成一个任务点的任务，若按全额奖励，还可再少20到28次。更多任务会奖励{faction:69}声望，在任务等级低于自身不超过5级时可获全额：{zone:1439}其余任务（另约3,400）、{zone:1440}的{area:415}（约3,900），以及{zone:1444}的羽月要塞（约1,700）。每次获得主城声望，还会向其余三座联盟主城各溢出四分之一（此处未计入）。一次性交还所有{item:14047}。",

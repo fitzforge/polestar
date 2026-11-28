@@ -159,9 +159,9 @@ return {
 	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "El goblin {npc:10302} está en {area:543}, justo al este de la torre de cristal.",
 
 	-- Step 32: Krakle's Thermometer
-	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
+	-- {area:537} Fire Plume Ridge
 	-- plural, as words: Living Blazes = {npc:6521} Living Blaze · Scorching Elementals = {npc:6520} Scorching Elemental
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "Cabalga al este hasta {area:537}, súbelo y usa {npc:10541} en la grieta de lava cerca de la cima; luego regresa al oeste con {npc:10302}.\nCuidado: las llamaradas vivientes (54-55) y los elementales agostadores (53-54) arden en las laderas: sube por el sendero y atrae solo lo que esté en él.",
+	["Living Blazes (54-55) and Scorching Elementals (53-54) roam the slopes of {area:537}, and the path up has the fewest."] = "",
 
 	-- Step 33: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
@@ -175,7 +175,7 @@ return {
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "Escolta a {npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Lleva a {npc:9999} al norte hasta {area:541}. Cuando se desmaye, usa {item:11804} en él para despertarlo.",
+	["{npc:9999} faints along the way to {area:541}, and {item:11804} wakes him."] = "",
 
 	-- Step 36: J.D. Collie
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:9117} J.D. Collie
@@ -255,9 +255,6 @@ return {
 	-- Step 55: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Sentry Braziers"] = "Braseros centinela",
-	-- {object:149047} Torch of Retribution
-	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "Lleva la {object:149047} al sur por el borde de la Caldera y enciende los cuatro blandones de avizor, del suroeste hacia el este.",
 
 	-- Step 56: Squire Maltrake
 	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade
@@ -359,8 +356,7 @@ return {
 
 	-- Step 78: Scarlet forward camp
 	["Scarlet forward camp"] = "Campamento avanzado Escarlata",
-	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {item:12814} Flame in a Bottle
-	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Desde {area:152}, sigue el camino al este hacia {zone:1422}. Las tiendas de la Cruzada Escarlata están justo pasada la granja de Piedramácula, entre {area:199} y {area:200}. Quema la tienda de mando con {item:12814} y planta el estandarte de la Plaga. Cuidado: los Escarlatas alrededor de las tiendas llegan a 54 y los invocadores lanzan hechizos: entra por el lado más cercano a la tienda de mando y deja en paz a los demás.",
+	["The Scarlets around the tents reach level 54, and the Invokers are casters."] = "",
 
 	-- Step 79: Janice Felstone
 	-- {npc:10778} Janice Felstone
@@ -378,6 +374,7 @@ return {
 	-- ["Bloodpetal Flayers"] = "Despellejadores Sangrepétalo",
 	-- ["Careful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "Cuidado: Los obreros Gorishi que bajan del 45 % de salud tienen un 50 % de probabilidad de pedir ayuda a los aliados en 25 m.",
 	-- ["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.\nBelow level 52, keep hunting the ravasaurs here after the eighth claw: {quest:4061} at {area:340} needs level 52, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "Cuidado: Hay muchos ravasaurios rondando la zona, así que es fácil atraer varios a la vez.\nPor debajo del nivel 52, sigue cazando ravasaurios aquí después de la octava garra: {quest:4061} en {area:340} necesita nivel 52, y las misiones de las Tierras de la Peste al final de esta guía son de nivel 55. O, en grupo, haz la mazmorra {area:1417} o la mazmorra {area:2100}.",
+	-- ["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "Lleva la {object:149047} al sur por el borde de la Caldera y enciende los cuatro blandones de avizor, del suroeste hacia el este.",
 	-- ["Darrowshire Spirits"] = "Espíritus de Villa Darrow ({npc:11064})",
 	-- ["Fly to {area:1637} and train before the {object:3202} zeppelin: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "Vuela a {area:1637} y entrena antes del zepelín a {object:3202}: la parada en {zone:1458} más adelante en esta guía no tiene instructor de cazador ni de chamán.",
 	-- ["Fly to {area:1637}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {zone:1418}' west edge."] = "Vuela a {area:1637}, toma el zepelín a {object:3202} y desde allí vuela a {area:340}, construido en los acantilados del borde oeste de {zone:1418}.",
@@ -389,6 +386,7 @@ return {
 	-- ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Para tu recorrido por {area:1584}, lo siguiente, de paso por {area:254}: el cartel de {object:164867} en {area:340} quiere que diezmes a los enanos Anvilrage de adentro.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "Libera a los Espíritus de Villa Darrow ({npc:11064}): habla con ellos",
 	-- ["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Desde aquí recoge cada {npc:271301} (azul, verde, rojo, amarillo) y cada montón de {quest:3761} que pases: 25 de tierra en total, 20 para Hamuul y 5 para Morterozugg.",
+	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {item:12814} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Desde {area:152}, sigue el camino al este hacia {zone:1422}. Las tiendas de la Cruzada Escarlata están justo pasada la granja de Piedramácula, entre {area:199} y {area:200}. Quema la tienda de mando con {item:12814} y planta el estandarte de la Plaga. Cuidado: los Escarlatas alrededor de las tiendas llegan a 54 y los invocadores lanzan hechizos: entra por el lado más cercano a la tienda de mando y deja en paz a los demás.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Desde {area:152}, sigue el camino al este hacia {zone:1422}. Las tiendas de la Cruzada Escarlata están justo pasando la Granja Piedramácula, entre {area:199} y {area:200}. Quema la tienda de mando con {object:176092} y planta el estandarte de la Plaga.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "Desde {area:152}, sigue el camino al este hacia {zone:1422}. Las tiendas de la Cruzada Escarlata están justo pasando la Granja Piedramácula, entre {area:199} y {area:200}. Quema la tienda de mando con {object:176092} y planta el estandarte de la Plaga. Cuidado: los Escarlata alrededor de las tiendas llegan al nivel 54 y los invocadores lanzan hechizos: entra por el lado más cercano a la tienda de mando y deja en paz a los demás.",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {area:490}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "Desde {area:1938} cabalga al oeste hasta la larga rampa que baja serpenteando a {area:490}; luego sigue la pared norte del cráter hasta {area:541}, un campamento en las cuevas del acantilado. Aquí todos son neutrales.",
@@ -400,6 +398,7 @@ return {
 	-- ["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "Guarda {quest:5152}: Marlene vive en {area:197}, en {zone:1422}.",
 	-- ["Keep {quest:5901}: its termite mounds are in {area:2627}, on the next guide's ride to Tirion. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "Guarda {quest:5901}: sus montículos de termitas están en {area:2627}, en el camino hacia Tirion de la siguiente guía. La siguiente guía empieza con {npc:10739} junto a {area:202}, al sureste de aquí.",
 	-- ["Lashers and Threshers"] = "Azotadores y Trilladores",
+	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Lleva a {npc:9999} al norte hasta {area:541}. Cuando se desmaye, usa {item:11804} en él para despertarlo.",
 	-- ["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "Sal de {zone:1458} y cabalga al este por el camino a través de {area:85} hasta {area:152}, el fuerte de los Renegados en la frontera.",
 	-- ["Level 51"] = "Nivel 51",
 	-- ["North of Torwa, a dead Threshadon lies by the water."] = "Al norte de Torwa, un trillanodonte muerto yace junto al agua.",
@@ -408,6 +407,7 @@ return {
 	-- ["Pterrordax"] = "Pterrordáctilo",
 	-- ["Pterrordax fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for {npc:9998}."] = "Los pterrordáctilos sobrevuelan el este del cráter, desde las laderas debajo del refugio hacia el sur; sus escamas palmeadas son para {npc:9998}.",
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "Cabalga al este hasta {area:537}, súbelo y usa {npc:10541} en la grieta de lava cerca de la cima; luego regresa al oeste con {npc:10302}.",
+	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "Cabalga al este hasta {area:537}, súbelo y usa {npc:10541} en la grieta de lava cerca de la cima; luego regresa al oeste con {npc:10302}.\nCuidado: las llamaradas vivientes (54-55) y los elementales agostadores (53-54) arden en las laderas: sube por el sendero y atrae solo lo que esté en él.",
 	-- ["Ride north along the east side. Bloodpetal Lashers and Threshers fill the jungle."] = "Cabalga al norte por el lado este. Los Azotadores y Trilladores Sangrepétalo llenan la selva.",
 	-- ["Ride north back to {area:541}."] = "Cabalga al norte de vuelta a {area:541}.",
 	-- ["Ride north back to {area:541}: {npc:9117} below ground, {npc:9997} beside the flight master."] = "Regresa al norte a {area:541}: {npc:9117} bajo tierra, {npc:9997} junto al maestro de vuelo.",

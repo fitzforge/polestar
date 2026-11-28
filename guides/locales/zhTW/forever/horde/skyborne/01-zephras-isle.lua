@@ -356,8 +356,8 @@ return {
 	["The {object:148418}"] = "{object:148418}",
 
 	-- Step 79: The Eternal Flame
-	-- {npc:268592} Olariaan Swiftburn · {npc:268762} Brazier of Offering · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar
-	["Back to {npc:268592}. Wait for him to light the {npc:268762}, then carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638} before the timer runs out."] = "回去找{npc:268592}。等他點燃{npc:268762}，然後在計時結束前把火焰直接帶到{area:16638}中{npc:252382}身旁的{npc:268679}。",
+	-- {object:148418} Eternal Flame · {npc:268679} Brazier of Eternal Flame · {npc:252382} Sessaria Skystride · {area:16638} Valanaar · {npc:268592} Olariaan Swiftburn
+	["Once taken, the {object:148418} lasts six minutes, so the walk to the {npc:268679} beside {npc:252382} in {area:16638} has no room for detours. If it runs out, the quest can be taken again from {npc:268592}."] = "",
 	-- {npc:252382} Sessaria Skystride · {npc:2523} Searing Totem · {item:5176} Fire Totem · {item:263412} Totem of Charged Flames
 	["{npc:252382}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:252382}：{npc:2523}、你的{item:5176}和{item:263412}",
 
@@ -543,6 +543,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {npc:268592}, then west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "回去找{npc:268592}，然後向西進入{area:16623}：{npc:268605}的家在風歌蟹所在湖泊南邊的丘陵中。",
+	-- ["Back to {npc:268592}. Wait for him to light the {npc:268762}, then carry the flame straight to the {npc:268679} beside {npc:252382} in {area:16638} before the timer runs out."] = "回去找{npc:268592}。等他點燃{npc:268762}，然後在計時結束前把火焰直接帶到{area:16638}中{npc:252382}身旁的{npc:268679}。",
 	-- ["Bandit Highwaymen"] = "強盜路霸",
 	-- ["Climb the watchtower in the village, jump off the top and use {spell:1259416} to float down."] = "爬上村裡的瞭望塔，從塔頂跳下，使用{spell:1259416}飄落地面。",
 	-- ["Follow the road south to {area:16624}, in the middle of the isle."] = "沿道路向南前往島嶼中部的{area:16624}。",

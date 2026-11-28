@@ -137,9 +137,8 @@ return {
 	-- Step 37: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Sentry Braziers"] = "Braseiros Sentinela",
-	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
-	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "Leve {object:149047} para o sul pela borda de O Caldeirão e acenda os quatro Braseiros Sentinela, do sudoeste até o sudeste.",
+	["The four Sentry Braziers sit along the rim of the Cauldron, from the south-west round to the south-east."] = "",
 
 	-- Step 38: Level 48.98
 	["Level 48.98"] = "Nível 48.98",
@@ -182,6 +181,7 @@ return {
 	["Xiggs waits in the {object:32359}."] = "Xiggs espera na Ala Militar ({object:32359}).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the south-east."] = "Leve {object:149047} para o sul pela borda de O Caldeirão e acenda os quatro Braseiros Sentinela, do sudoeste até o sudeste.",
 	-- ["Dark Iron dwarves: kill these as you meet them"] = "Anões Ferro Negro: vá matando estes pelo caminho",
 	-- ["For {npc:8256} in {area:1537}, later"] = "Para {npc:8256} em {area:1537}, depois",
 	-- ["From {area:144} ride south into the {zone:1418}, then west past the Horde town of {area:340} (give it room) and up the trail into {zone:1427}. {area:1446} is the scaffolded camp on the north-west rim."] = "De {area:144}, cavalgue para o sul até {zone:1418}, depois para o oeste passando pela cidade da Horda, {area:340} (mantenha distância), e suba a trilha até {zone:1427}. {area:1446} é o acampamento com andaimes na borda noroeste.",

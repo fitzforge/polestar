@@ -66,11 +66,12 @@ step Deathknell: the next quests
 
 step Around Deathknell
   when done deathknell
-  tip The Equipment Boxes are all around the village. Night Web's Hollow is the mine north-west; the Webbed Forsaken hang inside. Samuel Fipps waits at the ruined camp by the road north-east: bury his remains at Marla's Grave, in the front row of the village graveyard.
+  tip The Equipment Boxes are all around the village. Night Web's Hollow is the mine to the north-west, with the Webbed Forsaken inside. Samuel Fipps is at the ruined camp by the road to the north-east, and Marla's Grave is in the front row of the village graveyard.
   collect 11127 x6 quest 3902.1       -- Scavenged Goods
   kill 1504 x10 quest 380.1           -- Young Night Web Spider
   kill 1505 x8 quest 380.2            -- Night Web Spider
   kill 271961 x6 quest 98389.1        -- Webbed Forsaken freed
+  use 16333 quest 6395.1 @31.2,65.1 map 1420
   interact 178090 quest 6395.1        -- Marla's Grave, with Samuel's Remains
 
 step Deathknell: hand in
@@ -109,7 +110,8 @@ step Brill (optional hub)
 
 step Around Brill
   when done brill
-  tip Use the Executor's Motivator on five Deathguards around Brill. For Patience, talk to Deathguard Dillinger west of Brill, Deathguard Kristof at the waystation east of it and Gordo on the road. The Rot Hide gnolls dig at the mass grave north of Brill. The Rotting Dead walk around the old bridge west of Brill; the dry branches lie under the trees there. Darkhounds roam everywhere.
+  tip The Deathguards are around Brill: Dillinger west of town, Kristof at the waystation east of it and Gordo on the road. The Rot Hide gnolls dig at the mass grave north of Brill, the Rotting Dead walk around the old bridge west of it with the dry branches under the trees there, and Darkhounds roam everywhere.
+  use 286176 quest 99134.1 @60.7,52.0 map 1420
   complete 99134 @60.7,52.0 map 1420         -- Motivate 5 Deathguards: the Deathguards around Brill
   collect 286200 quest 99141.1 npc 1496 -- Dillinger's Report
   collect 286201 quest 99141.2 npc 251001 -- Kristof's Report
@@ -185,9 +187,11 @@ step Undercity: Harbinger Balthazad
 
 step The Bulwark: Scarlet Diversions
   zone Tirisfal Glades
-  tip The Bulwark is the Forsaken camp on the road from Tirisfal into the Western Plaguelands. High Executor Derrington's chain sends you against the Scourge cauldrons of the Western Plaguelands: about 820 Undercity reputation. Take a Flame in a Bottle from the box beside him; burn the command tent of the Scarlet camp between Dalson's Tears and Felstone Field and plant the Scourge Banner beside it.
+  tip The Bulwark is the Forsaken camp on the road from Tirisfal into the Western Plaguelands. High Executor Derrington's chain against the Scourge cauldrons is worth about 820 Undercity reputation.
   turnin 5094                         -- High Executor Derrington
   accept 5096                         -- Scarlet Diversions, +100 (level 53)
+  use 12814 quest 5096.1 @40.7,51.9 map 1422
+  use 12807 quest 5096.1 @40.7,51.9 map 1422
   complete 5096 map 1422 @40.7,51.9   -- the Scarlet Crusade Forward Camp
 
 step The Bulwark: the cauldrons
@@ -199,14 +203,18 @@ step The Bulwark: the cauldrons
 
 step Felstone Field and the Andorhal towers
   zone Western Plaguelands
-  tip Cauldron Lord Bilemaw guards the cauldron at Felstone Field. Click the cauldron after the kill to start Return to the Bulwark. Mark the four towers of Andorhal with the Beacon Torch at their doors.
+  tip Cauldron Lord Bilemaw guards the cauldron at Felstone Field.
   level 52
   collect 13194 quest 5229.1          -- Felstone Field Cauldron Key
   turnin 5229                         -- the Scourge Cauldron
   accept 5230                         -- Return to the Bulwark, +50
+  use 12815 quest 5098.1 @40.1,71.6 map 1422
   kill 10902 quest 5098.1 @40.05,71.6 "Mark Andorhal Tower One with the Beacon Torch" -- Andorhal Tower One: use the Beacon Torch at the door
+  use 12815 quest 5098.2 @42.3,66.2 map 1422
   kill 10903 quest 5098.2 @42.33,66.24 "Mark Andorhal Tower Two with the Beacon Torch" -- Andorhal Tower Two
+  use 12815 quest 5098.3 @44.3,63.3 map 1422
   kill 10904 quest 5098.3 @44.3,63.25 "Mark Andorhal Tower Three with the Beacon Torch" -- Andorhal Tower Three
+  use 12815 quest 5098.4 @46.6,71.1 map 1422
   kill 10905 quest 5098.4 @46.62,71.05 "Mark Andorhal Tower Four with the Beacon Torch" -- Andorhal Tower Four
 
 step The Bulwark: Dalson's Tears
@@ -264,7 +272,7 @@ step Nathanos Blightcaller
   accept 6133                         -- The Ranger Lord's Behest, +100
 
 step Plaguebats, Quel'Lithien Lodge and Corin's Crossing
-  tip The Noxious Plaguebats fly in the south of the zone, the Monstrous Plaguebats further north-west. Quel'Lithien Lodge is north-west of Light's Hope Chapel; the Quel'Thalas Registry lies inside. Do Corin's Crossing last: its Scourge drop Living Rot, which lasts only 10 minutes. With 7 in your bags, use the Mortar and Pestle at once for the Coagulated Rot.
+  tip Noxious Plaguebats fly in the south of the zone and Monstrous Plaguebats further north-west. Quel'Lithien Lodge, with the Quel'Thalas Registry inside, is north-west of Light's Hope Chapel. The Scourge at Corin's Crossing drop Living Rot, which lasts only 10 minutes.
   level 57
   kill 8601 x20 quest 6042.1          -- Noxious Plaguebat
   kill 8602 x10 quest 6042.2          -- Monstrous Plaguebat
@@ -272,6 +280,8 @@ step Plaguebats, Quel'Lithien Lodge and Corin's Crossing
   kill 8565 x8 quest 6133.1           -- Pathstrider
   kill 8563 x8 quest 6133.3           -- Woodsman
   collect 15847 quest 6133.4          -- Quel'Thalas Registry
+  collect 15447 x7
+  use 15454 quest 6022.1 @52.6,58.6
   collect 15448 quest 6022.1 @52.6,58.6 -- Coagulated Rot: 7 Living Rot and the Mortar and Pestle
 
 step Nathanos: hand in
@@ -332,8 +342,9 @@ step Sen'jin Village: Gadrin's Parchment
 step Shadra'Alor: Shadra
   when done shadra
   zone The Hinterlands
-  tip Read Gadrin's Parchment at the altar of Shadra'Alor to call Shadra, an elite level 55 spider: she drops her venom every time.
+  tip Shadra, an elite level 55 spider, always drops her venom.
   level 53
+  use 9323 quest 2937.1 @33.8,73.0
   collect 9324 quest 2937.1 @33.8,73.0 -- Shadra's Venom, from Shadra
 
 step Tarren Mill and the Undercity

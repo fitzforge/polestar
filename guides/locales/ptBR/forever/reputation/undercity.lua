@@ -34,7 +34,7 @@ return {
 	-- {area:154} Deathknell
 	["Around {area:154}"] = "Ao redor de {area:154}",
 	-- {object:164662} Equipment Boxes · {quest:380} Night Web's Hollow · {npc:271961} Webbed Forsaken · {npc:1919} Samuel Fipps · {object:178090} Marla's Grave
-	["The {object:164662} are all around the village. {quest:380} is the mine north-west; the {npc:271961} hang inside. {npc:1919} waits at the ruined camp by the road north-east: bury his remains at {object:178090}, in the front row of the village graveyard."] = "As {object:164662} estão por toda a vila. {quest:380} é a mina a noroeste; os {npc:271961} ficam lá dentro. {npc:1919} espera no acampamento em ruínas na estrada a nordeste: enterre os restos dele em {object:178090}, na fileira da frente do cemitério da vila.",
+	["The {object:164662} are all around the village. {quest:380} is the mine to the north-west, with the {npc:271961} inside. {npc:1919} is at the ruined camp by the road to the north-east, and {object:178090} is in the front row of the village graveyard."] = "",
 	-- {npc:271961} Webbed Forsaken
 	["{npc:271961} freed"] = "{npc:271961} libertado",
 	-- {object:178090} Marla's Grave · {item:16333} Samuel's Remains
@@ -62,8 +62,8 @@ return {
 	-- Step 9: Around Brill
 	-- {area:159} Brill
 	["Around {area:159}"] = "Ao redor de {area:159}",
-	-- {item:286176} Executor's Motivator · {area:159} Brill · {quest:99141} Patience · {npc:1496} Deathguard Dillinger · {npc:251001} Deathguard Kristof · {npc:10666} Gordo · {npc:1525} Rotting Dead
-	["Use the {item:286176} on five Deathguards around {area:159}. For {quest:99141}, talk to {npc:1496} west of {area:159}, {npc:251001} at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}. The {npc:1525} walk around the old bridge west of {area:159}; the dry branches lie under the trees there. Darkhounds roam everywhere."] = "Use o {item:286176} em cinco Necroguardas ao redor de {area:159}. Para a {quest:99141}, fale com {npc:1496} a oeste de {area:159}, {npc:251001} no posto de parada a leste dela e {npc:10666} na estrada. Os gnolls Putricouro cavam na vala comum ao norte de {area:159}. Os {npc:1525} rondam a ponte velha a oeste de {area:159}; os galhos secos ficam sob as árvores de lá. Cães Sombrios rondam por toda parte.",
+	-- {area:159} Brill · {npc:10666} Gordo · {npc:1525} Rotting Dead
+	["The Deathguards are around {area:159}: Dillinger west of town, Kristof at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}, the {npc:1525} walk around the old bridge west of it with the dry branches under the trees there, and Darkhounds roam everywhere."] = "",
 	-- {area:159} Brill
 	["Motivate 5 Deathguards: the Deathguards around {area:159}"] = "Motive 5 Necroguardas: os Necroguardas em volta de {area:159}",
 
@@ -111,8 +111,8 @@ return {
 	["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there. Lady Sylvanas in the {object:36126} gives {quest:5961}, an introduction to {npc:11878}: {quest:6136}, his last quest here, needs it handed in."] = "As missões de nível 55 a 60 pagam por inteiro. Primeiro, {area:152}: {npc:10879}, perto dos elevadores da {faction:68}, manda você para lá. Lady Sylvanas, no {object:36126}, dá {quest:5961}, uma apresentação a {npc:11878}: {quest:6136}, a última missão dele aqui, exige que ela seja entregue.",
 
 	-- Step 18: Bulwark: Scarlet Diversions
-	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity · {item:12814} Flame in a Bottle · {area:200} Dalson's Tears · {area:199} Felstone Field · {item:12807} Scourge Banner
-	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "{area:152} é o acampamento dos Renegados na estrada de Tirisfal para as {zone:1422}. A cadeia de {npc:10837} manda você contra os caldeirões do Flagelo nas {zone:1422}: cerca de 820 de reputação com a {faction:68}. Pegue uma {item:12814} da caixa ao lado dele; queime a tenda de comando do acampamento Escarlate entre {area:200} e {area:199} e plante a {item:12807} ao lado dela.",
+	-- {area:152} Bulwark · {zone:1422} Western Plaguelands · {npc:10837} High Executor Derrington · {faction:68} Undercity
+	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain against the Scourge cauldrons is worth about 820 {faction:68} reputation."] = "",
 	-- {quest:5096} Scarlet Diversions
 	["{quest:5096}, +100 (level 53)"] = "{quest:5096}, +100 (nível 53)",
 	-- {object:176088} Scarlet Crusade Forward Camp (no name in this language: may be words)
@@ -127,8 +127,8 @@ return {
 	-- Step 20: Felstone Field and the Andorhal towers
 	-- {area:199} Felstone Field
 	["{area:199} and the Andorhal towers"] = "{area:199} e as torres de Andorhal",
-	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field · {quest:5230} Return to the Bulwark · {item:12815} Beacon Torch
-	["{npc:11075} guards the cauldron at {area:199}. Click the cauldron after the kill to start {quest:5230}. Mark the four towers of Andorhal with the {item:12815} at their doors."] = "{npc:11075} guarda o caldeirão em {area:199}. Clique no caldeirão depois da morte para começar a {quest:5230}. Marque as quatro torres de Andorhal com as {item:12815} nas portas delas.",
+	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field
+	["{npc:11075} guards the cauldron at {area:199}."] = "",
 	-- {object:176361} Scourge Cauldron
 	["the {object:176361}"] = "o {object:176361}",
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
@@ -177,9 +177,9 @@ return {
 	-- Step 29: Plaguebats, Quel'Lithien Lodge and Corin's Crossing
 	-- {area:2276} Quel'Lithien Lodge · {area:2264} Corin's Crossing
 	["Plaguebats, {area:2276} and {area:2264}"] = "Quirópragos, {area:2276} e {area:2264}",
-	-- {area:2276} Quel'Lithien Lodge · {area:2268} Light's Hope Chapel · {item:15847} Quel'Thalas Registry · {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {item:15448} Coagulated Rot
+	-- {area:2276} Quel'Lithien Lodge · {item:15847} Quel'Thalas Registry · {area:2268} Light's Hope Chapel · {area:2264} Corin's Crossing · {item:15447} Living Rot
 	-- plural, as words: Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Monstrous Plaguebats = {npc:8602} Monstrous Plaguebat
-	["The Noxious Plaguebats fly in the south of the zone, the Monstrous Plaguebats further north-west. {area:2276} is north-west of {area:2268}; the {item:15847} lies inside. Do {area:2264} last: its Scourge drop {item:15447}, which lasts only 10 minutes. With 7 in your bags, use the {item:15454} at once for the {item:15448}."] = "Os Quirópragos Nóxios voam no sul da zona, os Monstruosos mais ao noroeste. {area:2276} fica a noroeste de {area:2268}; o {item:15847} está lá dentro. Faça {area:2264} por último: o que o Flagelo solta lá, {item:15447}, dura só 10 minutos. Com 7 nas bolsas, use o {item:15454} na hora para obter a {item:15448}.",
+	["Noxious Plaguebats fly in the south of the zone and Monstrous Plaguebats further north-west. {area:2276}, with the {item:15847} inside, is north-west of {area:2268}. The Scourge at {area:2264} drop {item:15447}, which lasts only 10 minutes."] = "",
 	-- {item:15448} Coagulated Rot · {item:15447} Living Rot · {item:15454} Mortar and Pestle
 	["{item:15448}: 7 {item:15447} and the {item:15454}"] = "{item:15448}: 7 {item:15447} e o {item:15454}",
 
@@ -230,8 +230,8 @@ return {
 	["read the {object:142715}"] = "leia {object:142715}",
 
 	-- Step 38: Shadra'Alor: Shadra
-	-- {item:9323} Gadrin's Parchment · {area:353} Shadra'Alor · {npc:2707} Shadra
-	["Read {item:9323} at the altar of {area:353} to call {npc:2707}, an elite level 55 spider: she drops her venom every time."] = "Leia {item:9323} no altar de {area:353} para chamar {npc:2707}, uma aranha elite de nível 55: ela sempre solta o veneno.",
+	-- {npc:2707} Shadra
+	["{npc:2707}, an elite level 55 spider, always drops her venom."] = "",
 	-- {item:9324} Shadra's Venom · {npc:2707} Shadra
 	["{item:9324}, from {npc:2707}"] = "{item:9324}, de {npc:2707}",
 
@@ -269,9 +269,15 @@ return {
 	-- ["Keep handing in {quest:7819} until {faction:68} is Exalted. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Continue entregando {quest:7819} até ficar Exaltado com {faction:68}. {item:14047}: Adeptos das Trevas e Umbramantes (nível 58-60) em {zone:1423}, ou a Casa de Leilões.",
 	-- ["Keep handing in {quest:7819}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Continue entregando {quest:7819}, 20 {item:14047} por vez. {item:14047}: Adeptos das Trevas e Umbramantes (nível 58-60) em {zone:1423}, ou a Casa de Leilões.",
 	-- ["Kolkar centaur (level 30-33) drop it here. The Auction House works too."] = "Centauros Kolkar (nível 30-33) deixam cair aqui. A Casa de Leilões também serve.",
+	-- ["Read {item:9323} at the altar of {area:353} to call {npc:2707}, an elite level 55 spider: she drops her venom every time."] = "Leia {item:9323} no altar de {area:353} para chamar {npc:2707}, uma aranha elite de nível 55: ela sempre solta o veneno.",
+	-- ["The Noxious Plaguebats fly in the south of the zone, the Monstrous Plaguebats further north-west. {area:2276} is north-west of {area:2268}; the {item:15847} lies inside. Do {area:2264} last: its Scourge drop {item:15447}, which lasts only 10 minutes. With 7 in your bags, use the {item:15454} at once for the {item:15448}."] = "Os Quirópragos Nóxios voam no sul da zona, os Monstruosos mais ao noroeste. {area:2276} fica a noroeste de {area:2268}; o {item:15847} está lá dentro. Faça {area:2264} por último: o que o Flagelo solta lá, {item:15447}, dura só 10 minutos. Com 7 nas bolsas, use o {item:15454} na hora para obter a {item:15448}.",
 	-- ["The Plaguelands' level 55-60 quests and {item:14047} to Exalted, with Tirisfal's old quests as an optional extra."] = "As missões de nível 55-60 das Terras Pestilentas e {item:14047} até Exaltado, com as missões antigas de Tirisfal como extra opcional.",
 	-- ["The level 55 to 60 quests pay in full. First the {area:152}: {npc:10879}, by the {faction:68}'s elevators, sends you there."] = "As missões de nível 55 a 60 pagam por inteiro. Primeiro, {area:152}: {npc:10879}, perto dos elevadores da {faction:68}, manda você para lá.",
+	-- ["The {object:164662} are all around the village. {quest:380} is the mine north-west; the {npc:271961} hang inside. {npc:1919} waits at the ruined camp by the road north-east: bury his remains at {object:178090}, in the front row of the village graveyard."] = "As {object:164662} estão por toda a vila. {quest:380} é a mina a noroeste; os {npc:271961} ficam lá dentro. {npc:1919} espera no acampamento em ruínas na estrada a nordeste: enterre os restos dele em {object:178090}, na fileira da frente do cemitério da vila.",
+	-- ["Use the {item:286176} on five Deathguards around {area:159}. For {quest:99141}, talk to {npc:1496} west of {area:159}, {npc:251001} at the waystation east of it and {npc:10666} on the road. The Rot Hide gnolls dig at the mass grave north of {area:159}. The {npc:1525} walk around the old bridge west of {area:159}; the dry branches lie under the trees there. Darkhounds roam everywhere."] = "Use o {item:286176} em cinco Necroguardas ao redor de {area:159}. Para a {quest:99141}, fale com {npc:1496} a oeste de {area:159}, {npc:251001} no posto de parada a leste dela e {npc:10666} na estrada. Os gnolls Putricouro cavam na vala comum ao norte de {area:159}. Os {npc:1525} rondam a ponte velha a oeste de {area:159}; os galhos secos ficam sob as árvores de lá. Cães Sombrios rondam por toda parte.",
 	-- ["Venture Co. Enforcers at the {area:381} (level 16-17) drop it here. The Auction House works too."] = "Seguranças da Empreendimentos S.A. em {area:381} (nível 16-17) deixam cair aqui. A Casa de Leilões também serve.",
+	-- ["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "{area:152} é o acampamento dos Renegados na estrada de Tirisfal para as {zone:1422}. A cadeia de {npc:10837} manda você contra os caldeirões do Flagelo nas {zone:1422}: cerca de 820 de reputação com a {faction:68}. Pegue uma {item:12814} da caixa ao lado dele; queime a tenda de comando do acampamento Escarlate entre {area:200} e {area:199} e plante a {item:12807} ao lado dela.",
+	-- ["{npc:11075} guards the cauldron at {area:199}. Click the cauldron after the kill to start {quest:5230}. Mark the four towers of Andorhal with the {item:12815} at their doors."] = "{npc:11075} guarda o caldeirão em {area:199}. Clique no caldeirão depois da morte para começar a {quest:5230}. Marque as quatro torres de Andorhal com as {item:12815} nas portas delas.",
 	-- ["{npc:11878}, the Ranger Lord, keeps his camp on the western edge of the {zone:1423}. His quests are level 58 to 60 and pay in full: 500 {faction:68} reputation."] = "{npc:11878}, o Senhor dos Patrulheiros, tem o acampamento dele na borda oeste de {zone:1423}. As missões dele são de nível 58 a 60 e pagam por inteiro: 500 de reputação com a {faction:68}.",
 	-- ["{npc:11878}: 500 {faction:68} reputation. His {area:2279} quests (The {npc:12337}, The Scarlet Oracle, Demetria, Ramstein) need a group."] = "{npc:11878}: 500 de reputação com a {faction:68}. As missões dele de {area:2279} (O {npc:12337}, A Oráculo Escarlate, Demétria, Ramstein) pedem um grupo.",
 	-- ["{npc:14729} takes cloth for {faction:68} in {faction:68}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7819} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14729} recebe tecido para {faction:68} em {faction:68}. As primeiras doações de Lã, Seda, Magitrama e {item:14047} (60 tecidos cada) são feitas uma vez só e dão mais reputação por tecido; depois delas, {quest:7819} se repete até Exaltado. Exaltado com a cidade de outra raça permite comprar as montarias dessa raça. A vantagem de Legado Diplomata do Forever aumenta os ganhos de reputação.",

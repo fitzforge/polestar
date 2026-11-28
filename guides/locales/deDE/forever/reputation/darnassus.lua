@@ -101,10 +101,11 @@ return {
 	["{area:442}: the coast and the woods"] = "{area:442}: die Küste und die Wälder",
 	-- {area:445} Cliffspring Falls
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "Das Furbolg-Lager südlich der Stadt zählt für How Big a Threat; die Rabid Thistle Bears streifen durch die Wälder südlich der Stadt; die Highborne-Geister der Ruinen von Ameth'Aran, südöstlich der Stadt, tragen die Relikte, und auch Anayas Geist geht dort um; die Knochen liegen am Strand südlich der Stadt; die Pilze wachsen in der Höhle {area:445} im Nordosten.",
+	["The furbolg camp and the Rabid Thistle Bears are in the woods south of town, and the bones lie on the beach south of town. The relics come from the Highborne ghosts of the Ruins of Ameth'Aran to the south-east, where Anaya's ghost also walks, and the mushrooms grow in the {area:445} cave to the north-east."] = "",
 	["the corrupt furbolg camp south of town"] = "das verderbte Furbolg-Lager südlich der Stadt",
-	-- {npc:2164} Rabid Thistle Bear · {quest:2139} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
-	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}: benutze {quest:2139} an ihm und führe ihn zurück zu {npc:3701}",
+	-- {npc:2164} Rabid Thistle Bear · {item:7586} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
+	-- was: ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}: benutze {quest:2139} an ihm und führe ihn zurück zu {npc:3701}"
+	["{npc:2164}: use {item:7586} on it and lead it back to {npc:3701}"] = "",
 	-- {npc:2164} Rabid Thistle Bear
 	["Capture a {npc:2164}"] = "Fange einen {npc:2164}",
 	-- {quest:954} Bashal'Aran
@@ -129,7 +130,7 @@ return {
 	["{area:442}: the seal, the {npc:6788} and the pelts"] = "{area:442}: das Siegel, der {npc:6788} und die Felle",
 	-- {item:5338} Ancient Moonstone Seal · {quest:956} Bashal'Aran · {npc:6788} Den Mother · {zone:1439} Darkshore
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "Der {item:5338} fällt von den Satyrn von {quest:956}; zerstöre das Siegel an der Flamme dort. Der {npc:6788} haust nordöstlich von {quest:956}; die Moonstalker Sires und Matriarchs streifen durch den Süden von {zone:1439}.",
+	["The {item:5338} drops from the satyrs of {quest:956}. The {npc:6788} lairs north-east of {quest:956}, and Moonstalker Sires and Matriarchs roam southern {zone:1439}."] = "",
 	["the seal at the ancient flame"] = "das Siegel an der uralten Flamme",
 
 	-- Step 20: A Donation of Silk
@@ -168,6 +169,8 @@ return {
 	["{npc:9047}, beside Fandral in the {area:1658}, takes the soil. {npc:4217} sells the {item:11020} and Packets of Tharlendris Seeds. With a seed packet and 2 {quest:3764} in your bags, use the pouch to grow an {item:11024} and open it: about one casing in three holds {item:11040} (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things."] = "{npc:9047}, neben Fandral in der {area:1658}, nimmt die Erde. {npc:4217} verkauft den {item:11020} und Packets of Tharlendris Seeds. Mit einem Samenpäckchen und 2 {quest:3764} in deinen Taschen benutze den Beutel, um eine {item:11024} wachsen zu lassen, und öffne sie: Etwa jede dritte Hülle enthält {item:11040} (1 bis 5), der Rest andere Kräuter. Der Beutel funktioniert alle 10 Minuten einmal, benutze ihn also, wann immer er bereit ist, während du anderes tust.",
 
 	-- Step 33: Darnassus: Morrowgrain Research
+	-- {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
+	["Each casing needs a seed packet and 2 {quest:3764}, only about one in three holds {item:11040} (1 to 5), and the pouch works once every 10 minutes."] = "",
 	-- {item:11040} Morrowgrain
 	["{item:11040}: grow it here and open the casings"] = "{item:11040}: lass es hier wachsen und öffne die Hüllen",
 
@@ -200,7 +203,10 @@ return {
 	-- ["Keep handing in {quest:7801}, 20 {item:14047} at a time. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "Gib weiter {quest:7801} ab, jeweils 20 {item:14047}. {item:14047}: Dunkle Adepten und Schattenmagier (Stufe 58-60) in den {zone:1423} oder das Auktionshaus.",
 	-- ["Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too."] = "Banditen und Zuchtmeister der Flusspfoten (Stufe 16-18) lassen ihn hier fallen. Das Auktionshaus geht auch.",
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "Söldner des Syndikats bei Burg Stromgarde (Stufe 31-32) lassen ihn hier fallen. Das Auktionshaus geht auch.",
+	-- ["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "Das Furbolg-Lager südlich der Stadt zählt für How Big a Threat; die Rabid Thistle Bears streifen durch die Wälder südlich der Stadt; die Highborne-Geister der Ruinen von Ameth'Aran, südöstlich der Stadt, tragen die Relikte, und auch Anayas Geist geht dort um; die Knochen liegen am Strand südlich der Stadt; die Pilze wachsen in der Höhle {area:445} im Nordosten.",
+	-- ["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "Der {item:5338} fällt von den Satyrn von {quest:956}; zerstöre das Siegel an der Flamme dort. Der {npc:6788} haust nordöstlich von {quest:956}; die Moonstalker Sires und Matriarchs streifen durch den Süden von {zone:1439}.",
 	-- ["{npc:14725} takes cloth for {faction:69} in {faction:69}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7801} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14725} nimmt in {faction:69} Stoff für {faction:69} an. Die ersten Spenden von Wollstoff, Seidenstoff, Magiestoff und {item:14047} (je 60 Stoff) gibt es nur einmal, und sie bringen den meisten Ruf pro Stoff; danach wiederholt sich {quest:7801} bis Ehrfürchtig. Bist du bei der Hauptstadt eines anderen Volkes ehrfürchtig, kannst du dessen Reittiere kaufen. Der Vermächtnis-Vorteil „Diplomat“ von Forever erhöht den Rufgewinn.",
 	-- ["{npc:14725}: {item:14047} delivered"] = "{npc:14725}: {item:14047} abgeliefert",
+	-- ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}: benutze {quest:2139} an ihm und führe ihn zurück zu {npc:3701}",
 	-- ["{quest:7801} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7801} nimmt 20 {item:14047} pro Abgabe und lässt sich beliebig oft wiederholen. Bring {item:14047} in Vielfachen von 20 mit und gib alles auf einmal ab, eine Abgabe nach der anderen. {item:14047}: Dunkle Adepten und Schattenmagier (Stufe 58-60) in den {zone:1423} oder das Auktionshaus.",
 }

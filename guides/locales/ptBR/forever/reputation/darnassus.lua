@@ -101,10 +101,11 @@ return {
 	["{area:442}: the coast and the woods"] = "{area:442}: a costa e as matas",
 	-- {area:445} Cliffspring Falls
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "O acampamento dos furbolgs ao sul da cidade vale para Uma grande ameaça?; os Ursocardos Raivosos vagam pelas matas ao sul da cidade; os fantasmas Altaneiros das Ruínas de Ameth'Aran, a sudeste da cidade, carregam as relíquias, e o fantasma de Anaya também anda por lá; os ossos estão na praia ao sul da cidade; os cogumelos crescem na caverna de {area:445}, a nordeste.",
+	["The furbolg camp and the Rabid Thistle Bears are in the woods south of town, and the bones lie on the beach south of town. The relics come from the Highborne ghosts of the Ruins of Ameth'Aran to the south-east, where Anaya's ghost also walks, and the mushrooms grow in the {area:445} cave to the north-east."] = "",
 	["the corrupt furbolg camp south of town"] = "o acampamento dos furbolgs corrompidos ao sul da cidade",
-	-- {npc:2164} Rabid Thistle Bear · {quest:2139} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
-	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}: use {quest:2139} nele e leve-o de volta a {npc:3701}",
+	-- {npc:2164} Rabid Thistle Bear · {item:7586} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
+	-- was: ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}: use {quest:2139} nele e leve-o de volta a {npc:3701}"
+	["{npc:2164}: use {item:7586} on it and lead it back to {npc:3701}"] = "",
 	-- {npc:2164} Rabid Thistle Bear
 	["Capture a {npc:2164}"] = "Capture um {npc:2164}",
 	-- {quest:954} Bashal'Aran
@@ -129,7 +130,7 @@ return {
 	["{area:442}: the seal, the {npc:6788} and the pelts"] = "{area:442}: o selo, {npc:6788} e as peles",
 	-- {item:5338} Ancient Moonstone Seal · {quest:956} Bashal'Aran · {npc:6788} Den Mother · {zone:1439} Darkshore
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "{item:5338} cai dos sátiros de {quest:956}; destrua o selo na chama de lá. {npc:6788} fica no covil a nordeste de {quest:956}; os Machos e as Matriarcas Espreitaluna vagam pelo sul de {zone:1439}.",
+	["The {item:5338} drops from the satyrs of {quest:956}. The {npc:6788} lairs north-east of {quest:956}, and Moonstalker Sires and Matriarchs roam southern {zone:1439}."] = "",
 	["the seal at the ancient flame"] = "o selo na chama ancestral",
 
 	-- Step 20: A Donation of Silk
@@ -168,6 +169,8 @@ return {
 	["{npc:9047}, beside Fandral in the {area:1658}, takes the soil. {npc:4217} sells the {item:11020} and Packets of Tharlendris Seeds. With a seed packet and 2 {quest:3764} in your bags, use the pouch to grow an {item:11024} and open it: about one casing in three holds {item:11040} (1 to 5), the rest other herbs. The pouch works once every 10 minutes, so use it whenever it is ready while you do other things."] = "{npc:9047}, ao lado de Fandral em {area:1658}, recebe a terra. {npc:4217} vende {item:11020} e Pacotes de Sementes de Tharlendris. Com um pacote de sementes e 2 {quest:3764} nas bolsas, use a bolsa para cultivar {item:11024} e abra-o: cerca de um casulo em três tem {item:11040} (1 a 5), os outros têm outras ervas. A bolsa funciona uma vez a cada 10 minutos, então use-a sempre que estiver pronta enquanto faz outras coisas.",
 
 	-- Step 33: Darnassus: Morrowgrain Research
+	-- {quest:3764} Un'Goro Soil · {item:11040} Morrowgrain
+	["Each casing needs a seed packet and 2 {quest:3764}, only about one in three holds {item:11040} (1 to 5), and the pouch works once every 10 minutes."] = "",
 	-- {item:11040} Morrowgrain
 	["{item:11040}: grow it here and open the casings"] = "{item:11040}: cultive aqui e abra os casulos",
 
@@ -204,7 +207,10 @@ return {
 	-- ["Optional: {area:442} in {zone:1439}, a boat trip from {area:702}, about 1,400 reputation (280 at a fifth) in an hour at 60. The givers stand along the town's street and pier. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub."] = "Opcional: {area:442} em {zone:1439}, uma viagem de barco a partir de {area:702}, cerca de 1.400 de reputação (280 com um quinto) em uma hora no 60. Os doadores de missões ficam ao longo da rua e do cais da cidade. No Classic, missões 6 ou mais níveis abaixo de você pagam menos (um quinto no 60); um relato da beta do Forever diz que pagaram por inteiro. Sua primeira entrega mostra qual vale: se pagar um quinto, pule estes hubs. Pule este passo para pular o hub.",
 	-- ["Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too."] = "Bandidos e Capatazes Pata Molhada (nível 16-18) deixam cair aqui. A Casa de Leilões também serve.",
 	-- ["Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too."] = "Mercenários da Camarilha em Stromgarde (nível 31-32) deixam cair aqui. A Casa de Leilões também serve.",
+	-- ["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "O acampamento dos furbolgs ao sul da cidade vale para Uma grande ameaça?; os Ursocardos Raivosos vagam pelas matas ao sul da cidade; os fantasmas Altaneiros das Ruínas de Ameth'Aran, a sudeste da cidade, carregam as relíquias, e o fantasma de Anaya também anda por lá; os ossos estão na praia ao sul da cidade; os cogumelos crescem na caverna de {area:445}, a nordeste.",
+	-- ["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "{item:5338} cai dos sátiros de {quest:956}; destrua o selo na chama de lá. {npc:6788} fica no covil a nordeste de {quest:956}; os Machos e as Matriarcas Espreitaluna vagam pelo sul de {zone:1439}.",
 	-- ["{npc:14725} takes cloth for {faction:69} in {faction:69}. The first donations of Wool, Silk, Mageweave and {item:14047} (60 cloth each) are done once and give the most reputation per cloth; after them, {quest:7801} repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains."] = "{npc:14725} recebe tecido para {faction:69} em {faction:69}. As primeiras doações de Lã, Seda, Magitrama e {item:14047} (60 tecidos cada) são feitas uma só vez e dão mais reputação por tecido; depois delas, {quest:7801} se repete até Exaltado. Exaltado com a cidade de outra raça permite comprar as montarias dessa raça. A vantagem de Legado Diplomata do Forever aumenta os ganhos de reputação.",
 	-- ["{npc:14725}: {item:14047} delivered"] = "{npc:14725}: {item:14047} entregue",
+	-- ["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}: use {quest:2139} nele e leve-o de volta a {npc:3701}",
 	-- ["{quest:7801} takes 20 {item:14047} per turn-in and repeats as often as you like. Bring {item:14047} in multiples of 20 and hand them all in at once, one turn-in after another. {item:14047}: Dark Adepts and Shadowmages (level 58-60) in {zone:1423}, or the Auction House."] = "{quest:7801} pede 20 {item:14047} por entrega e se repete quantas vezes você quiser. Traga {item:14047} em múltiplos de 20 e entregue tudo de uma vez, uma entrega após a outra. {item:14047}: Adeptos das Trevas e Umbramantes (nível 58-60) em {zone:1423}, ou a Casa de Leilões.",
 }

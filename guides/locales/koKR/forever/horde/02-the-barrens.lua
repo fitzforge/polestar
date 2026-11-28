@@ -308,9 +308,9 @@ return {
 
 	-- Step 65: Raptor nests
 	["Raptor nests"] = "랩터 둥지",
-	-- {area:392} Ratchet · {area:1697} Raptor Grounds · {item:5165} Sunscale Feather
+	-- {item:5165} Sunscale Feather
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "{area:392}에서 남서쪽으로 평원을 가로질러 {area:1697}(으)로 가세요. 둥지 세 개는 오아시스 남서쪽에 모여 있으며, 갈퀴발톱 열대초원랩터가 지키고 있습니다. 둥지마다 {item:5165}이(가) 필요합니다. 열대초원랩터를 처치해(대부분 하나씩 떨어뜨립니다) 세 개를 모은 뒤, 각 둥지에서 깃털을 사용하세요.",
+	["Sunscale Scytheclaws guard the three nests. Most Sunscale raptors drop a {item:5165}, and each nest takes one."] = "",
 
 	-- Step 66: Raptor Grounds: kill these as you meet them
 	-- {area:1697} Raptor Grounds
@@ -330,8 +330,8 @@ return {
 	["{npc:3446}, beside the WANTED poster"] = "",
 
 	-- Step 73: Dreadmist Peak
-	-- {area:384} Dreadmist Peak · {item:15842} Empty Dreadmist Peak Sampler · {object:19464} Dreadmist Peak Pool (no name in this language: may be words) · {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
-	["Head north from the Crossroads to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the Crossroads. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "크로스로드에서 북쪽으로 {area:384}까지 가 {object:19464}에서 {item:15842}을(를) 채운 뒤 크로스로드의 {npc:3448}에게 돌아가세요. {skill:182}가 없나요? 그 옆의 {npc:3490}이(가) {item:2449}을(를) 재고가 찰 때까지 3개씩 팝니다.",
+	-- {npc:3490} Hula'mahi · {npc:3448} Tonga Runetotem · {item:2449} Earthroot
+	["{npc:3490} beside {npc:3448} sells {item:2449}, three at a time until he restocks."] = "",
 	-- {item:2449} Earthroot · {npc:3490} Hula'mahi
 	["{item:2449} from {npc:3490}; herbalists pick it on the plains"] = "{npc:3490}에게서 {item:2449}. 약초채집가는 평원에서 채집하십시오",
 
@@ -399,8 +399,8 @@ return {
 	["He gives you the {item:15826}"] = "그가 {item:15826}을(를) 줍니다",
 
 	-- Step 87: Verog the Dervish
-	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {npc:3448} Tonga Runetotem
-	["{npc:3395} doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the {area:388}, south-east of the Crossroads. Keep killing them around the oasis until he appears. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395}은(는) 스스로 돌아다니지 않습니다. 크로스로드 남동쪽 {area:388}에서 콜카르일족 켄타우로스를 잡으면 나타납니다. 나타날 때까지 오아시스 주변에서 계속 잡으세요. 그곳에 있는 동안 오아시스 동쪽 기슭의 부글거리는 균열에서 {npc:3448}의 씨앗을 시험하세요.",
+	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis
+	["{npc:3395} doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the {area:388}."] = "",
 	["Underwater"] = "물속",
 	-- {npc:12296} Sickly Gazelle · {item:15826} Curative Animal Salve
 	["{npc:12296}: use the {item:15826} on them; they roam the plains all around the Crossroads"] = "{npc:12296}: 그들에게 {item:15826}을(를) 사용하세요. 크로스로드 주변 평원 어디에나 돌아다닙니다",
@@ -626,8 +626,8 @@ return {
 	["Thunderhawk Cloudscrapers circle over the plains south of the camp."] = "비단천둥매가 야영지 남쪽 평원 위를 맴돕니다.",
 
 	-- Step 143: Brine
-	-- {npc:5899} Brine · {area:378} Camp Taurajo · {item:7766} Empty Brown Waterskin
-	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "{npc:5899}의 오두막은 {area:378} 남쪽, 멧돼지인 물웅덩이 위 능선에 있습니다: 그 아래 물웅덩이에서 {item:7766}을(를) 채우세요.",
+	-- {npc:5899} Brine · {area:378} Camp Taurajo
+	["{npc:5899}'s hut is on the ridge above the quilboar watering hole, south of {area:378}."] = "",
 	-- {item:7766} Empty Brown Waterskin
 	["Fill the {item:7766} at the quilboar watering hole"] = "가시멧돼지 물웅덩이에서 {item:7766} 채우기",
 	-- {object:107045} Spring Well · {area:272} Tarren Mill · {area:287} Hillsbrad
@@ -747,6 +747,7 @@ return {
 	-- ["Follow the road east to the outpost above the {area:814}."] = "길을 따라 동쪽으로 가서 {area:814} 위의 전초기지로 가세요.",
 	-- ["Follow the road south-east to {area:392} on the coast."] = "길을 따라 남동쪽으로 해안의 {area:392}까지 가세요.",
 	-- ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "길을 따라 남동쪽 해안의 {area:392}(으)로 가세요. 마을 북쪽 끝의 {npc:3391}와(과) {npc:7161}, {npc:3442}와(과) {npc:16227}, {npc:3446}와(과) {object:3972} 전단을 찾은 다음, 남쪽으로 나가는 길에 부두의 {quest:1492}을(를) 찾으세요.",
+	-- ["Head north from the Crossroads to {area:384} and fill the {item:15842} at the {object:19464}, then back to {npc:3448} in the Crossroads. No {skill:182}? {npc:3490} beside him sells {item:2449}, three at a time until he restocks."] = "크로스로드에서 북쪽으로 {area:384}까지 가 {object:19464}에서 {item:15842}을(를) 채운 뒤 크로스로드의 {npc:3448}에게 돌아가세요. {skill:182}가 없나요? 그 옆의 {npc:3490}이(가) {item:2449}을(를) 재고가 찰 때까지 3개씩 팝니다.",
 	-- ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에서는 풍수사와 가시마술사가 서쪽 절반을, 사냥꾼이 가운데를 차지하고, 보급품 상자는 동쪽 끝에 있습니다.\n여기 초원타조도 부리 수집에 포함됩니다.\n주의: 서슬갈기일족 살점먹보와 광전사(18-19)는 정예이며, 야영지 북동쪽 보급품 상자 옆에 서 있습니다. 가시멧돼지를 그들에게서 하나씩 떼어 끌어오세요.",
 	-- ["Keep it: {quest:3923} stands outside {zone:1454}; a later guide hands it in"] = "보관하세요: {quest:3923}은(는) {zone:1454} 밖에 있으며, 나중 가이드에서 완료합니다",
 	-- ["Kolkar Wranglers and Stormers hold the camps south of {npc:3389}."] = "콜카르일족 사냥꾼과 번개술사는 {npc:3389} 남쪽 야영지를 차지하고 있습니다.",
@@ -759,6 +760,7 @@ return {
 	-- ["Raptor nests"] = "랩터 둥지",
 	-- ["South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank; {npc:3448} takes the result on the next Crossroads stop, so carry on north-west to the {area:383} from here."] = "십자로 남동쪽입니다. 오아시스 동쪽 기슭의 부글거리는 균열에서 씨앗을 시험하세요. 결과는 다음에 십자로에 들를 때 {npc:3448}에게 전달하므로, 여기서 바로 북서쪽 {area:383}(으)로 계속 가세요.",
 	-- ["South-east of the {area:380}. Test the seeds at the bubbling fissure on the oasis' east bank."] = "{area:380} 남동쪽입니다. 오아시스 동쪽 기슭의 부글거리는 균열에서 씨앗을 시험하세요.",
+	-- ["South-west from {area:392} across the plains to the {area:1697}: the three nests sit together south-west of the oasis, and Sunscale Scytheclaws guard them. Each nest needs a {item:5165}: kill Sunscale raptors (most drop one) until you have three, then use a feather at each nest."] = "{area:392}에서 남서쪽으로 평원을 가로질러 {area:1697}(으)로 가세요. 둥지 세 개는 오아시스 남서쪽에 모여 있으며, 갈퀴발톱 열대초원랩터가 지키고 있습니다. 둥지마다 {item:5165}이(가) 필요합니다. 열대초원랩터를 처치해(대부분 하나씩 떨어뜨립니다) 세 개를 모은 뒤, 각 둥지에서 깃털을 사용하세요.",
 	-- ["Southsea beach"] = "남쪽바다해적단 해변",
 	-- ["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "아직 12개가 부족하다면 채찍꼬리 열대초원랩터와 긴송곳니 열대초원랩터가 크로스로드 북동쪽 평원, {quest:881} 둥지에서 남쪽으로 돌아오는 길에 있습니다.",
 	-- ["The Savannah Prowlers hunt the plains between town and the Razormane camp to the east. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end."] = "굶주린 사바나 사자는 마을과 동쪽의 서슬갈기일족 야영지 사이 평원에서 사냥합니다. 야영지 서쪽 절반은 풍수사와 가시마술사가, 가운데는 사냥꾼이 차지하고 있으며, 보급품 상자는 동쪽 끝에 있습니다.",
@@ -786,6 +788,7 @@ return {
 	-- ["{area:380} is your base for this guide. Everyone you need stands within a few steps of the inn."] = "이 가이드에서는 {area:380}이(가) 거점입니다. 필요한 사람은 모두 여관에서 몇 걸음 거리에 있습니다.",
 	-- ["{item:15885}: use a half at the {area:2362}"] = "{item:15885}: {area:2362}에서 조각을 사용하십시오",
 	-- ["{npc:3337}: {quest:840}, from {zone:1411}"] = "{npc:3337}: {zone:1411}에서 받은 {quest:840}",
+	-- ["{npc:3395} doesn't wander on his own: he comes out when you kill the Kolkar centaurs at the {area:388}, south-east of the Crossroads. Keep killing them around the oasis until he appears. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395}은(는) 스스로 돌아다니지 않습니다. 크로스로드 남동쪽 {area:388}에서 콜카르일족 켄타우로스를 잡으면 나타납니다. 나타날 때까지 오아시스 주변에서 계속 잡으세요. 그곳에 있는 동안 오아시스 동쪽 기슭의 부글거리는 균열에서 {npc:3448}의 씨앗을 시험하세요.",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Oasis Snapjaws crawl in the water around it: their shells are for {npc:3448}."] = "{npc:3395}은(는) 십자로 남동쪽 {area:388}에서 콜카르일족 사이를 돌아다닙니다. 오아시스 무쇠턱거북이 그 주변 물속을 기어다니며, 그 껍질은 {npc:3448}에게 가져갑니다.",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395}은(는) 크로스로드 남동쪽 {area:388}의 콜카르일족 사이를 걸어 다닙니다. 그곳에 있는 동안 오아시스 동쪽 기슭의 부글거리는 균열에서 {npc:3448}의 씨앗을 시험하세요.",
 	-- ["{npc:3446}, beside the {object:3972} poster"] = "{npc:3446}, {object:3972} 전단 옆에",
@@ -793,6 +796,7 @@ return {
 	-- ["{npc:3448}: the Oasis Snapjaws at the {area:388}, with {npc:3395}"] = "{npc:3448}: {area:388}의 오아시스 무쇠턱거북, {npc:3395}와(과) 함께",
 	-- ["{npc:3615}, the wind rider master"] = "윈드라이더 조련사 {npc:3615}",
 	-- ["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878}은(는) {area:380}에서 {area:392}(으)로 가는 길가에 야영하고 있습니다. {object:58369}은(는) 그 바로 북쪽, 서슬갈기일족 야영지 남쪽에 있습니다.",
+	-- ["{npc:5899}'s hut stands on the ridge above the quilboar watering hole, south of {area:378}: fill the {item:7766} at the watering hole below it."] = "{npc:5899}의 오두막은 {area:378} 남쪽, 멧돼지인 물웅덩이 위 능선에 있습니다: 그 아래 물웅덩이에서 {item:7766}을(를) 채우세요.",
 	-- ["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900}은(는) 다리 건너 {area:379} 남쪽 강기슭에서 기다립니다.",
 	-- ["{npc:5907} stands on the ridge north of the Razormane camp."] = "{npc:5907}은(는) 서슬갈기일족 야영지 북쪽 능선에 서 있습니다.",
 	-- ["{object:3972} poster"] = "{object:3972} 게시판",

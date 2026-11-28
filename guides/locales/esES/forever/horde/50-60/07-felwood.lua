@@ -117,10 +117,10 @@ return {
 	["On the ride north to {area:2255}, the Ice Thistle Yetis (55-56) in the hills south-east of the town carry Vizzie's {item:258323}: four pieces."] = "",
 
 	-- Step 30: Are We There, Yeti?
-	-- {area:2255} Everlook
-	["Ride north to {area:2255}."] = "Cabalga al norte hasta {area:2255}.",
-	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
-	["Scare {npc:10978} with {npc:10980}"] = "Asusta a {npc:10978} con {npc:10980}",
+	-- {npc:10978} Legacki · {area:2255} Everlook
+	["{npc:10978} is in {area:2255}, to the north."] = "",
+	-- {npc:10978} Legacki · {item:12928} Umi's Mechanical Yeti
+	["Scare {npc:10978} with {item:12928}"] = "Asusta a {npc:10978} con {item:12928}",
 
 	-- Step 31: Everlook
 	-- {npc:11118} Innkeeper Vizzie · {quest:93406} Unfrozen Deliveries
@@ -213,8 +213,10 @@ return {
 	-- ["Ride back west to {area:2246}."] = "Vuelve al oeste hasta {area:2246}.",
 	-- ["Ride east along the road to {area:2255}."] = "Cabalga hacia el este por el camino hasta {area:2255}.",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Cabalga al este y luego al sur bajando por {area:2249}. Los Gigantes Machacahielo de allí son élite de nivel 59: ve por el centro y no te detengas. La fuente extraña está en la boca de {area:2256}, en el extremo sur.",
+	-- ["Ride north to {area:2255}."] = "Cabalga al norte hasta {area:2255}.",
 	-- ["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "Caballa al norte por el camino de {zone:1448} hasta {area:1767}; el moco de {quest:5086} entre los árboles, y la mayoría suelta una gota.\nCuidado: los caminantes del Árbol de Hierro Ancestrales, élites de nivel 59, caminan entre los de {quest:5086}, y {npc:14524} (63, élite) ronda el bosque: trabaja los Horrores en la punta norte de {area:1767}, de uno en uno.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "Cabalga hacia el noroeste hasta {area:1763}. Los cuatro braseros están entre los edificios del Consejo de las Sombras; usa el agua purificada en cada uno.\nCuidado: enemigos del Consejo de las Sombras de nivel 53-55 llenan la cueva y suelen venir en grandes grupos vinculados, muchos con aturdimientos. Se recomienda un grupo de 2-3 jugadores.",
+	-- ["Scare {npc:10978} with {npc:10980}"] = "Asusta a {npc:10978} con {npc:10980}",
 	-- ["South to the Sanctuary once more."] = "Vuelve otra vez al sur, al Santuario.",
 	-- ["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "El tótem del Bosque Muerto de {area:1762}, si {npc:11558} no lo cogió entonces: ella espera en la entrada del túnel de {area:1769} y te habla desde Neutral con los Maderaférrea, a los que te llevaron los furbolgs del Bosque Muerto de {zone:1448}.",
 	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "El poblado fúrbolg ocupa el valle al noreste de {area:2255}. Mata primero a los Chamanes, que curan. {npc:10738} (59, élite) y Xandivious (62) están en la cueva del fondo: no entres.",

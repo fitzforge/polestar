@@ -589,10 +589,8 @@ return {
 	-- Step 119: Tram to Stormwind
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "搭地鐵前往{zone:1453}",
-	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
-	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	-- was: ["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "在{area:2257}的{zone:1455}站臺上，{npc:12997}請你幫忙處理老鼠：用他的{item:17117}對付站臺周圍的礦道老鼠，把它們交上去，然後把他的信帶給{zone:1453}那頭的兄弟{npc:13018}。"
-	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "",
+	-- {npc:12997} Monty · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:13018} Nipsy · {zone:1453} Stormwind
+	["{npc:12997} is on the {zone:1455} platform of the {area:2257}, and his brother {npc:13018} is at the {zone:1453} end. The tram has no map inside, so the city markers show the entrances, not the brothers."] = "",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
 	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}，在{zone:1455}站臺上",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute
@@ -653,8 +651,8 @@ return {
 	["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "{npc:5497}站在{object:2101}的法師塔裡；她會給你一個裝{quest:1861}瀑布水的瓶子。",
 
 	-- Step 132: Mirror Lake
-	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
-	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "從正門離開{zone:1453}。{quest:1861}瀑布在城門西南方，位於往西前往{zone:1436}的路上：在瀑布底部裝滿{item:7207}。",
+	-- {quest:1861} Mirror Lake · {zone:1453} Stormwind · {zone:1436} Westfall
+	["The {quest:1861} waterfall is south-west of {zone:1453}'s main gate, on the way west to {zone:1436}."] = "",
 
 	-- Step 133: Goldshire
 	-- {zone:1453} Stormwind · {area:87} Goldshire · {zone:1436} Westfall
@@ -669,6 +667,7 @@ return {
 	-- ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "穿過隧道進入 {zone:1432}。剛出隧道，路右側就有一條以石塊標記的小徑，沿它向北上山，前往 {npc:257808} 的營地。",
 	-- ["Iceclaw Bear Pendants, from the Frostmane Troll Whelps on the slopes above the camp"] = "冰爪熊墜飾，來自營地上方山坡上的小霜鬃食人妖",
 	-- ["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "從正門離開{zone:1453}，向南前往{area:87}，再沿著道路向東前往{area:62}。{npc:881}（9級）站在農舍旁。",
+	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "從正門離開{zone:1453}。{quest:1861}瀑布在城門西南方，位於往西前往{zone:1436}的路上：在瀑布底部裝滿{item:7207}。",
 	-- ["Leper Gnomes around Brewnall and the {area:133} road carry the cogs and gears. Ice Claw Bears, Elder Crag Boars and Snow Leopards roam the hills around the lake."] = "烈酒村和{area:133}道路周圍的麻瘋地精身上帶著齒輪和零件。冰爪熊、老峭壁野豬和雪豹在湖周圍的山丘上遊蕩。",
 	-- ["Level 4 spells, before Gozwin's camp"] = "4級法術，在前往戈茲溫的營地之前學習",
 	-- ["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "在{area:2257}的{zone:1455}站臺上，{npc:12997}請你幫忙處理老鼠：用他的{item:17117}對付站臺周圍的礦道老鼠，把它們交上去，然後把他的信帶給{zone:1453}那頭的兄弟{npc:13018}。",

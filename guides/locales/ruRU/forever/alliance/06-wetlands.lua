@@ -11,8 +11,8 @@ return {
 	["Cast {spell:18960}"] = "Примените {spell:18960}",
 
 	-- Step 2: Trial of the Sea Lion
-	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. With both half pendants in your bags, stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then go to {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Примените {spell:18960}. Когда обе половинки подвески будут в сумках, встаньте у {area:2362} на северо-западном берегу озера и примените половинку, чтобы соединить их, затем идите к {npc:11802} в {area:2361}. {npc:11802} стоит наверху в своём здании: поднимитесь внутри, стрелка не отличает этажи.",
+	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
+	["{npc:11802} is upstairs in his building in {area:2361}, and the arrow cannot tell the floors apart."] = "",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: join the halves at the {area:2362}"] = "{item:15885}: соедините половинки здесь: {area:2362}",
 
@@ -516,7 +516,7 @@ return {
 	-- Step 96: Mystral Lake
 	-- {npc:3885} Sentinel Velene Starstrike · {area:420} Silverwind Refuge · {area:421} Mystral Lake · {npc:3897} Krolg · {npc:12759} Tideress
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
-	["{npc:3885} stands at the {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake; {npc:12759}, a level 27 water elemental, walks among them and drops the bracers too."] = "{npc:3885} стоит здесь: {area:420}, на восточном берегу ({area:421}), чуть севернее дороги к NPC {npc:3897}. В озере бродят злобные элементали воды; среди них ходит {npc:12759}, элементаль воды 27-го уровня, с нее тоже падают наручи.",
+	["{npc:3885} is at {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake, and {npc:12759}, a level 27 water elemental among them, also drops the bracers."] = "",
 	-- {item:5456} Divining Scroll
 	-- plural, as words: Intact Elemental Bracers = {item:12220} Intact Elemental Bracer
 	["Kill the elementals for 5 Intact Elemental Bracers, then use the {item:5456}"] = "Убивайте элементалей ради 5 неповрежденных браслетов элементаля, затем используйте {item:5456}",
@@ -698,6 +698,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "Ответ Алекстона, если он ещё у вас (маршрут сдаёт его на первой остановке {area:442} в 03-darkshore-return)",
+	-- ["Cast {spell:18960}. With both half pendants in your bags, stand by the {area:2362} on the north-west shore of the lake and use a half to join them, then go to {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Примените {spell:18960}. Когда обе половинки подвески будут в сумках, встаньте у {area:2362} на северо-западном берегу озера и примените половинку, чтобы соединить их, затем идите к {npc:11802} в {area:2361}. {npc:11802} стоит наверху в своём здании: поднимитесь внутри, стрелка не отличает этажи.",
 	-- ["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Для катапульты Драконьей Пасти, на контуре {zone:1437} в 30-40/01-hillsbrad-foothills",
 	-- ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "Используйте камень возвращения, чтобы вернуться сюда: {area:150}, если вы привязаны к таверне ({area:2104}), или идите на запад по дороге: {npc:2104} стоит на верхнем этаже ({area:2103}), {npc:2094} – у причалов по пути к кораблю.",
 	-- ["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Резцы острозуба: с ящеров у {area:1038}, на контуре {zone:1437} в 30-40/01-hillsbrad-foothills",
@@ -711,6 +712,7 @@ return {
 	-- ["{npc:3691}, in the inn"] = "{npc:3691}, в таверне",
 	-- ["{npc:3691}: {quest:1025}, the Foulweald on the way to {npc:3897}"] = "{npc:3691}: {quest:1025}, Гиблолесье по пути к NPC {npc:3897}",
 	-- ["{npc:3691}: {quest:1054}, {npc:3987} on the way back from {area:413}"] = "{npc:3691}: {quest:1054}, {npc:3987} на обратном пути от места {area:413}",
+	-- ["{npc:3885} stands at the {area:420} on the east shore of {area:421}, just north of the road to {npc:3897}. Befouled Water Elementals wade in the lake; {npc:12759}, a level 27 water elemental, walks among them and drops the bracers too."] = "{npc:3885} стоит здесь: {area:420}, на восточном берегу ({area:421}), чуть севернее дороги к NPC {npc:3897}. В озере бродят злобные элементали воды; среди них ходит {npc:12759}, элементаль воды 27-го уровня, с нее тоже падают наручи.",
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}, фурболг, не тронутый порчей, сидит к югу от дороги ниже места {area:421}.",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619} ведет сатиров ({area:429}); ветвь у него.",
 	-- ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}: яйца Бритвочелюсти, на том же контуре",

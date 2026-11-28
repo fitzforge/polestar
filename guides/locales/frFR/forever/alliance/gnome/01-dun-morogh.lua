@@ -589,10 +589,8 @@ return {
 	-- Step 119: Tram to Stormwind
 	-- {zone:1453} Stormwind
 	["Tram to {zone:1453}"] = "Tram pour {zone:1453}",
-	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
-	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	-- was: ["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "Sur le quai de {zone:1455} du {area:2257}, {npc:12997} demande de l'aide contre les rats : utilisez son {item:17117} sur les Rats des profondeurs autour du quai, rendez-les-lui, puis portez sa lettre à son frère {npc:13018}, au bout du côté de {zone:1453}."
-	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "",
+	-- {npc:12997} Monty · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:13018} Nipsy · {zone:1453} Stormwind
+	["{npc:12997} is on the {zone:1455} platform of the {area:2257}, and his brother {npc:13018} is at the {zone:1453} end. The tram has no map inside, so the city markers show the entrances, not the brothers."] = "",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
 	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}, sur le quai de {zone:1455}",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute
@@ -653,8 +651,8 @@ return {
 	["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "{npc:5497} se tient dans le Sanctum des sorciers, la tour de {object:2101} ; elle vous donne une flasque pour la cascade de {quest:1861}.",
 
 	-- Step 132: Mirror Lake
-	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
-	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Quittez {zone:1453} par la porte principale. La cascade du {quest:1861} se trouve au sud-ouest des portes, sur le chemin de la {zone:1436} à l'ouest : remplissez la {item:7207} à son pied.",
+	-- {quest:1861} Mirror Lake · {zone:1453} Stormwind · {zone:1436} Westfall
+	["The {quest:1861} waterfall is south-west of {zone:1453}'s main gate, on the way west to {zone:1436}."] = "",
 
 	-- Step 133: Goldshire
 	-- {zone:1453} Stormwind · {area:87} Goldshire · {zone:1436} Westfall
@@ -681,6 +679,7 @@ return {
 	-- ["Instead of walking back up to {area:1537}, go east through the South Gate tunnel into {area:38} and follow the road north to {area:144}. {npc:1681} stands on the east side of town, past the {area:2101}; his errand pays for a flight back to {area:1537}."] = "Au lieu de remonter à pied jusqu'à {area:1537}, passez à l'est par le tunnel de la porte Sud pour entrer dans le {area:38} et suivez la route vers le nord jusqu'à {area:144}. {npc:1681} se tient du côté est de la ville, après l'{area:2101} ; sa course vous paie un vol de retour vers {area:1537}.",
 	-- ["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Quittez {zone:1453} par la grande porte, allez au sud jusqu'à {area:87} puis à l'est par la route jusqu'au {area:62}. {npc:881} (niveau 9) se tient près de la ferme.",
 	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {area:40}: fill {item:7207} at its base."] = "Sortez de {zone:1453} par la porte principale. La cascade du {quest:1861} se trouve au sud-ouest des portes, sur le chemin vers l'ouest et la {area:40} : remplissez la {item:7207} à son pied.",
+	-- ["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Quittez {zone:1453} par la porte principale. La cascade du {quest:1861} se trouve au sud-ouest des portes, sur le chemin de la {zone:1436} à l'ouest : remplissez la {item:7207} à son pied.",
 	-- ["Leper Gnomes around Brewnall and the {area:133} road carry the cogs and gears. Ice Claw Bears, Elder Crag Boars and Snow Leopards roam the hills around the lake."] = "Les Gnomes lépreux autour de Brassetout et de la route de {area:133} portent les rouages et les engrenages. Les Ours Griffeglace, les Anciens sangliers des rochers et les Léopards des neiges parcourent les collines autour du lac.",
 	-- ["Level 11.41"] = "Niveau 11.41",
 	-- ["Level 4 spells, before Gozwin's camp"] = "Sorts du niveau 4, avant le camp de Gozwin",
