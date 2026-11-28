@@ -334,3 +334,20 @@ fn quest_database_markers_on_a_forever_only_map_are_clustered_in_that_map_s_own_
 	assert_eq!(rec[at + 2], Val::Num(2.0), "{rec:?}");
 	assert!(!out.db.map_frames.contains_key(&ZEPHRAS), "no Era frame is emitted for it");
 }
+
+// #4492: a prerequisite no NPC, object or item starts (Somber News, from inside Alcaz Island's prison) stays in the
+// pack's `pre`, so Polestar.QuestDB.FollowUps(Somber News) holds Shaw Needs To Know. A quest exclusive with the one
+// that lists it still never blocks.
+#[test]
+fn a_prerequisite_no_one_starts_stays_in_the_pack_s_pre_4492() {
+	let dir = data_with("giverless-pre", |raw| {
+		let q = raw.get_mut("quests.json").unwrap();
+		q["95263"] = json!({ "id": 95263, "title": "Somber News", "level": 53, "start": { "npc": [], "object": [], "item": [] }, "end": { "npc": [1965], "object": [] }, "pre": [], "excl": [], "objectives": [] });
+		q["95264"] = json!({ "id": 95264, "title": "Shaw Needs To Know", "level": 53, "start": { "npc": [1965], "object": [], "item": [] }, "end": { "npc": [1965], "object": [] }, "pre": [95263], "preAny": [95263], "excl": [], "objectives": [] });
+		q["95265"] = json!({ "id": 95265, "title": "Rival", "level": 53, "start": { "npc": [], "object": [], "item": [] }, "end": { "npc": [1965], "object": [] }, "pre": [], "excl": [95266], "objectives": [] });
+		q["95266"] = json!({ "id": 95266, "title": "Rival Taken", "level": 53, "start": { "npc": [1965], "object": [], "item": [] }, "end": { "npc": [1965], "object": [] }, "pre": [95265], "preAny": [95265], "excl": [], "objectives": [] });
+	});
+	let out = build(&dir, &root(), &Options::default()).unwrap();
+	assert_eq!(out.db.quests[&95264][9], Val::Num(95263.0), "Shaw Needs To Know follows Somber News");
+	assert_eq!(out.db.quests[&95266][9], Val::Nil, "a prerequisite exclusive with the quest never blocks");
+}
