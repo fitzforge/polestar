@@ -110,7 +110,8 @@ emit({ regions = { meter = shown("meter"), stretch = shown("stretch"), get = sho
 	assert.match(out.rows[0].text, /^Get 265 Wool Cloth +58\/265$/);
 	assert.equal(out.rows[0].sub, 'Pick one way:');
 	assert.deepEqual(out.rows[1], { text: 'Farm it', sub: 'Blackrock Grunt  ·  Elwynn Forest  ·  about 62 an hour', way: 'gather', on: false, button: 'Guide me' });
-	assert.deepEqual(out.rows[2], { text: 'Buy it at the Auction House', sub: '197 more', way: 'buy', on: true, button: 'Buy list' });
+	assert.deepEqual(out.rows[2], { text: 'Buy it at the Auction House', sub: '197 more', way: 'buy', on: true, button: 'Show me the auction house' },
+		'away from an Auction House the button says where to go');
 });
 
 test('a way row\'s click picks it: the item takes that way and the arrow follows its goal', () => {
@@ -127,6 +128,45 @@ emit({ pick = pick or false, rows = getRows(), applies = view.goals[1].status ~=
 	assert.equal(out.auction, 'na');
 	assert.deepEqual([out.rows[1].on, out.rows[2].on], [true, false]);
 	assert.equal(out.pad, 'Guide me');
+});
+
+test('the Auction House way\'s button away from an Auction House leads the arrow to the nearest auctioneer; at one it reads Buy list and searches', () => {
+	const out = run('', `${GET_ROWS}
+GF.Layout(); stub.advance(1)
+local Mt, aimed, searched = Polestar.Materials, {}, {}
+E.AimGoal = function(s, gi) aimed[#aimed + 1] = { s, gi } end
+Mt.Search = function(item, count) searched[#searched + 1] = { item, count } return true end
+local away = getRows()[3].button
+GF.RegionFrame("get").List[3].psButton:Click()
+local awayAimed, awaySearched = #aimed, #searched
+local aimedAt = aimed[1] and aimed[1][2] or false
+Mt.AuctionOpen = function() return true end
+GF.Render(); GF.Layout(); stub.advance(0.5)
+local at = getRows()[3].button
+GF.RegionFrame("get").List[3].psButton:Click()
+emit({ away = away, awayAimed = awayAimed, awaySearched = awaySearched, aimedAt = aimedAt, at = at, atAimed = #aimed - awayAimed, searched = searched })`);
+	assert.equal(out.away, 'Show me the auction house');
+	assert.equal(out.awayAimed, 1, 'away from an Auction House the click leads the arrow');
+	assert.equal(out.aimedAt, 2, 'to the step\'s auction goal: the nearest auctioneer of the character\'s side');
+	assert.equal(out.awaySearched, 0);
+	assert.equal(out.at, 'Buy list');
+	assert.equal(out.atAimed, 0, 'at the Auction House the click searches instead');
+	assert.deepEqual(out.searched, [[2592, 197]]);
+});
+
+test('a click on the folded shopping list opens it at once, with no other render', () => {
+	const out = run('', `
+GF.Layout(); stub.advance(1)
+local f = GF.RegionFrame("shopping")
+f.Head:Click()
+local n, shown = f.psN, f.Rows[1] and f.Rows[1]:IsShown() or false
+local buy = f.Buy:IsShown()
+f.Head:Click()
+emit({ n = n, shown = shown, buy = buy, closed = f.psN })`);
+	assert.equal(out.n, 3, 'the section\'s three materials');
+	assert.equal(out.shown, true);
+	assert.equal(out.buy, true, 'and Buy the whole list');
+	assert.equal(out.closed, 0, 'a second click folds it');
 });
 
 test('a short farm says the minutes for the rest; a disenchant way says the green items\' levels', () => {
