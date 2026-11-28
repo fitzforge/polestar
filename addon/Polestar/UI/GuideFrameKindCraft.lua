@@ -669,6 +669,8 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- about how many are up (beasts: their levels), the level it is safe from and how far it is (or the area left
 	-- mined out, for the next to try).
 	local function tipAnchor() return GF.TooltipAnchor and GF.TooltipAnchor() or "ANCHOR_RIGHT" end
+	-- The Auction House's own mark, the auctioneer's coins as the minimap shows them.
+	local AUCTION_ART = "Interface\\Minimap\\Tracking\\Auctioneer"
 	local function wayTip(r)
 		local w, e = r.psWay, r.psItem
 		if not w then return end
@@ -851,9 +853,11 @@ ns.UI.GuideFrame.Part(function(GF)
 						local wr = wayRow(f, nw)
 						local wg = wr.psGoal
 						if type(wg) ~= "table" or wg.psKind ~= "way" then wg = { psKind = "way" } end
-						wg.t, wg.index, wg.status = w.way == "gather" and "collect" or "buy", w.goalIndex, "active"
+						-- A farm is a kill (its glyph the kill's); a lone way wears the game's art: a gathering
+						-- profession's icon, the Auction House the auctioneer's coins (the minimap's mark).
+						wg.t, wg.index, wg.status = w.way == "gather" and (w.verb == "farm" and "kill" or "collect") or "buy", w.goalIndex, "active"
 						wg.text = wayText(w)
-						wg.art = not choices and w.way == "gather" and KC().GatherIcon(w.verb) or nil
+						wg.art = not choices and (w.way == "gather" and KC().GatherIcon(w.verb) or w.way == "buy" and AUCTION_ART) or nil
 						GF.PaintGoalRow(wr, wg, false)
 						if choices then radio(wr, w.current) else noRadio(wr) end
 						W.Color(wr.Text, w.current and "text" or "textDim")
