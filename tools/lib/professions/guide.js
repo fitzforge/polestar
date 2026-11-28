@@ -334,28 +334,24 @@ function skinSpot(itemName, side, home, data, opts = {}) {
 	const tier = HIDE_TIERS.find((t) => t.re.test(itemName));
 	if (!tier) return null;
 	const frames = (data.mapFrames && data.mapFrames.era) || {};
-	const byName = new Map();
-	for (const n of Object.values(data.npcs || {})) {
-		if (!byName.has(n.name)) byName.set(n.name, []);
-		byName.get(n.name).push(n);
-	}
 	let best = null;
 	for (const map of Object.keys(BEASTS).map(Number).sort((a, b) => a - b)) {
 		if (opts.maps && !opts.maps.has(map)) continue;
 		const pts = [];
 		const names = [];
 		let live = false;
-		for (const name of BEASTS[map]) {
+		for (const id of BEASTS[map]) {
+			const n = data.npcs?.[id];
+			if (!n) continue;
+			const name = n.name;
 			if (tier.beast && !tier.beast.test(name)) continue;
-			for (const n of byName.get(name) || []) {
-				if (n.faction != null || (n.rank || 0) > 0) continue;
-				if (!(n.level >= tier.min && n.level <= tier.max)) continue;
-				const s = n.spawns && n.spawns[map];
-				if (!s || !s.pts || !s.pts.length) continue;
-				pts.push(...outsideTowns(s.pts, map, data));
-				if (s.f === 'l') live = true;
-				if (!names.includes(name)) names.push(name);
-			}
+			if (n.faction != null || (n.rank || 0) > 0) continue;
+			if (!(n.level >= tier.min && n.level <= tier.max)) continue;
+			const s = n.spawns && n.spawns[map];
+			if (!s || !s.pts || !s.pts.length) continue;
+			pts.push(...outsideTowns(s.pts, map, data));
+			if (s.f === 'l') live = true;
+			if (!names.includes(name)) names.push(name);
 		}
 		if (!pts.length) continue;
 		const c = frames[map] ? frames[map].c : null;
