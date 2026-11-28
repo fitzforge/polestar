@@ -173,6 +173,19 @@ local function add(d, kind, line)
 	d.lines[n], d.kinds[n] = line, kind
 end
 
+-- What the route leaves out here and why, as the guide window says it
+-- (Engine.LeftOutHere, #2634), the quest ids for whoever fixes it.
+local function leftOutLines(d, outList, reward)
+	for i, o in ipairs(outList) do
+		if i > LEFT_OUT_MAX then
+			add(d, "leftout", (L["Left out here: %d more"]):format(#outList - LEFT_OUT_MAX))
+			break
+		end
+		local limit = reward and o.step == reward.step and o.quest == reward.quest and LINE_MAX * 2 or nil
+		add(d, "leftout", cut((L["Left out here: %s"]):format(plain(o.title) .. " (" .. o.quest .. ")" .. SEP .. plain(o.text)), limit))
+	end
+end
+
 local function guideLines(d, on)
 	local out, E, guide, index, view = d.lines, ns.Engine, on.guide, on.index, on.view
 	if not guide then
@@ -202,8 +215,15 @@ local function guideLines(d, on)
 			add(d, "planned", (plain(h.title or ("#" .. e.q)) .. " [hidden: needs " .. plain(need) .. (h.from and (" from " .. plain(h.from)) or "") .. "]"))
 		end
 	end
+	local live = E.GetLiveStep and E.GetLiveStep()
+	local skipped = not live and E.SkippedOut and E.SkippedOut()
+	local reward = skipped and skipped.reward
 	if not view then
-		add(d, "step", L["Step: none, the guide is complete"])
+		if reward then
+			leftOutLines(d, { reward }, reward)
+		else
+			add(d, "step", L["Step: none, the guide is complete"])
+		end
 		return
 	end
 	-- The guide's own step index too, which maintainers find the step by.
@@ -214,10 +234,9 @@ local function guideLines(d, on)
 	if raw and raw.feeder then
 		step = step .. SEP .. "[feeder from " .. plain(tostring(raw.feeder)) .. " step " .. tostring(raw.feederStep) .. "]"
 	end
-	local live = E.GetLiveStep and E.GetLiveStep()
 	if live and live ~= index then
 		step = step .. SEP .. (L["the guide is at step %d"]):format(UI.StepNo(live))
-	elseif E.GetLiveStep and not live then
+	elseif E.GetLiveStep and not live and not reward then
 		step = step .. SEP .. L["the guide is complete"]
 	end
 	add(d, "step", cut(step))
@@ -236,16 +255,7 @@ local function guideLines(d, on)
 		add(d, "goal", goalLine(goals[g], raws[g], mark, wp))
 	end
 	if d.goals.more > 0 then add(d, "more", (L["... %d more goals"]):format(d.goals.more)) end
-	-- What the route leaves out here and why, as the guide window says it
-	-- (Engine.LeftOutHere, #2634), the quest ids for whoever fixes it.
-	local outList = E.LeftOutHere and E.LeftOutHere(index) or {}
-	for i, o in ipairs(outList) do
-		if i > LEFT_OUT_MAX then
-			add(d, "leftout", (L["Left out here: %d more"]):format(#outList - LEFT_OUT_MAX))
-			break
-		end
-		add(d, "leftout", cut((L["Left out here: %s"]):format(plain(o.title) .. " (" .. o.quest .. ")" .. SEP .. plain(o.text))))
-	end
+	leftOutLines(d, E.LeftOutHere and E.LeftOutHere(index) or {}, reward)
 end
 
 local function arrowLine()

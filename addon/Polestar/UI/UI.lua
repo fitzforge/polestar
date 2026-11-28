@@ -1028,6 +1028,18 @@ function UI.LeftOutGuide(q)
 	if not Lk.Guide("quest", q) and Lk.Show then Lk.Show(nil, "quest", q) end
 end
 
+-- "Unskip it" where a prerequisite was skipped (Engine.LeftOutHere, #4505).
+-- Step and goal indices belong to the guide that supplied the row.
+function UI.UnskipLeftOut(fix)
+	local E = ns.Engine
+	if not E then return end
+	if not fix.step then return E.SkipQuest and E.SkipQuest(fix.quest, false) end
+	local guide = E.GetGuide and E.GetGuide()
+	if not guide or guide.id ~= fix.guide then return end
+	if fix.goal then return E.SkipGoal and E.SkipGoal(fix.step, fix.goal, false) end
+	return E.Unskip and E.Unskip(fix.step)
+end
+
 -- The groups of a step view (docs/ARCHITECTURE.md, "Focus: one person at a
 -- time"). A step without goals is one empty group.
 -- -> groups, focusIndex

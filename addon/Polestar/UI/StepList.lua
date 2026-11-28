@@ -289,8 +289,12 @@ local function line(r, j)
 	-- A skipped quest's way back, at the line's right end (Engine.SkipQuest).
 	g.Unskip = unskipLink(r, function(self)
 		local E = ns.Engine
+		local fix = self.psFix
 		-- A quest's unskip redraws the list through PLAYER_UNSKIPPED_QUEST.
-		if self.psQuest and E and E.SkipQuest then E.SkipQuest(self.psQuest, false)
+		if fix then
+			W.HideTooltip(self)
+			if UI.UnskipLeftOut(fix) and fix.step then SL.Refresh() end
+		elseif self.psQuest and E and E.SkipQuest then E.SkipQuest(self.psQuest, false)
 		elseif self.psStep and E and E.Unskip then E.Unskip(self.psStep); SL.Refresh() end
 	end)
 	g.Unskip.psTip = L["Bring it back"]
@@ -376,6 +380,7 @@ local function fillRow(r, v, i, live, at)
 	r.psWhy = why
 	r.Unskip:SetShown(false)
 	r.Unskip.psTip = L["Bring it back"]
+	for _, g in ipairs(r.G) do g.Unskip.psFix = nil end
 	local n, more, key = 0, 0, { (mine or back) and "unskip" or "" }
 	-- A first goal that says the title draws no line, as on the step card,
 	-- unless it is the player's skip: that line carries its Unskip.
@@ -455,11 +460,19 @@ local function fillRow(r, v, i, live, at)
 		W.Color(g.Text, gone and "textMuted" or "text")
 		key[1] = r.psSummary
 	end
+	if one then n, more, key = 0, 0, { "one" } end
 	-- What the route leaves out of this step (#2634, Engine.LeftOutHere with
 	-- `alone`): one muted line, the quests and why in the card's tooltip.
-	local out = not one and not only and not mine and not passed and E.LeftOutHere and E.LeftOutHere(i, true) or nil
+	-- A skipped prerequisite also gets its undo, even on a folded card (#4505).
+	local readOut = not one or v.status == "skipped"
+	if not readOut then
+		for _, goal in ipairs(v.goals) do
+			if goal.skippedWith then readOut = true break end
+		end
+	end
+	local out = readOut and not only and not mine and not passed and E.LeftOutHere and E.LeftOutHere(i, true) or nil
 	r.psOut = out and #out > 0 and out or nil
-	if r.psOut then
+	if r.psOut and not one then
 		n = n + 1
 		local g = line(r, n)
 		g.psUnskip = nil
@@ -469,7 +482,22 @@ local function fillRow(r, v, i, live, at)
 		W.Color(g.Text, "textMuted")
 		key[#key + 1] = "out" .. #out
 	end
-	if one then n, more, key = 0, 0, { "one" } end
+	local roots = {}
+	for _, o in ipairs(r.psOut or {}) do
+		local fix = o.fix
+		if fix and fix.kind == "unskip" and not roots[fix.quest] then
+			roots[fix.quest] = true
+			r.psOne = false
+			n = n + 1
+			local g = line(r, n)
+			g.psUnskip, g.Unskip.psFix = true, fix
+			g.Icon:SetTexture(Theme.Media("skip"))
+			W.Color(g.Icon, "textMuted")
+			g.Text:SetText(o.text)
+			W.Color(g.Text, "textMuted")
+			key[#key + 1] = o.text .. "|unskip"
+		end
+	end
 	-- The step's Unskip on its line.
 	if (mine or back) and n > 0 then
 		local g = r.G[1]

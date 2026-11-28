@@ -333,6 +333,149 @@ fn a_quest_reward_every_prerequisite_one_of_the_any_of_ones_this_character_can_t
 }
 
 #[test]
+fn a_quest_reward_waits_with_its_skipped_chain_4505() {
+	let c = ctx();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)\nw.complete({{ 7004 }})", c.home)),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+assert(Polestar.Lookup.Guide("item", 8001))
+local E = Polestar.Engine
+E.SkipQuest(7001)
+stub.advance(0.5)
+local function reward()
+	local step = E.GetStepView(#E.GetGuide().steps)
+	local goal = step.goals[#step.goals]
+	return { goal.status, goal.unavailable or false, goal.skippedWith or false }
+end
+emit({
+	reward = reward(),
+	live = E.GetLiveStep() or false, waypoint = E.GetWaypoint() ~= nil,
+})
+stub.world.onQuest(7002, {}, "The Saddler's Request")
+stub.fire("QUEST_LOG_UPDATE")
+stub.advance(0.5)
+emit(reward())
+E.SkipQuest(7002)
+emit(reward())
+E.SkipQuest(7002, false)
+stub.world.complete({ 7002 }) -- Turned in for a different choice, with no gloves in the bags.
+stub.fire("QUEST_LOG_UPDATE")
+stub.advance(0.5)
+emit(reward())"#
+			.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0]["reward"], json!(["skipped", "pre", "Trouble in the Vale"]), "reward availability: {}", out[0]["reward"]);
+	assert_eq!(out[0]["live"], false);
+	assert_eq!(out[0]["waypoint"], false);
+	assert_eq!(out[1][1], false, "the reward is available with the quest in the log");
+	assert_eq!(out[2], json!(["skipped", "skipped", false]), "skipping the awarding quest wins");
+	assert_eq!(out[3], json!(["active", false, false]), "turning the quest in does not give the item");
+}
+
+#[test]
+fn a_reward_left_out_with_its_quest_is_explained_at_the_end_4505() {
+	let c = ctx();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)\nw.complete({{ 7004 }})", c.home)),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local id = assert(Polestar.Lookup.Guide("item", 8001))
+local E = Polestar.Engine
+E.SkipQuest(7001)
+stub.advance(0.5)
+local last = #E.GetGuide().steps
+local empty = Polestar.UI.GuideFrame.parts.empty
+emit({
+	step = E.GetStepView(last).status, state = E.GetGuideState(id),
+	alone = E.LeftOutHere(last, true)[1] or false, here = E.LeftOutHere(last)[1] or false,
+	report = table.concat(Polestar.UI.Report.Details().lines, "\n"),
+	title = empty:IsShown() and empty.Title:GetText() or false,
+	text = empty:IsShown() and empty.Text:GetText() or false,
+})
+local button = empty.Primary:IsShown() and empty.Primary
+local label = button and button.Label:GetText() or false
+if label == "Unskip it" then stub.RunScript(button, "OnClick", "LeftButton") end
+stub.advance(0.5)
+emit({ label = label, skipped = E.IsQuestSkipped(7001), live = E.GetLiveStep() or false })
+stub.world.complete({ 7001, 7002 })
+stub.fire("QUEST_LOG_UPDATE")
+stub.advance(0.5)
+local step = E.GetStepView(last)
+emit({ reward = step.goals[#step.goals].status, live = E.GetLiveStep() or false, last = last })"#
+			.into(),
+		..Default::default()
+	});
+	let skipped = &out[0];
+	assert_eq!(skipped["step"], "skipped", "the passed reward step was not done");
+	assert_eq!(skipped["state"], "started", "the guide did not complete");
+	let why = "Left out because you skipped “Trouble in the Vale”";
+	for row in [&skipped["alone"], &skipped["here"]] {
+		assert_eq!(row["quest"], 7002);
+		assert_eq!(row["title"], "The Saddler's Request");
+		assert_eq!(row["kind"], "pre");
+		assert_eq!(row["text"], why);
+		assert_eq!(row["fix"]["kind"], "unskip", "the skipped root must be actionable");
+		assert_eq!(row["fix"]["quest"], 7001);
+	}
+	let report = skipped["report"].as_str().unwrap();
+	assert!(report.contains(&format!("Left out here: The Saddler's Request (7002) · {why}")), "{report}");
+	assert!(!report.contains("the guide is complete"), "{report}");
+	assert!(!report.contains("Unskip it"), "{report}");
+	assert_eq!(skipped["title"], "Left out here");
+	assert_eq!(skipped["text"], format!("The Saddler's Request\n{why}"));
+	assert_eq!(out[1], json!({"label": "Unskip it", "skipped": false, "live": 1}));
+	assert_eq!(out[2]["reward"], "active");
+	assert_eq!(out[2]["live"], out[2]["last"]);
+}
+
+#[test]
+fn the_step_browser_brings_back_the_prerequisite_step_of_a_left_out_reward_4505() {
+	let c = ctx();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)\nw.complete({{ 7004 }})", c.home)),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local id = assert(Polestar.Lookup.Guide("item", 8001))
+local E, SL = Polestar.Engine, Polestar.UI.StepList
+E.SkipQuest(7010) -- An unrelated skip belongs to another quest.
+local first = assert(E.Skip())
+stub.advance(0.5)
+local last = #E.GetGuide().steps
+local row = E.LeftOutHere(last, true)[1]
+SL.Toggle(true)
+local card = SL.rowOf[last]
+local label
+for _, g in ipairs(card and card.G or {}) do
+	if g.Unskip:IsShown() then
+		label = g.Unskip.Label:GetText()
+		stub.RunScript(g.Unskip, "OnClick", "LeftButton")
+		break
+	end
+end
+stub.advance(0.5)
+emit({ fix = row and row.fix, label = label, live = E.GetLiveStep() or false, first = first,
+	stillSkipped = (Polestar.CharState().skipped[id] or {})[first] == true, otherSkip = E.IsQuestSkipped(7010) })"#
+			.into(),
+		..Default::default()
+	});
+	let out = &out[0];
+	assert_eq!(out["fix"]["kind"], "unskip", "the skipped prerequisite step must be actionable");
+	assert_eq!(out["fix"]["quest"], 7001);
+	assert_eq!(out["label"], "Unskip it");
+	assert_eq!(out["live"], out["first"]);
+	assert_eq!(out["stillSkipped"], false);
+	assert_eq!(out["otherSkip"], true);
+}
+
+#[test]
 fn an_event_objective_explore_report_is_placed_where_the_data_puts_it_not_at_the_giver_515() {
 	let c = ctx();
 	let out = emitted(&RunAddon {
