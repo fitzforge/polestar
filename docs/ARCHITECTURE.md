@@ -7675,14 +7675,13 @@ kind.
 
 In a fight the macro leaves a living target alone (clearing it cuts melee
 swings and Auto Shot), so a press that finds none of its names keeps the unit
-the player had, and the `/tm` line would mark it (#2968: the skull on a
-Harvest Sentry). A macro cannot test a name, so `Buttons.WireCycle`'s
-PreClick notes the target's GUID and icon on the press that runs the macro
-(`Buttons.NoteMark`: `useOnKeyDown`, else `ActionButtonUseKeyDown`), and its
-PostClick (`Buttons.UndoStrayMark`) puts that icon back (`SetRaidTarget`, 0
-for none) when the target is the same unit and its name is none of the
-macro's `/targetexact` names. A unit the press moved to, or one of its names
-it kept, keeps the mark.
+the player had, and the `/tm` line marks it (#2968: the skull on a Harvest
+Sentry); the skull stays. The mark is the secure macro's own `/tm` line: no
+Polestar code calls `SetRaidTarget`, which the game forbids to addon code in
+more cases than combat lockdown (#4201, #4449: `InCombatLockdown()` was false
+on a press that still drew ADDON_ACTION_FORBIDDEN). The put-back that did
+(`Buttons.NoteMark`, `Buttons.UndoStrayMark`) is gone. The addon-test stub
+counts every `SetRaidTarget` call from addon Lua in `q.forbidden`.
 
 ### Pressing again moves on
 

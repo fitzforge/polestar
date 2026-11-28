@@ -1669,83 +1669,86 @@ fn target_button_step_key_and_rows_a_press_on_a_living_one_of_their_names_moves_
 }
 
 // #2968 (Emil, Riverglades): in a fight the target macro leaves a living target alone (clearing it cuts melee and
-// Auto Shot), so a press that found none of its names kept the Harvest Sentry the player had, and the macro's /tm
-// line put the skull on it. A macro cannot test a name: the press notes the target and its icon first and, after it,
-// puts that icon back on a target it left in place whose name is none of the macro's. A unit it moved to, or one of
-// its names it kept, keeps the mark. #4201 (RoadBlock): SetRaidTarget is protected in combat, so that put-back made
-// every such press in a fight an ADDON_ACTION_FORBIDDEN; under combat lockdown the press never calls it (the skull
-// stays), and only a press the macro read as in a fight before the lockdown began puts the icon back. Here the macro
-// is played as the client would: `to` is where the press leaves the target (false: cleared, nil: kept), then the /tm
-// line marks a living hostile one; SetRaidTarget under lockdown is counted as the game's refusal.
+// Auto Shot), so a press that found none of its names keeps the Harvest Sentry the player had, and the macro's /tm
+// line puts the skull on it. #4201 (RoadBlock) then #4449 (Drasi, "ADDON FORBIDDEN: SetRaidTarget()" from the
+// PostClick put-back, on a press InCombatLockdown() let through): SetRaidTarget is protected for addon code, in more
+// cases than combat lockdown, so no Polestar code calls it any more. The mark is the secure macro's /tm line alone,
+// and a stray skull stays where the macro put it. The stub (tests/lua/stub_qol.lua) counts every SetRaidTarget call
+// from the addon's Lua as the game's refusal (q.forbidden), here for the left click, the key and the right click of
+// the target button, the step key, a target list row and the rare button, in a fight, out of it and with the
+// lockdown just ended. The macro is played as the client would: `to` is where the press leaves the target (false:
+// cleared, nil: kept), then the /tm line marks a living hostile one.
 #[test]
-fn target_button_and_step_key_never_call_set_raid_target_in_combat_and_put_a_stray_mark_back_only_outside_it_2968_4201() {
+fn no_click_of_a_target_button_calls_set_raid_target_so_the_left_click_is_never_forbidden_2968_4201_4449() {
 	let out = run(r#"
 		set("markTarget", true)
 		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 }, { t = "kill", target = "Kobold Worker", quest = 7, oi = 2 } })
+		Polestar.Rares = { Nearby = function() return { "Thuros Lightfingers" } end }
+		Polestar.Fire("RARE_NEARBY")
 		stub.runTimers()
-		local guid, sets, to, forbidden = UnitGUID, {}, nil, 0
+		local to
+		-- What the client answers for the target (the old put-back read these).
+		local guid = UnitGUID
 		function UnitGUID(unit)
 			if unit == "target" then return type(q.target) == "table" and q.target.guid or nil end
 			return guid and guid(unit)
 		end
 		function GetRaidTargetIndex(unit) if unit == "target" and type(q.target) == "table" then return q.target.mark end end
-		function SetRaidTarget(unit, i)
-			if InCombatLockdown() then
-				forbidden = forbidden + 1
-				return
-			end
-			sets[#sets + 1] = i
-			if unit == "target" and type(q.target) == "table" then q.target.mark = i ~= 0 and i or nil end
-		end
 		q.ran = setmetatable({}, { __newindex = function(t, k, v)
 			rawset(t, k, v)
 			if to ~= nil then q.target = to end
 			local u = q.target
 			if type(v[2]) == "string" and v[2]:find("\n/tm [@target,harm,nodead] !8", 1, true) and type(u) == "table" and u.hostile and not u.dead then u.mark = 8 end
 		end })
-		local function press(b, target, moved)
-			sets, to, q.target = {}, moved, target
+		local B = Polestar.QoL.Buttons
+		local buttons = { PolestarTargetButton, PolestarStepButton, B.rows[1], PolestarRareButton }
+		local function press(b, mouse, target, moved)
+			to, q.target = moved, target
 			for k in pairs(q.ran) do rawset(q.ran, k, nil) end
-			q.keyClick(b)
+			if mouse == "key" then q.keyClick(b) else q.mouseClick(b, mouse) end
 			local u = q.target
-			return { target = type(u) == "table" and u.name or false, mark = type(u) == "table" and u.mark or false, ran = rawget(q.ran, 1) ~= nil, sets = table.concat(sets, ",") }
+			return { target = type(u) == "table" and u.name or false, mark = type(u) == "table" and u.mark or false, ran = rawget(q.ran, 1) ~= nil }
 		end
 		local function sentry(mark) return { name = "Harvest Sentry", hostile = true, guid = "S", mark = mark } end
+		local function sweep()
+			for _, b in ipairs(buttons) do
+				for _, mouse in ipairs({ "key", "LeftButton", "RightButton" }) do press(b, mouse, sentry()) end
+			end
+		end
 		local out = {}
+		-- Out of combat the macro clears a stray target first; with the lockdown just ended (the macro read a fight)
+		-- it is left, and the skull the macro puts on it stays.
+		sweep()
+		out.calmCleared = press(PolestarTargetButton, "LeftButton", sentry(), false)
+		out.justEnded = press(PolestarTargetButton, "LeftButton", sentry())
+		out.justEndedMoon = press(PolestarTargetButton, "LeftButton", sentry(5))
 		q.combat(true)
-		out.stray = press(PolestarTargetButton, sentry())
-		out.moon = press(PolestarTargetButton, sentry(5))
-		out.moved = press(PolestarTargetButton, sentry(), { name = "Kobold Vermin", hostile = true, guid = "V" })
-		out.kept = press(PolestarTargetButton, { name = "Kobold Worker", hostile = true, guid = "W" })
-		out.step = press(PolestarStepButton, sentry())
+		sweep()
+		out.stray = press(PolestarTargetButton, "LeftButton", sentry())
+		out.strayKey = press(PolestarTargetButton, "key", sentry())
+		out.moved = press(PolestarTargetButton, "LeftButton", sentry(), { name = "Kobold Vermin", hostile = true, guid = "V" })
+		out.kept = press(PolestarTargetButton, "LeftButton", { name = "Kobold Worker", hostile = true, guid = "W" })
+		out.step = press(PolestarStepButton, "LeftButton", sentry())
+		out.right = press(PolestarTargetButton, "RightButton", sentry())
+		out.row = press(B.rows[1], "LeftButton", sentry())
 		q.combat(false)
-		-- The macro read the fight (the target kept) while the lockdown had not begun.
-		out.early = press(PolestarTargetButton, sentry())
-		out.earlyMoon = press(PolestarTargetButton, sentry(5))
-		out.calm = press(PolestarTargetButton, sentry(), false)
-		out.forbidden = forbidden
+		out.forbidden = #q.forbidden
 		emit(out)
 	"#);
 	let o = &out[0];
-	for case in ["stray", "moon", "moved", "kept", "step", "early", "earlyMoon", "calm"] {
+	assert_eq!(o["forbidden"], json!(0), "#4449: no click of any of them calls SetRaidTarget, in a fight or out of it");
+	for case in ["calmCleared", "justEnded", "justEndedMoon", "stray", "strayKey", "moved", "kept", "step", "right", "row"] {
 		assert_eq!(o[case]["ran"], json!(true), "{case}: the macro ran");
 	}
-	assert_eq!(o["forbidden"], json!(0), "#4201: no SetRaidTarget call under combat lockdown");
-	assert_eq!(o["stray"]["target"], json!("Harvest Sentry"), "the kept target");
-	assert_eq!(o["stray"]["mark"], json!(8), "in combat the skull stays: the game forbids taking it off");
-	assert_eq!(o["stray"]["sets"], json!(""));
-	assert_eq!(o["moon"]["sets"], json!(""));
-	assert_eq!(o["step"]["sets"], json!(""), "the step key too");
+	assert_eq!(o["calmCleared"]["target"], json!(false), "out of a fight the press starts from nothing");
+	assert_eq!(o["justEnded"]["mark"], json!(8), "the stray skull stays: nothing takes it off from addon code");
+	assert_eq!(o["justEndedMoon"]["mark"], json!(8), "the macro's skull replaces the moon, and stays");
+	for case in ["stray", "strayKey", "step", "right", "row"] {
+		assert_eq!(o[case]["target"], json!("Harvest Sentry"), "{case}: the kept target");
+		assert_eq!(o[case]["mark"], json!(8), "{case}: in a fight the skull stays");
+	}
 	assert_eq!(o["moved"]["mark"], json!(8), "a Kobold Vermin the press found keeps the skull");
-	assert_eq!(o["moved"]["sets"], json!(""));
 	assert_eq!(o["kept"]["mark"], json!(8), "a Kobold Worker kept (one of its names) keeps the skull");
-	assert_eq!(o["kept"]["sets"], json!(""));
-	assert_eq!(o["early"]["target"], json!("Harvest Sentry"));
-	assert_eq!(o["early"]["mark"], json!(false), "#2968: outside the lockdown the stray skull comes off");
-	assert_eq!(o["early"]["sets"], json!("0"), "taken off once, on the press that ran the macro");
-	assert_eq!(o["earlyMoon"]["mark"], json!(5), "the icon it had is put back");
-	assert_eq!(o["calm"]["target"], json!(false), "out of a fight the press starts from nothing");
-	assert_eq!(o["calm"]["sets"], json!(""), "nothing to take back");
 }
 
 #[test]

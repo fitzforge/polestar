@@ -1989,56 +1989,16 @@ function Buttons.SetPress(b, list, kindOf, text, pingText)
 	b.press = p
 end
 
--- In a fight the target macro leaves a living target alone (clearing it
--- cuts melee swings and Auto Shot), so a press that finds none of its names
--- keeps the unit the player had, and the macro's /tm line marks it (#2968,
--- Emil: the skull on a Harvest Sentry). A macro cannot test a name, so the
--- press notes the target and its icon before it runs (Buttons.NoteMark) and,
--- after it, puts that icon back (none: SetRaidTarget 0) on a target the
--- press left in place whose name is none of the macro's
--- (Buttons.UndoStrayMark). A unit the press moved to, or one of its names
--- it kept, keeps the mark. SetRaidTarget is protected in combat (#4201:
--- ADDON_ACTION_FORBIDDEN on every such press), so under combat lockdown the
--- mark stays: only a press the macro read as in a fight while the lockdown
--- had not begun yet is put back. Only the press that runs the macro counts: the
--- secure click acts on the press when useOnKeyDown (nil: the
--- ActionButtonUseKeyDown CVar) says so, else on the release. (Fields, not
--- locals: the file is at Lua's local limit.)
-function Buttons.NoteMark(b, down)
-	local onDown = b:GetAttribute("useOnKeyDown")
-	if onDown == nil then onDown = GetCVarBool and GetCVarBool("ActionButtonUseKeyDown") end
-	b.psMarkGuid, b.psMarkWas = nil, nil
-	if (onDown and true or false) ~= (down and true or false) then return end
-	local C = ns.Compat
-	b.psMarkGuid = C.Readable(UnitGUID and UnitGUID("target"))
-	b.psMarkWas = GetRaidTargetIndex and C.Readable(GetRaidTargetIndex("target")) or nil
-end
-
--- The names macro text tries (its /targetexact lines) -> { [name] = true }.
-function Buttons.MacroNames(text)
-	local names = {}
-	for line in text:gmatch("[^\n]+") do
-		local name = line:match("^/targetexact%s+%b[]%s*(.-)%s*$") or line:match("^/targetexact%s+(.-)%s*$")
-		if name and name ~= "" then names[name] = true end
-	end
-	return names
-end
-
--- attr: the macro's attribute ("macrotext", "macrotext1" for its type1 or
--- "macrotext2" for its type2, the right click's).
-function Buttons.UndoStrayMark(b, attr)
-	local guid, was = b.psMarkGuid, b.psMarkWas
-	b.psMarkGuid, b.psMarkWas = nil, nil
-	if not (guid and SetRaidTarget and UnitGUID) or QoL.InLockdown() then return end
-	if b:GetAttribute((attr:gsub("^macrotext", "type"))) ~= "macro" then return end
-	local text = b:GetAttribute(attr)
-	if type(text) ~= "string" or not ("\n" .. text):find("\n/tm ", 1, true) then return end
-	local C = ns.Compat
-	if C.Readable(UnitGUID("target")) ~= guid then return end
-	local name = C.Readable(UnitName and UnitName("target"))
-	if not name or Buttons.MacroNames(text)[name] then return end
-	SetRaidTarget("target", was or 0)
-end
+-- The mark itself is the secure macro's own /tm line: no insecure code calls
+-- SetRaidTarget. A press that finds none of its names in a fight keeps the
+-- unit the player had (clearing it cuts melee swings and Auto Shot) and the
+-- /tm line marks that unit (#2968, Emil: the skull on a Harvest Sentry); it
+-- stays marked. Until 0.4.3.1 the PostClick hook put the old icon back with
+-- SetRaidTarget, a protected function the game refused from addon code in
+-- more cases than combat lockdown (#4201: every press in a fight; #4449: a
+-- press that InCombatLockdown() let through, the reporter's mob already
+-- fighting someone else), so no lockdown test can make the call safe and the
+-- put-back is gone.
 
 -- A press out of combat on a living unit of one of b.press's names leaves the
 -- target and starts from its name (TargetMacro's keep), so the press takes
@@ -2046,15 +2006,13 @@ end
 -- the mark stay. PostClick puts the applied macros back. In a fight nothing
 -- changes: macros cannot, and the clear is "[nocombat][dead]" anyway (a living
 -- target stays). While a press is cycled, b.pressedKind and b.pressedMixed are
--- its macro's (the target list's rows mark by them). Every press also takes
--- back a mark its macro put on a unit it never chose (Buttons.UndoStrayMark).
+-- its macro's (the target list's rows mark by them).
 -- attr: the left click's macro attribute ("macrotext", or "macrotext1" for a
 -- left click only); a right click of a button whose press has a ping macro
 -- (Buttons.SetPress) runs, and cycles, "macrotext2".
 function Buttons.WireCycle(b, attr)
 	attr = attr or "macrotext"
-	b:HookScript("PreClick", function(self, mouse, down)
-		Buttons.NoteMark(self, down)
+	b:HookScript("PreClick", function(self, mouse)
 		local p = self.press
 		if not p or QoL.InLockdown() then return end
 		local right = mouse == "RightButton"
@@ -2073,13 +2031,8 @@ function Buttons.WireCycle(b, attr)
 		self:SetAttribute(right and "macrotext2" or attr, text)
 		self.pressed, self.pressedKind, self.pressedMixed = true, kind, mixed
 	end)
-	b:HookScript("PostClick", function(self, mouse)
+	b:HookScript("PostClick", function(self)
 		local p = self.press
-		-- The macro the click ran: the left click's, a right click's ping macro,
-		-- or nothing (a button without one, any other button: the guide names'
-		-- middle click opens the quest log without running a macro).
-		local ran = (mouse == nil or mouse == "LeftButton") and attr or mouse == "RightButton" and p and p.ping and "macrotext2" or nil
-		if ran then Buttons.UndoStrayMark(self, ran) else self.psMarkGuid, self.psMarkWas = nil, nil end
 		if not self.pressed or QoL.InLockdown() then return end
 		self.pressed, self.pressedKind, self.pressedMixed = nil, nil, nil
 		self:SetAttribute(attr, p and p.text)

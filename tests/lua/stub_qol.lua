@@ -12,6 +12,11 @@
 -- SetAttribute, Show, Hide, SetPoint, ClearAllPoints and SetScale raise a Lua
 -- error while stub.inCombat is true, as the client blocks them.
 --
+-- SetRaidTarget is protected for addon code (#4201, #4449: ADDON_ACTION_FORBIDDEN
+-- reached the player even out of combat lockdown): the stub counts EVERY call
+-- from the addon's Lua in q.forbidden ({ unit, index } each) and does nothing.
+-- Raid icons are set by secure macros (/tm), which run through q.ran.
+--
 -- Map 9000 (continent 0) spans world wx 1000..-1000 (top..bottom) and
 -- wy 1000..-1000 (left..right): map (50, 50) is the origin, 1% = 20 yd.
 -- Zone 9002 lies south of it (wx -1000..-3000), and continent map 9100 holds
@@ -84,6 +89,9 @@ local function guard(name)
 	end
 end
 for _, name in ipairs({ "SetAttribute", "Show", "Hide", "SetPoint", "ClearAllPoints", "SetScale" }) do guard(name) end
+
+q.forbidden = {}
+function SetRaidTarget(unit, index) q.forbidden[#q.forbidden + 1] = { unit, index } end
 
 local createFrame = CreateFrame
 function CreateFrame(kind, name, parent, template, id)
