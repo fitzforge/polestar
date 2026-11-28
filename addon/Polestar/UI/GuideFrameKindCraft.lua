@@ -663,6 +663,36 @@ ns.UI.GuideFrame.Part(function(GF)
 		W.Color(r.Icon, on and "accent" or "textMuted")
 	end
 
+	-- The ways' and areas' tooltips (GF.NewGoalRow's psTipFn): what the row's short line says, whole, with what it is
+	-- for and what a click does. A way: its words, the item, the vendor, where, and its line (what is left and the
+	-- price at the Auction House, the farm's time, the best area and how far); an area: its name, what its nodes give,
+	-- about how many are up (beasts: their levels), the level it is safe from and how far it is (or the area left
+	-- mined out, for the next to try).
+	local function tipAnchor() return GF.TooltipAnchor and GF.TooltipAnchor() or "ANCHOR_RIGHT" end
+	local function wayTip(r)
+		local w, e = r.psWay, r.psItem
+		if not w then return end
+		local lines = {}
+		if e and e.item then lines[#lines + 1] = { left = L["Item"], right = itemHex(e.item, e.name or "") } end
+		if w.way == "vendor" and w.npc then lines[#lines + 1] = { left = L["NPC"], right = hexed("npc", w.npc) } end
+		local zone = not w.areas and w.map and UI.MapName(w.map)
+		if zone then lines[#lines + 1] = { left = L["Location"], right = zone } end
+		local sub = waySub(w, e and max(0, (e.need or 0) - (e.have or 0)) or 0)
+		if sub then lines[#lines + 1] = { sub, Theme.Color("textDim") } end
+		if w.way ~= "buy" or not searchable() then lines[#lines + 1] = { L["Click to point the arrow here"], Theme.Accent() } end
+		W.Tooltip(r, tipAnchor(), wayText(w), lines)
+	end
+	local function areaTip(r)
+		local areas, a = r.psAreas, r.psAreaEntry
+		if not (areas and a) then return end
+		local lines = {}
+		if areas.what then lines[#lines + 1] = { left = L["Item"], right = hexed("item", areas.what) } end
+		local sub = a.out and areaOutText(areas) or areaSub(areas.verb, a)
+		if sub then lines[#lines + 1] = { sub, Theme.Color("textDim") } end
+		if r.psArea then lines[#lines + 1] = { L["Click to point the arrow here"], Theme.Accent() } end
+		W.Tooltip(r, tipAnchor(), r.psAreaName or a.name or "", lines)
+	end
+
 	-- A way picked: the item takes it (Materials' pick), and the arrow leads to its goal.
 	local function pick(r)
 		local w, e = r.psWay, r.psItem
@@ -689,6 +719,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		r = regionRow(f)
 		r:SetScript("OnClick", pickArea)
 		r.psPadLabel = L["Guide me"]
+		r.psTipFn = areaTip
 		r.psButton = W.Button(r, L["Guide me"], function() pickArea(r) end, { height = 22 })
 		f.Areas[i] = r
 		return r
@@ -699,7 +730,8 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- `item`: a get step's way. -> n
 	local function paintAreas(f, n, areas, x, only, way, item)
 		local list, t = f.List, way and "collect" or "skill"
-		local function row(text, sub, i)
+		-- `entry`: the area the row stands for (its tooltip), `name` its name without the Best mark.
+		local function row(text, sub, i, entry, name)
 			n = n + 1
 			local r = areaRow(f, n)
 			local g = r.psGoal
@@ -709,6 +741,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			UI.SetCounted(r.Sub, sub or "")
 			r.Sub:SetShown(sub ~= nil)
 			r.psAreas, r.psArea, r.psWay, r.psItem, r.psIndent = areas, i, way, item, x
+			r.psAreaEntry, r.psAreaName = entry, name
 			W.SetButtonText(r.psButton, L["Guide me"])
 			r.psButton:SetShown(i ~= nil)
 			list[#list + 1] = r
@@ -719,7 +752,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			-- Open ground mid-sentence: "Try near Razor Hill, Durotar, next"; a named subzone as it is.
 			local place, zone, near = KC().AreaParts(out.nextC)
 			local text = near and format(L["Try near %s, %s, next"], place, zone) or format(L["Try %s next"], out.next)
-			local r = row(text, areaOutText(areas), out.i)
+			local r = row(text, areaOutText(areas), out.i, { out = true }, text)
 			pin(r, false)
 			W.Color(r.Text, "text")
 		end
@@ -728,7 +761,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			if not only or a.current then
 				local text = a.name or ""
 				if a.best and marked then text = text .. "  " .. hexed("accent", L["Best"]) end
-				local r = row(text, areaSub(areas.verb, a), a.i)
+				local r = row(text, areaSub(areas.verb, a), a.i, a, a.name)
 				pin(r, a.current and true or false)
 				W.Color(r.Text, a.current and "text" or "textDim")
 			end
@@ -764,6 +797,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		r = regionRow(f)
 		r:SetScript("OnClick", pick)
 		r.psPadLabel = L["Guide me"]
+		r.psTipFn = wayTip
 		r.psButton = W.Button(r, "", function()
 			local w, e = r.psWay, r.psItem
 			if not (w and e) then return end
@@ -853,6 +887,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			f.Goal = regionRow(f)
 			f.Way = regionRow(f)
 			f.Way:SetScript("OnClick", function() local m = f.psModel; if m then guideTo(m.step, m.goalIndex) end end)
+			f.Way.psTipFn = wayTip
 			f.Areas, f.List = {}, {}
 			return f
 		end,
@@ -885,6 +920,10 @@ ns.UI.GuideFrame.Part(function(GF)
 				UI.SetCounted(wr.Sub, sub or "")
 				wr.Sub:SetShown(sub ~= nil)
 				wr.psIndent = 16
+				-- Its tooltip: the way's words, the best area and how far (or from which level one is safe).
+				local tw = wr.psWay or {}
+				tw.way, tw.verb, tw.areas = "gather", m.verb, areas
+				wr.psWay, wr.psItem = tw, nil
 				list[2] = wr
 				na = paintAreas(f, na, areas, 32, false)
 			else
