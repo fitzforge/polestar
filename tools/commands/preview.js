@@ -992,70 +992,96 @@ stub.advance(0.5)`;
 function minimapRouteScene(script) {
 	return questScene(['Minimap'], script, undefined, ROUTE_FILES);
 }
-// Farming loops being walked (Polestar 0.4.4): the real Engine picks a starting area's own loop for a new
-// character over the zone's higher ones (lvl: the least level safe on each), its closed track drawn in the flight
-// lines' style with a mark on each point, the arrow a short way ahead on it. The loop lines are the generated
-// guides' own (guides/forever/professions/), as the compiler turns them into candidates (loopCandidate).
-// place: the zone (frame: its Era bounds); goal: the step's goal (Lua fields); loops: its loop lines; at: where the
-// player walks, on the starter loop's track.
-function loopCandidate(line, map) {
-	const m = line.match(/ lvl (\d+) lap (\d+) (gain|yield) ([\d.]+)(?: only (\S+))?.*? r (\d+) at (.+)$/);
-	const pts = m[7].trim().split(/\s+/);
-	const side = /Horde/.test(m[5] || '') ? 'H' : /Alliance/.test(m[5] || '') ? 'A' : 'AH';
-	const [x, y] = pts[0].split(',');
-	return `{ map = ${map}, x = ${x}, y = ${y}, f = "e", faction = "${side}", lvl = { min = ${m[1]}, max = ${m[1]} }, lap = ${m[2]}, ${m[3]} = ${m[4]}, spotsPacked = "${pts.map((p) => `${p},,${m[6]}`).join(';')}" }`;
+// Gathering areas (Polestar 0.4.4; docs/GUIDE_FORMAT.md "Gathering areas"): the real Engine picks an area for the
+// character (safe for their level, a starting area's own only while they are new), the zone map shades its outline
+// and dots its node spots (the minimap the dots), and inside it the arrow says what to roam for. The outlines go
+// round the generated guides' node spots (guides/forever/professions/) as the compiler turns `area` lines into
+// candidates (`poly`, `dots`, the middle of the outline's box as x, y).
+// place: the zone (frame: its Era bounds); goal: the step's goal (Lua fields); areas: { name, lvl, poly, dots,
+// extra } each; at: where the player walks.
+function areaCandidate(a, map) {
+	const xs = a.poly.map((p) => p[0]);
+	const ys = a.poly.map((p) => p[1]);
+	const pts = (list) => list.map((p) => p.join(',')).join(';');
+	return `{ map = ${map}, x = ${(Math.min(...xs) + Math.max(...xs)) / 2}, y = ${(Math.min(...ys) + Math.max(...ys)) / 2}, f = "e", faction = "H", lvl = { min = ${a.lvl}, max = ${a.lvl} }, `
+		+ `lap = 300, ${a.gain ? `gain = ${a.gain}` : 'yield = 10'}, count = ${a.count || 12}, area = "${a.name}", poly = "${pts(a.poly)}", dots = "${pts(a.dots)}"${a.extra ? `, ${a.extra}` : ''} }`;
 }
-function loopTrack(place, { race, faction, level, title, goal, loops, at }) {
+function areaTrack(place, { race, level, title, goal, areas, at }) {
 	return `local w = stub.world
 Polestar.RegisterMapFrames({ era = { [${place.map}] = { ${place.frame} } } })
-w.race, w.raceName, w.faction = "${race}", "${race}", "${faction}"
+w.race, w.raceName, w.faction = "${race}", "${race}", "Horde"
 w.setLevel(${level})
-Polestar.Set("nav.lineStyle", "line")
+Polestar.Set("nav.travel", false)
+local names = { [2770] = "Copper Ore", [2835] = "Rough Stone", [2447] = "Peacebloom", [765] = "Silverleaf" }
+local itemName = Polestar.Compat.GetItemName
+Polestar.Compat.GetItemName = function(id) return names[id] or itemName(id) end
 Polestar.RegisterPack({ addon = "Polestar_Preview", id = "preview", format = 1, title = "Preview", author = "Polestar", version = "1", license = "GPL-3.0-only" })
-Polestar.RegisterGuide({ id = "preview/loop", pack = "preview", title = "${title}", category = "Professions", minLevel = 1, maxLevel = 60, zone = ${place.map}, steps = {
-	{ title = "${title}", goals = { { ${goal}, candidates = { ${loops.map((l) => loopCandidate(l, place.map)).join(', ')} } } } },
+Polestar.RegisterGuide({ id = "preview/areas", pack = "preview", title = "${title}", category = "Professions", minLevel = 1, maxLevel = 60, zone = ${place.map}, steps = {
+	{ title = "${title}", goals = { { ${goal}, candidates = { ${areas.map((a) => areaCandidate(a, place.map)).join(', ')} } } } },
+	{ goals = { { t = "level", level = 60 } } },
 } })
-Polestar.Engine.SetGuide("preview/loop")
+Polestar.Engine.SetGuide("preview/areas")
 stub.advance(0.3)
 ${at.map(([x, y]) => `w.moveTo(${place.map}, ${x}, ${y}); stub.advance(1)`).join('\n')}`;
 }
 const MULGORE = { map: 1412, name: 'Mulgore', frame: 'c = 1, left = 2047.917, right = -3089.583, top = -272.917, bottom = -3697.917', player: { x: 45.5, y: 83.8 } };
-// Mining: Get Copper Ore (the Blacksmithing guide's), a level 3 Tauren on Red Cloud Mesa's starter loop.
-const LOOP_MINING = loopTrack(MULGORE, {
-	race: 'Tauren', faction: 'Horde', level: 3, title: 'Get Copper Ore',
-	goal: 't = "collect", item = 2770, itemName = "Copper Ore", count = 140, gather = { rank = 1, skill = "Mining", skillLine = 186 }',
-	loops: [
-		'loop Mulgore lvl 9 lap 322 yield 6.0 only Horde r 60 at 62.7,41.1 61.1,40.1 61.5,51.0 57.6,43.0 56.6,40.4 56.9,38.6 57.9,35.4 59.3,30.9 59.4,33.7 61.2,36.6 62.7,38.3 65.5,38.2',
-		'loop Mulgore lvl 2 lap 307 yield 5.6 only Horde r 60 at 49.0,92.8 49.2,87.7 41.8,79.8 41.2,82.0',
+// Mining in Mulgore: Mining 1-50 (the Mining guide's), a level 3 Tauren on Red Cloud Mesa, its starting area's own,
+// never the zone's level 9 area by the Venture Co. mine.
+const AREA_MINING = areaTrack(MULGORE, {
+	race: 'Tauren', level: 3, title: 'Copper (1-50)',
+	goal: 't = "skill", skill = "Mining", skillLine = 186, level = 50',
+	areas: [
+		{ name: 'Red Cloud Mesa', lvl: 2, gain: 5.6, extra: 'starter = true, items = "2770,2835"',
+			poly: [[40.4, 82.3], [41.5, 78.9], [50.0, 87.4], [49.7, 93.6]], dots: [[49.0, 92.8], [49.2, 87.7], [41.8, 79.8], [41.2, 82.0], [43.2, 81.6], [44.0, 83.0], [46.5, 86.0], [47.0, 85.2], [47.6, 89.9]] },
+		{ name: 'The Venture Co. Mine', lvl: 9, gain: 6, extra: 'items = "2770,2835"',
+			poly: [[56.0, 38.4], [59.3, 30.3], [66.0, 38.1], [61.7, 51.6]], dots: [[62.7, 41.1], [61.1, 40.1], [61.5, 51.0], [57.6, 43.0], [56.6, 40.4], [56.9, 38.6], [57.9, 35.4], [59.3, 30.9], [61.2, 36.6], [65.5, 38.2]] },
 	],
-	at: [[45.5, 83.8], [45.0, 83.2]],
+	at: [[45.5, 83.8], [45.0, 84.2]],
 });
-// Herbalism: Peacebloom and Silverleaf until 15 (the Herbalism guide's), a level 1 Orc on the Valley of Trials'
-// starter loop (lvl 1) beside Durotar's lvl 3 loop.
-const DUROTAR = { map: 1411, name: 'Durotar', frame: 'c = 1, left = -1962.5, right = -7250, top = 1808.333, bottom = -1716.667', player: { x: 42.7, y: 72.7 } };
-const LOOP_HERBS = loopTrack(DUROTAR, {
-	race: 'Orc', faction: 'Horde', level: 1, title: 'Pick Peacebloom and Silverleaf until 15',
+// Mining in Durotar: a level 7 Orc, past the Valley of Trials' starting area, mining by Razor Hill.
+const DUROTAR = { map: 1411, name: 'Durotar', frame: 'c = 1, left = -1962.5, right = -7250, top = 1808.333, bottom = -1716.667', player: { x: 50.0, y: 68.0 } };
+const AREA_MINING_DUROTAR = areaTrack(DUROTAR, {
+	race: 'Orc', level: 7, title: 'Copper (1-50)',
+	goal: 't = "skill", skill = "Mining", skillLine = 186, level = 50',
+	areas: [
+		{ name: 'Valley of Trials', lvl: 2, gain: 8, extra: 'starter = true, items = "2770"',
+			poly: [[39.6, 70.9], [40.0, 65.6], [44.0, 64.0], [45.9, 71.5]], dots: [[45.6, 70.8], [44.6, 69.6], [43.0, 71.6], [40.3, 70.7], [40.2, 68.6], [40.0, 65.9], [41.6, 66.2]] },
+		{ name: 'Razor Hill', lvl: 7, gain: 11.8, extra: 'near = true, items = "2770,2835"',
+			poly: [[45.5, 66.3], [50.4, 62.7], [53.0, 64.0], [52.4, 75.6], [47.5, 72.0]], dots: [[45.8, 66.6], [50.5, 63.1], [52.1, 75.1], [51.2, 68.4], [48.9, 70.3], [50.6, 72.8]] },
+	],
+	at: [[49.0, 68.0], [49.5, 68.4]],
+});
+// Herbalism in Durotar: Peacebloom and Silverleaf until 15 (the Herbalism guide's), a level 1 Orc in the Valley of
+// Trials, the starting area's own, beside the zone's level 3 area.
+const HERB_DUROTAR = { ...DUROTAR, player: { x: 42.7, y: 72.7 } };
+const AREA_HERBS = areaTrack(HERB_DUROTAR, {
+	race: 'Orc', level: 1, title: 'Peacebloom and Silverleaf (1-15)',
 	goal: 't = "skill", skill = "Herbalism", skillLine = 182, level = 15',
-	loops: [
-		'loop Durotar lvl 3 lap 323 gain 12.3 only Horde r 60 at 40.1,68.1 41.7,72.9 43.7,72.5 44.2,70.3 45.3,71.0 51.0,66.8 44.6,67.3 43.0,64.2',
-		'loop Durotar lvl 1 lap 301 gain 8.0 only Horde r 60 at 41.7,72.9 43.7,72.5 44.2,70.3 44.6,67.3 43.0,64.2',
+	areas: [
+		{ name: 'Valley of Trials', lvl: 1, gain: 8, count: 14, extra: 'starter = true, items = "2447,765"',
+			poly: [[41.2, 73.4], [42.6, 63.6], [45.1, 66.8], [44.6, 73.0]], dots: [[41.7, 72.9], [43.7, 72.5], [44.2, 70.3], [44.6, 67.3], [43.0, 64.2], [42.4, 69.1]] },
+		{ name: 'Razor Hill', lvl: 3, gain: 12.3, count: 11, extra: 'near = true, items = "2447,765"',
+			poly: [[39.6, 68.0], [44.0, 63.8], [51.4, 66.5], [45.6, 71.6]], dots: [[40.1, 68.1], [45.3, 71.0], [51.0, 66.8], [44.6, 67.3], [47.9, 68.2]] },
 	],
-	at: [[42.7, 72.7], [43.1, 72.6]],
+	at: [[42.7, 72.7], [43.1, 72.4]],
 });
-// Skinning: beasts of level 1-6 until 50 (the Skinning guide's), a level 2 Tauren on Red Cloud Mesa's starter loop
-// over its beasts (lvl 1), not the zone's lvl 3 loop.
-const SKIN_MULGORE = { ...MULGORE, player: { x: 52.7, y: 83.8 } };
-const LOOP_SKINS = loopTrack(SKIN_MULGORE, {
-	race: 'Tauren', faction: 'Horde', level: 2, title: 'Skin beasts of level 1-6 until 50',
+// Skinning in Mulgore: beasts of level 1-6 until 50 (the Skinning guide's), a level 2 Tauren on the plains below
+// Bloodhoof Village (beasts of level 1-3), not the level 3 area to the south.
+const SKIN_MULGORE = { ...MULGORE, player: { x: 48.6, y: 80.6 } };
+const AREA_SKINS = areaTrack(SKIN_MULGORE, {
+	race: 'Tauren', level: 2, title: 'Beasts of level 1-6 (1-50)',
 	goal: 't = "skill", skill = "Skinning", skillLine = 393, level = 50',
-	loops: [
-		'loop Mulgore lvl 3 lap 1886 gain 89.3 only Horde r 80 at 52.7,89.4 48.6,90.1 45.4,88.6 50.4,86.1 49.0,83.5 49.4,80.4 52.4,80.3 54.0,82.4 53.5,86.1 56.2,86.3 59.0,89.1 56.5,90.7',
-		'loop Mulgore lvl 1 lap 1414 gain 62.7 only Horde r 80 at 53.4,85.7 52.0,81.9 49.6,77.7 47.3,75.6 45.0,73.8 46.5,78.8 43.0,81.3 45.2,85.1 46.2,81.9 48.9,82.9 47.7,87.3 50.6,85.9',
+	areas: [
+		{ name: 'Bloodhoof Village', lvl: 1, gain: 62.7, count: 22, extra: 'near = true, levels = { min = 1, max = 3 }, items = "2318,2934"',
+			poly: [[42.6, 81.4], [45.0, 73.4], [50.0, 77.4], [53.8, 85.8], [45.0, 85.6]], dots: [[53.4, 85.7], [52.0, 81.9], [49.6, 77.7], [47.3, 75.6], [45.0, 73.8], [46.5, 78.8], [43.0, 81.3], [45.2, 85.1]] },
+		{ name: 'Red Cloud Mesa', lvl: 3, gain: 89.3, count: 18, extra: 'levels = { min = 2, max = 6 }, items = "2318,2934"',
+			poly: [[45.0, 88.6], [49.2, 80.0], [59.4, 89.1], [52.7, 90.6]], dots: [[52.7, 89.4], [48.6, 90.1], [45.4, 88.6], [50.4, 86.1], [49.4, 80.4], [54.0, 82.4], [56.2, 86.3], [59.0, 89.1]] },
 	],
-	at: [[52.7, 83.8], [52.5, 83.2]],
+	at: [[48.6, 80.6], [48.9, 80.2]],
 });
-function loopTrackScene(root, script = LOOP_MINING, place = MULGORE) {
-	return questScene([root], script, place, ROUTE_FILES);
+function areaScene(root, script = AREA_MINING, place = MULGORE) {
+	const prefix = root === 'PolestarNavArrow' ? 'Polestar.Set("nav.arrowScale", 1.6)\n' : '';
+	return questScene([root], `${prefix}${script}`, place, ROUTE_FILES);
 }
 // The route line's three looks (nav.lineStyle) on one route: a walk bending
 // along its path to the guide pin, then a flight on (its own colour, dashed
@@ -1306,6 +1332,62 @@ E.KindModel = function(region, view)
 end
 uistub.update()`;
 }
+// Gathering areas in the profession window (UI/GuideFrameKindCraft.lua) over sample models as Engine.KindModel
+// hands them (Core/KindCraft.lua's `areas` and `get` from Engine.AreaChoices): Mining 1-300 at "Copper (1-50)", a
+// level 9 Tauren in Mulgore at Mining 23. state: "mine" (three areas, Red Cloud Mesa the best and the arrow's),
+// "get" (Get Copper Ore: Mine it taken, its areas under it), "safe" (a level 2: none safe yet), "out" (the pick
+// mined out: try the next), "herb" (Herbalism in Durotar), "skin" (Skinning in Mulgore: beasts and their levels).
+function kindAreas(state = 'mine') {
+	return `local MAPS = { [1412] = "Mulgore", [1411] = "Durotar" }
+local mapName = Polestar.Compat.GetMapName
+Polestar.Compat.GetMapName = function(id) return MAPS[id] or (mapName and mapName(id)) end
+local S = ${JSON.stringify(state)}
+local line = ({ herb = "Herbalism", skin = "Skinning" })[S] or "Mining"
+local title = ({ herb = "Peacebloom and Silverleaf (1-15)", skin = "Beasts of level 1-6 (1-50)", get = "Get Copper Ore" })[S] or "Copper (1-50)"
+local skillGoal = { t = "skill", index = 1, verb = "Raise", subject = line, subjectKind = "skill", text = "Raise " .. line .. " to " .. (S == "herb" and 15 or 50),
+	progress = { cur = S == "safe" and 1 or S == "herb" and 8 or 23, max = S == "herb" and 15 or 50, kind = "count" }, status = "active" }
+local G = { id = "preview/gathering", pack = "guides", title = line .. " 1-300", category = "Professions", minLevel = 1, maxLevel = 60, zone = 1412, zoneName = "Mulgore",
+	author = "Polestar", version = 1, steps = {
+	{ title = "Learn " .. line, goals = { { t = "train", verb = "Train", subject = "Apprentice " .. line, subjectKind = "skill", status = "done" } } },
+	{ title = title, goals = { skillGoal } },
+} }
+uistub.guides[G.id] = G; table.insert(uistub.order, G.id)
+uistub.openTabs({ { uistub.elwynn, 3 }, { G.id, 2 }, { uistub.stormwindRep, 2 } }, 2)
+local function A(i, name, count, safeFrom, minutes, extra)
+	local a = { i = i, name = name, zone = "Mulgore", map = 1412, count = count, safeFrom = safeFrom, minutes = minutes }
+	for k, v in pairs(extra or {}) do a[k] = v end
+	return a
+end
+local areas
+if S == "herb" then
+	areas = { verb = "herb", list = { A(1, "Valley of Trials", 14, 1, 0, { here = true, best = true, current = true }), A(2, "Durotar: near Razor Hill", 11, 3, 3) } }
+elseif S == "skin" then
+	areas = { verb = "skin", list = { A(1, "Mulgore: near Bloodhoof Village", 22, 1, 0, { here = true, best = true, current = true, levels = { min = 1, max = 3 } }),
+		A(2, "Red Cloud Mesa", 18, 3, 2, { levels = { min = 2, max = 6 } }), A(3, "The Golden Plains", 15, 6, 5, { levels = { min = 4, max = 8 } }) } }
+elseif S == "safe" then
+	areas = { verb = "mine", list = {}, safeFrom = 6, what = "Copper Ore" }
+else
+	areas = { verb = "mine", list = { A(3, "Red Cloud Mesa", 12, 1, 0, { here = S ~= "out", best = true, current = true }),
+		A(1, "Mulgore: near Bael'dun Digsite", 9, 8, 4), A(2, "The Venture Co. Mine", 14, 9, 7) } }
+	if S == "out" then areas.out = { name = "Red Cloud Mesa", next = "Mulgore: near Bael'dun Digsite", i = 1 } end
+end
+areas.step, areas.goalIndex = 2, 1
+local models = {
+	meter = { kind = "skill", name = line, nameKind = "skill", value = S == "safe" and 1 or 23, max = 75, frac = (S == "safe" and 1 or 23) / 75, learned = true },
+}
+if S == "get" then
+	G.steps[2].goals = { { t = "collect", index = 1, status = "active" }, { t = "auction", index = 2, status = "na" } }
+	models.get = { items = { { item = 2770, name = "Copper Ore", need = 40, have = 12, goalIndex = 1, done = false, ways = {
+		{ way = "gather", verb = "mine", map = 1412, areas = areas, current = true, goalIndex = 1 },
+		{ way = "buy", toGet = 28, copper = 28 * 15, current = false, goalIndex = 2 } } } }, covers = { 1, 2 } }
+else
+	models.areas = { goal = skillGoal, step = 2, goalIndex = 1, verb = areas.verb, areas = areas, covers = { 1 } }
+end
+local E = Polestar.Engine
+E.GuideKind = function() return "profession" end
+E.KindModel = function(region) return models[region] end
+uistub.update()`;
+}
 // A reputation guide (Stormwind's cloth): the standing, the turn-in of 60 Wool Cloth at Clavicus Knavingham
 // (the Dwarven District), the guide's next cloth quests. No reputation value in the data for the donation: no
 // "about N turn-ins". state "short" (30 more wool), "ready" (one turn-in in the bags).
@@ -1497,6 +1579,47 @@ const SCENES = [
 			{ roots: GUIDE, script: kindRep('ready') },
 			{ roots: GUIDE, script: `Polestar.Set("ui.compact", true); ${kindRep('short')}` },
 			{ roots: GUIDE_CARDS, addons: ATLAS, script: `Polestar.Set("ui.layout", "atlas"); ${kindRep('short')}` },
+		],
+	},
+	{
+		file: 'guide-kind-areas.svg',
+		title: 'Gathering areas in a profession guide: Mining 1-50 in Mulgore (Mine it and three areas, best first and marked, the arrow\'s with the dot: how many veins, the level each is safe from, how far); compact (the arrow\'s area); Get Copper Ore with Mine it taken; none safe yet at level 2; the pick mined out (try the next); Herbalism in Durotar; Skinning in Mulgore (beasts and their levels)',
+		panels: [
+			{ roots: GUIDE, script: kindAreas('mine') },
+			{ roots: GUIDE, script: `Polestar.Set("ui.compact", true); ${kindAreas('mine')}` },
+			...['get', 'safe', 'out', 'herb', 'skin'].map((s) => ({ roots: GUIDE, script: kindAreas(s) })),
+		],
+	},
+	{
+		file: 'guide-kind-areas-atlas.svg',
+		title: 'Gathering areas in the Atlas layout: Mining 1-50 in Mulgore, standard and compact; the pick mined out at UI scale 0.64 and 1.5',
+		panels: [
+			{ roots: GUIDE_CARDS, addons: ATLAS, script: `Polestar.Set("ui.layout", "atlas"); ${kindAreas('mine')}` },
+			{ roots: GUIDE_CARDS, addons: ATLAS, script: `Polestar.Set("ui.layout", "atlas"); Polestar.Set("ui.compact", true); ${kindAreas('mine')}` },
+			...[0.64, 1.5].map((s) => ({ roots: GUIDE_CARDS, addons: ATLAS, script: `Polestar.Set("ui.scale", ${s}); Polestar.Set("ui.layout", "atlas"); ${kindAreas('out')}` })),
+		],
+	},
+	{
+		file: 'guide-kind-areas-looks.svg',
+		title: 'Gathering areas in every look: Mining 1-50 in Mulgore with the pick mined out, in Hearth, Halo, WoW Forever, Blizzard and Classic, then the bundled concept skins (Atlas, Aurora, Beacon, Hairline, Lanterns, Lumen, Sheen, Umbra, Vellum, Waymark)',
+		panels: [
+			...LOOKS.slice(1).map((skin) => ({ roots: GUIDE, script: `Polestar.Set("ui.skin", "${skin}"); ${kindAreas('out')}` })),
+			...['Atlas', 'Aurora', 'Beacon', 'Hairline', 'Lanterns', 'Lumen', 'Sheen', 'Umbra', 'Vellum', 'Waymark'].map((skin) => ({
+				roots: GUIDE, addons: [{ name: 'Polestar_Skins', files: [`Skins/${skin}/${skin}.lua`] }],
+				script: `Polestar.Set("ui.skin", "${skin.toLowerCase()}"); ${kindAreas('out')}`,
+			})),
+		],
+	},
+	{
+		file: 'guide-kind-areas-scales.svg',
+		title: 'Gathering areas at UI scale 0.64 and 1.5: Polestar, Blizzard, then compact; the narrowest window',
+		panels: [
+			...[0.64, 1.5].flatMap((s) => [
+				{ roots: GUIDE, script: `Polestar.Set("ui.scale", ${s}); ${kindAreas('out')}` },
+				{ roots: GUIDE, script: `Polestar.Set("ui.scale", ${s}); Polestar.Set("ui.skin", "blizzard"); ${kindAreas('out')}` },
+				{ roots: GUIDE, script: `Polestar.Set("ui.scale", ${s}); Polestar.Set("ui.compact", true); ${kindAreas('out')}` },
+			]),
+			{ roots: GUIDE, script: `${kindAreas('out')}; Polestar.UI.GuideFrame.frame:SetWidth(Polestar.UI.MIN_WIDTH); uistub.update()` },
 		],
 	},
 	{
@@ -2277,23 +2400,27 @@ Polestar.UI.Picker.SetCategory("Leveling"); Polestar.UI.Picker.Select("forever/h
 		],
 	},
 	{
-		file: 'loop-track.svg',
-		title: 'A farming loop being walked: a level 3 Tauren mining Copper on Red Cloud Mesa\'s starter loop (never Mulgore\'s level 9 loop), its closed track on the zone map and the minimap in the flight lines\' style, a mark on each point, the arrow a short way ahead along it; the Get step on the loop, and at level 2 before any loop is safe',
+		file: 'area-mining.svg',
+		title: 'Gathering areas, Mining: a level 3 Tauren in Mulgore gets Red Cloud Mesa (its starting area\'s own, never the zone\'s level 9 area by the Venture Co. mine), shaded on the zone map with its veins dotted, the veins on the minimap, and inside it the arrow\'s roam line; then a level 7 Orc in Durotar, past the Valley of Trials, by Razor Hill',
 		panels: [
-			loopTrackScene('WorldMapFrame'),
-			loopTrackScene('Minimap'),
-			{ roots: GUIDE, script: kindProfession('loop') },
-			{ roots: GUIDE, script: kindProfession('safe') },
+			areaScene('WorldMapFrame'),
+			areaScene('Minimap'),
+			areaScene('PolestarNavArrow'),
+			areaScene('WorldMapFrame', AREA_MINING_DUROTAR, DUROTAR),
+			areaScene('Minimap', AREA_MINING_DUROTAR, DUROTAR),
+			areaScene('PolestarNavArrow', AREA_MINING_DUROTAR, DUROTAR),
 		],
 	},
 	{
-		file: 'loop-track-herbs-skins.svg',
-		title: 'Herbalism and Skinning loops being walked: a level 1 Orc picking Peacebloom on the Valley of Trials\' starter loop, a level 2 Tauren skinning on Red Cloud Mesa\'s, each loop\'s closed track on the zone map and the minimap, a mark on each point, the arrow a short way ahead along it',
+		file: 'area-herbs-skins.svg',
+		title: 'Gathering areas, Herbalism and Skinning: a level 1 Orc picking Peacebloom and Silverleaf in the Valley of Trials, a level 2 Tauren skinning below Bloodhoof Village; each area shaded on the zone map with its spots dotted, the spots on the minimap, and the arrow\'s roam line inside it',
 		panels: [
-			loopTrackScene('WorldMapFrame', LOOP_HERBS, DUROTAR),
-			loopTrackScene('Minimap', LOOP_HERBS, DUROTAR),
-			loopTrackScene('WorldMapFrame', LOOP_SKINS, SKIN_MULGORE),
-			loopTrackScene('Minimap', LOOP_SKINS, SKIN_MULGORE),
+			areaScene('WorldMapFrame', AREA_HERBS, HERB_DUROTAR),
+			areaScene('Minimap', AREA_HERBS, HERB_DUROTAR),
+			areaScene('PolestarNavArrow', AREA_HERBS, HERB_DUROTAR),
+			areaScene('WorldMapFrame', AREA_SKINS, SKIN_MULGORE),
+			areaScene('Minimap', AREA_SKINS, SKIN_MULGORE),
+			areaScene('PolestarNavArrow', AREA_SKINS, SKIN_MULGORE),
 		],
 	},
 	{

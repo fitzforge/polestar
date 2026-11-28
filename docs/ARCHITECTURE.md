@@ -4326,6 +4326,16 @@ layers are set again only when what they show changed (step, open goals, the
 arrow's goal, colours, surfaces), so route and progress updates redraw
 nothing.
 
+A gathering area goal (docs/GUIDE_FORMAT.md "Gathering areas"; `Engine.IsAreaGoal`) has no spots: the area the
+arrow leads to (`Engine.AreaShape(step, goal)`: its outline and node spots) is `nav.areaShape`, one `hull` pin
+(`areaOnly`) in the arrow's colour on zone maps and narrower only (`minMapType` 3; never on a continent or the
+minimap), and `nav.areaNodes`, a dot per node spot (`map:pin-small`, no medallion) on zone maps and the minimap
+(`dense`). Only the active area's; set again on `AREA_CHANGED` or when the area, its frame, the colour or the
+surfaces change. Resting inside it (Nav's `target.roam`, `Nav.Sample()` "arrived") the arrow shows the roam line
+(`Arrow.RoamLines(Engine.AreaRoam())`, mode "roam") in place of "Arrived": "Roam Red Cloud Mesa for Copper Ore"
+over "Find Minerals shows them on your minimap" (Find Herbs; beasts: "Roam … for beasts (level 1-6)" over "Loot,
+then skin them"), both wrapped at the arrow's width.
+
 While a `SetTarget` override is active the Engine keeps announcing its own
 waypoint; `Nav.GetTarget()` is the point actually being guided to. Nav fires
 `WAYPOINT_CHANGED` when it sets or drops an override. `ClearTarget` hides the
@@ -9641,13 +9651,14 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
 
   ```lua
   GF.REGIONS = {
-    profession = { "meter", "stretch", "get", "step", "shopping" },
+    profession = { "meter", "stretch", "get", "areas", "step", "shopping" },
     reputation = { "meter", "turnin", "step", "more" },
     dungeon    = { "brief", "ready", "step", "pickups", "entrance" },   -- outside its instance
     -- "step": the card's own header and goal rows there, the leveling view's (GF.LayoutRegionsAfter
     -- lays the regions after it out under the goals area and the step's tip). A profession guide's
-    -- train, learn, buy and go-to steps read there; its craft and get steps are goal rows of the
-    -- "stretch" and "get" regions (GF.NewGoalRow, GF.PaintGoalRow), which cover the step's goals
+    -- train, learn, buy and go-to steps read there; its craft, get and gathering-area skill steps are goal
+    -- rows of the "stretch", "get" and "areas" regions (GF.NewGoalRow, GF.PaintGoalRow), which cover the
+    -- step's goals
   }
   GF.RegionOverride(view, kind) -> { id, ... } | nil   -- a part taking the card for any kind
                                                       -- (the docked dungeon tracker: { "tracker" })
@@ -9677,7 +9688,11 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
                -- made: the recipe's casts counted (never guessed from the skill); left: the crafts the skill still takes
   get      = { items = { { item, name, quality, need, have, goalIndex, done,
                ways = { { way = "gather"|"buy"|"vendor", current, goalIndex, verb = "mine"|"herb"|"skin"|"fish"|
-                          "disenchant"|"make"|"farm", npc, map, loop, minutes, rate, levels, copper } } } } }
+                          "disenchant"|"make"|"farm", npc, map, minutes, rate, levels, copper, areas } } } } }
+               -- areas (a gathering area goal: KC.Areas over Engine.AreaChoices) = { verb, list = up to 3 of
+               --   { i, name, count, levels, safeFrom, minutes, here, best, current }, safeFrom, out = { name, next, i },
+               --   what (the item, for "Safe Copper Ore area from level 6"), step, goalIndex }
+  areas    = { goal (the skill goal's view), step, goalIndex, verb, areas }   -- a skill step that gathers in areas
   shopping = { rows = { { item, name, quality, have, need, toGet, way = "gather"|"buy"|"vendor" } }, met,
                buy = { { item, name, count } } }
   turnin   = { quest, title, repeatable, items = { { item, count } }, rep, npc, map, ready }
@@ -9694,7 +9709,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   Skin API names the regions add (each behind its capability): parts in
   `Theme.GuideParts()` (`guideParts.kind`), hooks `guideKindRow(row, item,
   info)` and `guideMeter(meter, info)`, `guidePlace` names `meter`,
-  `stretch`, `get`, `shopping`, `turnin`, `more`, `pickups`, `guideSpace`
+  `stretch`, `get`, `areas`, `shopping`, `turnin`, `more`, `pickups`, `guideSpace`
   names `bossRow`, tokens `craftOrange`, `craftYellow`, `craftGreen`,
   `craftGrey`; the dungeon tracker's `trackerPlace(name, frame, width, height)`.
 - **Guide window** (`UI/GuideFrame.lua`): tab strip (each tab's close button
