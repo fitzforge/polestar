@@ -441,7 +441,8 @@ function routeGuide(name, data, opts = {}) {
 				// A trainer's recipe is learned again from this section's trainers (the master trainer of a later
 				// rank teaches the earlier recipes too); one from an item, from the bags as before.
 				const lines = r.recipeItem && !taught(r) ? first.lines : [`  learn ${r.spell} npc ${[...new Set(SIDES.flatMap((s) => sec.teachers[s] || []))].join(',')}`];
-				step('learn', `Learn ${r.name}`, { tip: `Taught at ${first.skill}; done at once if you learned it then.`, lines });
+				// Shown only to a player who does not know it: one who does never sees or counts the step.
+				step('learn', `Learn ${r.name}`, { tip: `Taught at ${first.skill}, a visit this part of the guide starts past.`, lines, also: [`!knows ${r.spell}`] });
 			}
 			return;
 		}
