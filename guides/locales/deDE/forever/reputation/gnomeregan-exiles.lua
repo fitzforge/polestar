@@ -93,7 +93,7 @@ return {
 	-- {npc:1388} Vagash
 	["The quarry: troggs, spies and {npc:1388}"] = "Der Steinbruch: Troggs, Spione und {npc:1388}",
 	-- {area:134} Gol'Bolar Quarry · {npc:1388} Vagash · {area:803} Amberstill Ranch
-	["The Dark Iron Spies lurk around Farsen's camp; the troggs dig in the {area:134}; {npc:1388}, a big snow leopard, prowls the hills above {area:803}."] = "Die Dark Iron Spies lauern um Farsens Lager; die Troggs graben im {area:134}; {npc:1388}, ein großer Schneeleopard, streift durch die Hügel oberhalb von {area:803}.",
+	["The Dark Iron Spies lurk around Farsen's camp; the troggs dig in the {area:134}; {npc:1388}, a big snow leopard, prowls the hills above {area:803}."] = "Die Spione der Dunkeleisenzwerge lauern um Farsens Lager; die Troggs graben im {area:134}; {npc:1388}, ein großer Schneeleopard, streift durch die Hügel oberhalb von {area:803}.",
 
 	-- Step 15: The Reports
 	-- {npc:1274} Senator Barin Redstone
@@ -118,10 +118,10 @@ return {
 	-- Step 20: Felwood: Cursed and Tainted Oozes
 	-- {zone:1448} Felwood
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["{zone:1448}: Cursed and Tainted Oozes"] = "{zone:1448}: Cursed und Tainted Oozes",
+	["{zone:1448}: Cursed and Tainted Oozes"] = "{zone:1448}: Verfluchte und besudelte Brühschlammer",
 	-- {area:1763} Jaedenar · {area:1765} Bloodvenom Falls
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill one and use an empty jar on its remains."] = "Die Cursed und Tainted Oozes gleiten durch die Bäche und Teufelspfützen um {area:1763} und {area:1765}: Töte eines und benutze ein leeres Glas an seinen Überresten.",
+	["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill one and use an empty jar on its remains."] = "Die verfluchten und besudelten Brühschlammer gleiten durch die Bäche und Teufelspfützen um {area:1763} und {area:1765}: Töte eines und benutze ein leeres Glas an seinen Überresten.",
 
 	-- Step 21: Tinker Town: the second jars
 	-- {object:171524} Tinker Town
@@ -130,10 +130,10 @@ return {
 	-- Step 22: Un'Goro Crater: Primal Oozes
 	-- {zone:1449} Un'Goro Crater
 	-- plural, as words: Primal Oozes = {npc:6557} Primal Ooze
-	["{zone:1449}: Primal Oozes"] = "{zone:1449}: Primal Oozes",
+	["{zone:1449}: Primal Oozes"] = "{zone:1449}: Urzeitbrühschlammer",
 	-- {area:537} Fire Plume Ridge
 	-- plural, as words: Primal Oozes = {npc:6557} Primal Ooze · Glutinous Oozes = {npc:6559} Glutinous Ooze
-	["The Primal Oozes live in the pools around {area:537} in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "Die Primal Oozes leben in den Teichen um {area:537} in der Mitte des Kraters; auch die Muculent und Glutinous Oozes füllen die Gläser. Töte eines und benutze ein Glas an seinen Überresten.",
+	["The Primal Oozes live in the pools around {area:537} in the middle of the crater; the Muculent and Glutinous Oozes fill the jars too. Kill one and use a jar on its remains."] = "Die Urzeitbrühschlammer leben in den Teichen um {area:537} in der Mitte des Kraters; auch die dickflüssigen und klebrigen Brühschlammer füllen die Gläser. Töte eines und benutze ein Glas an seinen Überresten.",
 
 	-- Step 23: Tinker Town: hand in
 	-- {object:171524} Tinker Town
