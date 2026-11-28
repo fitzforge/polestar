@@ -140,7 +140,7 @@ local away = getRows()[3].button
 GF.RegionFrame("get").List[3].psButton:Click()
 local awayAimed, awaySearched = #aimed, #searched
 local aimedAt = aimed[1] and aimed[1][2] or false
-Mt.AuctionOpen = function() return true end
+Mt.CanSearch = function() return true end
 GF.Render(); GF.Layout(); stub.advance(0.5)
 local at = getRows()[3].button
 GF.RegionFrame("get").List[3].psButton:Click()
@@ -328,6 +328,22 @@ emit({ folded = folded, head = f.Head.Text:GetText(), rows = rows, buy = f.Buy:I
 	assert.deepEqual(out.rows.map((r) => r.count), ['68 / 265', '12 / 48', '0 / 25']);
 	assert.equal(out.buy, 'Buy the whole list');
 	assert.deepEqual([out.itemOn, out.itemAfter], [true, false], 'the game\'s item tooltip goes as the cursor leaves');
+});
+
+test('Buy the whole list at an Auction House that can search starts the search for the first material (Materials.CanSearch)', () => {
+	const out = run('', `
+GF.Layout(); stub.advance(1)
+local f = GF.RegionFrame("shopping")
+f.Head:Click()
+stub.advance(0.5); GF.Render(); GF.Layout(); stub.advance(0.5)
+local Mt, searched = Polestar.Materials, {}
+Mt.CanSearch = function() return true end
+Mt.Search = function(item, count) searched[#searched + 1] = { item, count } end
+f.Buy:Click()
+emit({ searched = searched })`);
+	assert.equal(out.searched.length, 1, 'one search, at the open Auction House');
+	assert.equal(out.searched[0][0], 2592, 'for the list\'s first material, Wool Cloth');
+	assert.ok(out.searched[0][1] > 0, 'and what is still to get');
 });
 
 // One profession guide per shape: its skills, a tool bought from a vendor and a gathered material (both would
