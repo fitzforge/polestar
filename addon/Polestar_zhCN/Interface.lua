@@ -496,6 +496,17 @@ L["Zones"] = "地区"
 L["Treasures"] = "宝藏"
 
 -- Core/Engine.lua
+L["needs %s handed in"] = "需要先交还%s"
+L["needs %s ready to hand in"] = "等%s可以交还"
+L["needs %s in your quest log"] = "任务日志里需要有%s"
+L["only before %s is handed in"] = "交还%s前才适用"
+L["only without %s in your quest log"] = "任务日志中没有%s时才适用"
+L["%s (%s guide)"] = "%s（%s指南）"
+L["Not for you: %s"] = "当前不适用：%s"
+L["Passed by the guide: its condition did not hold when you got there"] = "到达时未满足条件，指南已跳过"
+L["For %s (levels %s), to carry until then"] = "%s（%s级）的任务，可先接取"
+L["It opens a quest for %s: take it as you pass, and the dungeon's quest is ready when you get there."] = "这是%s的前置任务，路过时接取，到地下城时就能接后续任务。"
+L["A quest for %s: take it as you pass, and it is in your log when you get there."] = "这是%s的地下城任务，路过时可以先接。"
 L["Quest"] = "任务"
 L["No longer offered: you took %s"] = "不再提供：你已接受 %s"
 L["Requires level %d"] = "需要等级 %d"
@@ -1050,6 +1061,8 @@ L["Starts a quest"] = "开始任务"
 L["%d/%d (not accepted)"] = "%d/%d（未接受）"
 
 -- Quests/Options.lua
+L["Guides for each quest"] = "任务对应指南"
+L["Name the Polestar guides that pick up, work or hand in a quest: on its tooltips, under its details, and as a mark after its title in the quest log, the tracker and quest givers' lists."] = "在任务提示和详情中列出包含该任务接取、目标或交还步骤的 Polestar 指南，并在任务日志、追踪器和任务给予者列表中的任务名后加标记。"
 L["Any level"] = "任意等级"
 L["Your level"] = "你的等级"
 L["Questing"] = "做任务"
@@ -1486,6 +1499,7 @@ L["Declined a duel from %s."] = "已拒绝%s的决斗。"
 L["Declined a duel."] = "已拒绝决斗。"
 
 -- QoL/Options.lua
+L["Clicking an objective row, an NPC heading or a While you're here line also targets its mob or NPC outside combat, using the Target button's marking settings. This replaces your current target. A failed search clears it."] = "脱战时，点击目标行、NPC 标题或顺路提示也会选中对应的怪物或 NPC，并按目标按钮的设置标记。原目标会被替换，找不到时会清除当前目标。"
 L["Off by default: %s does this too."] = "默认关闭：%s 也有此功能。"
 L["Buttons"] = "按钮"
 L["Action buttons"] = "动作按钮"
@@ -1905,6 +1919,10 @@ L["or %s"] = "或%s"
 L["Optional: buy at the auction house (/polestar ah)"] = "可选：在拍卖行购买（/polestar ah）"
 
 -- UI/GuideFrame.lua
+L["Left out: %s"] = "此处略过：%s"
+L["+1 more step left out"] = "另略过1个步骤"
+L["+%d more steps left out"] = "另略过%d个步骤"
+L["Points the arrow at every quest ready to hand in."] = "箭头会指向所有可交还的任务。"
 L["Location"] = "位置"
 L["Reward"] = "奖励"
 L["Skill"] = "技能"
@@ -2774,6 +2792,10 @@ L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides t
 L["Part of Polestar is turned off in the AddOns list (%s), so its settings cannot open. Turn it on for all your characters and reload?"] = "插件列表中停用了部分 Polestar 组件（%s），无法打开对应设置。要为所有角色启用这些组件并重载界面吗？"
 
 -- UI/Options.lua
+L["Dungeon quests you pass"] = "顺路接地下城任务"
+L["Also a dungeon's quest, or the first quest of its chain, when you walk by its giver: for a dungeon up to 10 levels ahead, while your quest log has 5 free slots. Taken now, it is in your log when you get there."] = "路过任务给予者时，顺手接取地下城任务或任务链的第一步。地下城等级最多比你高10级，且任务日志至少要空出5格。"
+L["Hide the pins with the guide"] = "随指南隐藏地图标记"
+L["When the guide window is hidden, hide the guide's pins and route lines on the world map and the minimap too."] = "隐藏指南窗口时，也隐藏世界地图和小地图上的指南标记及路线。"
 L["A setting under it is changed: turn it on to see it."] = "其下有设置已更改：开启后即可看到。"
 L["Recorder"] = "记录器"
 L["About"] = "关于"
@@ -4036,6 +4058,7 @@ L["Restock: %s forgotten"] = "补货：已移除 %s 的补货设置"
 L["Amounts to restock at merchants: drink, food, ammo or an item"] = "在商人处补货的数量：饮料、食物、弹药或某个物品"
 
 -- UI/QuestRoom.lua
+L["Click to open its dungeon page."] = "点击打开该地下城页面。"
 L["The route passed its hand-in"] = "路线已经过了它的交还步骤"
 L["You skipped its hand-in"] = "你跳过了它的交还步骤"
 L["Not handed in on this route"] = "本路线不会交还此任务"
@@ -4843,6 +4866,19 @@ L["Polestar looks"] = "Polestar 皮肤"
 L["The size of Polestar's text, apart from the window scale. The guide window has its own, on its page. Changes at once. Right-click to reset."] = "调整 Polestar 的通用文字大小，与窗口缩放分开设置。指南窗口可在自己的设置页单独调整。修改立即生效，右键重置。"
 
 -- UI/Looks/GuideWindow.lua
+L["The game's looks keep their own bar."] = "游戏原生风格使用自带的进度条。"
+L["A button in the step bar that opens every step of the guide in one list. Off, the guide menu has it; the step number opens it too."] = "在步骤栏添加按钮，可打开完整步骤列表。关闭后仍可通过指南菜单或步骤编号打开。"
+L["The search button in the step bar. Off, the guide menu has it."] = "在步骤栏显示搜索按钮。关闭后仍可从指南菜单打开搜索。"
+L["The Nearby services button in the step bar. Off, the guide menu has it."] = "在步骤栏显示附近服务按钮。关闭后仍可从指南菜单打开附近服务。"
+L["A Settings button in the step bar. Off, the guide menu has it."] = "在步骤栏显示设置按钮。关闭后仍可从指南菜单打开设置。"
+L["A Quick settings button in the step bar. Off, the guide menu has it."] = "在步骤栏显示快速设置按钮。关闭后仍可从指南菜单打开快速设置。"
+L["A Hand in button in the step bar. Off, the guide menu has it."] = "在步骤栏显示交还任务按钮。关闭后仍可从指南菜单使用。"
+L["A Choose guide button in the step bar. Off, the guide menu has it."] = "在步骤栏显示选择指南按钮。关闭后仍可从指南菜单选择指南。"
+L["Fold finished goals"] = "折叠已完成目标"
+L["Polestar's layout always folds finished goals into one line. Pick a layout that keeps them, such as Atlas, in Presets."] = "Polestar 布局始终把已完成的目标折叠成一行。想让目标留在原位，可在预设中选择 Atlas 等布局。"
+L["Finished goals fold into one \"✓ N done\" line, as in compact mode, instead of staying in place."] = "和紧凑模式一样，把已完成的目标折叠成一行「✓ 已完成 N 项」。"
+L["Count dungeon quests"] = "计入地下城任务"
+L["Dungeon quests, and the quests that lead to them, count among the quests that aren't part of your route. Off, they are left out of that line and its list: kept for a later run."] = "把地下城任务及其前置任务计入未纳入路线的任务。关闭后，这些任务会从统计和列表中隐藏，留到以后打地下城时再做。"
 L["Marshal Dughan"] = "治安官杜汉"
 L["Kobolds drop Gold Dust too: keep what you loot on the way."] = "狗头人也会掉落金砂：路上拾取的留着。"
 L["Kobold Camp Cleanup"] = "剿灭狗头人"
@@ -5490,6 +5526,9 @@ L["OFF"] = "关"
 L["%d changed"] = "%d 项已更改"
 
 -- UI/Grouped.lua
+L["Add-ons"] = "插件"
+L["Language, profiles and gamepad."] = "语言、配置方案和手柄。"
+L["Other addons, community guides and the recorder."] = "其他插件、社区指南和记录器。"
 L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "升级时 Polestar 为你做的事：建议、任务、奖励、按钮、稀有怪。"
 L["The arrow, its routes, and what Polestar draws on the world map and the minimap."] = "箭头、它的路线，以及 Polestar 在世界地图和小地图上绘制的内容。"
 L["The theme every Polestar window wears, the action buttons, the alert cards and the trackers."] = "每个 Polestar 窗口使用的主题、动作按钮、提醒卡片和追踪器。"
@@ -5667,6 +5706,16 @@ L["Training due"] = "职业训练"
 L["New spells at your class trainer"] = "职业训练师处有新法术可学"
 L["Optional objectives during this step"] = "本步可选目标"
 L["Class quest"] = "职业任务"
+
+-- Quests/QuestGuides.lua
+L["picks up"] = "接取"
+L["works"] = "做任务"
+L["hands in"] = "交还"
+L["Polestar guides"] = "Polestar 指南"
+
+-- UI/GuideFrameTabs.lua
+L["Move up"] = "上移"
+L["Move down"] = "下移"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐页重新设置 Polestar。每项选择立即生效。"
